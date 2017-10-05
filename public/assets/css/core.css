@@ -1,0 +1,134 @@
+.form-control {
+	border-color: #999;
+}
+
+.input-group-addon:not(:last-child) {
+	border: 1px solid #999;
+	border-right: none;
+}
+
+.input-group-addon:not(:first-child) {
+	border: 1px solid #999;
+	border-left: none;
+}
+
+textarea {
+	height: 250px;
+	resize: none;
+}
+
+.form-group.state-error {
+	margin-bottom: 0;
+}
+
+.form-group.state-error > input {
+	background-color: #FFCDD2;
+	border-color: #C62828;
+}
+
+form .state-error + em {
+	color: red;
+	font-size: 0.8125rem;
+	padding: 0 0.0625rem;
+	font-style: normal;
+	margin-top: 0.25rem;
+	margin-left: 0.25rem;
+	margin-bottom: 0.625rem;
+	display: block;
+	line-height: 15px;
+}
+
+.fixed-header {
+	height: 56px;
+}
+
+.fixed-header > .navbar a.nav-link {
+	color: #fff;
+}
+
+.fixed-header .nav-item {
+	color: #fff;
+}
+
+.fixed-header .navbar .navbar-toggler-icon {
+	background-image: url(/assets/images/dehaze.svg);
+}
+
+@media only screen and (max-width : 480px) {
+	.fixed-header {
+		height: 54px;
+	}
+}
+
+.fixed-header > .navbar {
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+	background-color: #23074d;
+}
+
+.image-cover {
+	width: 100%;
+	padding: 0;
+	margin-right: auto;
+	position: relative;
+	min-height: 300px;
+	height: 100%;
+	max-height: 300px;
+	overflow: hidden;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.image-cover:before {
+	content: "";
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: 9;
+	height: 100%;
+	text-align: center;
+	position: absolute;
+	background: rgba(0,0,0,0.5);
+}
+
+.image-cover > .image-cover-content {
+	position: relative;
+	z-index: 10;
+}
+
+.image-cover .jumbotron {
+	color: #fff;
+	background-color: transparent;
+}
+
+.image-cover .jumbotron h1 {
+	text-align: center;
+	border-bottom: 2px solid mediumpurple;
+	padding-bottom: 0.5rem;
+}
+
+/*#uploader input[type="file"] {
+	opacity: 0;
+  position: absolute;
+  z-index: -1;
+}*/
+
+#uploader {
+	width: 100%;
+	height: 200px;
+	padding: 1.25rem;
+	background-color: #ddd;
+	border: 2px dashed #0087F7;
+	position: relative;
+}
+
+#uploader .dz-message {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	margin-top: -50px;
+	font-size: 1.375rem;
+	cursor: pointer;
+}

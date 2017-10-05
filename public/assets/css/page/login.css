@@ -1,0 +1,27 @@
+.login-page hr {
+	background-color: #bbb;
+}
+
+.login-page {
+	width: 380px;
+	margin: 0 auto;
+	border: 1px solid #bbb;
+	padding: 1.25rem;
+}
+
+.login-page .custom-checkbox .custom-control-indicator {
+	background-color: #1E88E5;
+	outline: none;
+}
+
+.social-login .btn-facebook {
+	background-color: #3a579d;
+	color: white;
+}
+
+@media only screen and (max-width : 480px) {
+	.login-page {
+		width: 100%;
+		padding: 3.4375rem 0.9375rem;
+	}
+}
