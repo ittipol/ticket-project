@@ -5,11 +5,12 @@
 <?php
 
   $jsFiles = array(
-    'assets/js/jquery-3.2.1.slim.min.js',
-    'assets/js/jquery.validate.min.js',
+    'assets/js/jquery-3.2.1.min.js',
     'assets/js/jquery-ui.min.js',
+    'assets/js/jquery.validate.min.js',
     'assets/js/bootstrap.min.js',
     'assets/js/dz/dropzone.min.js',
+    'assets/js/token.js',
     'assets/js/common.js'
   );
 
@@ -47,13 +48,16 @@
     'assets/css/bootstrap.css',
     // 'assets/css/bootstrap-material-design.css',
     'assets/css/font-awesome.min.css',
+    'assets/css/jquery-ui.min.css',
     'assets/css/dz/dropzone.css',
+    'assets/css/bootstrap.css',
     'assets/css/func.css',
     'assets/css/spacing.css',
     'assets/css/core.css',
     'assets/css/page/landing.css',
     'assets/css/page/login.css',
     'assets/css/page/register.css',
+    'assets/css/form/tagging.css',
   );
 
   if($combine){

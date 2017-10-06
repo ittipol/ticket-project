@@ -1,0 +1,68 @@
+.tag {
+	width: 100%;
+	border: 1px solid #999;
+	padding: 5px;
+	overflow: hidden;
+}
+
+.tag-chip {
+	color: #222;
+	cursor: pointer;
+	background-color: #e4e4e4;
+	/*border: 1px solid #cccccc;*/
+	/*padding: 2px 6px;*/
+	padding: 2px 30px 2px 6px;
+	border-radius: 40px;
+	margin-right: 4px;
+	overflow: hidden;
+	display: inline-block;
+	position: relative;
+}
+
+.tag-chip:hover {
+	color: #fff;
+	background-color: #d64d61;
+}
+
+.tag-chip.s2 {
+	background-color: #9bc4da;
+}
+
+.tag-chip.s2:hover {
+	background-color: #6c99b8;
+}
+
+.tag-chip span{
+	display: inline-block;
+	padding: 5px 15px;
+	font-weight: bold;
+}
+
+.tag-chip .tag-delete-chip {
+  font-weight: bold;
+  /*padding: 0 5px;
+  color: rgb(220,69,52);
+  background-color: rgb(233,194,180);
+  border-radius: 30px;*/
+  /*color: #e1a9c2;*/
+  color: #d83957;
+  font-size: 26px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 27px;
+}
+
+.tag-chip:hover .tag-delete-chip {
+	color: #fff;
+}
+
+.tag input {
+  border: 0!important;
+  padding: 10px 0;
+  outline: none;
+  resize: none;
+  vertical-align: bottom;
+  box-shadow: none;
+  display: inline-block;
+}

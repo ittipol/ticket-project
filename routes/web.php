@@ -22,8 +22,8 @@ Route::group(['middleware' => 'guest'], function () {
 
   Route::get('facebook/login', 'UserController@socialCallback');
 
-  Route::get('subscription', 'UserController@register');
-  Route::post('subscription', 'UserController@registering');
+  Route::get('subscribe', 'UserController@register');
+  Route::post('subscribe', 'UserController@registering');
 });
 
 Route::group(['middleware' => 'auth'], function () {

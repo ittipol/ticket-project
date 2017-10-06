@@ -36,7 +36,7 @@
   </div>
 
   <div class="text-center margin-top-60">
-    ไม่ได้มีบัญชี? <a href="{{URL::to('subscription')}}">สร้างบัญชี</a>
+    ไม่ได้มีบัญชี? <a href="{{URL::to('subscribe')}}">สร้างบัญชี</a>
   </div>
 
 </div>

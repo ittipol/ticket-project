@@ -17,7 +17,7 @@
     <h4>เพิ่มรายการขาย</h4>
     <p>กรอกข้อมูลรายการของคุณให้ได้มากที่สุดเพื่อให้สินค้าของคุณมีรายละเอียดมากพอในการขาย</p>
   </div>
-  {{Form::open(['method' => 'post', 'enctype' => 'multipart/form-data'])}}
+  {{Form::open(['id' => 'add_ticket_form', 'method' => 'post', 'enctype' => 'multipart/form-data'])}}
 
     @include('component.form_error')
 
@@ -41,7 +41,7 @@
             <span class="input-group-addon" id="location-addon">
               <i class="fa fa-map-marker"></i>
             </span>
-            <input type="text" class="form-control" placeholder="Username" aria-describedby="location-addon">
+            <input type="text" class="form-control" aria-describedby="location-addon">
           </div>
         </div>
 
@@ -67,6 +67,12 @@
         <div class="form-group">
           <label class="form-control-label">ระบุส่วนลด (หากมี)</label>
           code here
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label">กลุ่มคำที่เกี่ยวข้อง (แท็ก ไม่ต้องใส่ # หน้าคำที่ป้อน)</label>
+          <div id="_tags" class="tag"></div>
+          <small>แท็กจะมีผลโดยตรงต่อการค้นหา</small>
         </div>
 
       </div>
@@ -97,12 +103,14 @@
   {{Form::close()}}
 </div>
 
-
+<script type="text/javascript" src="/assets/js/form/tagging.js"></script>
+<script type="text/javascript" src="/assets/js/form/add-ticket-validation.js"></script>
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
+
 <script type="text/javascript">
   $(document).ready(function(){
 
-    var myDropzone = new Dropzone('#uploader', { 
+    const dz = new Dropzone('#uploader', { 
       url: "/upload/image",
       paramName: "image",
       maxFilesize: 5, // MB
@@ -115,6 +123,9 @@
         'x-csrf-token': $('[name="_token"]').val(),
       },   
     });
+
+    const tagging = new Tagging();
+    tagging.load();
 
     Datepicker.initDatepicker();
     
