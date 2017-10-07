@@ -15,8 +15,8 @@ var Validation = function () {
             {
               email:
               {
-                required: true,
-                email: true
+                required: true
+                // email: true
               },
               password:
               {
@@ -29,8 +29,8 @@ var Validation = function () {
             {
               email:
               {
-                required: 'โปรดป้อนอีเมล',
-                email: 'อีเมลไม่ถูกต้อง'
+                required: 'โปรดป้อนอีเมล'
+                // email: 'อีเมลไม่ถูกต้อง'
               },
               password:
               {

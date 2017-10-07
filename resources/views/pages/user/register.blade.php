@@ -17,7 +17,11 @@
   <div class="margin-top-30">
 
     <div class="form-group">
-      <input type="text" name="name" class="form-control rounded-right" placeholder="ชื่อ นามสกุล" autocomplete="off">
+      {{ Form::text('name', null, array(
+        'class' => 'form-control rounded-right',
+        'placeholder' => 'ชื่อ นามสกุล',
+        'autocomplete' => 'off'
+      )) }}
     </div>
 
     <div class="form-group">
