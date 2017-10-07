@@ -27,14 +27,14 @@
 
         <div class="form-group">
           <label class="form-control-label required">หัวข้อ</label>
-          {{ Form::text('name', null, array(
+          {{ Form::text('title', null, array(
             'class' => 'form-control',
             'autocomplete' => 'off'
           )) }}
         </div>
 
         <div class="form-group">
-          <label class="form-control-label required">รายละเอีบด</label>
+          <label class="form-control-label required">รายละเอียด</label>
           {{Form::textarea('description', null, array('class' => 'form-control'))}}
         </div>
 
@@ -44,7 +44,7 @@
             <span class="input-group-addon" id="location-addon">
               <i class="fa fa-map-marker"></i>
             </span> 
-            {{ Form::text('place-location', null, array(
+            {{ Form::text('place_location', null, array(
               'class' => 'form-control',
               'autocomplete' => 'off',
               'aria-describedby' => 'location-addon'
@@ -58,15 +58,9 @@
             <span class="input-group-addon" id="location-addon">
               <i class="fa fa-calendar"></i>
             </span>
-            {{Form::text('date', null, array('id' => '_date', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
-            {{Form::hidden('date', null, array('id' => 'date'))}}
-            <div class="floating-label-box" id="date-input-label"></div>
+            {{Form::text('expiration_date', null, array('id' => 'date', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
+            {{Form::hidden('_date', null, array('id' => '_date'))}}
           </div>
-        </div>
-
-        <div class="alert alert-info">
-          <h4 class="alert-heading">ราคาขาย</h4>
-            <p class="margin-bottom-5">ป้องราคาขายใหม่ตามความเหมาะสมหรือตามที่คุณต้องการ</p>
         </div>
 
         <div class="form-group">
@@ -82,16 +76,11 @@
           </div>
         </div>
 
-        <div class="alert alert-info">
-          <h4 class="alert-heading">คำนวณส่วนลด</h4>
-          <p class="margin-bottom-5">หากราคาเดิมของบัตรมีมูลค่าสูงกว่าราคาขาย ให้ป้อนราคาเดิมของบัตรลงในช่องด้านล่างเพื่อคำนวณส่วนลด</p>
-        </div>
-
         <div class="row">
           <div class="form-group col-md-6">
             <label class="form-control-label">ราคาเดิมของบัตร</label>
             <div class="input-group">
-              {{ Form::text('full-price', null, array(
+              {{ Form::text('original_price', null, array(
                 'id' => 'full_price_input',
                 'class' => 'form-control',
                 'autocomplete' => 'off',
@@ -113,18 +102,14 @@
               )) }}
               <span class="input-group-addon" id="percent-addon">%</span>
             </div>
+            <small>* จะคำนวณหลังจากกรอกราคาเดิมของบัตร</small>
           </div>
         </div>
 
-        <div class="alert alert-info">
-          <h4 class="alert-heading">แท็ก</h4>
-          <p class="margin-bottom-5"><strong>หมายเหตุ</strong> แท็กจะมีผลโดยตรงต่อการค้นหา</p>
-        </div>
-
         <div class="form-group">
-          <label class="form-control-label">กลุ่มคำที่เกี่ยวข้อง (ไม่ต้องใส่ # หน้าคำที่ป้อน)</label>
+          <label class="form-control-label">แท็ก (ไม่ต้องใส่ # หน้าคำที่ป้อน)</label>
           <div id="_tags" class="tag"></div>
-          <!-- <small>* แท็กจะมีผลโดยตรงต่อการค้นหา</small> -->
+          <small>* แท็กจะมีผลโดยตรงต่อการค้นหา</small>
         </div>
 
       </div>
@@ -139,14 +124,17 @@
               <li>รูปแบบไฟล์ JPG, PNG เท่านั้น</li> 
             </ul>
           </div>
-          <div id="uploader">
+          <!-- <div id="uploader">
             <div class="dz-message needsclick">
               คลิกที่นี่เพื่ออัพโหลด<br/>หรือ<br/>ลากรูปที่ต้องการและวางตรงนี้
             </div>
-          </div>
+          </div> -->
+
+          <div id="_image_group"></div>
+
         </div>
 
-        <div class="dropzone mb-3 mb-sm-0" id="dropzone-previews"></div>
+        <!-- <div class="dropzone mb-3 mb-sm-0" id="dropzone-previews"></div> -->
 
       </div>
 
@@ -205,15 +193,11 @@
         return false;
       }
 
-      console.log($('#price_input').val())
-      console.log($('#full_price_input').val())
-      console.log($('#price_input').val() - $('#full_price_input').val() > 0);
-
       if($('#price_input').val() - $('#full_price_input').val() > 0) {
         $('#percent_input').val(0);
         return false;
       }
-console.log('cal')
+
       this.handle = setTimeout(function(){
         let percent = 100 - (($('#price_input').val() * 100) / $('#full_price_input').val());
         $('#percent_input').val(Math.round(percent,2));
@@ -225,19 +209,57 @@ console.log('cal')
 
   $(document).ready(function(){
 
-    const dz = new Dropzone('#uploader', { 
-      url: "/upload/image",
-      paramName: "image",
-      maxFilesize: 5, // MB
-      maxFiles: 10,
-      uploadMultiple: true,
-      parallelUploads: 3,
-      previewsContainer: "#dropzone-previews",
-      acceptedFiles: "image/jpeg,image/png",
-      headers: {
-        'x-csrf-token': $('[name="_token"]').val(),
-      },   
-    });
+    const images = new Images('#add_ticket_form','#_image_group','Ticket','photo',10);
+    images.init();
+    images.setImages();
+
+    // var token = new Token();
+    // token = token.generateToken();
+
+    // const dz = new Dropzone('#uploader', { 
+    //   url: "/upload/image",
+    //   paramName: "image",
+    //   // autoQueue: false,
+    //   maxFilesize: 5, // MB
+    //   maxFiles: 10,
+    //   uploadMultiple: true,
+    //   parallelUploads: 1,
+    //   previewsContainer: "#dropzone-previews",
+    //   acceptedFiles: "image/jpeg,image/png",
+    //   headers: {
+    //     'x-csrf-token': $('[name="_token"]').val(),
+    //   },   
+    // });
+
+    // dz.on("sending", function(file, xhr, formData){
+    //   formData.append("model", 'Ticket')
+    //   formData.append("token", token)
+    //   formData.append("imageType", 'photo')
+    // }),
+
+    // dz.on("addedfile", function(file) {
+
+    //   // this.enqueueFile(file)
+
+    //   let removeButton = Dropzone.createElement("<a href=\"#\">Remove file</a>");
+    //   let _this = this;
+    //   removeButton.addEventListener("click", function(e) {
+    //       e.preventDefault();
+    //       e.stopPropagation();
+    //       _this.removeFile(file);
+    //       // $.ajax({
+    //       //     type: 'POST',
+    //       //     url: 'DeleteImage',
+    //       //     data: name,
+    //       //     dataType: 'json'
+    //       // });
+    //   });
+    //   file.previewElement.appendChild(removeButton);
+    // });
+
+    // dz.on("success", function(file, response) {
+    //   console.log('xxx')
+    // });
 
     const ticket = new Ticket();
     ticket.init();
@@ -247,6 +269,8 @@ console.log('cal')
 
     const datepicker = new Datepicker();
     datepicker.init();
+
+    Validation.initValidation();
 
   });
 </script>

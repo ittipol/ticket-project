@@ -28,6 +28,7 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
   Route::get('ticket/new', 'TicketController@add');
+  Route::post('ticket/new', 'TicketController@addingSubmit');
 
   Route::post('upload/image', 'ImageController@upload');
 });

@@ -5,6 +5,10 @@ var Validation = function () {
         //Validation
         initValidation: function () {
 
+          $.validator.addMethod("regx", function(value, element, regexpr) {          
+              return regexpr.test(value);
+          }, "");
+
 	        $("#add_ticket_form").validate({  
 
             // ignore: '.ignore-field, :hidden, :disabled',
@@ -13,47 +17,62 @@ var Validation = function () {
 	            // Rules for form validation
             rules:
             {
-              name:
+              title:
               {
                 required: true
               },
-              email:
+              description:
+              {
+                required: true
+              },
+              place_location:
+              {
+              	required: true
+              },
+              expiration_date:
               {
                 required: true,
-                email: true
+                date: true
               },
-              password:
+              price:
               {
-              	required: true,
-                minlength: 4,
+                required: true,
+                regx: /^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/
               },
-              password_confirmation:
-              {
-                equalTo : '#password_field'
-              }
+              // original_price:
+              // {
+              // }
             },
                                 
             // Messages for form validation
             messages:
             {
-              name:
+              title:
               {
-                required: 'ชื่อ นามสกุลห้ามว่าง',
+                required: 'ยังไม่ได้ป้อนหัวข้อ'
               },
-              email:
+              description:
               {
-                required: 'อีเมลห้ามว่าง',
-                email: 'อีเมลไม่ถูกต้อง'
+                required: 'ยังไม่ได้ป้อนรายละเอียด'
               },
-              password:
+              place_location:
               {
-                required: 'รหัสผ่านห้ามว่าง',
-                minlength: 'รัสผ่านต้องมีอย่างน้อย 4 อักขระ',
+                required: 'ยังไม่ได้ป้อนสถานที่หรือตำแหน่งที่สามารถนำไปใช้ได้',
               },
-              password_confirmation:
+              expiration_date:
               {
-                equalTo: 'รหัสผ่านไม่ตรงกัน'
-              }
+                required: 'ยังไม่ได้ป้อนวันสิ้นสุดการใช้งาน',
+                date: 'วันสิ้นสุดการใช้งานไม่ถูกต้อง',
+              },
+              price:
+              {
+                required: 'ยังไม่ได้ป้อนราคาที่ต้องการขาย',
+                regx: 'ราคาที่ต้องการขายไม่ถูกต้อง'
+              },
+              // original_price:
+              // {
+              //   regx: 'ราคาเดิมของบัตรไม่ถูกต้อง'
+              // },
             },    
 
             // submitHandler: function(form) {},             

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\library\service;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -14,28 +15,31 @@ class TicketController extends Controller
 
   public function addingSubmit() {
 
-    $model = Service::loadModel('Charity');
+    dd(request()->all());
 
-    if(!empty(request()->_images)) {
+    $model = Service::loadModel('Ticket');
 
-      $images = array();
-      foreach (request()->_images as $value) {
+    // if(!empty(request()->_images)) {
+
+    //   $images = array();
+    //   foreach (request()->_images as $value) {
         
-        if(empty($value)) {
-          continue;
-        }
+    //     if(empty($value)) {
+    //       continue;
+    //     }
 
-        $images[] = $value;
+    //     $images[] = $value;
 
-      }
+    //   }
 
-      if(!empty($images)) {
-        $model->images = json_encode($images);
-      }
+    //   if(!empty($images)) {
+    //     $model->images = json_encode($images);
+    //   }
 
-    }
+    // }
     
     if($model->fill(request()->all())->save()) {
+      dd('save');
       return Redirect::to('admin/charity/list');
     }
 

@@ -8,8 +8,8 @@ class HandleImageFile
   private $filename;
   private $width;
   private $height;
-  private $maxFileSizes;
-  private $acceptedFileTypes;
+  private $maxFileSizes = 5242880;
+  private $acceptedFileTypes = ['image/jpg','image/jpeg','image/png', 'image/pjpeg'];
 
   public function __construct($image = null) {
 
@@ -19,11 +19,6 @@ class HandleImageFile
       $this->generateFileName();
 
       list($this->width,$this->height) = getimagesize($this->image->getRealPath());
-
-      $model = Service::loadModel('Image');
-      $this->maxFileSizes = $model->getMaxFileSizes();
-      $this->acceptedFileTypes = $model->getAcceptedFileTypes();
-
     }
 
   }

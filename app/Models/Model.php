@@ -10,6 +10,7 @@ use App\library\service;
 use Session;
 use Schema;
 use Route;
+use Auth;
 
 class Model extends BaseModel
 {
@@ -42,7 +43,7 @@ class Model extends BaseModel
         // }
 
         if(Schema::hasColumn($model->getTable(), 'created_by') && empty($model->created_by)) {
-          $model->created_by = Session::get('Person.id');
+          $model->created_by = Auth::user()->id;
         }
 
       }else{
@@ -63,7 +64,7 @@ class Model extends BaseModel
 
       // }
 
-      $model->modelRelationsSave();
+      // $model->modelRelationsSave();
 
       // if(!empty($model->behavior['Lookup'])) {
       //   $lookup = new Lookup;

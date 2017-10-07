@@ -11,7 +11,8 @@
     'assets/js/bootstrap.min.js',
     'assets/js/dz/dropzone.min.js',
     'assets/js/token.js',
-    'assets/js/common.js'
+    'assets/js/common.js',
+    'assets/js/form/upload_image.js',
   );
 
   if($combine){

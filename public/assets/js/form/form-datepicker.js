@@ -1,6 +1,6 @@
 class Datepicker {
 
-	constructor(selector = '#_date',hiddenSelector = '#date') {
+	constructor(selector = '#date',hiddenSelector = '#_date') {
 		this.selector = selector;
 		this.hiddenSelector = hiddenSelector;
 	}
@@ -15,15 +15,15 @@ class Datepicker {
       nextText: '<i class="fa fa-angle-right"></i>'
 	  });
 
-	  $(this.selector).on('change',function(){
-	    if($(this).val() != '') {
+	  // $(this.selector).on('change',function(){
+	  //   if($(this).val() != '') {
 
-	    	$(_this.hiddenSelector).val($(this).val());
+	  //   	$(_this.hiddenSelector).val($(this).val());
 
-	      let date = $(this).val().split('-');
-	      $(this).val(parseInt(date[2])+' '+_this.findMonthName(parseInt(date[1]))+' '+(parseInt(date[0])+543));
-	    }
-	  });
+	  //     let date = $(this).val().split('-');
+	  //     $(this).val(parseInt(date[2])+' '+_this.findMonthName(parseInt(date[1]))+' '+(parseInt(date[0])+543));
+	  //   }
+	  // });
 	}
 
 	findMonthName(month) {
