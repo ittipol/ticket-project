@@ -149,12 +149,6 @@ class Cache
 
   public function getImageSizeByRatio($originalWidth,$originalHeight,$width,$height) {
 
-    // if($height > $width) {
-    //   $width = (int)ceil($originalWidth * ($height / $originalHeight));
-    // }else{
-    //   $height = (int)ceil($originalHeight * ($width / $originalWidth));
-    // }
-
     if(($originalHeight > $originalWidth) && (($originalHeight - $originalWidth) > 250)) {
       if($originalHeight > $height) {
         $width = (int)ceil($originalWidth * ($height / $originalHeight));

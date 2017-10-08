@@ -52,14 +52,25 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label required">วันสิ้นสุดการใช้งาน</label>
-          <div class="input-group">
-            <span class="input-group-addon" id="location-addon">
-              <i class="fa fa-calendar"></i>
-            </span>
-            {{Form::text('expiration_date', null, array('id' => 'date', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
-            {{Form::hidden('_date', null, array('id' => '_date'))}}
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="form-control-label required">วันที่เริ่มใช้</label>
+            <div class="input-group">
+              <span class="input-group-addon" id="location-addon">
+                <i class="fa fa-calendar"></i>
+              </span>
+              {{Form::text('start_date', null, array('id' => 'start_date', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label class="form-control-label required">ใช้ได้ถึงวันที่</label>
+            <div class="input-group">
+              <span class="input-group-addon" id="location-addon">
+                <i class="fa fa-calendar"></i>
+              </span>
+              {{Form::text('expiration_date', null, array('id' => 'expiration_date', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
+            </div>
           </div>
         </div>
 
@@ -213,62 +224,17 @@
     images.init();
     images.setImages();
 
-    // var token = new Token();
-    // token = token.generateToken();
-
-    // const dz = new Dropzone('#uploader', { 
-    //   url: "/upload/image",
-    //   paramName: "image",
-    //   // autoQueue: false,
-    //   maxFilesize: 5, // MB
-    //   maxFiles: 10,
-    //   uploadMultiple: true,
-    //   parallelUploads: 1,
-    //   previewsContainer: "#dropzone-previews",
-    //   acceptedFiles: "image/jpeg,image/png",
-    //   headers: {
-    //     'x-csrf-token': $('[name="_token"]').val(),
-    //   },   
-    // });
-
-    // dz.on("sending", function(file, xhr, formData){
-    //   formData.append("model", 'Ticket')
-    //   formData.append("token", token)
-    //   formData.append("imageType", 'photo')
-    // }),
-
-    // dz.on("addedfile", function(file) {
-
-    //   // this.enqueueFile(file)
-
-    //   let removeButton = Dropzone.createElement("<a href=\"#\">Remove file</a>");
-    //   let _this = this;
-    //   removeButton.addEventListener("click", function(e) {
-    //       e.preventDefault();
-    //       e.stopPropagation();
-    //       _this.removeFile(file);
-    //       // $.ajax({
-    //       //     type: 'POST',
-    //       //     url: 'DeleteImage',
-    //       //     data: name,
-    //       //     dataType: 'json'
-    //       // });
-    //   });
-    //   file.previewElement.appendChild(removeButton);
-    // });
-
-    // dz.on("success", function(file, response) {
-    //   console.log('xxx')
-    // });
-
     const ticket = new Ticket();
     ticket.init();
 
     const tagging = new Tagging();
     tagging.load();
 
-    const datepicker = new Datepicker();
-    datepicker.init();
+    const startDate = new Datepicker('#start_date');
+    startDate.init();
+
+    const expirationDate = new Datepicker('#expiration_date');
+    expirationDate.init();
 
     Validation.initValidation();
 

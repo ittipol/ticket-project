@@ -26,6 +26,8 @@ Route::group(['middleware' => 'guest'], function () {
   Route::post('subscribe', 'UserController@registering');
 });
 
+Route::get('ticket', 'TicketController@listView');
+
 Route::group(['middleware' => 'auth'], function () {
   Route::get('ticket/new', 'TicketController@add');
   Route::post('ticket/new', 'TicketController@addingSubmit');

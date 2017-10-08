@@ -4,9 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use App\library\service;
-// use App\library\formHelper;
-// use App\library\modelData;
-// use App\library\paginator;
+use App\library\stringHelper;
 use Session;
 use Schema;
 use Route;
@@ -19,11 +17,14 @@ class Model extends BaseModel
   protected $storagePath = 'app/public/';
   protected $state = 'create';
 
-  public $formHelper = false;
-  public $modelData = false;
-  public $paginator = false;
   
   public function __construct(array $attributes = []) {
+    $string = new stringHelper;
+    
+    $this->modelName = class_basename(get_class($this));
+    $this->modelAlias = $string->generateUnderscoreName($this->modelName);
+    // $this->directoryPath = $this->storagePath.$this->modelAlias.'/';
+
     parent::__construct($attributes);
   }
 
@@ -162,35 +163,35 @@ class Model extends BaseModel
   //   return $this->find($id)->exists();
   // }
 
-  // public function checkExistByAlias($alias) {
+  public function checkExistByAlias($alias) {
 
-  //   if(!Schema::hasColumn($this->getTable(), 'alias')){
-  //     return false;
-  //   }
+    if(!Schema::hasColumn($this->getTable(), 'alias')){
+      return false;
+    }
 
-  //   return $this->where('alias','like',$alias)->exists();
-  // }
+    return $this->where('alias','like',$alias)->exists();
+  }
 
-  // public function getIdByalias($alias) {
+  public function getIdByalias($alias) {
 
-  //   if(!Schema::hasColumn($this->getTable(), 'alias')){
-  //     return false;
-  //   }
+    if(!Schema::hasColumn($this->getTable(), 'alias')){
+      return false;
+    }
 
-  //   $record = $this->getData(array(
-  //     'conditions' => array(
-  //       ['alias','like',$alias]
-  //     ),
-  //     'fields' => array('id'),
-  //     'first' => true
-  //   ));
+    $record = $this->getData(array(
+      'conditions' => array(
+        ['alias','like',$alias]
+      ),
+      'fields' => array('id'),
+      'first' => true
+    ));
 
-  //   if(empty($record)) {
-  //     return null;
-  //   }
+    if(empty($record)) {
+      return null;
+    }
 
-  //   return $record->id;
-  // }
+    return $record->id;
+  }
 
   // public function getByAlias($alias) {
 
@@ -207,7 +208,7 @@ class Model extends BaseModel
 
   // }
 
-  // public function getBy($value,$field,$first=true) {
+  // public function getBy($value,$field,$first = true) {
 
   //   if(!Schema::hasColumn($this->getTable(), $field)){
   //     return false;
@@ -222,96 +223,96 @@ class Model extends BaseModel
 
   // }
 
-  // public function getData($options = array()) {
+  public function getData($options = array()) {
 
-  //   $model = $this->newInstance();
+    $model = $this->newInstance();
 
-  //   if(!empty($options['joins'])) {
+    if(!empty($options['joins'])) {
 
-  //     if(is_array(current($options['joins']))) {
+      if(is_array(current($options['joins']))) {
 
-  //       foreach ($options['joins'] as $value) {
-  //         $model = $model->join($value[0], $value[1], $value[2], $value[3]);
-  //       }
+        foreach ($options['joins'] as $value) {
+          $model = $model->join($value[0], $value[1], $value[2], $value[3]);
+        }
 
-  //     }else{
-  //       $model = $model->join(
-  //         current($options['joins']), 
-  //         next($options['joins']), 
-  //         next($options['joins']), 
-  //         next($options['joins'])
-  //       );
-  //     }
+      }else{
+        $model = $model->join(
+          current($options['joins']), 
+          next($options['joins']), 
+          next($options['joins']), 
+          next($options['joins'])
+        );
+      }
 
-  //   }
+    }
 
-  //   if(!empty($options['conditions']['in'])) {
+    if(!empty($options['conditions']['in'])) {
 
-  //     foreach ($options['conditions']['in'] as $condition) {
-  //       $model = $model->whereIn(current($condition),next($condition));
-  //     }
+      foreach ($options['conditions']['in'] as $condition) {
+        $model = $model->whereIn(current($condition),next($condition));
+      }
 
-  //     unset($options['conditions']['in']);
+      unset($options['conditions']['in']);
 
-  //   }
+    }
 
-  //   if(!empty($options['conditions']['or'])) {
+    if(!empty($options['conditions']['or'])) {
 
-  //     $conditions = $criteria['conditions']['or'];
+      $conditions = $criteria['conditions']['or'];
 
-  //     $model = $model->where(function($query) use($conditions) {
+      $model = $model->where(function($query) use($conditions) {
 
-  //       foreach ($conditions as $condition) {
-  //         $query->orWhere(
-  //           $condition[0],
-  //           $condition[1],
-  //           $condition[2]
-  //         );
-  //       }
+        foreach ($conditions as $condition) {
+          $query->orWhere(
+            $condition[0],
+            $condition[1],
+            $condition[2]
+          );
+        }
 
-  //     });
+      });
 
-  //     unset($options['conditions']['or']);
+      unset($options['conditions']['or']);
 
-  //   }
+    }
 
-  //   if(!empty($options['conditions'])){
-  //     $model = $model->where($options['conditions']);
-  //   }
+    if(!empty($options['conditions'])){
+      $model = $model->where($options['conditions']);
+    }
 
-  //   if(!$model->exists()) {
-  //     return null;
-  //   }
+    if(!$model->exists()) {
+      return null;
+    }
 
-  //   if(!empty($options['fields'])){
-  //     $model = $model->select($options['fields']);
-  //   }
+    if(!empty($options['fields'])){
+      $model = $model->select($options['fields']);
+    }
 
-  //   if(!empty($options['order'])){
+    if(!empty($options['order'])){
 
-  //     if(is_array(current($options['order']))) {
+      if(is_array(current($options['order']))) {
 
-  //       foreach ($options['order'] as $value) {
-  //         $model = $model->orderBy($value[0],$value[1]);
-  //       }
+        foreach ($options['order'] as $value) {
+          $model = $model->orderBy($value[0],$value[1]);
+        }
 
-  //     }else{
-  //       $model = $model->orderBy(current($options['order']),next($options['order']));
-  //     }
+      }else{
+        $model = $model->orderBy(current($options['order']),next($options['order']));
+      }
       
-  //   }
+    }
 
-  //   if(!empty($options['list'])) {
-  //     return Service::getList($model->get(),$options['list']);
-  //   }
+    if(!empty($options['list'])) {
+      return Service::getList($model->get(),$options['list']);
+    }
     
-  //   if(empty($options['first'])) {
-  //     return $model->get();
-  //   }
+    if(empty($options['first'])) {
+      return $model->get();
+    }
 
-  //   return $model->first();
+    return $model->first();
 
-  // }
+  }
 
   // public function getRelatedData($modelName,$options = array()) {
 

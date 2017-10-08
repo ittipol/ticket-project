@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\library\service;
 use Illuminate\Http\Request;
+use Redirect;
 
 class TicketController extends Controller
 {
+  public function listView() {
+
+    
+    
+    return $this->view('pages.ticket.list');
+  }
+
   public function add() {
     // concert
     $this->setMeta('title','เพิ่มรายการขาย — TicketSnap');
@@ -15,34 +23,35 @@ class TicketController extends Controller
 
   public function addingSubmit() {
 
-    dd(request()->all());
+    // dd(request()->get('place_location'));
 
     $model = Service::loadModel('Ticket');
 
-    // if(!empty(request()->_images)) {
-
-    //   $images = array();
-    //   foreach (request()->_images as $value) {
-        
-    //     if(empty($value)) {
-    //       continue;
-    //     }
-
-    //     $images[] = $value;
-
-    //   }
-
-    //   if(!empty($images)) {
-    //     $model->images = json_encode($images);
-    //   }
-
-    // }
+    //slug
     
-    if($model->fill(request()->all())->save()) {
-      dd('save');
-      return Redirect::to('admin/charity/list');
+    if(!$model->fill(request()->all())->save()) {
+      return Redirect::back();
     }
 
-    return Redirect::back();
+    // Tagging
+    if(!empty(request()->get('Tagging'))) {
+      $taggingModel = Service::loadModel('Tagging');
+      $taggingModel->__saveRelatedData($model,request()->get('Tagging'));
+    }
+
+    // images
+    if(!empty(request()->get('Image'))) {
+      $imageModel = Service::loadModel('Image');
+      $imageModel->__saveRelatedData($model,request()->get('Image'));
+    }
+
+    // save Place location
+    $placeLocationModel = Service::loadModel('PlaceLocation');
+    $placeLocationModel->__saveRelatedData($model,request()->get('place_location'));
+
+    // Lookup
+
+    return Redirect::to('ticket/view/'.$model->id);
+    
   }
 }

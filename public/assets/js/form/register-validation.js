@@ -15,12 +15,14 @@ var Validation = function () {
             {
               name:
               {
-                required: true
+                required: true,
+                maxlength: 255,
               },
               email:
               {
                 required: true,
-                email: true
+                email: true,
+                maxlength: 255,
               },
               password:
               {
@@ -38,17 +40,19 @@ var Validation = function () {
             {
               name:
               {
-                required: 'ชื่อ นามสกุลห้ามว่าง',
+                required: 'ยังไม่ได้ป้อนชื่อ นามสกุล',
+                maxlength: 'จำนวนตัวอักษรเกินกว่าที่กำหนด'
               },
               email:
               {
-                required: 'อีเมลห้ามว่าง',
-                email: 'อีเมลไม่ถูกต้อง'
+                required: 'ยังไม่ได้ป้อนอีเมล',
+                email: 'อีเมลไม่ถูกต้อง',
+                maxlength: 'จำนวนตัวอักษรเกินกว่าที่กำหนด'
               },
               password:
               {
                 required: 'รหัสผ่านห้ามว่าง',
-                minlength: 'รัสผ่านต้องมีอย่างน้อย 4 อักขระ',
+                minlength: 'รัสผ่านต้องมีอย่างน้อย 4 อักขระ'
               },
               password_confirmation:
               {

@@ -19,7 +19,8 @@ var Validation = function () {
             {
               title:
               {
-                required: true
+                required: true,
+                maxlength: 255
               },
               description:
               {
@@ -27,7 +28,13 @@ var Validation = function () {
               },
               place_location:
               {
-              	required: true
+              	required: true,
+                maxlength: 255
+              },
+              start_date:
+              {
+                required: true,
+                date: true
               },
               expiration_date:
               {
@@ -39,9 +46,10 @@ var Validation = function () {
                 required: true,
                 regx: /^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/
               },
-              // original_price:
-              // {
-              // }
+              original_price:
+              {
+                regx: /^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/
+              }
             },
                                 
             // Messages for form validation
@@ -49,7 +57,8 @@ var Validation = function () {
             {
               title:
               {
-                required: 'ยังไม่ได้ป้อนหัวข้อ'
+                required: 'ยังไม่ได้ป้อนหัวข้อ',
+                maxlength: 'จำนวนตัวอักษรเกินกว่าที่กำหนด'
               },
               description:
               {
@@ -58,21 +67,27 @@ var Validation = function () {
               place_location:
               {
                 required: 'ยังไม่ได้ป้อนสถานที่หรือตำแหน่งที่สามารถนำไปใช้ได้',
+                maxlength: 'จำนวนตัวอักษรเกินกว่าที่กำหนด'
+              },
+              start_date:
+              {
+                required: 'ยังไม่ได้ป้อนวันที่เริ่มใช้',
+                date: 'วันที่ไม่ถูกต้อง',
               },
               expiration_date:
               {
-                required: 'ยังไม่ได้ป้อนวันสิ้นสุดการใช้งาน',
-                date: 'วันสิ้นสุดการใช้งานไม่ถูกต้อง',
+                required: 'ยังไม่ได้ป้อนใช้ได้ถึงวันที่',
+                date: 'วันที่ไม่ถูกต้อง',
               },
               price:
               {
                 required: 'ยังไม่ได้ป้อนราคาที่ต้องการขาย',
                 regx: 'ราคาที่ต้องการขายไม่ถูกต้อง'
               },
-              // original_price:
-              // {
-              //   regx: 'ราคาเดิมของบัตรไม่ถูกต้อง'
-              // },
+              original_price:
+              {
+                regx: 'ราคาเดิมของบัตรไม่ถูกต้อง'
+              },
             },    
 
             // submitHandler: function(form) {},             

@@ -95,7 +95,6 @@ class Images {
 
 			  	reader.readAsDataURL(input.files[0]);
 
-		  		// parent.css('borderColor','#E0E0E0');
 		  		parent.find('.error-message').css('display','none').text('');
 
 		  		let formData = new FormData(); 
