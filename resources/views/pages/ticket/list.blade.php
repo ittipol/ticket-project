@@ -18,9 +18,8 @@
       <div class="data-list-item">
         
         <div class="row">
-          <div class="col-md-6">
-            <div class="main-data-section m-2">
-
+          <div class="col-md-6 main-data-section">
+            <div class="main-data-inner">
               @if(!empty($value['images']))
                 <div class="data-image">
                   <img src="{{$value['images'][0]['_url']}}">
@@ -31,34 +30,42 @@
                 </div>
               @endif
 
-              <h5>{{$value['title']}}</h5>
+              <div class="m-2">
+                <h5>{{$value['title']}}</h5>
 
-              <div class="pb-4">
-                <small><strong>ใช้ได้ถึง:</strong> {{$value['expiration_date']}}</small>
-              </div>
+                <div class="pb-4">
+                  <small><strong>ใช้ได้ถึง:</strong> {{$value['expiration_date']}}</small>
+                </div>
 
-              @if(!empty($value['tags']))
-              <div class="tags pb-2">
-                @foreach($value['tags'] as $tag)
-                  <div class="md-chip">
-                    {{$tag['word']}}
-                  </div>
-                @endforeach
+                @if(!empty($value['tags']))
+                <div class="tags pb-2">
+                  @foreach($value['tags'] as $tag)
+                    <div class="md-chip">
+                      {{$tag['word']}}
+                    </div>
+                  @endforeach
+                </div>
+                @endif
               </div>
-              @endif
 
             </div>
+
+            <ul class="nav nav-tabs nav-justified">
+              <li class="active"><a href="#">รูปภาพ</a></li>
+              <li><a href="#">รายละเอียด</a></li>
+              <li><a href="#">ติดต่อ</a></li>
+            </ul>
           </div>
 
-          <div class="col-md-2">
+          <!-- <div class="col-md-2">
             <div class="additional-data-section m-2">
               SELLER
             </div>
-          </div>
+          </div> -->
 
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div>
-              <div class="price-section m-2 text-center">
+              <div class="price-section m-0 m-md-2 text-center">
                 @if(!empty($value['original_price']))
                 <div class="original-price">{{$value['original_price']}}</div>
                 @endif
@@ -78,7 +85,7 @@
         </div>
 
         @if(!empty($value['save']))
-          <div class="price-saving-flag">{{$value['save']}}</div>
+          <div class="price-saving-flag">-{{$value['save']}}</div>
         @endif
 
       </div>

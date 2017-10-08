@@ -11,11 +11,14 @@
         <li class="nav-item active">
           <a class="nav-link" href="/">หน้าแรก <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/ticket">ราการขาย</a>
+        </li>
       </ul>
       <ul class="navbar-nav my-2 my-lg-0">
         <li class="nav-item">
           <a class="nav-link d-inline-block" href="/ticket/new">
-            <i class="fa fa-tag"></i>&nbsp;ขายบัตร
+            <i class="fa fa-tag"></i>&nbsp;ลงขายบัตร
           </a>
         </li>
         <li class="nav-item">

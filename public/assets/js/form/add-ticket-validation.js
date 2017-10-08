@@ -28,7 +28,6 @@ var Validation = function () {
               },
               place_location:
               {
-              	required: true,
                 maxlength: 255
               },
               start_date:
@@ -46,10 +45,10 @@ var Validation = function () {
                 required: true,
                 regx: /^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/
               },
-              original_price:
-              {
-                regx: /^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/
-              }
+              // original_price:
+              // {
+              //   regx: /^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/
+              // }
             },
                                 
             // Messages for form validation
@@ -66,7 +65,6 @@ var Validation = function () {
               },
               place_location:
               {
-                required: 'ยังไม่ได้ป้อนสถานที่หรือตำแหน่งที่สามารถนำไปใช้ได้',
                 maxlength: 'จำนวนตัวอักษรเกินกว่าที่กำหนด'
               },
               start_date:
@@ -84,10 +82,10 @@ var Validation = function () {
                 required: 'ยังไม่ได้ป้อนราคาที่ต้องการขาย',
                 regx: 'ราคาที่ต้องการขายไม่ถูกต้อง'
               },
-              original_price:
-              {
-                regx: 'ราคาเดิมของบัตรไม่ถูกต้อง'
-              },
+              // original_price:
+              // {
+              //   regx: 'ราคาเดิมของบัตรไม่ถูกต้อง'
+              // },
             },    
 
             // submitHandler: function(form) {},             

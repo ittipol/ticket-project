@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label required">สถานที่หรือตำแหน่งที่สามารถนำไปใช้ได้</label>
+          <label class="form-control-label">สถานที่หรือตำแหน่งที่สามารถนำไปใช้ได้</label>
           <div class="input-group">
             <span class="input-group-addon" id="location-addon">
               <i class="fa fa-map-marker"></i>
