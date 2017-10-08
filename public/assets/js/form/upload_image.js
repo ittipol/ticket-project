@@ -1,4 +1,4 @@
-class Images {
+class UploadImage {
 	constructor(form, panel, model, type ,limit = 5, style = 'default') {
 		this.form = form;
 		this.panel = panel;
@@ -163,34 +163,34 @@ class Images {
 
 	  	if(response.uploaded){
 
-	  		parent.find('div.preview-image').fadeIn(450);
 	  		parent.find('a').css('display','block');
-	  		parent.parent().find('.progress-bar').css('display','none');
-	  		parent.parent().find('.preview-image').css('background-color','#fff');
+	  		parent.parent().find('.preview-image').fadeIn(450).css('background-color','#fff');
 
 	  		let key = parent.prop('id').split('_');
 
 	  		_this.createAddedImage(parent,key[0],key[1],response.filename);
-
-	  		setTimeout(function(){
-	  			_this.inputDisable.splice(_this.inputDisable.indexOf(input.id),1);
-
-	  			if(_this.inputDisable.length == 0) {
-	  				$(_this.form + ' input[type="submit"]').prop('disabled',false).removeClass('disabled');
-	  			}
-
-	  		},350);
 	  		
 	  	}else{
 
-	  		if(typeof response.message == 'object') {
-					const notificationBottom = new NotificationBottom();
-					notificationBottom.setTitle('เกิดข้อผิดพลาด');
-					notificationBottom.setType('error');
-					notificationBottom.display();
-	  		}
+	  		parent.find('input').val('');
+
+	  		const snackbar = new Snackbar();
+	  		snackbar.setTitle('ไม่รอบรับรูปภาพนี้ หรือ ไม่สามารถอัพโหลดรูปนี้ได้');
+	  		snackbar.setType('error');
+	  		snackbar.display();
 
 	  	}
+
+	  	parent.parent().find('.progress-bar').css('display','none');
+
+	  	setTimeout(function(){
+	  		_this.inputDisable.splice(_this.inputDisable.indexOf(input.id),1);
+
+	  		if(_this.inputDisable.length == 0) {
+	  			$(_this.form + ' input[type="submit"]').prop('disabled',false).removeClass('disabled');
+	  		}
+
+	  	},350);
 	  	
 	  });
 

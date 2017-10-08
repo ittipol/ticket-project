@@ -53,6 +53,7 @@ class UserController extends Controller
     $user->email = trim($request->email);
     $user->password = $hashed;
     $user->name = trim($request->name);
+    $user->user_key = Token::generateSecureKey();
     $user->has_password = 1;
 
     if($user->save()) {
@@ -114,6 +115,8 @@ class UserController extends Controller
       }
 
       $user->name = $_user['name'];
+
+      $user->user_key = Token::generateSecureKey();
 
       $user->save();
     }

@@ -92,7 +92,7 @@
             <label class="form-control-label">ราคาเดิมของบัตร</label>
             <div class="input-group">
               {{ Form::text('original_price', null, array(
-                'id' => 'full_price_input',
+                'id' => 'original_price_input',
                 'class' => 'form-control',
                 'autocomplete' => 'off',
                 'aria-describedby' => 'full-price-addon'
@@ -135,18 +135,11 @@
               <li>รูปแบบไฟล์ JPG, PNG เท่านั้น</li> 
             </ul>
           </div>
-          <!-- <div id="uploader">
-            <div class="dz-message needsclick">
-              คลิกที่นี่เพื่ออัพโหลด<br/>หรือ<br/>ลากรูปที่ต้องการและวางตรงนี้
-            </div>
-          </div> -->
 
           <div id="_image_group"></div>
 
         </div>
-
-        <!-- <div class="dropzone mb-3 mb-sm-0" id="dropzone-previews"></div> -->
-
+        
       </div>
 
       <div class="col-md-8 margin-top-30">
@@ -186,7 +179,7 @@
         _this.calDiscount();
       })
 
-      $('#full_price_input').on('keyup',function(){
+      $('#original_price_input').on('keyup',function(){
         _this.calDiscount();
       })
 
@@ -199,18 +192,18 @@
       if(
           (typeof $('#price_input').val() == 'undefined') || ($('#price_input').val() < 1) 
           ||
-          (typeof $('#full_price_input').val() == 'undefined') || ($('#full_price_input').val() < 1)
+          (typeof $('#original_price_input').val() == 'undefined') || ($('#original_price_input').val() < 1)
         ) {
         return false;
       }
 
-      if($('#price_input').val() - $('#full_price_input').val() > 0) {
+      if($('#price_input').val() - $('#original_price_input').val() > 0) {
         $('#percent_input').val(0);
         return false;
       }
 
       this.handle = setTimeout(function(){
-        let percent = 100 - (($('#price_input').val() * 100) / $('#full_price_input').val());
+        let percent = 100 - (($('#price_input').val() * 100) / $('#original_price_input').val());
         $('#percent_input').val(Math.round(percent,2));
       },300);
 
@@ -220,7 +213,7 @@
 
   $(document).ready(function(){
 
-    const images = new Images('#add_ticket_form','#_image_group','Ticket','photo',10);
+    const images = new UploadImage('#add_ticket_form','#_image_group','Ticket','photo',10);
     images.init();
     images.setImages();
 

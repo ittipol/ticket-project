@@ -51,8 +51,8 @@ class Tagging extends Model
     }
 
     return array(
-      '_word_id' => $this->word->id,
-      '_word' => $this->word->word
+      'word_id' => $this->word->id,
+      'word' => $this->word->word
     );
 
   }

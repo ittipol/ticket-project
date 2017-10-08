@@ -10,8 +10,18 @@ class TicketController extends Controller
 {
   public function listView() {
 
-    
-    
+    // GET Ticket
+    $model = Service::loadModel('Ticket');
+
+    $data = $model->orderBy('created_at','desc')->get();
+
+    $list = array();
+    foreach ($data as $value) {
+      $list[] = $value->buildDataList();
+    }
+
+    $this->setData('list',$list);
+
     return $this->view('pages.ticket.list');
   }
 

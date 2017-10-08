@@ -260,7 +260,7 @@ class Image extends Model
 
     $path = '';
     if(file_exists($this->getImagePath())){
-      $path = '/safe_image/'.$filename;
+      $path = '/get_image/'.$filename;
     }
 
     return $path;
@@ -292,7 +292,7 @@ class Image extends Model
 
     $path = '';
     if(File::exists($this->getImagePath())){
-      $path = '/safe_image/'.$this->name;
+      $path = '/get_image/'.$this->name;
     }
 
     return base64_encode(File::get($path));
@@ -301,7 +301,7 @@ class Image extends Model
   public function buildModelData() {
     return array(
       'filename' => $this->filename,
-      'description' => $this->description ? $this->description : '-',
+      // 'description' => $this->description ? $this->description : '-',
       '_url' => $this->getImageUrl()
     );
   }
@@ -309,7 +309,7 @@ class Image extends Model
   public function buildFormData() {
     return array(
       'id' => $this->id,
-      'description' => $this->description ? $this->description : '',
+      // 'description' => $this->description ? $this->description : '',
       '_url' => $this->getImageUrl()
     );
   }

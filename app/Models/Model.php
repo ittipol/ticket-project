@@ -281,7 +281,7 @@ class Model extends BaseModel
     }
 
     if(!$model->exists()) {
-      return null;
+      return array();
     }
 
     if(!empty($options['fields'])){
@@ -314,33 +314,33 @@ class Model extends BaseModel
 
   }
 
-  // public function getRelatedData($modelName,$options = array()) {
+  public function getRelatedData($modelName,$options = array()) {
 
-  //   $model = Service::loadModel($modelName);
-  //   $field = $this->modelAlias.'_id';
+    $model = Service::loadModel($modelName);
+    $field = $this->modelAlias.'_id';
 
-  //   if(Schema::hasColumn($model->getTable(), $field)) {
-  //     $conditions = array(
-  //       [$field,'=',$this->id],
-  //     );
-  //   }elseif($model->checkHasFieldModelAndModelId()) {
-  //     $conditions = array(
-  //       ['model','like',$this->modelName],
-  //       ['model_id','=',$this->id],
-  //     );
-  //   }else{
-  //     return false;
-  //   }
+    if(Schema::hasColumn($model->getTable(), $field)) {
+      $conditions = array(
+        [$field,'=',$this->id],
+      );
+    }elseif($model->checkHasFieldModelAndModelId()) {
+      $conditions = array(
+        ['model','like',$this->modelName],
+        ['model_id','=',$this->id],
+      );
+    }else{
+      return false;
+    }
 
-  //   if(!empty($options['conditions'])){
-  //     $options['conditions'] = array_merge($options['conditions'],$conditions);
-  //   }else{
-  //     $options['conditions'] = $conditions;
-  //   }
+    if(!empty($options['conditions'])){
+      $options['conditions'] = array_merge($options['conditions'],$conditions);
+    }else{
+      $options['conditions'] = $conditions;
+    }
 
-  //   return $model->getData($options);
+    return $model->getData($options);
 
-  // }
+  }
 
   // public function deleteRelatedData($model) {
 
@@ -413,12 +413,12 @@ class Model extends BaseModel
 
   // }
 
-  // public function checkHasFieldModelAndModelId() {
-  //   if(Schema::hasColumn($this->getTable(), 'model') && Schema::hasColumn($this->getTable(), 'model_id')) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  public function checkHasFieldModelAndModelId() {
+    if(Schema::hasColumn($this->getTable(), 'model') && Schema::hasColumn($this->getTable(), 'model_id')) {
+      return true;
+    }
+    return false;
+  }
 
   // public function includeModelAndModelId($value) {
 
@@ -516,9 +516,9 @@ class Model extends BaseModel
   //     return $this->getAttributes();
   // }
 
-  // public function buildModelData() {
-  //   return $this->getAttributes();
-  // }
+  public function buildModelData() {
+    return $this->getAttributes();
+  }
 
   // public function buildPaginationData() {
   //   return $this->getAttributes();

@@ -16,7 +16,7 @@ class ImageController extends Controller
       return false;
     }
 
-    if(empty(Input::file('image'))) {
+    if(empty(Input::file('image')) || (Input::file('image')->getClientSize() == 0)) {
       return response()->json(array(
         'uploaded' => false
       ));
@@ -24,7 +24,7 @@ class ImageController extends Controller
 
     $image = new HandleImageFile(Input::file('image'));
 
-    if(!$image->checkFileSize() || !$image->checkFileType()) {
+    if(!$image->checkFileType() || !$image->checkFileSize()) {
       return response()->json(array(
         'uploaded' => false
       ));
