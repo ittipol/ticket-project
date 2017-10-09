@@ -11,13 +11,32 @@ use App\library\format;
 class Ticket extends Model
 {
   protected $table = 'tickets';
-  protected $fillable = ['title','description','place_location','price','original_price','start_date','expiration_date','created_by'];
+  protected $fillable = ['title','description','place_location','price','original_price','date_type','date_1','date_2','created_by'];
+
+  private $dateType = array(
+    1 => 'ช่วงวันที่ใช้งานได้',
+    2 => 'วันที่แสดง',
+    3 => 'วันที่เดินทาง',
+  );
 
   public $imageTypeAllowed = array(
     'photo' => array(
       'limit' => 10
     )
   );
+
+  public function getDateType() {
+    return $this->dateType;
+  }
+
+  public function getDateTypeById($id) {
+    
+    if(empty($this->dateType[$id])) {
+      return null;
+    }
+
+    return $this->dateType[$id];
+  }
 
   public function buildDataList() {
 
@@ -91,8 +110,10 @@ class Ticket extends Model
       'price' => $currency->format($this->price),
       'original_price' => $originalPrice,
       'save' => $save,
-      'start_date' => $date->covertDateToSting($this->start_date),
-      'expiration_date' => $date->covertDateToSting($this->expiration_date),
+      'date_type' => $this->date_type,
+      'dateTypeLabel' => $this->getDateTypeById($this->date_type),
+      'date_1' => $date->covertDateToSting($this->date_1),
+      'date_2' => $date->covertDateToSting($this->date_2),
       'image' => $image,
       'imageTotal' => $imageTotal,
       'tags' => $tags 

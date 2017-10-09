@@ -36,13 +36,27 @@
 
                 <div class="row">
                   <div class="col-md-8">
-                    <div class="m-2">
+                    <div class="m-2 mt-3">
                       <h5>{{$value['title']}}</h5>
 
-                      <div class="pb-4">
-                        <small><strong>ใช้ได้ถึง:</strong> {{$value['expiration_date']}}</small>
+                      <div class="additional-data-section pb-4">
+
+                        @if($value['date_type'] == 1)
+                          @if(!empty($value['date_1']))
+                          <small><i class="fa fa-calendar"></i> วันที่เริ่มใช้ {{$value['date_1']}}</small>
+                          <small>ใช้ได้ถึงวันที่ {{$value['date_2']}}</small>
+                          @else
+                          <small><i class="fa fa-calendar"></i> ใช้ได้ถึงวันที่ {{$value['date_2']}}</small>
+                          @endif
+                          
+                        @elseif($value['date_type'] == 2)</small>
+                          <small><i class="fa fa-calendar"></i> วันที่แสดง {{$value['date_2']}}
+                        @elseif($value['date_type'] == 3)</small>
+                          <small><i class="fa fa-calendar"></i> วันที่เดินทาง {{$value['date_2']}}
+                        @endif
+
                         @if(!empty($value['place_location']))
-                        &nbsp;&nbsp;&nbsp;<small><i class="fa fa-map-marker"></i> {{$value['place_location']}}</small>
+                        <small><i class="fa fa-map-marker"></i> {{$value['place_location']}}</small>
                         @endif
                       </div>
 
@@ -62,7 +76,7 @@
                   </div>
 
                   <div class="col-md-4">
-                    <div class="price-section text-center">
+                    <div class="price-section my-2 text-center">
                       @if(!empty($value['original_price']))
                       <div class="original-price">{{$value['original_price']}}</div>
                       @endif
@@ -90,9 +104,7 @@
 
               <ul class="nav nav-tabs">
                 <li><a href="#">เพิ่มเติม</a></li>
-                @if(!empty($value['image']))
-                <li><a href="#">รูปภาพ</a></li>
-                @endif
+                <li><a href="#">รายละเอียด</a></li>
                 <li><a href="#">ติดต่อ</a></li>
               </ul>
             </div>

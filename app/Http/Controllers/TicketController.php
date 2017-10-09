@@ -26,7 +26,11 @@ class TicketController extends Controller
   }
 
   public function add() {
-    // concert
+
+    $model = Service::loadModel('Ticket');
+   
+    $this->setData('dateType',$model->getDateType());
+
     $this->setMeta('title','เพิ่มรายการขาย — TicketSnap');
     return $this->view('pages.ticket.form.add');
   }

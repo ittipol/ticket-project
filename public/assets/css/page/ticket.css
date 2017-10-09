@@ -25,6 +25,10 @@
 	color: #000;
 }
 
+.additional-data-section small {
+	margin-right: 0.5rem;
+}
+
 .data-list-item .data-image .image-more {
 	position: absolute;
 	right: 0;

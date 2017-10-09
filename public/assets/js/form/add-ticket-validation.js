@@ -32,7 +32,6 @@ var Validation = function () {
               },
               start_date:
               {
-                required: true,
                 date: true
               },
               expiration_date:
@@ -67,14 +66,13 @@ var Validation = function () {
               {
                 maxlength: 'จำนวนตัวอักษรเกินกว่าที่กำหนด'
               },
-              start_date:
+              date_1:
               {
-                required: 'ยังไม่ได้ป้อนวันที่เริ่มใช้',
                 date: 'วันที่ไม่ถูกต้อง',
               },
-              expiration_date:
+              date_2:
               {
-                required: 'ยังไม่ได้ป้อนใช้ได้ถึงวันที่',
+                required: 'ยังไม่ได้ป้อนวันที่',
                 date: 'วันที่ไม่ถูกต้อง',
               },
               price:

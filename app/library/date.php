@@ -35,6 +35,11 @@ class Date
   }
 
   public function covertDateToSting($date) {
+
+    if(empty($date)) {
+      return null;
+    }
+
     $date = explode('-', $date);
     return (int)$date[2].' '.$this->getMonthName($date[1]).' '.($date[0]+543);
   }

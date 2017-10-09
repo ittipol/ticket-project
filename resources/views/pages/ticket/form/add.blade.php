@@ -82,6 +82,33 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label">วันที่การใช้งาน</label>
+          {{ Form::select('data_type', $dateType, null, array('id' => 'data_type_select', 'class' => 'form-control')) }}
+        </div>
+
+        <div class="row">
+          <div id="date_1" class="form-group col-md-6">
+            <label class="form-control-label">วันที่เริ่มใช้</label>
+            <div class="input-group">
+              <span class="input-group-addon" id="location-addon">
+                <i class="fa fa-calendar"></i>
+              </span>
+              {{Form::text('date_1', null, array('id' => 'date_input_1', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
+            </div>
+          </div>
+
+          <div id="date_2" class="form-group col-md-6">
+            <label class="form-control-label required">ใช้ได้ถึง</label>
+            <div class="input-group">
+              <span class="input-group-addon" id="location-addon">
+                <i class="fa fa-calendar"></i>
+              </span>
+              {{Form::text('date_2', null, array('id' => 'date_input_2', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label">สถานที่หรือตำแหน่งที่สามารถนำไปใช้ได้</label>
           <div class="input-group">
             <span class="input-group-addon" id="location-addon">
@@ -92,37 +119,6 @@
               'autocomplete' => 'off',
               'aria-describedby' => 'location-addon'
             )) }}
-          </div>
-        </div>
-
-        <div class="form-group">
-          ระบุวันที่การใช้งาน
-          <select>
-            <option>ช่วงวันที่ใช้งานได้</option>
-            <option>วันที่แสดง</option>
-            <option>วันที่เดินทาง</option>
-          </select>
-        </div>
-
-        <div class="row">
-          <div class="form-group col-md-6">
-            <label class="form-control-label required">วันที่เริ่มใช้</label>
-            <div class="input-group">
-              <span class="input-group-addon" id="location-addon">
-                <i class="fa fa-calendar"></i>
-              </span>
-              {{Form::text('start_date', null, array('id' => 'start_date', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
-            </div>
-          </div>
-
-          <div class="form-group col-md-6">
-            <label class="form-control-label required">ใช้ได้ถึงวันที่</label>
-            <div class="input-group">
-              <span class="input-group-addon" id="location-addon">
-                <i class="fa fa-calendar"></i>
-              </span>
-              {{Form::text('expiration_date', null, array('id' => 'expiration_date', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
-            </div>
           </div>
         </div>
 
@@ -197,6 +193,36 @@
         _this.calDiscount();
       })
 
+      $('#data_type_select').on('change',function(){
+        
+
+        let type = $(this).val();
+
+        $('#date_input_1').val('');
+        $('#date_input_2').val('');
+
+        switch(type) {
+
+          case '1':
+              $('#date_1').css('display','block');
+              $('#date_2').removeClass('col-12').addClass('col-md-6');
+              $('#date_2 > label').removeClass('col-12').text('ใช้ได้ถึง');
+              break;
+          case '2':
+                $('#date_1').css('display','none');
+                $('#date_2').addClass('col-12').removeClass('col-md-6');
+                $('#date_2 > label').text('วันที่แสดง');
+              break;
+          case '3':
+              $('#date_1').css('display','none');
+              $('#date_2').addClass('col-12').removeClass('col-md-6');
+              $('#date_2 > label').text('วันที่เดินทาง');
+              break;
+
+        }
+
+      })
+
     }
 
     calDiscount() {
@@ -237,11 +263,11 @@
     const tagging = new Tagging();
     tagging.load();
 
-    const startDate = new Datepicker('#start_date');
-    startDate.init();
+    const date1 = new Datepicker('#date_input_1');
+    date1.init();
 
-    const expirationDate = new Datepicker('#expiration_date');
-    expirationDate.init();
+    const date2 = new Datepicker('#date_input_2');
+    date2.init();
 
     Validation.initValidation();
 
