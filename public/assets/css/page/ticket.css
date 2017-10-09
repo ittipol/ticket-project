@@ -6,20 +6,19 @@
 .data-list-item {
 	position: relative;
 	width: 100%;
-	margin-bottom: 1rem;
+	margin-bottom: 1.25rem;
 	color: #37454d;
 	background-color: #fff;
 	border: 1px solid #ccc;
 	box-shadow: 0 1px 4px rgba(41,51,57,.5);
 }
 
-.data-list-item .main-data-section {
-	border-right: 1px solid #999;
-}
+/*.data-list-item .main-data-section {
+
+}*/
 
 .data-list-item .main-data-inner {
-	min-height: 140px;
-	margin-right: -15px;
+	min-height: 80px;
 }
 
 .data-list-item .main-data-section h5 {
@@ -44,12 +43,12 @@
 	position: relative;
 	min-height: 80px;
 	background-color: #bbb;
-  margin-bottom: 0.625rem;
+  /*margin-bottom: 0.625rem;*/
 }
 
 .price-section {
-	background-color: #ddd;
-	padding: 10px 0;
+	/*background-color: #ddd;*/
+	padding: 0.625rem 0;
 }
 
 .price-section .original-price {
@@ -70,13 +69,9 @@
 	right: 0;
 	color: #fff;
 	background-color: #23074d;
-	padding: 5px;
+	padding: 0.3125rem;
 	border-radius: 2px 0 0 2px;
 }
-
-/*.data-list-item .tags {
-	border-top: 1px solid red;
-}*/
 
 .md-chip {
   display: inline-block;
@@ -155,19 +150,26 @@
 }
 
 .nav-tabs {
+	border: 0;
 	border-top: 1px solid #999;
-	margin-right: -15px;
+	height: 45px;
+	line-height: 45px;
 }
 
-.nav-tabs.nav-justified > li {
-	padding: 10px 0;
-	width: 33.333333333333333333333333333333%;
+.nav-tabs > li {
+	/*padding: 0.625rem 0;*/
+	width: 100%;
 	text-align: center;
 	background-color: #ddd;
 }
 
-.nav-tabs.nav-justified > li:hover {
+.nav-tabs > li:hover {
 	background-color: #bbb;
+}
+
+.nav-tabs > li:hover a {
+	display: block;
+	text-decoration: none;
 }
 
 @media (max-width: 480px) {

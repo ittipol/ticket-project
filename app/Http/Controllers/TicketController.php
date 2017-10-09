@@ -56,9 +56,10 @@ class TicketController extends Controller
     }
 
     // save Place location
-    $placeLocationModel = Service::loadModel('PlaceLocation');
-    $placeLocationModel->__saveRelatedData($model,request()->get('place_location'));
-
+    if(!empty(request()->get('place_location'))) {
+      $placeLocationModel = Service::loadModel('PlaceLocation');
+      $placeLocationModel->__saveRelatedData($model,request()->get('place_location'));
+    }
     // Lookup
 
     return Redirect::to('ticket/view/'.$model->id);

@@ -44,16 +44,33 @@ class Ticket extends Model
     }
 
     // GET Images
-    $_images = $this->getRelatedData('Image',array(
-      'fields' => array('id','model','model_id','filename','description','image_type_id')
-    ));
 
-    $images = array();
-    foreach ($_images as $image) {
-      $images[] = array_merge($image->buildModelData(),array(
+    $imageModel = new Image;
+    $imageTotal = $imageModel->where([
+      'model' => $this->modelName,
+      'model_id' => $this->id,
+    ])->count();
+
+    $image = null;
+    if($imageTotal > 0) {
+
+      $image = $this->getRelatedData('Image',array(
+        'first' => true,
+        'fields' => array('id','model','model_id','filename','description','image_type_id')
+      ));
+
+      $image = array_merge($image->buildModelData(),array(
         '_sm_list_url' => $cache->getCacheImageUrl($image,'sm_list')
       ));
+
     }
+
+    // $images = array();
+    // foreach ($_images as $image) {
+    //   $images[] = array_merge($image->buildModelData(),array(
+    //     '_sm_list_url' => $cache->getCacheImageUrl($image,'sm_list')
+    //   ));
+    // }
 
     $originalPrice = null;
     $save = null;
@@ -76,7 +93,8 @@ class Ticket extends Model
       'save' => $save,
       'start_date' => $date->covertDateToSting($this->start_date),
       'expiration_date' => $date->covertDateToSting($this->expiration_date),
-      'images' => $images,
+      'image' => $image,
+      'imageTotal' => $imageTotal,
       'tags' => $tags 
     );
   }

@@ -39,42 +39,6 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label">สถานที่หรือตำแหน่งที่สามารถนำไปใช้ได้</label>
-          <div class="input-group">
-            <span class="input-group-addon" id="location-addon">
-              <i class="fa fa-map-marker"></i>
-            </span> 
-            {{ Form::text('place_location', null, array(
-              'class' => 'form-control',
-              'autocomplete' => 'off',
-              'aria-describedby' => 'location-addon'
-            )) }}
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="form-group col-md-6">
-            <label class="form-control-label required">วันที่เริ่มใช้</label>
-            <div class="input-group">
-              <span class="input-group-addon" id="location-addon">
-                <i class="fa fa-calendar"></i>
-              </span>
-              {{Form::text('start_date', null, array('id' => 'start_date', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
-            </div>
-          </div>
-
-          <div class="form-group col-md-6">
-            <label class="form-control-label required">ใช้ได้ถึงวันที่</label>
-            <div class="input-group">
-              <span class="input-group-addon" id="location-addon">
-                <i class="fa fa-calendar"></i>
-              </span>
-              {{Form::text('expiration_date', null, array('id' => 'expiration_date', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
           <label class="form-control-label required">ราคาที่ต้องการขาย</label>
           <div class="input-group">
             {{ Form::text('price', null, array(
@@ -118,9 +82,59 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label">สถานที่หรือตำแหน่งที่สามารถนำไปใช้ได้</label>
+          <div class="input-group">
+            <span class="input-group-addon" id="location-addon">
+              <i class="fa fa-map-marker"></i>
+            </span> 
+            {{ Form::text('place_location', null, array(
+              'class' => 'form-control',
+              'autocomplete' => 'off',
+              'aria-describedby' => 'location-addon'
+            )) }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          ระบุวันที่การใช้งาน
+          <select>
+            <option>ช่วงวันที่ใช้งานได้</option>
+            <option>วันที่แสดง</option>
+            <option>วันที่เดินทาง</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="form-control-label required">วันที่เริ่มใช้</label>
+            <div class="input-group">
+              <span class="input-group-addon" id="location-addon">
+                <i class="fa fa-calendar"></i>
+              </span>
+              {{Form::text('start_date', null, array('id' => 'start_date', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label class="form-control-label required">ใช้ได้ถึงวันที่</label>
+            <div class="input-group">
+              <span class="input-group-addon" id="location-addon">
+                <i class="fa fa-calendar"></i>
+              </span>
+              {{Form::text('expiration_date', null, array('id' => 'expiration_date', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label">แท็ก (ไม่ต้องใส่ # หน้าคำที่ป้อน)</label>
           <div id="_tags" class="tag"></div>
           <small>* แท็กจะมีผลโดยตรงต่อการค้นหา</small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label required">ช่องทางการติดต่อผู้ขาย (หมายเลขโทรศัพท์ อีเมล Line ID หรืออื่นๆ)</label>
+          {{Form::textarea('contact', null, array('class' => 'form-control'))}}
         </div>
 
       </div>

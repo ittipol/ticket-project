@@ -23,7 +23,6 @@ class Model extends BaseModel
     
     $this->modelName = class_basename(get_class($this));
     $this->modelAlias = $string->generateUnderscoreName($this->modelName);
-    // $this->directoryPath = $this->storagePath.$this->modelAlias.'/';
 
     parent::__construct($attributes);
   }
