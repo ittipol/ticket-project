@@ -55,7 +55,20 @@
 
     }
 
-    const _io = new IO(io('http://127.0.0.1:9999'));
+    var _socket = io('http://127.0.0.1:9999');
+    _socket.on('connect', function(){
+      console.log('_connect');
+    });
+    _socket.on('event', function(data){
+      console.log('_event');
+    });
+    _socket.on('disconnect', function(){
+      console.log('_disconnect');
+    });
+
+    const _io = new IO(_socket);
+
+    console.log(_io);
 
     $(document).ready(function(){
       @if(Auth::check())
