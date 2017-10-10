@@ -40,7 +40,7 @@
 
     }
 
-    const socket = new Socket(io('http://localhost:9999'));
+    const socket = new Socket(io('http://127.0.0.1:9999'));
 
     @if(Auth::check())
       socket.online({{Auth::user()->id}})
