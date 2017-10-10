@@ -43,13 +43,14 @@
       </div> -->
     @endforeach
 
-</div>
+  </div>
 
-<div class="chat-footer-section">
-  <input type="text" id="message_input" class="chat-input">
-  <button id="send_btn" class="chat-send-btn">
-    <i class="fa fa-send"></i>
-  </button>
+  <div class="chat-footer-section">
+    <input type="text" id="message_input" class="chat-input">
+    <button id="send_btn" class="chat-send-btn">
+      <i class="fa fa-send"></i>
+    </button>
+  </div>
 </div>
 
 <script type="text/javascript" src="/assets/js/form/chat.js"></script>
