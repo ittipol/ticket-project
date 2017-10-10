@@ -55,7 +55,7 @@
 
     }
 
-    const _io = new IO(io('http://localhost:9999'));
+    const _io = new IO(io('http://127.0.0.1:9999'));
 
     $(document).ready(function(){
       @if(Auth::check())

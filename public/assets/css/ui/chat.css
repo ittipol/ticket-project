@@ -38,17 +38,6 @@
 	padding-top: 50px;
 	padding-bottom: 120px;
 	position: relative;
-
-		/*background-color: #444;*/
-
-		/*background: -moz-linear-gradient(-45deg, #183850 0, #183850 25%, #192C46 50%, #22254C 75%, #22254C 100%);
-		background: -webkit-linear-gradient(-45deg, #183850 0, #183850 25%, #192C46 50%, #22254C 75%, #22254C 100%);
-		background-repeat: no-repeat;
-		background-attachment: fixed;*/
-		
-		background: #4CA1AF;
-	  background: -webkit-linear-gradient(to right, #C4E0E5, #4CA1AF);
-	  background: linear-gradient(to left, #C4E0E5, #4CA1AF);
 }
 
 .chat-thread::after {
