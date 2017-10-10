@@ -55,7 +55,7 @@
 
     }
 
-    var _socket = io('http://127.0.0.1:9999');
+    var _socket = io('{{env('SOCKET_URL')}}');
     _socket.on('connect', function(){
       console.log('_connect');
     });
@@ -67,8 +67,6 @@
     });
 
     const _io = new IO(_socket);
-
-    console.log(_io);
 
     $(document).ready(function(){
       @if(Auth::check())
