@@ -22,5 +22,31 @@
 
   @yield('content')
 
+  <script type="text/javascript">
+
+    class Socket {
+
+      constructor(socket){
+        this.socket = socket;
+      }
+
+      online(id) {
+        this.socket.emit('online', {
+          userId: id
+        })
+      }
+
+      socketEvents(){}
+
+    }
+
+    const socket = new Socket(io('http://localhost:9999'));
+
+    @if(Auth::check())
+      socket.online({{Auth::user()->id}})
+    @endif
+
+  </script>
+
 </body>
 </html>

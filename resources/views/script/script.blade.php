@@ -9,7 +9,8 @@
     'assets/js/jquery-ui.min.js',
     'assets/js/jquery.validate.min.js',
     'assets/js/bootstrap.min.js',
-    'assets/lib/image_gallery/jquery.nanogallery2.min.js',
+    // 'assets/lib/image_gallery/jquery.nanogallery2.min.js',
+    'assets/js/socket.io.js',
     'assets/js/token.js',
     'assets/js/common.js',
     'assets/js/form/upload_image.js',
@@ -50,7 +51,7 @@
     'assets/css/bootstrap.css',
     // 'assets/css/bootstrap-material-design.css',
     'assets/css/font-awesome.min.css',
-    'assets/lib/image_gallery/css/nanogallery2.min.css',
+    // 'assets/lib/image_gallery/css/nanogallery2.min.css',
     'assets/css/ui/calendar.css',
     'assets/css/func.css',
     'assets/css/spacing.css',
@@ -61,6 +62,7 @@
     'assets/css/page/ticket.css',
     'assets/css/form/tagging.css',
     'assets/css/ui/snackbar.css',
+    'assets/css/ui/chat.css',
   );
 
   if($combine){

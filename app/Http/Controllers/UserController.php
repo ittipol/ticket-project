@@ -127,4 +127,23 @@ class UserController extends Controller
 
   }
 
+  public function chat() {
+
+    // has no chat room
+    // then create new one
+    // How to check if no room
+
+    // GET LAST 10 MESSAGE
+
+    $chat = array(
+      'user' => Auth::user()->id,
+      'room' => 1,
+      'key' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9'
+    );
+
+    $this->setData('chat',json_encode($chat));
+
+    return $this->view('pages.user.chat');
+  }
+
 }

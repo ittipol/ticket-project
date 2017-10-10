@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index');
 // Route::get('about', 'HomeController@about');
 
+Route::get('avatar/{filename?}', 'StaticFileController@userAvatar');
 Route::get('get_image/{filename}', 'StaticFileController@serveImages');
 
 Route::group(['middleware' => 'guest'], function () {
@@ -33,6 +34,8 @@ Route::get('ticket', 'TicketController@listView');
 Route::group(['middleware' => 'auth'], function () {
   Route::get('ticket/new', 'TicketController@add');
   Route::post('ticket/new', 'TicketController@addingSubmit');
+
+  Route::get('chat/{user?}', 'UserController@chat');
 
   Route::post('upload/image', 'ImageController@upload');
 });

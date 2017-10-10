@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\library\service;
 use App\library\cache;
 use Auth;
@@ -39,8 +40,8 @@ class StaticFileController extends Controller
     ->first();
 
     if(empty($image)) {
-      return Response::make(file_get_contents($this->noImagePath), 200, $headers);
-      // return response()->download($this->noImagePath, null, [], null);
+      // return Response::make(file_get_contents($this->noImagePath), 200, $headers);
+      return response()->download($this->noImagePath, null, [], null);
     }
 
     $path = $image->getImagePath();
@@ -76,6 +77,46 @@ class StaticFileController extends Controller
     // );
 
     // return Response::make(file_get_contents($path), 200, $headers);
+
+  }
+
+  public function userAvatar($filename = null){
+
+    if(empty($filename)) {
+
+      if(!Auth::check()) {
+        return null;
+      }
+
+      $user = User::select('id','avatar')->where('id','=',Auth::user()->id);
+
+    }else{
+      $user = User::select('id','avatar')->where('avatar','like',$filename);
+    }
+
+    
+
+    if(!$user->exists()) {
+      return null;
+    }
+
+    $path = $user->first()->getAvartarImage();
+
+    if(file_exists($path)){
+
+      $headers = array(
+        'Cache-Control' => 'public, max-age=86400',
+        'Content-Type' => mime_content_type($path),
+      );
+
+      return Response::make(file_get_contents($path), 200, $headers);
+    }
+
+    if(request()->has('d')) {
+      return response()->download('assets/images/common/avatar.png', null, [], null);
+    }
+    
+    return null;
 
   }
 
