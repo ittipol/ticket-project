@@ -150,6 +150,9 @@ class Chat {
 	}
 
 	send(message) {
+
+		console.log('send message');
+
 		this.io.socket.emit('chat-message', {
 		  message: message,
 		  room: this.chat.room,
