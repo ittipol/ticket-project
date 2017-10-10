@@ -2,7 +2,7 @@ class Token {
 
 	constructor() {}
 
-	generateToken(tokenLen = 7) {
+	static generateToken(tokenLen = 7) {
 		let codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	  codeAlphabet += "abcdefghijklmnopqrstuvwxyz";
 	  codeAlphabet += "0123456789";

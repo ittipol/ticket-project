@@ -30,11 +30,11 @@ var Validation = function () {
               {
                 maxlength: 255
               },
-              start_date:
+              data_1:
               {
                 date: true
               },
-              expiration_date:
+              date_2:
               {
                 required: true,
                 date: true
@@ -48,6 +48,10 @@ var Validation = function () {
               // {
               //   regx: /^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/
               // }
+              contact:
+              {
+                required: true
+              }
             },
                                 
             // Messages for form validation
@@ -84,6 +88,10 @@ var Validation = function () {
               // {
               //   regx: 'ราคาเดิมของบัตรไม่ถูกต้อง'
               // },
+              contact:
+              {
+                required: 'ยังไม่ได้ป้อนช่องทางการติดต่อ'
+              }
             },    
 
             // submitHandler: function(form) {},             

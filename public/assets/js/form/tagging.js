@@ -26,8 +26,11 @@ class Tagging {
 
 	init(){
 		this.tagChipsWidth = 0;
-		let token = new Token();
-		this.code = token.generateToken();
+		// let token = new Token();
+		// this.code = token.generateToken();
+
+		this.code = Token.generateToken();
+		
 	}
 
 	setTags(tagJson) {

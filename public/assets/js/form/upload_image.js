@@ -28,8 +28,10 @@ class UploadImage {
 	}
 
 	init(){
-		let token = new Token();
-		this.code = token.generateToken(7);
+		// let token = new Token();
+		// this.code = token.generateToken(7);
+
+		this.code = Token.generateToken();
 
   	let hidden = document.createElement('input');
     hidden.setAttribute('type','hidden');

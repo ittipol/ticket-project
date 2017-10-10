@@ -24,27 +24,44 @@
 
   <script type="text/javascript">
 
-    class Socket {
+    class IO {
 
       constructor(socket){
-        this.socket = socket;
+        if(!IO.instance){
+
+          this.socket = socket;
+          this.token = Token.generateToken(8);
+
+          IO.instance = this;
+        }
+
+        return IO.instance;
+      }
+
+      init(id) {
+        this.join(id+'.'+this.token);
+        this.online(id);
       }
 
       online(id) {
-        this.socket.emit('online', {
-          userId: id
-        })
+        this.socket.emit('online', {userId: id});
       }
 
-      socketEvents(){}
+      join(chanel) {
+        this.socket.emit('join', chanel);
+      }
+
+      // socketEvents(){}
 
     }
 
-    const socket = new Socket(io('http://127.0.0.1:9999'));
+    const _io = new IO(io('http://127.0.0.1:9999'));
 
-    @if(Auth::check())
-      socket.online({{Auth::user()->id}})
-    @endif
+    $(document).ready(function(){
+      @if(Auth::check())
+        _io.init({{Auth::user()->id}})
+      @endif
+    });
 
   </script>
 

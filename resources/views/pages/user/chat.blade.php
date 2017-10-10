@@ -25,6 +25,24 @@
       <span></span>
     </div>
 
+    @for ($i = count($messages)-1; $i >= 0; $i--)
+        <div class="message-section message-me">
+          <div class="avatar">
+            <img src="/avatar?d=1">
+          </div>
+          <div class="message-box">{{$messages[$i]->message}}</div>
+        </div>
+    @endfor
+
+    @foreach($messages as $message)
+      <!-- <div class="message-section message-me">
+        <div class="avatar">
+          <img src="/avatar?d=1">
+        </div>
+        <div class="message-box">{{$message->message}}</div>
+      </div> -->
+    @endforeach
+
 </div>
 
 <div class="chat-footer-section">
@@ -37,7 +55,7 @@
 <script type="text/javascript" src="/assets/js/form/chat.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
-    const chat = new Chat(socket.socket,{!!$chat!!});
+    const chat = new Chat({!!$chat!!});
     chat.init();
   });
 </script>

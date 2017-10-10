@@ -1,26 +1,31 @@
 class Chat {
 
-	constructor(socket,chat) {
+	constructor(chat) {
 		this.chat = chat;
-		this.socket = socket;
 		this.typingHandle = null;
+		this.loading = false;
+		this.io = null;
 	}
 
 	init() {
+
+		this.io = new IO();
+
 		this.join();
-		// this.layoutInit();
 	  this.bind();
+
+	  let _this = this;
+
+	  setTimeout(function(){
+	  	_this.toButtom()
+	  },150)
 	}
 
 	join() {
-		this.socket.emit('chat join', {
+		this.io.socket.emit('chat join', {
 	    key: this.chat.key
 	  });
 	}
-
-	// layoutInit() {
-	// 	$('.chat-section').css('height',window.innerHeight-56+'px');
-	// }
 
 	bind() {
 
@@ -36,7 +41,7 @@ class Chat {
 
 		});
 
-		this.socket.on('typing', function(res){
+		this.io.socket.on('typing', function(res){
 
 			if(_this.chat.user == res.user) {
 				return false;
@@ -69,7 +74,7 @@ class Chat {
 
 	  });
 
-		this.socket.on('chat message', function(res){
+		this.io.socket.on('chat-message', function(res){
 
 			if(_this.chat.user == res.user) {
 				return false;
@@ -77,6 +82,35 @@ class Chat {
 
 	    _this.patchMessage(res,false);
 	    _this.toButtom();
+
+	  });
+
+	  $(document).on('scroll',function(){
+
+	  	if($(this).scrollTop() < 120) {
+	  		_this.more();
+	  	}
+
+	  });
+
+	  this.io.socket.on('chat-load-more', function(res){
+
+	  	let me;
+
+	  	for (var i = 0; i < res.length; i++) {
+
+	  		me = false;
+
+	  		if(_this.chat.user == res[i].user_id) {
+	  			me = true;
+	  		}
+
+	  		$('#message_display').prepend(_this.getHtml(res[i], me));
+
+	  	};
+
+	  	// _this.loading = false;
+
 	  });
 
 	}
@@ -87,36 +121,52 @@ class Chat {
 		}
 	}
 
-	sending(msg) {
+	more() {
+
+		if(this.loading) {
+			return false;
+		}
+
+		this.loading = true;
+
+		this.io.socket.emit('chat-load-more', {
+			chanel: this.chat.user+'.'+this.io.token,
+			room: this.chat.room,
+			page: this.chat.page,
+			time: this.chat.time
+		});
+	}
+
+	sending(message) {
 
 		$('#message_input').val('');
 
 		this.patchMessage({
 			user: this.chat.user,
-			msg: msg
+			message: message
 		});
 
-		this.send(msg);
+		this.send(message);
 	}
 
-	send(msg) {
-		this.socket.emit('chat message', {
+	send(message) {
+		this.io.socket.emit('chat-message', {
+		  message: message,
 		  room: this.chat.room,
 		  user: this.chat.user,
-		  msg: msg,
 		  key: this.chat.key
 		})
 	}
 
 	typing() {
-		this.socket.emit('typing', {
+		this.io.socket.emit('typing', {
 			room: this.chat.room,
 			user: this.chat.user,
 			key: this.chat.key
 		});
 	}
 
-	patchMessage(data,me = true) {
+	getHtml(data,me = true) {
 
 		let html = '';
 
@@ -126,7 +176,7 @@ class Chat {
 			  <div class="avatar">
 			    <img src="/avatar?d=1">
 			  </div>
-			  <div class="message-box">${data.msg}</div>
+			  <div class="message-box">${data.message}</div>
 			</div>
 			`;
 		}else{
@@ -135,12 +185,40 @@ class Chat {
 			  <div class="avatar">
 			    <img src="/avatar?d=1">
 			  </div>
-			  <div class="message-box">${data.msg}</div>
+			  <div class="message-box">${data.message}</div>
 			</div>
 			`;
 		}
 
-		$('#message_display').append(html);
+		return html;
+
+	}
+
+	patchMessage(data,me = true) {
+
+		// let html = '';
+
+		// if(me) {
+		// 	html = `
+		// 	<div class="message-section message-me">
+		// 	  <div class="avatar">
+		// 	    <img src="/avatar?d=1">
+		// 	  </div>
+		// 	  <div class="message-box">${data.message}</div>
+		// 	</div>
+		// 	`;
+		// }else{
+		// 	html = `
+		// 	<div class="message-section">
+		// 	  <div class="avatar">
+		// 	    <img src="/avatar?d=1">
+		// 	  </div>
+		// 	  <div class="message-box">${data.message}</div>
+		// 	</div>
+		// 	`;
+		// }
+
+		$('#message_display').append(this.getHtml(data,me));
 	}
 
 }

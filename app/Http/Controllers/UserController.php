@@ -129,16 +129,38 @@ class UserController extends Controller
 
   public function chat() {
 
+    $roomModel = Service::loadModel('ChatRoom');
+    $messageModel = Service::loadModel('ChatMessage');
+
+    $now = date('Y-m-d H:i:s');
+
     // has no chat room
     // then create new one
     // How to check if no room
+    $room = $roomModel->find(1);
 
     // GET LAST 10 MESSAGE
+    $model = $messageModel->where([
+      ['chat_room_id','=',$room->id],
+      ['created_at','<',$now]
+    ]);
+
+    // $total = $model->count();
+
+    $messages = $model
+    ->take(20)
+    ->orderBy('created_at','desc')
+    ->get();
+
+    // GET Last created time
+    $this->setData('messages',$messages);
 
     $chat = array(
       'user' => Auth::user()->id,
-      'room' => 1,
-      'key' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9'
+      'room' => $room->id,
+      'key' => $room->key_room,
+      'page' => 2,
+      'time' => $now
     );
 
     $this->setData('chat',json_encode($chat));
