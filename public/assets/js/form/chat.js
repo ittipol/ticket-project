@@ -195,29 +195,6 @@ class Chat {
 	}
 
 	patchMessage(data,me = true) {
-
-		// let html = '';
-
-		// if(me) {
-		// 	html = `
-		// 	<div class="message-section message-me">
-		// 	  <div class="avatar">
-		// 	    <img src="/avatar?d=1">
-		// 	  </div>
-		// 	  <div class="message-box">${data.message}</div>
-		// 	</div>
-		// 	`;
-		// }else{
-		// 	html = `
-		// 	<div class="message-section">
-		// 	  <div class="avatar">
-		// 	    <img src="/avatar?d=1">
-		// 	  </div>
-		// 	  <div class="message-box">${data.message}</div>
-		// 	</div>
-		// 	`;
-		// }
-
 		$('#message_display').append(this.getHtml(data,me));
 	}
 
