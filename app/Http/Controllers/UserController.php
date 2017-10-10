@@ -158,7 +158,7 @@ class UserController extends Controller
     $chat = array(
       'user' => Auth::user()->id,
       'room' => $room->id,
-      'key' => $room->key_room,
+      'key' => $room->room_key,
       'page' => 2,
       'time' => $now
     );
