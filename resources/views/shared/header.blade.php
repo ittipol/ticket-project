@@ -2,6 +2,7 @@
   <nav class="navbar navbar-toggleable-md bg-faded fixed-top">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon">
+        <i class="fa fa-bars" aria-hidden="true"></i>
       </span>
     </button>
     <a class="navbar-brand" href="#">TicketSnap</a>
@@ -26,8 +27,11 @@
         </li>
         @if(Auth::check())
           <li class="nav-item">
+            <a class="nav-link d-inline-block" href="/account">
+              <i class="fa fa-user-o"></i>&nbsp;บัญชี
+            </a>
             <a class="nav-link d-inline-block" href="/logout">
-              <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;ออกจากระบบ
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
             </a>
           </li>
         @else

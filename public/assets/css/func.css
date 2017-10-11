@@ -2273,13 +2273,13 @@ code, .code { font-family: Consolas, monaco, monospace; }
  .w-10-ns { width: 10%; }
  .w-20-ns { width: 20%; }
  .w-25-ns { width: 25%; }
- .w-30-ns { width: 30%; }
+ .w-30-ns { width: 30% !important; }
  .w-33-ns { width: 33%; }
  .w-34-ns { width: 34%; }
  .w-40-ns { width: 40%; }
- .w-50-ns { width: 50%; }
+ .w-50-ns { width: 50% !important; }
  .w-60-ns { width: 60%; }
- .w-70-ns { width: 70%; }
+ .w-70-ns { width: 70% !important; }
  .w-75-ns { width: 75%; }
  .w-80-ns { width: 80%; }
  .w-90-ns { width: 90%; }

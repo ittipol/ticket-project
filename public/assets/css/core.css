@@ -59,8 +59,13 @@ form .state-error + em {
 	color: #fff;
 }
 
-.fixed-header .navbar .navbar-toggler-icon {
+/*.fixed-header .navbar .navbar-toggler-icon {
 	background-image: url(/assets/images/dehaze.svg);
+}*/
+
+.fixed-header .navbar .navbar-toggler-icon > i {
+	font-size: 32px;
+	color: #fff;
 }
 
 @media only screen and (max-width : 480px) {
