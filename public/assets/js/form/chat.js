@@ -4,8 +4,9 @@ class Chat {
 		this.chat = chat;
 		this.typingHandle = null;
 		this.loading = false;
-		this.io = null;
+		this.loadPostition = 0;
 		this.messagePlaced = false;
+		this.io = null;
 	}
 
 	init() {
@@ -14,7 +15,8 @@ class Chat {
 
 		this.join();
 	  this.bind();
-	  this.more();	  
+	  this.more();
+	  this.calPosition(window.innerHeight);
 
 	  let _this = this;
 
@@ -96,9 +98,7 @@ class Chat {
 
 	  $(document).on('scroll',function(){
 
-	  	// 20 % of window
-
-	  	if($(this).scrollTop() < 220) {
+	  	if($(this).scrollTop() < _this.loadPostition) {
 	  		_this.more();
 	  	}
 
@@ -130,6 +130,10 @@ class Chat {
 	  		_this.loading = false;
 	  	},1000);
 
+	  });
+
+	  $(window).resize(function(){
+	  	_this.calPosition(window.innerHeight);
 	  });
 
 	}
@@ -218,6 +222,10 @@ class Chat {
 
 	placeMessage(data,me = true) {
 		$('#message_display').append(this.getHtml(data,me));
+	}
+
+	calPosition(screenHeight) {
+		this.loadPostition = screenHeight * 0.3;
 	}
 
 }

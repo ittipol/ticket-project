@@ -27,7 +27,7 @@
         @if(Auth::check())
           <li class="nav-item">
             <a class="nav-link d-inline-block" href="/logout">
-              </i>&nbsp;ออกจากระบบ
+              <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;ออกจากระบบ
             </a>
           </li>
         @else
