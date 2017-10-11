@@ -13,12 +13,13 @@ class Chat {
 
 		this.join();
 	  this.bind();
+	  this.more();	  
 
 	  let _this = this;
 
 	  setTimeout(function(){
-	  	_this.toButtom()
-	  },150)
+	  	_this.toButtom();
+	  },800)
 	}
 
 	join() {
@@ -109,7 +110,9 @@ class Chat {
 
 	  	};
 
-	  	// _this.loading = false;
+	  	setTimeout(function(){
+	  		_this.loading = false;
+	  	},1000);
 
 	  });
 
@@ -123,7 +126,7 @@ class Chat {
 
 	more() {
 
-		if(this.loading) {
+		if(this.loading) {;
 			return false;
 		}
 
@@ -150,8 +153,6 @@ class Chat {
 	}
 
 	send(message) {
-
-		console.log('send message');
 
 		this.io.socket.emit('chat-message', {
 		  message: message,

@@ -153,13 +153,13 @@ class UserController extends Controller
     ->get();
 
     // GET Last created time
-    $this->setData('messages',$messages);
+    // $this->setData('messages',$messages);
 
     $chat = array(
       'user' => Auth::user()->id,
       'room' => $room->id,
       'key' => $room->room_key,
-      'page' => 2,
+      'page' => 1,
       'time' => $now
     );
 

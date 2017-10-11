@@ -5,12 +5,12 @@
 <?php
 
   $jsFiles = array(
+    'assets/js/socket.io.js',
     'assets/js/jquery-3.2.1.min.js',
     'assets/js/jquery-ui.min.js',
     'assets/js/jquery.validate.min.js',
     'assets/js/bootstrap.min.js',
     // 'assets/lib/image_gallery/jquery.nanogallery2.min.js',
-    'assets/js/socket.io.js',
     'assets/js/token.js',
     'assets/js/common.js',
     'assets/js/form/upload_image.js',
