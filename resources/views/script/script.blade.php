@@ -7,6 +7,7 @@
   $jsFiles = array(
     'assets/js/socket.io.js',
     'assets/js/jquery-3.2.1.min.js',
+    'assets/js/bootstrap-slider.min.js',
     'assets/js/jquery-ui.min.js',
     'assets/js/jquery.validate.min.js',
     'assets/js/bootstrap.min.js',
@@ -46,11 +47,12 @@
 <?php
 
   $cssFiles = array(
-    'assets/css/bootstrap-reboot.css',
-    'assets/css/bootstrap-grid.css',
-    'assets/css/bootstrap.css',
+    'assets/css/bootstrap-reboot.min.css',
+    'assets/css/bootstrap-grid.min.css',
+    'assets/css/bootstrap.min.css',
     // 'assets/css/bootstrap-material-design.css',
     'assets/css/font-awesome.min.css',
+    'assets/css/bootstrap-slider.min.css',
     // 'assets/lib/image_gallery/css/nanogallery2.min.css',
     'assets/css/ui/calendar.css',
     'assets/css/func.css',

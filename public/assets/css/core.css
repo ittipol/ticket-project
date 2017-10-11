@@ -51,6 +51,10 @@ form .state-error + em {
 	height: 56px;
 }
 
+.fixed-header .navbar-brand {
+	color: #fff;
+}
+
 .fixed-header > .navbar a.nav-link {
 	color: #fff;
 }
