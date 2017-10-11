@@ -24,13 +24,21 @@
             <i class="fa fa-tag"></i>&nbsp;ลงขายบัตร
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link d-inline-block" href="/login">
-            <i class="fa fa-user-o"></i>&nbsp;เข้าสู่ระบบ
-          </a>
-          /
-          <a class="nav-link d-inline-block" href="/subscribe">สร้างบัญชี</a>
-        </li>
+        @if(Auth::check())
+          <li class="nav-item">
+            <a class="nav-link d-inline-block" href="/logout">
+              </i>&nbsp;ออกจากระบบ
+            </a>
+          </li>
+        @else
+          <li class="nav-item">
+            <a class="nav-link d-inline-block" href="/login">
+              <i class="fa fa-user-o"></i>&nbsp;เข้าสู่ระบบ
+            </a>
+            /
+            <a class="nav-link d-inline-block" href="/subscribe">สร้างบัญชี</a>
+          </li>
+        @endif
       </ul>
     </div>
   </nav>

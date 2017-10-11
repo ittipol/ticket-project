@@ -76,5 +76,14 @@
 
   </script>
 
+  @if(Session::has('message.title'))
+  <script type="text/javascript">
+      const snackbar = new Snackbar();
+      snackbar.setTitle('{{ Session::get("message.title") }}');
+      // snackbar.setType('');
+      snackbar.display();
+  </script>
+  @endif
+
 </body>
 </html>

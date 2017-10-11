@@ -77,7 +77,7 @@ class Chat {
 	  });
 
 		this.io.socket.on('chat-message', function(res){
-			
+
 			if(_this.messagePlaced) {
 				_this.messagePlaced = false;
 				return false;
@@ -96,7 +96,9 @@ class Chat {
 
 	  $(document).on('scroll',function(){
 
-	  	if($(this).scrollTop() < 120) {
+	  	// 20 % of window
+
+	  	if($(this).scrollTop() < 220) {
 	  		_this.more();
 	  	}
 
@@ -104,17 +106,23 @@ class Chat {
 
 	  this.io.socket.on('chat-load-more', function(res){
 
+	  	if(!res.next) {
+	  		return false;
+	  	}
+
 	  	let me;
 
-	  	for (var i = 0; i < res.length; i++) {
+	  	_this.chat.page = res.page;
+
+	  	for (var i = 0; i < res.data.length; i++) {
 
 	  		me = false;
 
-	  		if(_this.chat.user == res[i].user_id) {
+	  		if(_this.chat.user == res.data[i].user_id) {
 	  			me = true;
 	  		}
 
-	  		$('#message_display').prepend(_this.getHtml(res[i], me));
+	  		$('#message_display').prepend(_this.getHtml(res.data[i], me));
 
 	  	};
 
@@ -154,7 +162,7 @@ class Chat {
 
 		this.placeMessage({
 			user: this.chat.user,
-			message: message
+			message: message.trim()
 		});
 
 		this.messagePlaced = true;

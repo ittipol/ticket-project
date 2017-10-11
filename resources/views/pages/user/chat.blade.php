@@ -10,9 +10,19 @@
     background-repeat: no-repeat;
     background-attachment: fixed;*/
     
-    background: #4CA1AF;
+    /*background: #4CA1AF;
     background: -webkit-linear-gradient(to right, #C4E0E5, #4CA1AF);
-    background: linear-gradient(to left, #C4E0E5, #4CA1AF);
+    background: linear-gradient(to left, #C4E0E5, #4CA1AF);*/
+  
+    /*background: #134E5E;
+    background: -webkit-linear-gradient(to right, #71B280, #134E5E); 
+    background: linear-gradient(to right, #71B280, #134E5E);*/
+
+    background: #606c88;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3f4c6b, #606c88);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3f4c6b, #606c88); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
   }
 </style>
 

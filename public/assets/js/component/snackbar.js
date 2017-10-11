@@ -69,7 +69,7 @@ class Snackbar {
       clearTimeout(this.handle);
 
       this.handle = setTimeout(function(){
-        $('#snackbar').css({bottom:0,opacity:0});
+        $('#snackbar').css({bottom:-140,opacity:0});
       },this.delay);
     }
     

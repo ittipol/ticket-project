@@ -7,6 +7,7 @@ use App\Models\User;
 use App\library\service;
 use Facebook\Facebook;
 use App\library\token;
+use App\library\snackbar;
 use Auth;
 use Hash;
 use Redirect;
@@ -25,6 +26,7 @@ class UserController extends Controller
       'password' => request()->input('password'),
       'has_password' => 1
     ],!empty(request()->input('remember')) ? true : false)){
+      Snackbar::message('เข้าสู่ระบบแล้ว');
       return Redirect::intended('/');
     }
 
@@ -59,6 +61,8 @@ class UserController extends Controller
     if($user->save()) {
       session()->flash('register-success',true);
     }
+
+    Snackbar::message('บัญชีของคุณถูกสร้างแล้ว');
 
     return Redirect::to('login');
 
@@ -123,6 +127,8 @@ class UserController extends Controller
 
     Auth::login($user,true);
 
+    Snackbar::message('เข้าสู่ระบบแล้ว');
+
     return Redirect::intended('/');
 
   }
@@ -140,20 +146,15 @@ class UserController extends Controller
     $room = $roomModel->find(1);
 
     // GET LAST 10 MESSAGE
-    $model = $messageModel->where([
-      ['chat_room_id','=',$room->id],
-      ['created_at','<',$now]
-    ]);
+    // $model = $messageModel->where([
+    //   ['chat_room_id','=',$room->id],
+    //   ['created_at','<',$now]
+    // ]);
 
-    // $total = $model->count();
-
-    $messages = $model
-    ->take(20)
-    ->orderBy('created_at','desc')
-    ->get();
-
-    // GET Last created time
-    // $this->setData('messages',$messages);
+    // $messages = $model
+    // ->take(20)
+    // ->orderBy('created_at','desc')
+    // ->get();
 
     $chat = array(
       'user' => Auth::user()->id,

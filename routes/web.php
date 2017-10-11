@@ -32,10 +32,14 @@ Route::group(['middleware' => 'guest'], function () {
 Route::get('ticket', 'TicketController@listView');
 
 Route::group(['middleware' => 'auth'], function () {
+
+  Route::get('logout', 'UserController@logout');
+
   Route::get('ticket/new', 'TicketController@add');
   Route::post('ticket/new', 'TicketController@addingSubmit');
 
   Route::get('chat/{user?}', 'UserController@chat');
 
   Route::post('upload/image', 'ImageController@upload');
+
 });
