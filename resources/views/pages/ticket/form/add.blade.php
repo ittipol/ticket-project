@@ -83,7 +83,7 @@
 
         <div class="form-group">
           <label class="form-control-label">วันที่การใช้งาน</label>
-          {{ Form::select('data_type', $dateType, null, array('id' => 'data_type_select', 'class' => 'form-control')) }}
+          {{ Form::select('date_type', $dateType, null, array('id' => 'date_type_select', 'class' => 'form-control')) }}
         </div>
 
         <div class="row">
@@ -193,7 +193,7 @@
         _this.calDiscount();
       })
 
-      $('#data_type_select').on('change',function(){
+      $('#date_type_select').on('change',function(){
         
 
         let type = $(this).val();

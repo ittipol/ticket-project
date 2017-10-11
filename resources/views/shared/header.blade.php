@@ -27,12 +27,17 @@
         </li>
         @if(Auth::check())
           <li class="nav-item">
-            <a class="nav-link d-inline-block" href="/account">
-              <i class="fa fa-user-o"></i>&nbsp;บัญชี
+            <a class="nav-link d-inline-block" href="/notification">
+              <i class="fa fa-bell-o" aria-hidden="true"></i>
             </a>
-            <a class="nav-link d-inline-block" href="/logout">
+          </li>
+          <li>
+            <a class="nav-link d-inline-block user-profile" href="/account">
+              <img src="/avatar?d=1">
+            </a>
+            <!-- <a class="nav-link d-inline-block" href="/logout">
               <i class="fa fa-sign-out" aria-hidden="true"></i>
-            </a>
+            </a> -->
           </li>
         @else
           <li class="nav-item">

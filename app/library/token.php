@@ -12,7 +12,7 @@ class Token
     $token = '';
     $len = strlen($codeAlphabet);
 
-    for ($i = 0; $i <= $length; $i++) {
+    for ($i = 0; $i < $length; $i++) {
       $token .= $codeAlphabet[rand(0,$len-1)];
     };
 
@@ -25,7 +25,7 @@ class Token
     $token = '';
     $len = strlen($number);
 
-    for ($i = 0; $i <= $length; $i++) {
+    for ($i = 0; $i < $length; $i++) {
       $token .= $number[rand(0,$len-1)];
     };
 
@@ -38,7 +38,7 @@ class Token
     $token = '';
     $len = strlen($codeAlphabet);
 
-    for ($i = 0; $i <= $length; $i++) {
+    for ($i = 0; $i < $length; $i++) {
       $token .= $codeAlphabet[rand(0,$len-1)];
     };
 
@@ -49,7 +49,4 @@ class Token
     return bin2hex(random_bytes($length/2));
   }
 
-  // public static function generatePageIdentity($personId) {
-  //   return hash('sha256',Route::getCurrentRoute()->getPath().$personId);
-  // }
 }

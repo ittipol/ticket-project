@@ -59,14 +59,19 @@
           <span class="input-group-addon" id="location-addon">
             <i class="fa fa-calendar"></i>
           </span>
-          <input type="text" class="w-100 p-2" placeholder="เริ่มต้น">
+          {{Form::text('date_1', null, array(
+          'id' => 'date_input_1', 
+          'class' => 'form-control w-100 p-2', 
+          'placeholder' => 'เริ่มต้น',
+          'autocomplete' => 'off', 
+          'readonly' => 'true'))}}
         </div>
 
         <div class="input-group">
           <span class="input-group-addon" id="location-addon">
             <i class="fa fa-calendar"></i>
           </span>
-          <input type="text" class="w-100 p-2" placeholder="ถึง">
+          {{Form::text('date_2', null, array('id' => 'date_input_2', 'class' => 'form-control w-100 p-2', 'placeholder' => 'ถึง', 'autocomplete' => 'off', 'readonly' => 'true'))}}
         </div>
       </div>      
 
@@ -187,11 +192,11 @@
 
 </div>
 
+<script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
+
 <script type="text/javascript">
   $(document).ready(function(){
-    $("#price_range_slider").slider({
-      tooltip: 'always'
-    });
+    $("#price_range_slider").slider();
 
     $("#price_range").on('click', function() {
 
@@ -206,6 +211,13 @@
       $("#price_range_min").text(e.value[0]);
       $("#price_range_max").text(e.value[1]);
     });
+
+    const date1 = new Datepicker('#date_input_1');
+    date1.init();
+
+    const date2 = new Datepicker('#date_input_2');
+    date2.init();
+
   });
 </script>
 

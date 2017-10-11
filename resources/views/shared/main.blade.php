@@ -38,14 +38,19 @@
         return IO.instance;
       }
 
-      init(id) {
+      init(id,key) {
         this.join(id+'.'+this.token);
+        this.join(id+'.'+key);
         this.online(id);
       }
 
       online(id) {
         this.socket.emit('online', {userId: id});
       }
+
+      // disconnected() {
+      //   this.socket.on('disconnected', function(){});
+      // }
 
       join(chanel) {
         this.socket.emit('join', chanel);
@@ -70,7 +75,7 @@
 
     $(document).ready(function(){
       @if(Auth::check())
-        _io.init({{Auth::user()->id}})
+        _io.init({{Auth::user()->id}},'{{Auth::user()->user_key}}')
       @endif
     });
 

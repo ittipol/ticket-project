@@ -32,7 +32,7 @@ class Chat {
 	}
 
 	bind() {
-
+console.log(new Date().getTime());
 		let _this = this;
 
 		$('#message_input').on('keyup',function(event){
@@ -116,6 +116,14 @@ class Chat {
 
 	  	for (var i = 0; i < res.data.length; i++) {
 
+				var d = new Date(res.data[i].created_at);
+				console.log(d.getUTCDay());
+				console.log(d.getUTCMonth());
+				console.log(d.getUTCFullYear());
+				console.log(d.getUTCHours()); // Hours
+				console.log(d.getUTCMinutes());
+				console.log(d.getUTCSeconds());
+				console.log('==========================');
 	  		me = false;
 
 	  		if(_this.chat.user == res.data[i].user_id) {
@@ -202,7 +210,7 @@ class Chat {
 			  <div class="avatar">
 			    <img src="/avatar?d=1">
 			  </div>
-			  <div class="message-box">${data.message}</div>
+			  <div class="message-box">${data.message}${data.created_at}</div>
 			</div>
 			`;
 		}else{
@@ -211,7 +219,7 @@ class Chat {
 			  <div class="avatar">
 			    <img src="/avatar?d=1">
 			  </div>
-			  <div class="message-box">${data.message}</div>
+			  <div class="message-box">${data.message}${data.created_at}</div>
 			</div>
 			`;
 		}

@@ -64,6 +64,15 @@ form .state-error + em {
 	color: #fff;
 }
 
+.fixed-header .user-profile {
+	width: 40px;
+	height: 40px;
+	background: #fff;
+	border-radius: 50%;
+	padding: 0 !important;
+	overflow: hidden;
+}
+
 /*.fixed-header .navbar .navbar-toggler-icon {
 	background-image: url(/assets/images/dehaze.svg);
 }*/

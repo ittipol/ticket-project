@@ -26,6 +26,11 @@ class UserController extends Controller
       'password' => request()->input('password'),
       'has_password' => 1
     ],!empty(request()->input('remember')) ? true : false)){
+
+      $user = User::find(Auth::user()->id);
+      $user->user_key = Token::generate(32);
+      $user->save();
+
       Snackbar::message('เข้าสู่ระบบแล้ว');
       return Redirect::intended('/');
     }
@@ -55,7 +60,8 @@ class UserController extends Controller
     $user->email = trim($request->email);
     $user->password = $hashed;
     $user->name = trim($request->name);
-    $user->user_key = Token::generateSecureKey();
+    $user->user_key = 1;
+    $user->jwt_secret_key = Token::generate(32);
     $user->has_password = 1;
 
     if($user->save()) {
@@ -66,16 +72,6 @@ class UserController extends Controller
 
     return Redirect::to('login');
 
-  }
-
-  public function logout() {
-    
-    if(Auth::check()) {
-      Auth::logout();
-      session()->flush();
-    }
-
-    return redirect('/');
   }
 
   public function socialCallback() {
@@ -109,7 +105,6 @@ class UserController extends Controller
     ])->first();
 
     if(empty($user)) {
-
       $user = new User;
       $user->social_provider_id = 1; // FB
       $user->social_user_id = $_user['id'];
@@ -119,9 +114,8 @@ class UserController extends Controller
       }
 
       $user->name = $_user['name'];
-
-      $user->user_key = Token::generateSecureKey();
-
+      $user->user_key = 1;
+      $user->jwt_secret_key = Token::generate(32);
       $user->save();
     }
 
@@ -167,6 +161,16 @@ class UserController extends Controller
     $this->setData('chat',json_encode($chat));
 
     return $this->view('pages.user.chat');
+  }
+
+  public function logout() {
+    
+    if(Auth::check()) {
+      Auth::logout();
+      session()->flush();
+    }
+
+    return redirect('/');
   }
 
 }

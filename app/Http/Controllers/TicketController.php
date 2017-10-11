@@ -37,13 +37,42 @@ class TicketController extends Controller
 
   public function addingSubmit() {
 
-    // dd(request()->get('place_location'));
+    // dd(request()->all());
 
     $model = Service::loadModel('Ticket');
 
-    //slug
-    
-    if(!$model->fill(request()->all())->save()) {
+    // create slug
+
+    switch (request()->get('date_type')) {
+      case 1:
+        
+        if(!empty(request()->get('date_1'))) {
+          $model->date_1 = request()->get('date_1').' 00:00:00';
+        }
+
+        $model->date_2 = request()->get('date_2').' 23:59:59';
+
+        break;
+      
+      case 2:
+        $model->date_1 = request()->get('date_2').' 00:00:00';
+        $model->date_2 = request()->get('date_2').' 23:59:59';
+        break;
+
+      case 3:
+        $model->date_1 = request()->get('date_2').' 00:00:00';
+        $model->date_2 = request()->get('date_2').' 23:59:59';
+        break;
+    }
+
+    $model->title = request()->get('title');
+    $model->description = request()->get('description');
+    $model->place_location = request()->get('place_location');
+    $model->price = request()->get('price');
+    $model->original_price = request()->get('original_price');
+    $model->date_type = request()->get('date_type');
+   
+    if(!$model->save()) {
       return Redirect::back();
     }
 
