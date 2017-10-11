@@ -21,8 +21,14 @@
     width: 90%;
   }
 
-  #price_range_slider.slider-horizontal .slider-track {
+  #price_range.slider-horizontal .slider-track {
     background-color: #000 !important;
+  }
+
+  #price_range_slider {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
   }
 </style>
 
@@ -30,17 +36,39 @@
 
   <div class="left-sidenav">
     <div class="p-3">
-      <h4 class="my-2">ค้นหา</h4>
-      <input type="text" class="w-100 p-2" placeholder="ชื่อบัตร, สถานที่, คำค้นอื่นๆ">
 
-      <h4 class="my-2">ราคา</h4>
-      <div class="clearfix">
-        <small class="fl"><strong>0</strong></small>
-        <small class="fr"><strong>50,000</strong></small>
+      <div class="mb-3">
+        <h4 class="my-2">ค้นหา</h4>
+        <input type="text" class="w-100 p-2" placeholder="ชื่อบัตร, สถานที่, คำค้นอื่นๆ">
       </div>
-      <div class="text-center">
-        <input id="price_range_slider" data-slider-id='price_range' type="text" data-slider-min="0" data-slider-max="50000" data-slider-step="5" data-slider-value="[0,50000]"/>
+
+      <div class="mb-3">
+        <h4 class="my-2">ราคา</h4>
+        <div class="mb-2 clearfix">
+          <small class="fl"><strong id="price_range_min">1</strong>&nbsp;บาท</small>
+          <small class="fr"><strong id="price_range_max">50000</strong>&nbsp;บาท</small>
+        </div>
+        <div class="price-range text-center">
+          <input id="price_range_slider" data-slider-id='price_range' type="text" data-slider-min="1" data-slider-max="50000" data-slider-step="5" data-slider-value="[1,50000]"/>
+        </div>
       </div>
+
+      <div class="mb-3">
+        <h4 class="my-2">วันที่</h4>
+        <div class="input-group">
+          <span class="input-group-addon" id="location-addon">
+            <i class="fa fa-calendar"></i>
+          </span>
+          <input type="text" class="w-100 p-2" placeholder="เริ่มต้น">
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-addon" id="location-addon">
+            <i class="fa fa-calendar"></i>
+          </span>
+          <input type="text" class="w-100 p-2" placeholder="ถึง">
+        </div>
+      </div>      
 
       <div class="text-center mt-2">
         <button type="button" class="btn btn-success btn-block br0">ค้นหา</button>
@@ -163,6 +191,20 @@
   $(document).ready(function(){
     $("#price_range_slider").slider({
       tooltip: 'always'
+    });
+
+    $("#price_range").on('click', function() {
+
+      let val = $("#price_range_slider").val();
+      val = val.split(',');
+
+      $("#price_range_min").text(val[0]);
+      $("#price_range_max").text(val[1]);
+    });
+
+    $("#price_range_slider").on("slide", function(e) {
+      $("#price_range_min").text(e.value[0]);
+      $("#price_range_max").text(e.value[1]);
     });
   });
 </script>

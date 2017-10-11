@@ -16,6 +16,10 @@
 	line-height: 1.25rem;
 }
 
+.left-sidenav .price-range {
+	height: 30px;
+}
+
 .data-list {
 	position: relative;
 	margin-left: 290px;

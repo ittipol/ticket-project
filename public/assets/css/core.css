@@ -14,6 +14,7 @@ form .required::after {
 .input-group-addon:not(:last-child) {
 	border: 1px solid #999;
 	border-right: none;
+	border-radius: 0;
 }
 
 .input-group-addon:not(:first-child) {
