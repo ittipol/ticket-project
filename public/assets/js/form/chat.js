@@ -5,6 +5,7 @@ class Chat {
 		this.typingHandle = null;
 		this.loading = false;
 		this.io = null;
+		this.messagePlaced = false;
 	}
 
 	init() {
@@ -77,11 +78,16 @@ class Chat {
 
 		this.io.socket.on('chat-message', function(res){
 
+			if(_this.messagePlaced) {
+				_this.messagePlaced = false;
+				return false;
+			}
+
 			if(_this.chat.user == res.user) {
 				return false;
 			}
 
-	    _this.patchMessage(res,false);
+	    _this.placeMessage(res,false);
 	    _this.toButtom();
 
 	  });
@@ -144,10 +150,12 @@ class Chat {
 
 		$('#message_input').val('');
 
-		this.patchMessage({
+		this.placeMessage({
 			user: this.chat.user,
 			message: message
 		});
+
+		this.messagePlaced = true;
 
 		this.send(message);
 	}
@@ -198,7 +206,7 @@ class Chat {
 
 	}
 
-	patchMessage(data,me = true) {
+	placeMessage(data,me = true) {
 		$('#message_display').append(this.getHtml(data,me));
 	}
 
