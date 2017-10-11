@@ -77,17 +77,19 @@ class Chat {
 	  });
 
 		this.io.socket.on('chat-message', function(res){
-
+			
 			if(_this.messagePlaced) {
 				_this.messagePlaced = false;
 				return false;
 			}
 
+			let me = false;
+
 			if(_this.chat.user == res.user) {
-				return false;
+				me = true;
 			}
 
-	    _this.placeMessage(res,false);
+	    _this.placeMessage(res,me);
 	    _this.toButtom();
 
 	  });
