@@ -15,9 +15,9 @@ class UserOnline {
 
 		this.check();
 
-		setInterval(function(){
-			_this.check();
-		},10000);
+		// setInterval(function(){
+		// 	_this.check();
+		// },10000);
 
 	}
 
@@ -25,10 +25,15 @@ class UserOnline {
 
 		this.io.socket.on('check-user-online', function(res){
 
-			if(res.online) {
-				$('#online_status_indicator').removeClass('is-offline').addClass('is-online');
-			}else{
-				$('#online_status_indicator').removeClass('is-online').addClass('is-offline');
+			// let el = $( "#myDiv" ).length
+			let el = $("#online_status_indicator_"+res.user);
+
+			if(el.length) {
+				if(res.online) {
+					el.removeClass('is-offline').addClass('is-online');
+				}else{
+					el.removeClass('is-online').addClass('is-offline');
+				}				
 			}
 
 		});
@@ -36,7 +41,7 @@ class UserOnline {
 	}
 
 	join() {
-		this.io.join('check_'+this.target);
+		this.io.join('check-online');
 	}
 
 	check() {

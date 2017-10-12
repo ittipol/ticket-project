@@ -127,33 +127,49 @@ class UserController extends Controller
 
   }
 
-  public function chat() {
+  public function chat($ticketId) {
 
     $roomModel = Service::loadModel('ChatRoom');
     $messageModel = Service::loadModel('ChatMessage');
+    $sellerChatRoomModel = Service::loadModel('SellerChatRoom');
+
+    $ticket = Service::loadModel('Ticket')->select('created_by')->find($ticketId);
+
+    if(empty($ticket)) {
+      Snackbar::message('ไม่พบรายการนี้');
+      return Redirect::to('/');
+    }
+
+    if(Auth::user()->id == $ticket->created_by) {
+      Snackbar::message('ขออภัยคุณไมาสามารถคุยกับผู้ขายรายนี้ได้ คุณกับผู้ขายคือบุคคลเดียวกัน');
+      return Redirect::to('/');
+    }
+
+    // check seller and buyer
+    $_room = $sellerChatRoomModel->where([
+      ['seller','=',$ticket->created_by],
+      ['buyer','=',Auth::user()->id]
+    ])->first();
+
+    if(empty($_room)) {
+      // Create room
+      $roomModel->room_key = Token::generate(128);
+      $roomModel->save();
+
+      $sellerChatRoomModel->chat_room_id = $roomModel->id;
+      $sellerChatRoomModel->seller = $ticket->created_by;
+      $sellerChatRoomModel->buyer = Auth::user()->id;
+      $sellerChatRoomModel->save();
+    }else{
+      $roomModel = $roomModel->find($_room->chat_room_id);
+    }
 
     $now = date('Y-m-d H:i:s');
 
-    // has no chat room
-    // then create new one
-    // How to check if no room
-    $room = $roomModel->find(1);
-
-    // GET LAST 10 MESSAGE
-    // $model = $messageModel->where([
-    //   ['chat_room_id','=',$room->id],
-    //   ['created_at','<',$now]
-    // ]);
-
-    // $messages = $model
-    // ->take(20)
-    // ->orderBy('created_at','desc')
-    // ->get();
-
     $chat = array(
       'user' => Auth::user()->id,
-      'room' => $room->id,
-      'key' => $room->room_key,
+      'room' => $roomModel->id,
+      'key' => $roomModel->room_key,
       'page' => 1,
       'time' => $now
     );

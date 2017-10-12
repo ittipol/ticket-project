@@ -31,6 +31,10 @@ io.on('connection', function(socket){
 
     if(clients.indexOf(data.userId) === -1){
       clients.push(data.userId);
+      io.in('check-online').emit('check-user-online', {
+        user: data.userId,
+        online: true
+      });
     }
 
     // -------------------------------------------------------
@@ -54,6 +58,11 @@ io.on('connection', function(socket){
 
     if(index !== -1){
       clients.splice(index, 1);
+      io.in('u_'+socket.userId).emit('offline', {});
+      io.in('check-online').emit('check-user-online', {
+        user: socket.userId,
+        online: false
+      });
     }
 
     // -------------------------------------------------------
@@ -70,21 +79,17 @@ io.on('connection', function(socket){
 
     let index = clients.indexOf(data.userId);
 
-    console.log('checking...');
-
     if(index !== -1){
-      console.log('user '+data.userId+' online');
-      io.in('check_'+data.userId).emit('check-user-online', {
+      io.in('check-online').emit('check-user-online', {
+        user: data.userId,
         online: true
       });
     }else{
-      console.log('user '+data.userId+' offline');
-      io.in('check_'+data.userId).emit('check-user-online', {
+      io.in('check-online').emit('check-user-online', {
+        user: data.userId,
         online: false
       });
     }
-
-
 
   });
 

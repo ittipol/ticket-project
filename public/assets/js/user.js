@@ -11,14 +11,25 @@ class User {
 		this.io = new IO();
 
 		this.online();
+		this.offline();
 
-		setInterval(function(){
-			_this.online();
-		},10000);
+		this.join();
+	}
+
+	join() {
+		this.io.join('u_'+this.user);
 	}
 
 	online() {
 		this.io.socket.emit('online', {userId: this.user});
+	}
+
+	offline() {
+		let _this = this;
+
+		this.io.socket.on('offline', function(res){
+			_this.online();
+		});
 	}
 
 }

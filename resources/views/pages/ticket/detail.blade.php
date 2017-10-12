@@ -85,7 +85,7 @@
       <div class="seller-section">
         <div class="pv2 pv2-ns ph3 ph2-ns clearfix">
           <div class="avatar-frame fl">
-            <div id="online_status_indicator" class="online-status-indicator"></div>
+            <div id="online_status_indicator_{{$data['created_by']}}" class="online-status-indicator"></div>
             <div class="avatar">
               @if(empty($seller->avatar))
               <img src="/avatar?d=1">

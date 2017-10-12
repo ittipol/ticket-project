@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('ticket/new', 'TicketController@add');
   Route::post('ticket/new', 'TicketController@addingSubmit');
 
-  Route::get('chat/{ticketId?}', 'UserController@chat');
+  Route::get('chat/{ticketId}', 'UserController@chat');
 
   Route::post('upload/image', 'ImageController@upload');
 
