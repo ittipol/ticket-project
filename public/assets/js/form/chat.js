@@ -32,7 +32,10 @@ class Chat {
 	}
 
 	bind() {
-console.log(new Date().getTime());
+
+		// console.log(DateTime.covertDateTimeToSting(moment().format('YYYY-MM-DD h:mm:ss')));
+
+
 		let _this = this;
 
 		$('#message_input').on('keyup',function(event){
@@ -116,21 +119,13 @@ console.log(new Date().getTime());
 
 	  	for (var i = 0; i < res.data.length; i++) {
 
-				var d = new Date(res.data[i].created_at);
-				console.log(d.getUTCDay());
-				console.log(d.getUTCMonth());
-				console.log(d.getUTCFullYear());
-				console.log(d.getUTCHours()); // Hours
-				console.log(d.getUTCMinutes());
-				console.log(d.getUTCSeconds());
-				console.log('==========================');
 	  		me = false;
 
 	  		if(_this.chat.user == res.data[i].user_id) {
 	  			me = true;
 	  		}
 
-	  		$('#message_display').prepend(_this.getHtml(res.data[i], me));
+	  		$('#message_display').prepend(_this.getHtml(res.data[i].message, moment(res.data[i].created_at, "YYYYMMDDThhmmss.SSS").format("YYYY-MM-DD hh:mm:ss"), me));
 
 	  	};
 
@@ -200,7 +195,7 @@ console.log(new Date().getTime());
 		});
 	}
 
-	getHtml(data,me = true) {
+	getHtml(message,date,me = true) {
 
 		let html = '';
 
@@ -210,7 +205,10 @@ console.log(new Date().getTime());
 			  <div class="avatar">
 			    <img src="/avatar?d=1">
 			  </div>
-			  <div class="message-box">${data.message}${data.created_at}</div>
+			  <div class="message-box">
+				  ${message}
+			  </div>
+			  <small class="message-time">${DateTime.covertDateTimeToSting(date)}</small>
 			</div>
 			`;
 		}else{
@@ -219,7 +217,10 @@ console.log(new Date().getTime());
 			  <div class="avatar">
 			    <img src="/avatar?d=1">
 			  </div>
-			  <div class="message-box">${data.message}${data.created_at}</div>
+			  <div class="message-box">
+			  	${message}
+			  </div>
+			  <small class="message-time">${DateTime.covertDateTimeToSting(date)}</small>
 			</div>
 			`;
 		}
@@ -229,7 +230,7 @@ console.log(new Date().getTime());
 	}
 
 	placeMessage(data,me = true) {
-		$('#message_display').append(this.getHtml(data,me));
+		$('#message_display').append(this.getHtml(data.message, moment().format('YYYY-MM-DD h:mm:ss'), me));
 	}
 
 	calPosition(screenHeight) {

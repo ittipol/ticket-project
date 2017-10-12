@@ -23,21 +23,16 @@ class Cache
       'height' => 100,
       'fx' => 'getImageSizeByRatio',
     ),
-    'xsm' => array(
-      'width' => 150,
-      'height' => 150,
-      'fx' => '',
-    ),
-    'md' => array(
+    'md_scale' => array(
       'width' => 250,
       'height' => 250,
-      'fx' => '',
-    ),
-    'list' => array(
-      'width' => 380,
-      'height' => 380,
       'fx' => 'getImageSizeByRatio',
     ),
+    // 'list' => array(
+    //   'width' => 380,
+    //   'height' => 380,
+    //   'fx' => 'getImageSizeByRatio',
+    // ),
   );
 
   public function __construct($image = null) {

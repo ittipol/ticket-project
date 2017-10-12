@@ -18,8 +18,10 @@ Route::get('home', 'HomeController@index');
 Route::get('avatar/{filename?}', 'StaticFileController@userAvatar');
 Route::get('get_image/{filename}', 'StaticFileController@serveImages');
 
+Route::get('ticket', 'TicketController@listView');
+Route::get('ticket/view/{ticketId}', 'TicketController@detail');
+
 Route::group(['middleware' => 'guest'], function () {
-  
   Route::get('login', array('as' => 'login', 'uses' => 'UserController@login'));
   Route::post('login', 'UserController@authenticate');
 
@@ -29,8 +31,6 @@ Route::group(['middleware' => 'guest'], function () {
   Route::post('subscribe', 'UserController@registering');
 });
 
-Route::get('ticket', 'TicketController@listView');
-
 Route::group(['middleware' => 'auth'], function () {
 
   Route::get('logout', 'UserController@logout');
@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('ticket/new', 'TicketController@add');
   Route::post('ticket/new', 'TicketController@addingSubmit');
 
-  Route::get('chat/{user?}', 'UserController@chat');
+  Route::get('chat/{ticketId?}', 'UserController@chat');
 
   Route::post('upload/image', 'ImageController@upload');
 

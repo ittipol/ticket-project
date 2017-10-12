@@ -71,6 +71,7 @@ class TicketController extends Controller
     $model->price = request()->get('price');
     $model->original_price = request()->get('original_price');
     $model->date_type = request()->get('date_type');
+    $model->contact = request()->get('contact');
    
     if(!$model->save()) {
       return Redirect::back();
@@ -97,5 +98,24 @@ class TicketController extends Controller
 
     return Redirect::to('ticket/view/'.$model->id);
     
+  }
+
+  public function detail($ticketId) {
+
+    $model = Service::loadModel('Ticket')->find($ticketId);
+
+    if(empty($model)) {
+      abort(404);
+    }
+
+    // GET SELLER
+    $seller = Service::loadModel('User')->select('name','avatar','online')->find($model->created_by);
+
+    $this->setData('data',$model->buildDataDetail());
+    $this->setData('seller',$seller);
+    $this->setData('ticketId',$ticketId);
+
+    return $this->view('pages.ticket.detail');
+
   }
 }

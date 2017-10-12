@@ -6,30 +6,6 @@
     /*background-color: #445268;*/
     background-color: #ccc;
   }
-
-  #price_range .slider-selection {
-    /*height: 4px;*/
-    background: #EF9A9A;
-  }
-
-  #price_range .slider-handle {
-    background-color: red !important;
-    background-image: none;
-  }
-
-  #price_range.slider-horizontal {
-    width: 90%;
-  }
-
-  #price_range.slider-horizontal .slider-track {
-    background-color: #000 !important;
-  }
-
-  #price_range_slider {
-    opacity: 0;
-    position: absolute;
-    z-index: -1;
-  }
 </style>
 
 <div class="container margin-top-30">
@@ -122,27 +98,27 @@
                   
                   @if(!empty($value['date_1']))
                   <div class="additional-item">
-                    <small><i class="fa fa-calendar"></i> ใช้ได้ตั้งแต่ {{$value['date_1']}} ถึง {{$value['date_2']}}</small>
+                    <i class="fa fa-calendar"></i> ใช้ได้ตั้งแต่ {{$value['date_1']}} ถึง {{$value['date_2']}}
                   </div>
                   @else
                   <div class="additional-item">
-                    <small><i class="fa fa-calendar"></i> ใช้ได้ถึงวันที่ {{$value['date_2']}}</small>
+                    <i class="fa fa-calendar"></i> ใช้ได้ถึงวันที่ {{$value['date_2']}}
                   </div>
                   @endif
                   
-                @elseif($value['date_type'] == 2)</small>
+                @elseif($value['date_type'] == 2)
                   <div class="additional-item">
-                    <small><i class="fa fa-calendar"></i> วันที่แสดง {{$value['date_2']}}
+                    <i class="fa fa-calendar"></i> วันที่แสดง {{$value['date_2']}}
                   </div>
-                @elseif($value['date_type'] == 3)</small>
+                @elseif($value['date_type'] == 3)
                   <div class="additional-item">
-                    <small><i class="fa fa-calendar"></i> วันที่เดินทาง {{$value['date_2']}}
+                    <i class="fa fa-calendar"></i> วันที่เดินทาง {{$value['date_2']}}
                   </div>
                 @endif
 
                 @if(!empty($value['place_location']))
                   <div class="additional-item">
-                    <small><i class="fa fa-map-marker"></i> {{$value['place_location']}}</small>
+                    <i class="fa fa-map-marker"></i> {{$value['place_location']}}
                   </div>
                 @endif
 
@@ -163,7 +139,6 @@
             </div>
 
             <div class="w-100 w-30-ns fn fl-ns">
-
               @if(!empty($value['save']))
                 <div class="price-saving-flag">-{{$value['save']}}</div>
               @endif
