@@ -26,7 +26,7 @@ class Chat {
 	}
 
 	join() {
-		this.io.socket.emit('chat join', {
+		this.io.socket.emit('chat-join', {
 	    key: this.chat.key
 	  });
 	}

@@ -185,9 +185,10 @@ class Ticket extends Model
       'date_1' => $date->covertDateToSting($this->date_1),
       'date_2' => $date->covertDateToSting($this->date_2),
       'contact' => $this->contact,
+      'created_by' => $this->created_by,
       'images' => $images,
       'imageTotal' => $imageTotal,
-      'tags' => $tags 
+      'tags' => $tags
     );
 
   }

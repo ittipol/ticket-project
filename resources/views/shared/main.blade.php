@@ -40,6 +40,10 @@
     $(document).ready(function(){
       @if(Auth::check())
         _io.init({{Auth::user()->id}},'{{Auth::user()->user_key}}')
+
+        const _user = new User({{Auth::user()->id}});
+        _user.init();
+
       @endif
     });
 

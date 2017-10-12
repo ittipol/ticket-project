@@ -15,21 +15,22 @@ class IO {
   init(id,key) {
     this.join(id+'.'+this.token);
     this.join(id+'.'+key);
-    this.online(id);
+    // this.online(id);
+    // this.socketEvents();
   }
 
-  online(id) {
-    this.socket.emit('online', {userId: id});
-  }
+  // online(id) {
+  //   this.socket.emit('online', {userId: id});
+  // }
 
-  // disconnected() {
-  //   this.socket.on('disconnected', function(){});
+  // offline() {
+  //   this.socket.on('offline', function(){
+  //     console.log('offline');
+  //   });
   // }
 
   join(chanel) {
     this.socket.emit('join', chanel);
   }
-
-  // socketEvents(){}
 
 }

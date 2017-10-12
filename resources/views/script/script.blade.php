@@ -16,6 +16,8 @@
     // 'assets/lib/moment/moment-timezone.js',
     'assets/js/token.js',
     'assets/js/io.js',
+    'assets/js/user.js',
+    'assets/js/user_online.js',
     'assets/js/date_time.js',
     'assets/js/common.js',
     'assets/js/form/upload_image.js',

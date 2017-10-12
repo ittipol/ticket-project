@@ -85,7 +85,7 @@
       <div class="seller-section">
         <div class="pv2 pv2-ns ph3 ph2-ns clearfix">
           <div class="avatar-frame fl">
-            <div class="online-status-indicator @if($seller->online) is-online @else is-offline @endif"></div>
+            <div id="online_status_indicator" class="online-status-indicator"></div>
             <div class="avatar">
               @if(empty($seller->avatar))
               <img src="/avatar?d=1">
@@ -135,6 +135,14 @@
       viewerToolbar: { display: false },
       touchAnimation: false,
     });
+
+    const _userOnline = new UserOnline({{$data['created_by']}});
+    _userOnline.init();
+
+    // setInterval(function(){
+    //   _io.socket.emit('check-user-online', {userId: 1});
+    // },1000);
+
   });
 </script>
 

@@ -180,15 +180,18 @@
 	height: 14px;
 	border-radius: 50%;
 	z-index: 9;
+	display: none;
 }
 
 .online-status-indicator.is-online {
 	background-color: #21ba45;
 	box-shadow: 0 0 10px 2px rgba(28,156,1,.85);
+	online-status-indicator
 }
 
 .online-status-indicator.is-offline {
 	background-color: #767676;
+	display: block;
 }
 
 .contact-section i {

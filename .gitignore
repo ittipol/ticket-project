@@ -12,3 +12,4 @@ yarn-error.log
 .env
 /storage/cache
 /storage/temporary
+/node_server/env.js
