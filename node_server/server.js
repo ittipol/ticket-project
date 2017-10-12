@@ -23,9 +23,9 @@ io.on('connection', function(socket){
   
   socket.on('online', function(data){
 
-    if(handle[data.userId] !== undefined) {
-      clearTimeout(handle[data.userId]);
-    }
+    // if(handle[data.userId] !== undefined) {
+    //   clearTimeout(handle[data.userId]);
+    // }
 
     socket.userId = data.userId;
 

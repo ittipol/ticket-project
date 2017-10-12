@@ -7,9 +7,3 @@ module.exports = Object.freeze({
 	DB_USERNAME: 'root',
 	DB_PASSWORD: ''
 });
-
-// var xxx = class Hello {
-
-// }
-
-// module.exports = xxx;
