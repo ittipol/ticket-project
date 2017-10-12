@@ -1,14 +1,16 @@
+const env = require('./env');
 const mysql = require('mysql');
 const connection = mysql.createConnection({
-    host     : '127.0.0.1',
-    user     : 'root',
-    password : '',
-    database : 'ticket_db'
+    host     : env.DB_HOST,
+    user     : env.DB_USERNAME,
+    password : env.DB_PASSWORD,
+    database : env.DB_DATABASE,
+    timezone : 'Asia/Bangkok'
 });
 
 connection.connect(function(err) {
   if (err) throw err;
-	console.log('DB connected');
+	console.log('Database connected');
 });
 
 module.exports = connection;

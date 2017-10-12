@@ -1,10 +1,12 @@
+var env = require('./env');
+
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var db = require('./db');
 
-var handle = [];
-// var client = [];
+// var handle = [];
+var clients = [];
 
 const MESSAGE_TAKE = 20;
 
@@ -12,7 +14,7 @@ io.on('connection', function(socket){
 
   socket.on('join', function(chanel,type){
     socket.join(chanel);
-    console.log('join: '+chanel);
+    console.log('chanel joined: '+chanel);
   });
 
   socket.on('leave', function(chanel,type){
@@ -26,13 +28,19 @@ io.on('connection', function(socket){
     }
 
     socket.userId = data.userId;
-    console.log('user: ' + data.userId + ' has come online');
 
-    db.query("SELECT `online` FROM `users` WHERE `id` = "+data.userId, function(err, rows){
-      if(!rows[0].online) {
-        db.query("UPDATE `users` SET `online` = '1' WHERE `users`.`id` = "+data.userId);
-      }
-    });
+    if(clients.indexOf(data.userId) === -1){
+      clients.push(data.userId);
+    }
+
+    // -------------------------------------------------------
+    // console.log('user: ' + data.userId + ' has come online');   
+
+    // db.query("SELECT `online` FROM `users` WHERE `id` = "+data.userId, function(err, rows){
+    //   if(!rows[0].online) {
+    //     db.query("UPDATE `users` SET `online` = '1' WHERE `users`.`id` = "+data.userId);
+    //   }
+    // });
     
   });
 
@@ -42,22 +50,53 @@ io.on('connection', function(socket){
       return false;
     }
 
-    console.log('User: ' + socket.userId + ' disconnected.');
+    let index = clients.indexOf(socket.userId);
 
-    handle[socket.userId] = setTimeout(function(){
-      db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+socket.userId+";");
-      console.log('clear!!! ' + socket.userId);
-    },5000);
+    if(index !== -1){
+      clients.splice(index, 1);
+    }
+
+    // -------------------------------------------------------
+    // console.log('User: ' + socket.userId + ' disconnected.');
+
+    // handle[socket.userId] = setTimeout(function(){
+    //   db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+socket.userId+";");
+    //   console.log('clear!!! ' + socket.userId);
+    // },5000);
 
   });
 
+  socket.on('check-user-online', function(data) {
+
+    let index = clients.indexOf(data.userId);
+
+    console.log('checking...');
+
+    if(index !== -1){
+      console.log('user '+data.userId+' online');
+      io.in('check_'+data.userId).emit('check-user-online', {
+        online: true
+      });
+    }else{
+      console.log('user '+data.userId+' offline');
+      io.in('check_'+data.userId).emit('check-user-online', {
+        online: false
+      });
+    }
+
+
+
+  });
+
+
+
   // ||||||||||||||||||||||| CHAT |||||||||||||||||||||||
-  socket.on('chat join', function(room){
+  socket.on('chat-join', function(room){
   	socket.join('chat_'+room.key); 
   	// io.in(key).emit('user joined', [username]);
   });
 
-  socket.on('chat leave', function(room){
+  socket.on('chat-leave', function(room){
   	socket.leave('chat_'+room.key); 
   });
 
@@ -96,7 +135,7 @@ io.on('connection', function(socket){
   socket.on('chat-load-more', function(data){
     let skip = (MESSAGE_TAKE * data.page) - MESSAGE_TAKE;
 
-    db.query("SELECT * FROM `chat_messages` WHERE `chat_room_id` = "+data.room+" AND `created_at` < '"+data.time+"' ORDER BY `created_at` DESC LIMIT "+skip+","+MESSAGE_TAKE, function(err, rows){
+    db.query("SELECT message, user_id, created_at FROM `chat_messages` WHERE `chat_room_id` = "+data.room+" AND `created_at` < '"+data.time+"' ORDER BY `created_at` DESC LIMIT "+skip+","+MESSAGE_TAKE, function(err, rows){
       
       let res = {
         next: false
@@ -117,6 +156,6 @@ io.on('connection', function(socket){
 
 });
 
-server.listen(9999, '127.0.0.1', () => {
-  console.log('App listening on port 9999!')
+server.listen(env.SOCKET_PORT, env.SOCKET_HOST, () => {
+  console.log('App listening on port -> '+env.SOCKET_PORT)
 });
