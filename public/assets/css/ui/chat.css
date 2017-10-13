@@ -31,7 +31,7 @@
 	overflow: hidden;
 }
 
-.user-chat-list .online-status {
+.user-chat-list .online-name {
 	margin-left: 1rem;
 	line-height: 40px;
 }

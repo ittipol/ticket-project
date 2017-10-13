@@ -10,6 +10,17 @@ var clients = [];
 
 const MESSAGE_TAKE = 20;
 
+function userOnline(userId) {
+  let index = clients.indexOf(data.userId);
+
+  if(index !== -1){
+    return true;
+  }
+
+  return false;
+
+}
+
 io.on('connection', function(socket){
 
   socket.on('join', function(chanel,type){
@@ -40,15 +51,6 @@ io.on('connection', function(socket){
       // Update user is online to database
       db.query("UPDATE `users` SET `online` = '1' WHERE `users`.`id` = "+data.userId);
     }
-
-    // -------------------------------------------------------
-    // console.log('user: ' + data.userId + ' has come online');   
-
-    // db.query("SELECT `online` FROM `users` WHERE `id` = "+data.userId, function(err, rows){
-    //   if(!rows[0].online) {
-    //     db.query("UPDATE `users` SET `online` = '1' WHERE `users`.`id` = "+data.userId);
-    //   }
-    // });
     
   });
 
@@ -60,37 +62,28 @@ io.on('connection', function(socket){
 
     handle[socket.userId] = setTimeout(function(){
 
-      let index = clients.indexOf(socket.userId);
-
-      if(index !== -1){
+      if(userOnline(socket.userId)){
         // Clear
-        clients.splice(index, 1);
+        clients.splice(clients.indexOf(socket.userId), 1);
+
         // Emit
         io.in('u_'+socket.userId).emit('offline', {});
+        // Check if other page is open
         io.in('check-online').emit('check-user-online', {
           user: socket.userId,
           online: false
         });
+
         // Update
         db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+socket.userId+";");
       }
-    },1500);
-
-    // -------------------------------------------------------
-    // console.log('User: ' + socket.userId + ' disconnected.');
-
-    // handle[socket.userId] = setTimeout(function(){
-    //   db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+socket.userId+";");
-    //   console.log('clear!!! ' + socket.userId);
-    // },5000);
+    },3000);
 
   });
 
   socket.on('check-user-online', function(data) {
-
-    let index = clients.indexOf(data.userId);
-
-    if(index !== -1){
+    
+    if(userOnline(data.userId)) {
       io.in('check-online').emit('check-user-online', {
         user: data.userId,
         online: true
@@ -107,22 +100,18 @@ io.on('connection', function(socket){
 
 
   // ||||||||||||||||||||||| CHAT |||||||||||||||||||||||
-  socket.on('chat-join', function(room){
-  	socket.join('chat_'+room.key); 
-  	// io.in(key).emit('user joined', [username]);
+  socket.on('chat-join', function(data){
+  	socket.join('cr_'+data.room+'.'+data.key); 
   });
 
-  socket.on('chat-leave', function(room){
-  	socket.leave('chat_'+room.key); 
+  socket.on('chat-leave', function(data){
+  	socket.leave('cr_'+data.room+'.'+data.key); 
   });
 
   socket.on('typing', function(data){
-
-    let res = {
+    io.in('chat_'+data.key).emit('typing', {
       user: data.user
-    }
-
-    io.in('chat_'+data.key).emit('typing', res);
+    });
   });
 
   socket.on('chat-message', function(data){
@@ -134,18 +123,18 @@ io.on('connection', function(socket){
   	// save message
   	db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', CURRENT_TIMESTAMP);");
 
-  	// SAVE To Notification table
-  	// AND Fetch
-  	// fetch every 30 sec by fetct in chuck (50 record per 10 sec)
+    // if(userOnline()) {
 
+    // }
   	console.log('message saved');
 
-  	let res = {
-  		user: data.user,
-  		message: data.message
-  	}
+    // save to queue
 
-    io.in('chat_'+data.key).emit('chat-message', res);
+    io.in('chat_'+data.key).emit('chat-message', {
+      user: data.user,
+      message: data.message
+    });
+
   });
 
   socket.on('chat-load-more', function(data){
@@ -169,6 +158,17 @@ io.on('connection', function(socket){
     });
 
   });
+
+  setInterval(function(){
+    console.log('fetch');
+
+    // FETCH Notifications
+
+    if(true) {
+      io.emit('send-notification', {});
+      // io.in(data.chanel).emit('send-notification', res);
+    }
+  },30000);
 
 });
 

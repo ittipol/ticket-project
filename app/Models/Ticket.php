@@ -81,7 +81,7 @@ class Ticket extends Model
       ));
 
       $image = array_merge($image->buildModelData(),array(
-        '_sm_list_url' => $cache->getCacheImageUrl($image,'sm_list')
+        '_preview_url' => $cache->getCacheImageUrl($image,'list_pw_scale')
       ));
 
     }

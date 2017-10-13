@@ -6,12 +6,25 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-md-8">
+    <div class="col-12">
 
-      <h3>{{$data['title']}}</h3>
-      <p>{!!$data['description']!!}</p>
+      <div class="clearfix">
+        <div class="w-100 w-80-ns fn fl-ns">
+          <h3>{{$data['title']}}</h3>
+        </div>
+
+        <div class="w-100 w-20-ns fn fl-ns">
+          แชร์
+        </div>
+      </div>
 
       <hr>
+
+    </div>
+
+    <div class="col-md-8">
+
+      <p class="mb-4">{!!$data['description']!!}</p>
 
       <div class="additional-data-section mb-4">
 
@@ -19,44 +32,31 @@
           
           @if(!empty($data['date_1']))
           <div class="additional-item">
-            <i class="fa fa-calendar"></i> ใช้ได้ตั้งแต่ {{$data['date_1']}} ถึง {{$data['date_2']}}
+            ใช้ได้ตั้งแต่ {{$data['date_1']}} ถึง {{$data['date_2']}}
           </div>
           @else
           <div class="additional-item">
-            <i class="fa fa-calendar"></i> ใช้ได้ถึงวันที่ {{$data['date_2']}}
+            ใช้ได้ถึงวันที่ {{$data['date_2']}}
           </div>
           @endif
           
         @elseif($data['date_type'] == 2)
           <div class="additional-item">
-            <i class="fa fa-calendar"></i> วันที่แสดง {{$data['date_2']}}
+            วันที่แสดง {{$data['date_2']}}
           </div>
         @elseif($data['date_type'] == 3)
           <div class="additional-item">
-            <i class="fa fa-calendar"></i> วันที่เดินทาง {{$data['date_2']}}
+            วันที่เดินทาง {{$data['date_2']}}
           </div>
         @endif
 
         @if(!empty($data['place_location']))
           <div class="additional-item">
-            <i class="fa fa-map-marker"></i> {{$data['place_location']}}
+            สถานที่ {{$data['place_location']}}
           </div>
         @endif
 
       </div>
-
-      @if(!empty($data['tags']))
-      <div class="tags mx-2 mb-4">
-        @foreach($data['tags'] as $tag)
-          <div class="md-chip">
-            <div class="md-chip-icon">
-              <i class="fa fa-tag"></i>
-            </div>
-            {{$tag['word']}}
-          </div>
-        @endforeach
-      </div>
-      @endif
 
       @if(!empty($data['save']))
         <div class="price-saving-flag">-{{$data['save']}}</div>
@@ -68,6 +68,19 @@
         <span class="original-price">{{$data['original_price']}}</span>
         @endif
       </div>
+
+      @if(!empty($value['tags']))
+      <div class="tags mx-2 mb-4">
+        @foreach($value['tags'] as $tag)
+          <div class="md-chip">
+            <div class="md-chip-icon">
+              <i class="fa fa-tag"></i>
+            </div>
+            {{$tag['word']}}
+          </div>
+        @endforeach
+      </div>
+      @endif
 
       @if(!empty($data['images']))
       <hr>
@@ -95,7 +108,7 @@
               @endif
             </div>
           </div>
-          <div class="online-status fl">{{$seller['name']}}</div>
+          <div class="online-name fl">{{$seller['name']}}</div>
         </div>
         <div class="pa2 pa2-ns">
           <a href="/chat/{{$ticketId}}" class="btn btn-primary btn-block br0">
@@ -111,8 +124,8 @@
             &nbsp;ติดต่อผู้ขาย</h5>
           {!!$data['contact']!!}
         </div>
-        
       </div>
+      
     </div>
 
   </div>

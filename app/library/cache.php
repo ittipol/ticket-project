@@ -8,24 +8,29 @@ class Cache
 {
   private $cachePath = 'cache/';
   private $imageCache = array(
-    'xs' => array(
-      'width' => 50,
-      'height' => 50,
-      'fx' => '',
-    ),
-    'sm' => array(
-      'width' => 100,
-      'height' => 100,
-      'fx' => '',
-    ),
-    'sm_list' => array(
-      'width' => 100,
-      'height' => 100,
-      'fx' => 'getImageSizeByRatio',
-    ),
+    // 'xs' => array(
+    //   'width' => 50,
+    //   'height' => 50,
+    //   'fx' => '',
+    // ),
+    // 'sm' => array(
+    //   'width' => 100,
+    //   'height' => 100,
+    //   'fx' => '',
+    // ),
+    // 'sm_list' => array(
+    //   'width' => 100,
+    //   'height' => 100,
+    //   'fx' => 'getImageSizeByRatio',
+    // ),
     'md_scale' => array(
       'width' => 250,
       'height' => 250,
+      'fx' => 'getImageSizeByRatio',
+    ),
+    'list_pw_scale' => array(
+      'width' => 700,
+      'height' => 700,
       'fx' => 'getImageSizeByRatio',
     ),
     // 'list' => array(

@@ -41,7 +41,7 @@
         @endif
       </div>
     </div>
-    <div class="online-status fl">{{$seller['name']}}</div>
+    <div class="online-name fl">{{$seller['name']}}</div>
   </div>
 </div>
 

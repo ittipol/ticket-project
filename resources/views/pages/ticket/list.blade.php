@@ -58,143 +58,102 @@
     </div>
   </div>
 
-  <div class="data-list">
+  <div class="main-panel">
 
-    @foreach($list as $value)
-      
-        <div class="data-list-item">
+    <a href="" class="btn btn-primary btn-block br0 mb-4">
+      สร้างรายการขายใหม่
+    </a>
 
-          <!-- <div class="alert alert-danger m-0 text-center" role="alert">
-            <strong>ขายแล้ว</strong>
-          </div> -->
+    <div class="data-list">
 
-          <div class="clearfix">
+      @foreach($list as $value)
+        
+          <div class="data-list-item">
 
-            <div class="w-100">
-              @if(!empty($value['image']))
-                <div class="data-image">
-                  <img src="{{$value['image']['_url']}}">
+            <div class="main-data-section w-100 clearfix">
 
-                  @if($value['imageTotal'] > 1)
-                  <div class="image-more">
-                    {{$value['imageTotal']-1}}+<img src="/assets/images/common/photos.png">
-                  </div>
+              <h5 class="mx-2 my-3">
+                <a href="/ticket/view/{{$value['id']}}">
+                  {{$value['title']}}
+                </a>
+              </h5>
+
+              <div class="w-100 w-50-ns fn fl-ns">
+
+                @if(!empty($value['save']))
+                  <div class="price-saving-flag dib">-{{$value['save']}}</div>
+                @endif
+
+                <div class="price-section p-2">
+                  <span class="price">{{$value['price']}}</span>
+                  @if(!empty($value['original_price']))
+                  <span class="original-price">{{$value['original_price']}}</span>
                   @endif
                 </div>
-              @endif
-            </div>
-
-          </div>
-
-          <div class="main-data-section w-100 clearfix">
-
-            <h5 class="mx-2 my-3">
-              <a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a>
-            </h5>
-
-            <div class="w-100 w-70-ns fn fl-ns">
-
-              <div class="additional-data-section mb-4">
-
-                @if($value['date_type'] == 1)
-                  
-                  @if(!empty($value['date_1']))
-                  <div class="additional-item">
-                    <i class="fa fa-calendar"></i> ใช้ได้ตั้งแต่ {{$value['date_1']}} ถึง {{$value['date_2']}}
-                  </div>
-                  @else
-                  <div class="additional-item">
-                    <i class="fa fa-calendar"></i> ใช้ได้ถึงวันที่ {{$value['date_2']}}
-                  </div>
-                  @endif
-                  
-                @elseif($value['date_type'] == 2)
-                  <div class="additional-item">
-                    <i class="fa fa-calendar"></i> วันที่แสดง {{$value['date_2']}}
-                  </div>
-                @elseif($value['date_type'] == 3)
-                  <div class="additional-item">
-                    <i class="fa fa-calendar"></i> วันที่เดินทาง {{$value['date_2']}}
-                  </div>
-                @endif
-
-                @if(!empty($value['place_location']))
-                  <div class="additional-item">
-                    <i class="fa fa-map-marker"></i> {{$value['place_location']}}
-                  </div>
-                @endif
 
               </div>
 
-              @if(!empty($value['tags']))
-              <div class="tags mx-2 mb-4">
-                @foreach($value['tags'] as $tag)
-                  <div class="md-chip">
-                    <div class="md-chip-icon">
-                      <i class="fa fa-tag"></i>
+              <div class="w-100 w-50-ns fn fl-ns">
+
+                <div class="additional-data-section mb-4">
+
+                  @if($value['date_type'] == 1)
+                    
+                    @if(!empty($value['date_1']))
+                    <div class="additional-item">
+                      <i class="fa fa-calendar"></i>&nbsp;ใช้ได้ตั้งแต่ {{$value['date_1']}} ถึง {{$value['date_2']}}
                     </div>
-                    {{$tag['word']}}
-                  </div>
-                @endforeach
-              </div>
-              @endif
-            </div>
+                    @else
+                    <div class="additional-item">
+                      <i class="fa fa-calendar"></i>&nbsp;ใช้ได้ถึงวันที่ {{$value['date_2']}}
+                    </div>
+                    @endif
+                    
+                  @elseif($value['date_type'] == 2)
+                    <div class="additional-item">
+                      <i class="fa fa-calendar"></i>&nbsp;วันที่แสดง {{$value['date_2']}}
+                    </div>
+                  @elseif($value['date_type'] == 3)
+                    <div class="additional-item">
+                      <i class="fa fa-calendar"></i>&nbsp;วันที่เดินทาง {{$value['date_2']}}
+                    </div>
+                  @endif
 
-            <div class="w-100 w-30-ns fn fl-ns">
-              @if(!empty($value['save']))
-                <div class="price-saving-flag">-{{$value['save']}}</div>
-              @endif
+                  @if(!empty($value['place_location']))
+                    <div class="additional-item">
+                      <i class="fa fa-map-marker"></i>&nbsp;สถานที่ {{$value['place_location']}}
+                    </div>
+                  @endif
 
-              <div class="price-section py-2 text-center">
-                @if(!empty($value['original_price']))
-                <div class="original-price">{{$value['original_price']}}</div>
-                @endif
-                <div class="price">{{$value['price']}}</div>
-              </div>
-            </div>
+                </div>
 
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="seller-section">
-                <div class="pv2 pv2-ns ph3 ph2-ns clearfix">
-                  <div class="avatar-frame fl">
+                <div class="seller-section text-center">
+                  <a href="/chat/{{$value['id']}}" class="btn seller-chat-btn">
                     <div class="online_status_indicator_{{$value['created_by']}} online-status-indicator @if($value['user']['online']) is-online @endif"></div>
-                    <div class="avatar">
-                      @if(empty($value['user']['avatar']))
-                      <img src="/avatar?d=1">
-                      @else
-                      <img src="/avatar/{{$value['user']['avatar']}}?d=1">
-                      @endif
-                    </div>
-                  </div>
-                  <div class="online-status fl">{{$value['user']['name']}}</div>
-                </div>
-                <div class="pa2 pa2-ns">
-                  <a href="/chat/{{$value['id']}}" class="btn btn-primary btn-block br0">
                     <i class="fa fa-comments" aria-hidden="true"></i> คุยกับผู้ขาย
                   </a>
-                </div>
+                </div>   
               </div>
+
             </div>
+       
           </div>
 
-          <!-- <ul class="nav nav-tabs">
-            <li><a href="#">เพิ่มเติม</a></li>
-            <li><a href="#">รายละเอียด</a></li>
-            <li><a href="#">ติดต่อ</a></li>
-          </ul>   -->        
+      @endforeach
 
-        </div>
-
-    @endforeach
+    </div>
 
   </div>
 
 </div>
 
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
+
+<script type="text/javascript">
+  // $('.left-sidenav').css({
+  //   left: $('.main-panel').offset().left - 300
+  // });
+</script>
 
 <script type="text/javascript">
   $(document).ready(function(){

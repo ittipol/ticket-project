@@ -250,7 +250,7 @@ form .input-addon > select:last-child {
 
 .online-status-indicator {
 	position: absolute;
-	top: -0;
+	top: 0;
 	left: -3px;
 	width: 14px;
 	height: 14px;

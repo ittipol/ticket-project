@@ -134,6 +134,7 @@ class UserController extends Controller
     $roomModel = Service::loadModel('ChatRoom');
     $messageModel = Service::loadModel('ChatMessage');
     $sellerChatRoomModel = Service::loadModel('SellerChatRoom');
+    $userInChatRoomModel = Service::loadModel('UserInChatRoom');
 
     $ticket = Service::loadModel('Ticket')->select('created_by')->find($ticketId);
 
@@ -166,7 +167,8 @@ class UserController extends Controller
       $roomModel = $roomModel->find($_room->chat_room_id);
     }
 
-    $seller = User::select('id','name','avatar','online')->find($ticket->created_by);
+    // Push user to chat room
+    // $userInChatRoomModel->
 
     $chat = array(
       'user' => Auth::user()->id,
@@ -182,7 +184,7 @@ class UserController extends Controller
     );
 
     $this->setData('chat',json_encode($chat));
-    $this->setData('seller',$seller->getAttributes());
+    $this->setData('seller',User::select('id','name','avatar','online')->find($ticket->created_by)->getAttributes());
 
     return $this->view('pages.user.chat');
   }
@@ -190,6 +192,11 @@ class UserController extends Controller
   public function logout() {
     
     if(Auth::check()) {
+
+      $user = User::find(Auth::user()->id);
+      $user->online = 0;
+      $user->save();
+
       Auth::logout();
       session()->flush();
     }

@@ -28,6 +28,7 @@ class Chat {
 
 	join() {
 		this.io.socket.emit('chat-join', {
+			room: this.chat.room
 	    key: this.chat.key
 	  });
 	}
@@ -90,6 +91,12 @@ class Chat {
 
 			if(_this.chat.user == res.user) {
 				me = true;
+			}
+
+			if(!me) {
+				this.io.socket.emit('message-received', {
+					user: _this.chat.user
+				});
 			}
 
 	    _this.placeMessage(res,me);
