@@ -3,8 +3,8 @@
 }
 
 form .required::after {
-    content: " *";
-    color: red;
+  content: " *";
+  color: red;
 }
 
 .form-control {
@@ -262,4 +262,8 @@ form .input-addon > select:last-child {
 .online-status-indicator.is-online {
 	background-color: #21ba45;
 	box-shadow: 0 0 10px 2px rgba(28,156,1,.85);
+}
+
+.gn-menu-main {
+	z-index: 1000;
 }

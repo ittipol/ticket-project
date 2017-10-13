@@ -58,5 +58,9 @@
   </script>
   @endif
 
+  <script type="text/javascript">
+    new gnMenu(document.getElementById('gn-menu'));
+  </script>
+
 </body>
 </html>

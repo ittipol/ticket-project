@@ -6,11 +6,21 @@
     /*background-color: #445268;*/
     background-color: #ccc;
   }
+
+  .grid-item { width: 32.666666666666666666666666666667%; margin: 0.3333333333333333333333333333333%; }
+
+  @media (max-width: 1024px) {
+    .grid-item { width: 49%; margin: 0.5%; }
+  }
+
+  @media (max-width: 480px) {
+    .grid-item { width: 92%; margin: 4% 4%; }
+  }
 </style>
 
-<div class="container margin-top-30">
+<div class="container-fliud margin-top-20">
 
-  <div class="left-sidenav">
+  <!-- <div class="left-sidenav">
     <div class="p-3">
 
       <div class="mb-3">
@@ -56,15 +66,106 @@
       </div>
 
     </div>
+  </div> -->
+
+  <div class="grid data-list">
+    @foreach($list as $value)
+    <div class="grid-item">
+      <div class="data-list-item">
+
+        <div class="w-100">
+          @if(!empty($value['image']))
+            <div class="data-image">
+              <img src="{{$value['image']['_url']}}">
+
+              @if($value['imageTotal'] > 1)
+              <div class="image-more">
+                {{$value['imageTotal']-1}}+<img src="/assets/images/common/photos.png">
+              </div>
+              @endif
+            </div>
+          @endif
+        </div>
+
+        <div class="main-data-section w-100 clearfix">
+
+          <h5 class="mx-2 my-3">
+            <a href="/ticket/view/{{$value['id']}}">
+              {{$value['title']}}
+            </a>
+          </h5>
+
+          <div class="w-100 w-50-ns fn fl-ns">
+
+            @if(!empty($value['save']))
+              <div class="price-saving-flag dib">-{{$value['save']}}</div>
+            @endif
+
+            <div class="price-section p-2">
+              <span class="price">{{$value['price']}}</span>
+              @if(!empty($value['original_price']))
+              <span class="original-price">{{$value['original_price']}}</span>
+              @endif
+            </div>
+
+          </div>
+
+          <div class="w-100 w-50-ns fn fl-ns">
+
+            <div class="additional-data-section mb-4">
+
+              @if($value['date_type'] == 1)
+                
+                @if(!empty($value['date_1']))
+                <div class="additional-item">
+                  <i class="fa fa-calendar"></i>&nbsp;ใช้ได้ตั้งแต่ {{$value['date_1']}} ถึง {{$value['date_2']}}
+                </div>
+                @else
+                <div class="additional-item">
+                  <i class="fa fa-calendar"></i>&nbsp;ใช้ได้ถึงวันที่ {{$value['date_2']}}
+                </div>
+                @endif
+                
+              @elseif($value['date_type'] == 2)
+                <div class="additional-item">
+                  <i class="fa fa-calendar"></i>&nbsp;วันที่แสดง {{$value['date_2']}}
+                </div>
+              @elseif($value['date_type'] == 3)
+                <div class="additional-item">
+                  <i class="fa fa-calendar"></i>&nbsp;วันที่เดินทาง {{$value['date_2']}}
+                </div>
+              @endif
+
+              @if(!empty($value['place_location']))
+                <div class="additional-item">
+                  <i class="fa fa-map-marker"></i>&nbsp;สถานที่ {{$value['place_location']}}
+                </div>
+              @endif
+
+            </div>
+
+            <div class="seller-section text-center">
+              <a href="/chat/{{$value['id']}}" class="btn seller-chat-btn">
+                <div class="online_status_indicator_{{$value['created_by']}} online-status-indicator @if($value['user']['online']) is-online @endif"></div>
+                <i class="fa fa-comments" aria-hidden="true"></i> คุยกับผู้ขาย
+              </a>
+            </div>   
+          </div>
+
+        </div>
+      
+      </div>
+    </div>
+    @endforeach
   </div>
 
   <div class="main-panel">
 
-    <a href="" class="btn btn-primary btn-block br0 mb-4">
+    <!-- <a href="" class="btn btn-primary btn-block br0 mb-4">
       สร้างรายการขายใหม่
-    </a>
+    </a> -->
 
-    <div class="data-list">
+    <!-- <div class="data-list">
 
       @foreach($list as $value)
         
@@ -141,7 +242,7 @@
 
       @endforeach
 
-    </div>
+    </div> -->
 
   </div>
 
@@ -181,6 +282,12 @@
 
     const _userOnline = new UserOnline();
     _userOnline.init();
+
+    $('.grid').masonry({
+      // options
+      itemSelector: '.grid-item',
+      percentPosition: true
+    });
 
   });
 </script>

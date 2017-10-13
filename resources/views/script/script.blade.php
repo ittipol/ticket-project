@@ -14,6 +14,13 @@
     'assets/lib/image_gallery/jquery.nanogallery2.min.js',
     'assets/lib/moment/moment.js',
     // 'assets/lib/moment/moment-timezone.js',
+
+    'assets/lib/header/js/modernizr.custom.js',
+    'assets/lib/header/js/classie.js',
+    'assets/lib/header/js/gnmenu.js',
+
+    'assets/js/masonry.pkgd.min.js',
+
     'assets/js/token.js',
     'assets/js/io.js',
     'assets/js/user.js',
@@ -64,6 +71,10 @@
     'assets/css/ui/calendar.css',
     'assets/css/ui/navbar.css',
     'assets/css/ui/md-chip.css',
+
+    'assets/lib/header/css/normalize.css',
+    'assets/lib/header/css/component.css',
+
     'assets/css/core.css',
     'assets/css/page/landing.css',
     'assets/css/page/login.css',

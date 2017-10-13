@@ -1,48 +1,39 @@
-<div class="fixed-header">
-  <nav class="navbar navbar-toggleable-md bg-faded fixed-top">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon">
-        <i class="fa fa-bars" aria-hidden="true"></i>
-      </span>
-    </button>
-    <a class="navbar-brand" href="/">TicketSnap</a>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/ticket">ราการขาย</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav my-2 my-lg-0">
-        <li class="nav-item">
-          <a class="nav-link d-inline-block" href="/ticket/new">
-            <i class="fa fa-tag"></i>&nbsp;ลงขายบัตร
-          </a>
-        </li>
-        @if(Auth::check())
-          <li class="nav-item">
-            <a class="nav-link d-inline-block" href="/notification">
-              <i class="fa fa-bell-o" aria-hidden="true"></i>
-            </a>
-          </li>
-          <li>
-            <a class="nav-link d-inline-block user-profile" href="/account">
-              <img src="/avatar?d=1">
-            </a>
-            <!-- <a class="nav-link d-inline-block" href="/logout">
-              <i class="fa fa-sign-out" aria-hidden="true"></i>
-            </a> -->
-          </li>
-        @else
-          <li class="nav-item">
-            <a class="nav-link d-inline-block" href="/login">
-              <i class="fa fa-user-o"></i>&nbsp;เข้าสู่ระบบ
-            </a>
-            /
-            <a class="nav-link d-inline-block" href="/subscribe">สร้างบัญชี</a>
-          </li>
-        @endif
-      </ul>
-    </div>
-  </nav>
-</div>
+<header>
+  <ul id="gn-menu" class="gn-menu-main">
+    <li class="gn-trigger">
+      <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+      <nav class="gn-menu-wrapper">
+        <div class="gn-scroller">
+          <ul class="gn-menu">
+            <li class="gn-search-item">
+              <input placeholder="Search" type="search" class="gn-search">
+              <a class="gn-icon gn-icon-search"><span>Search</span></a>
+            </li>
+            <li>
+              <a class="gn-icon gn-icon-download">Downloads</a>
+              <ul class="gn-submenu">
+                <li><a class="gn-icon gn-icon-illustrator">Vector Illustrations</a></li>
+                <li><a class="gn-icon gn-icon-photoshop">Photoshop files</a></li>
+              </ul>
+            </li>
+            <li><a class="gn-icon gn-icon-cog">Settings</a></li>
+            <li><a class="gn-icon gn-icon-help">Help</a></li>
+            <li>
+              <a class="gn-icon gn-icon-archive">Archives</a>
+              <ul class="gn-submenu">
+                <li><a class="gn-icon gn-icon-article">Articles</a></li>
+                <li><a class="gn-icon gn-icon-pictures">Images</a></li>
+                <li><a class="gn-icon gn-icon-videos">Videos</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </li>
+    <li><a>TicketSnap</a></li>
+    <li><a><span><i class="fa fa-user"></i></span></a></li>
+    <li>
+      <a><span><i class="fa fa-comments"></i></span></a>
+    </li>
+  </ul>
+</header>
