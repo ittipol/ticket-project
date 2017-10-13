@@ -27,23 +27,21 @@
 </style>
 
 <div class="chat-left-sidenav">
-  <div class="p-3 bg-moon-gray">
+  <div class="chat-left-sidenav-header p-3">
     <h5 class="m-0">แชท</h5>
   </div>
   <div class="user-chat-list p-3">
-    <div class="clearfix">
-      <div class="avatar-frame fl">
-        <div class="online_status_indicator_{{$seller['id']}} online-status-indicator"></div>
-        <div class="avatar">
-          @if(empty($seller['avatar']))
-          <img src="/avatar?d=1">
-          @else
-          <img src="/avatar/{{$seller['avatar']}}?d=1">
-          @endif
-        </div>
+    <div class="avatar-frame fl">
+      <div class="online_status_indicator_{{$seller['id']}} online-status-indicator @if($seller['online']) is-online @endif"></div>
+      <div class="avatar">
+        @if(empty($seller['avatar']))
+        <img src="/avatar?d=1">
+        @else
+        <img src="/avatar/{{$seller['avatar']}}?d=1">
+        @endif
       </div>
-      <div class="online-status fl">{{$seller['name']}}</div>
     </div>
+    <div class="online-status fl">{{$seller['name']}}</div>
   </div>
 </div>
 
@@ -75,7 +73,6 @@
 
     const _userOnline = new UserOnline();
     _userOnline.init();
-    _userOnline.check({{$seller['id']}});
   });
 </script>
 

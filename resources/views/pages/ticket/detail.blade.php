@@ -83,10 +83,10 @@
     </div>
 
     <div class="col-md-4">
-      <div class="seller-section">
+      <div class="seller-section seller-fixed-bottom">
         <div class="pv2 pv2-ns ph3 ph2-ns clearfix">
           <div class="avatar-frame fl">
-            <div class="online_status_indicator_{{$data['created_by']}} online-status-indicator"></div>
+            <div class="online_status_indicator_{{$data['created_by']}} online-status-indicator @if($seller['online']) is-online @endif"></div>
             <div class="avatar">
               @if(empty($seller['avatar']))
               <img src="/avatar?d=1">
@@ -106,7 +106,9 @@
 
       <div class="contact-section">
         <div class="clearfix pa0 pa3-ns">
-          <h5 class="mt-1 pb-2"><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;ช่องทางการติดต่อผู้ขาย</h5>
+          <h5 class="mt-1 pb-2">
+            <i class="fa fa-address-book" aria-hidden="true"></i>
+            &nbsp;ติดต่อผู้ขาย</h5>
           {!!$data['contact']!!}
         </div>
         
@@ -137,7 +139,6 @@
 
     const _userOnline = new UserOnline();
     _userOnline.init();
-    _userOnline.check({{$data['created_by']}});
 
   });
 </script>

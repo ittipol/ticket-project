@@ -155,11 +155,36 @@
 
           </div>
 
-          <ul class="nav nav-tabs">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="seller-section">
+                <div class="pv2 pv2-ns ph3 ph2-ns clearfix">
+                  <div class="avatar-frame fl">
+                    <div class="online_status_indicator_{{$value['created_by']}} online-status-indicator @if($value['user']['online']) is-online @endif"></div>
+                    <div class="avatar">
+                      @if(empty($value['user']['avatar']))
+                      <img src="/avatar?d=1">
+                      @else
+                      <img src="/avatar/{{$value['user']['avatar']}}?d=1">
+                      @endif
+                    </div>
+                  </div>
+                  <div class="online-status fl">{{$value['user']['name']}}</div>
+                </div>
+                <div class="pa2 pa2-ns">
+                  <a href="/chat/{{$value['id']}}" class="btn btn-primary btn-block br0">
+                    <i class="fa fa-comments" aria-hidden="true"></i> คุยกับผู้ขาย
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <ul class="nav nav-tabs">
             <li><a href="#">เพิ่มเติม</a></li>
             <li><a href="#">รายละเอียด</a></li>
             <li><a href="#">ติดต่อ</a></li>
-          </ul>          
+          </ul>   -->        
 
         </div>
 
@@ -194,6 +219,9 @@
 
     const date2 = new Datepicker('#date_input_2');
     date2.init();
+
+    const _userOnline = new UserOnline();
+    _userOnline.init();
 
   });
 </script>

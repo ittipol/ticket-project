@@ -139,7 +139,7 @@ class UserController extends Controller
 
     if(empty($ticket)) {
       Snackbar::message('ไม่พบรายการนี้');
-      return Redirect::to('/');
+      return Redirect::to('/ticket');
     }
 
     if(Auth::user()->id == $ticket->created_by) {
@@ -166,7 +166,7 @@ class UserController extends Controller
       $roomModel = $roomModel->find($_room->chat_room_id);
     }
 
-    $seller = User::select('id','name','avatar')->find($ticket->created_by);
+    $seller = User::select('id','name','avatar','online')->find($ticket->created_by);
 
     $chat = array(
       'user' => Auth::user()->id,

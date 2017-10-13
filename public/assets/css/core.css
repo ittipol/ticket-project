@@ -247,3 +247,19 @@ form .input-addon > select:last-child {
 	height: 100%;
 	background-color: rgb(3,192,37);
 }
+
+.online-status-indicator {
+	position: absolute;
+	top: -0;
+	left: -3px;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	z-index: 9;
+	background-color: #767676;
+}
+
+.online-status-indicator.is-online {
+	background-color: #21ba45;
+	box-shadow: 0 0 10px 2px rgba(28,156,1,.85);
+}

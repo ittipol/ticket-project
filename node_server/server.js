@@ -5,7 +5,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var db = require('./db');
 
-// var handle = [];
+var handle = [];
 var clients = [];
 
 const MESSAGE_TAKE = 20;
@@ -23,18 +23,22 @@ io.on('connection', function(socket){
   
   socket.on('online', function(data){
 
-    // if(handle[data.userId] !== undefined) {
-    //   clearTimeout(handle[data.userId]);
-    // }
+    if(handle[data.userId] !== undefined) {
+      clearTimeout(handle[data.userId]);
+    }
 
     socket.userId = data.userId;
 
     if(clients.indexOf(data.userId) === -1){
+      // Push to clients
       clients.push(data.userId);
+      // Emit to client
       io.in('check-online').emit('check-user-online', {
         user: data.userId,
         online: true
       });
+      // Update user is online to database
+      db.query("UPDATE `users` SET `online` = '1' WHERE `users`.`id` = "+data.userId);
     }
 
     // -------------------------------------------------------
@@ -54,16 +58,23 @@ io.on('connection', function(socket){
       return false;
     }
 
-    let index = clients.indexOf(socket.userId);
+    handle[socket.userId] = setTimeout(function(){
 
-    if(index !== -1){
-      clients.splice(index, 1);
-      io.in('u_'+socket.userId).emit('offline', {});
-      io.in('check-online').emit('check-user-online', {
-        user: socket.userId,
-        online: false
-      });
-    }
+      let index = clients.indexOf(socket.userId);
+
+      if(index !== -1){
+        // Clear
+        clients.splice(index, 1);
+        // Emit
+        io.in('u_'+socket.userId).emit('offline', {});
+        io.in('check-online').emit('check-user-online', {
+          user: socket.userId,
+          online: false
+        });
+        // Update
+        db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+socket.userId+";");
+      }
+    },1500);
 
     // -------------------------------------------------------
     // console.log('User: ' + socket.userId + ' disconnected.');

@@ -20,9 +20,9 @@ class UserOnline {
 
 			if(el.length) {
 				if(res.online) {
-					el.removeClass('is-offline').addClass('is-online');
+					el.addClass('is-online');
 				}else{
-					el.removeClass('is-online').addClass('is-offline');
+					el.removeClass('is-online');
 				}				
 			}
 

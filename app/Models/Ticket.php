@@ -61,8 +61,13 @@ class Ticket extends Model
     }
 
     // GET Images
-    $imageModel = new Image;
-    $imageTotal = $imageModel->where([
+    // $imageModel = new Image;
+    // $imageTotal = $imageModel->where([
+    //   'model' => $this->modelName,
+    //   'model_id' => $this->id,
+    // ])->count();
+
+    $imageTotal = Image::where([
       'model' => $this->modelName,
       'model_id' => $this->id,
     ])->count();
@@ -81,12 +86,8 @@ class Ticket extends Model
 
     }
 
-    // $images = array();
-    // foreach ($_images as $image) {
-    //   $images[] = array_merge($image->buildModelData(),array(
-    //     '_sm_list_url' => $cache->getCacheImageUrl($image,'sm_list')
-    //   ));
-    // }
+    // Get user
+    $user = User::select('name','avatar','online')->find($this->created_by);
 
     $originalPrice = null;
     $save = null;
@@ -112,6 +113,8 @@ class Ticket extends Model
       'dateTypeLabel' => $this->getDateTypeById($this->date_type),
       'date_1' => $date->covertDateToSting($this->date_1),
       'date_2' => $date->covertDateToSting($this->date_2),
+      'created_by' => $this->created_by,
+      'user' => $user,
       'image' => $image,
       'imageTotal' => $imageTotal,
       'tags' => $tags 

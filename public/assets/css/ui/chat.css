@@ -1,12 +1,20 @@
 .chat-left-sidenav {
 	position: fixed;
-	top: 0;
 	left: 0;
 	height: 100%;
 	width: 350px;
-	background-color: #fff;
-  border-right: 1px solid #1E88E5;
+	background-color: #90A4AE;
+	border-right: 1px solid #546E7A;
   z-index: 9;
+}
+
+.chat-left-sidenav-header {
+	background-color: #37474F;
+	color: #fff;
+}
+
+.chat-left-sidenav-header > h5 {
+	font-size: 1rem;
 }
 
 .user-chat-list .avatar-frame {

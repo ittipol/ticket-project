@@ -105,11 +105,12 @@ class TicketController extends Controller
     $model = Service::loadModel('Ticket')->find($ticketId);
 
     if(empty($model)) {
-      abort(404);
+      Snackbar::message('ไม่พบรายการนี้');
+      return Redirect::to('/ticket');
     }
 
     // GET SELLER
-    $seller = Service::loadModel('User')->select('name','avatar')->find($model->created_by);
+    $seller = Service::loadModel('User')->select('name','avatar','online')->find($model->created_by);
 
     $this->setData('data',$model->buildDataDetail());
     $this->setData('seller',$seller->getAttributes());
