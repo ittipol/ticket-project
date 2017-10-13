@@ -69,8 +69,8 @@
         @endif
       </div>
 
+      @if(!empty($data['images']))
       <hr>
-
       <div class="image-gallery-section p-2 bg-moon-gray">
         <div class="n2">
         @foreach($data['images'] as $image)
@@ -78,6 +78,7 @@
         @endforeach
         </div>
       </div>
+      @endif
 
     </div>
 
@@ -85,28 +86,26 @@
       <div class="seller-section">
         <div class="pv2 pv2-ns ph3 ph2-ns clearfix">
           <div class="avatar-frame fl">
-            <div id="online_status_indicator_{{$data['created_by']}}" class="online-status-indicator"></div>
+            <div class="online_status_indicator_{{$data['created_by']}} online-status-indicator"></div>
             <div class="avatar">
-              @if(empty($seller->avatar))
+              @if(empty($seller['avatar']))
               <img src="/avatar?d=1">
               @else
-              <img src="/avatar/{{$seller->avatar}}?d=1">
+              <img src="/avatar/{{$seller['avatar']}}?d=1">
               @endif
             </div>
           </div>
-          <div class="online-status fl">{{$seller->name}}</div>
+          <div class="online-status fl">{{$seller['name']}}</div>
         </div>
-        <div class="chat-section">
-          <div class="pa2 pa2-ns">
-            <a href="/chat/{{$ticketId}}" class="btn btn-primary btn-block br0">
-              <i class="fa fa-comments" aria-hidden="true"></i> คุยกับผู้ขาย
-            </a>
-          </div>
+        <div class="pa2 pa2-ns">
+          <a href="/chat/{{$ticketId}}" class="btn btn-primary btn-block br0">
+            <i class="fa fa-comments" aria-hidden="true"></i> คุยกับผู้ขาย
+          </a>
         </div>
       </div>
 
       <div class="contact-section">
-        <div class="clearfix p-3">
+        <div class="clearfix pa0 pa3-ns">
           <h5 class="mt-1 pb-2"><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;ช่องทางการติดต่อผู้ขาย</h5>
           {!!$data['contact']!!}
         </div>
@@ -136,12 +135,9 @@
       touchAnimation: false,
     });
 
-    const _userOnline = new UserOnline({{$data['created_by']}});
+    const _userOnline = new UserOnline();
     _userOnline.init();
-
-    // setInterval(function(){
-    //   _io.socket.emit('check-user-online', {userId: 1});
-    // },1000);
+    _userOnline.check({{$data['created_by']}});
 
   });
 </script>

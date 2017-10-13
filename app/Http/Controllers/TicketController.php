@@ -109,10 +109,10 @@ class TicketController extends Controller
     }
 
     // GET SELLER
-    $seller = Service::loadModel('User')->select('name','avatar','online')->find($model->created_by);
+    $seller = Service::loadModel('User')->select('name','avatar')->find($model->created_by);
 
     $this->setData('data',$model->buildDataDetail());
-    $this->setData('seller',$seller);
+    $this->setData('seller',$seller->getAttributes());
     $this->setData('ticketId',$ticketId);
 
     return $this->view('pages.ticket.detail');

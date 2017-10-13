@@ -16,6 +16,7 @@ class Chat {
 		this.join();
 	  this.bind();
 	  this.more();
+	  this.layout();
 	  this.calPosition(window.innerHeight);
 
 	  let _this = this;
@@ -32,9 +33,6 @@ class Chat {
 	}
 
 	bind() {
-
-		// console.log(DateTime.covertDateTimeToSting(moment().format('YYYY-MM-DD h:mm:ss')));
-
 
 		let _this = this;
 
@@ -99,12 +97,10 @@ class Chat {
 
 	  });
 
-	  $(document).on('scroll',function(){
-
+	  $('.chat-section').on('scroll',function(){
 	  	if($(this).scrollTop() < _this.loadPostition) {
 	  		_this.more();
 	  	}
-
 	  });
 
 	  this.io.socket.on('chat-load-more', function(res){
@@ -136,14 +132,15 @@ class Chat {
 	  });
 
 	  $(window).resize(function(){
+	  	_this.layout();
 	  	_this.calPosition(window.innerHeight);
 	  });
 
 	}
 
 	toButtom() {
-		if($('.chat-section').height() > window.innerHeight) {
-			$(document).scrollTop(($('.chat-section').height() - window.innerHeight + 100))
+		if($('.chat-thread').innerHeight() > $('.chat-section').innerHeight()) {
+			$('.chat-section').scrollTop(($('.chat-thread').innerHeight() - $('.chat-section').innerHeight()))
 		}
 	}
 
@@ -234,7 +231,28 @@ class Chat {
 	}
 
 	calPosition(screenHeight) {
-		this.loadPostition = screenHeight * 0.3;
+		this.loadPostition = screenHeight * 0.15;
+	}
+
+	layout() {
+
+		let wH = window.innerHeight;
+		let wW = window.innerWidth;
+		let navbarH = $('.navbar').innerHeight();
+		let sidebarW = $('.chat-left-sidenav').innerWidth();
+
+		$('.chat-left-sidenav').css({
+			height: (wH-navbarH)+'px',
+			top: navbarH+'px'
+		});
+
+		$('.chat-section').css({
+			height: (wH-navbarH)+'px',
+			width: (wW-sidebarW)+'px'
+		});
+
+		$('.chat-footer-section').css('width',(wW-sidebarW)+'px');
+
 	}
 
 }

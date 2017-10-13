@@ -13,3 +13,4 @@ yarn-error.log
 /storage/cache
 /storage/temporary
 /node_server/env.js
+/node_server/node_modules

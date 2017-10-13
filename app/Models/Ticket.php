@@ -101,6 +101,7 @@ class Ticket extends Model
     }
 
     return array(
+      'id' => $this->id,
       'title' => $this->title,
       'description' => $this->description,
       'place_location' => $this->place_location,

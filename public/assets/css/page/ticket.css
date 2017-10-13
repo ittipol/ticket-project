@@ -172,7 +172,7 @@
 	line-height: 40px;
 }
 
-.seller-section .online-status-indicator {
+.online-status-indicator {
 	position: absolute;
 	top: -0;
 	left: -3px;
@@ -261,6 +261,7 @@
 		width: 100%;
 		background-color: #ececec;
 		border-top: 2px solid rgb(65,133,242);
+		z-index: 9;
 	}
 
 }

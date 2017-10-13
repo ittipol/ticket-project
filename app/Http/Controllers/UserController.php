@@ -41,6 +41,8 @@ class UserController extends Controller
       $message = 'กรุณาป้อนอีเมล และ รหัสผ่าน';
     }
 
+    Snackbar::message($message);
+
     return Redirect::back()->withErrors([$message]);
 
   }
@@ -164,17 +166,23 @@ class UserController extends Controller
       $roomModel = $roomModel->find($_room->chat_room_id);
     }
 
-    $now = date('Y-m-d H:i:s');
+    $seller = User::select('id','name','avatar')->find($ticket->created_by);
 
     $chat = array(
       'user' => Auth::user()->id,
+      // 'user' => {
+      //   'id' => Auth::user()->id,
+      //   'name' => Auth::user()->name,
+      //   'avatar' => Auth::user()->avatar
+      // },
       'room' => $roomModel->id,
       'key' => $roomModel->room_key,
       'page' => 1,
-      'time' => $now
+      'time' => date('Y-m-d H:i:s')
     );
 
     $this->setData('chat',json_encode($chat));
+    $this->setData('seller',$seller->getAttributes());
 
     return $this->view('pages.user.chat');
   }

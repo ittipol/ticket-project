@@ -88,7 +88,9 @@
 
           <div class="main-data-section w-100 clearfix">
 
-            <h5 class="mx-2 my-3">{{$value['title']}}</h5>
+            <h5 class="mx-2 my-3">
+              <a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a>
+            </h5>
 
             <div class="w-100 w-70-ns fn fl-ns">
 
