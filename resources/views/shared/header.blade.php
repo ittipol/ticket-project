@@ -5,63 +5,43 @@
         <i class="fa fa-bars" aria-hidden="true"></i>
       </span>
     </button>
-    <a class="navbar-brand" href="#">TicketSnap</a>
-
-    <div class="floating-nav">
-      <div class="dropdown">
-        <a class="btn dropdown-toggle" id="f-dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-lock"></i>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="f-dd1">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="floating-nav">
-      <div class="dropdown">
-        <a class="btn dropdown-toggle" id="f-dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-lock"></i>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="f-dd1">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </div>
-    </div>
+    <a class="navbar-brand" href="/">TicketSnap</a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <div class="dropdown">
-            <a class="btn dropdown-toggle" id="dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-bell"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dd1">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="dropdown">
-            <a class="btn dropdown-toggle" id="dd2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-comment"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dd2">
-              <p class="p-2">
-                Any single .btn can be turned into a dropdown toggle with some markup changes. Here’s how you can put them to work with either 
-              </p>
-            </div>
-          </div>
-        </li>
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a class="nav-link" href="/ticket">ราการขาย</a>
         </li>
+      </ul>
+      <ul class="navbar-nav my-2 my-lg-0">
+        <li class="nav-item">
+          <a class="nav-link d-inline-block" href="/ticket/new">
+            <i class="fa fa-tag"></i>&nbsp;ลงขายบัตร
+          </a>
+        </li>
+        @if(Auth::check())
+          <li class="nav-item">
+            <a class="nav-link d-inline-block" href="/notification">
+              <i class="fa fa-bell-o" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link d-inline-block user-profile" href="/account">
+              <img src="/avatar?d=1">
+            </a>
+            <!-- <a class="nav-link d-inline-block" href="/logout">
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </a> -->
+          </li>
+        @else
+          <li class="nav-item">
+            <a class="nav-link d-inline-block" href="/login">
+              <i class="fa fa-user-o"></i>&nbsp;เข้าสู่ระบบ
+            </a>
+            /
+            <a class="nav-link d-inline-block" href="/subscribe">สร้างบัญชี</a>
+          </li>
+        @endif
       </ul>
     </div>
   </nav>
