@@ -28,7 +28,7 @@ class Chat {
 
 	join() {
 		this.io.socket.emit('chat-join', {
-			room: this.chat.room
+			room: this.chat.room,
 	    key: this.chat.key
 	  });
 	}
@@ -257,7 +257,7 @@ class Chat {
 			height: (wH-navbarH)+'px',
 			width: (wW-sidebarW)+'px'
 		});
-
+console.log('xxx');
 		$('.chat-footer-section').css('width',(wW-sidebarW)+'px');
 
 	}

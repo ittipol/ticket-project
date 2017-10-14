@@ -68,8 +68,8 @@
 <script type="text/javascript" src="/assets/js/form/chat.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
-    const chat = new Chat({!!$chat!!});
-    chat.init();
+    const _chat = new Chat({!!$chat!!});
+    _chat.init();
 
     const _userOnline = new UserOnline();
     _userOnline.init();
