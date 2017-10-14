@@ -10,8 +10,15 @@
               <a class="gn-icon fa-search"><span>Search</span></a>
             </li>
             <li><a href="/logout" class="gn-icon fa-tags">รายการขายบัตร</a></li>
-            <li><a href="/logout" class="gn-icon fa-pencil">ขายบัตร</a></li>
-            <li><a href="/logout" class="gn-icon fa-sign-out">ออกจากระบบ</a></li>
+            <li><a href="/logout" class="gn-icon fa-plus">เพิ่มรายการขาย</a></li>
+            <li>
+              <a class="gn-icon fa-user">Username</a>
+              <ul class="gn-submenu">
+                <li><a href="/logout" class="gn-icon fa-pencil">แก้ไชโปรไฟล์</a></li>
+                <li><a href="/logout" class="gn-icon fa-list">รายการขายของคุณ</a></li>
+                <li><a href="/logout" class="gn-icon fa-sign-out">ออกจากระบบ</a></li>
+              </ul>
+            </li>
             <!-- <li>
               <a class="gn-icon fa-heart">Help</a>
               <ul class="gn-submenu">
