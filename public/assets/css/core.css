@@ -265,5 +265,5 @@ form .input-addon > select:last-child {
 }
 
 .gn-menu-main {
-	z-index: 1000;
+	z-index: 90;
 }

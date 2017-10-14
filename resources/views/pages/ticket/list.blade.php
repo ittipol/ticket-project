@@ -7,20 +7,20 @@
     background-color: #ccc;
   }
 
-  .grid-item { width: 32.666666666666666666666666666667%; margin: 0.3333333333333333333333333333333%; }
+  .grid-item { width: 32%; margin: 0.5%; }
 
   @media (max-width: 1024px) {
     .grid-item { width: 49%; margin: 0.5%; }
   }
 
   @media (max-width: 480px) {
-    .grid-item { width: 92%; margin: 4% 4%; }
+    .grid-item { width: 92%; margin: 4%; }
   }
 </style>
 
 <div class="container-fliud margin-top-20">
 
-  <!-- <div class="left-sidenav">
+  <div class="left-sidenav">
     <div class="p-3">
 
       <div class="mb-3">
@@ -62,13 +62,13 @@
       </div>      
 
       <div class="text-center mt-2">
-        <button type="button" class="btn btn-success btn-block br0">ค้นหา</button>
+        <button type="button" class="btn btn-primary btn-block br0">ค้นหา</button>
       </div>
 
     </div>
-  </div> -->
+  </div>
 
-  <div class="grid data-list">
+  <div class="grid data-list main-panel">
     @foreach($list as $value)
     <div class="grid-item">
       <div class="data-list-item">
@@ -76,7 +76,7 @@
         <div class="w-100">
           @if(!empty($value['image']))
             <div class="data-image">
-              <img src="{{$value['image']['_url']}}">
+              <img src="{{$value['image']['_preview_url']}}">
 
               @if($value['imageTotal'] > 1)
               <div class="image-more">
@@ -250,11 +250,6 @@
 
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
 
-<script type="text/javascript">
-  // $('.left-sidenav').css({
-  //   left: $('.main-panel').offset().left - 300
-  // });
-</script>
 
 <script type="text/javascript">
   $(document).ready(function(){
@@ -274,6 +269,12 @@
       $("#price_range_max").text(e.value[1]);
     });
 
+    $('.grid').masonry({
+      // options
+      itemSelector: '.grid-item',
+      percentPosition: true
+    });
+
     const date1 = new Datepicker('#date_input_1');
     date1.init();
 
@@ -282,12 +283,6 @@
 
     const _userOnline = new UserOnline();
     _userOnline.init();
-
-    $('.grid').masonry({
-      // options
-      itemSelector: '.grid-item',
-      percentPosition: true
-    });
 
   });
 </script>

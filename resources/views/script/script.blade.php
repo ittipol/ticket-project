@@ -12,14 +12,18 @@
     'assets/js/jquery.validate.min.js',
     'assets/js/bootstrap.min.js',
     'assets/lib/image_gallery/jquery.nanogallery2.min.js',
+    'assets/js/modernizr.custom.js',
+    'assets/js/masonry.pkgd.min.js',
     'assets/lib/moment/moment.js',
     // 'assets/lib/moment/moment-timezone.js',
 
-    'assets/lib/header/js/modernizr.custom.js',
+
+    // 'assets/lib/header/js/modernizr.custom.js',
     'assets/lib/header/js/classie.js',
     'assets/lib/header/js/gnmenu.js',
 
-    'assets/js/masonry.pkgd.min.js',
+    'assets/lib/notification/js/classie.js',
+    'assets/lib/notification/js/notificationFx.js',
 
     'assets/js/token.js',
     'assets/js/io.js',
@@ -60,7 +64,7 @@
 <?php
 
   $cssFiles = array(
-    'assets/css/bootstrap-reboot.min.css',
+    // 'assets/css/bootstrap-reboot.min.css',
     'assets/css/bootstrap-grid.min.css',
     'assets/css/bootstrap.min.css',
     'assets/css/font-awesome.min.css',
@@ -74,6 +78,12 @@
 
     'assets/lib/header/css/normalize.css',
     'assets/lib/header/css/component.css',
+
+    'assets/lib/notification/css/ns-default.css',
+    'assets/lib/notification/css/ns-style-attached.css',
+    'assets/lib/notification/css/ns-style-bar.css',
+    'assets/lib/notification/css/ns-style-growl.css',
+    'assets/lib/notification/css/ns-style-other.css',
 
     'assets/css/core.css',
     'assets/css/page/landing.css',

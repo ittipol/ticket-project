@@ -5,11 +5,13 @@
 	width: 280px;
 	background-color: #fff;*/
 	position: fixed;
-  top: 86px;
-  left: 40px;
-  width: 280px;
-  background-color: rgba(255,255,255,.6);
-	border: 1px solid #ccc;
+  top: 60px;
+  left: 0;
+  width: 290px;
+  background-color: #fff;
+  height: 100%;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
 }
 
 .left-sidenav h4 {
@@ -30,7 +32,6 @@
 }
 
 #price_range .slider-selection {
-  /*height: 4px;*/
   background: #90CAF9;
 }
 
@@ -60,11 +61,10 @@
 .data-list-item {
 	position: relative;
 	width: 100%;
-	/*margin-bottom: 1.25rem;*/
 	color: #37454d;
 	background-color: #fff;
 	border: 1px solid #aaa;
-	/*box-shadow: 0 1px 4px rgba(41,51,57,.5);*/
+	box-shadow: 0 1px 4px rgba(41,51,57,.5);
 }
 
 .data-list-item .main-data-section h5 {
@@ -117,7 +117,7 @@
 	bottom: 0;
 	color: #fff;
 	font-size: 1.25rem;
-	background-color: rgba(60,60,60,.6);
+	background-color: rgba(20,20,20,.7);
 	padding: 5px 20px;
 }
 
@@ -127,13 +127,11 @@
 
 .data-list-item .data-image {
 	position: relative;
-	min-height: 80px;
+	min-height: 200px;
 	background-color: #bbb;
-  /*margin-bottom: 0.625rem;*/
 }
 
 .price-section {
-	/*background-color: #ddd;*/
 	position: relative;
 }
 
@@ -150,15 +148,8 @@
 
 
 .price-saving-flag {
-	/*position: absolute;
-	top: 0;
-	right: 0;*/
 	color: #fff;
 	background-color: #D50000;
-	/*padding: 0.3125rem;*/
-	/*border-radius: 2px 0 0 2px;*/
-	/*height: 100%;
-	line-height: 65px;*/
 	padding: 0 1.5625rem;
 	font-size: 1.375rem;
 }
@@ -215,7 +206,7 @@
 	line-height: 45px;
 }
 
-.nav-tabs > li {
+/*.nav-tabs > li {
 	width: 100%;
 	text-align: center;
 	background-color: #ddd;
@@ -228,7 +219,7 @@
 .nav-tabs > li:hover a {
 	display: block;
 	text-decoration: none;
-}
+}*/
 
 @media (max-width: 480px) {
 

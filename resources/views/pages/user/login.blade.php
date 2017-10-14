@@ -3,7 +3,7 @@
 
 {{Form::open(['id' => 'login_form', 'class' => 'user-form', 'method' => 'post', 'enctype' => 'multipart/form-data'])}}
 
-<div class="login-page margin-top-100">
+<div class="login-page margin-top-60">
 
   @include('component.form_error')
   

@@ -23,6 +23,7 @@
   bottom: 0;
   opacity: 0;
   z-index: 1000;
+  
 }
 
 @media (min-width: 640px) {
@@ -59,6 +60,8 @@
     */
     left: 0px;
     right: 0px;
+    width: 80%;
+    margin: 0 auto;
   }
 }
 .snackbar .action {
