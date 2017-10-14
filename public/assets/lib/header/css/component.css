@@ -119,7 +119,8 @@
 }
 
 .gn-submenu li a {
-		color: #c1c9d1
+		/*color: #c1c9d1*/
+		padding-left: 35px;
 }
 
 input.gn-search {
