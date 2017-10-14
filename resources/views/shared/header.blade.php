@@ -20,7 +20,7 @@
               <li>
                 <a href="javascript:void(0);" class="gn-icon fa-user">{{Auth::user()->name}}</a>
                 <ul class="gn-submenu">
-                  <li><a href="/account/edit" class="gn-icon fa-pencil">แก้ไชโปรไฟล์</a></li>
+                  <li><a href="/account/edit" class="gn-icon fa-pencil">แก้ไขโปรไฟล์</a></li>
                   <li><a href="/account/ticket" class="gn-icon fa-list">รายการขายของคุณ</a></li>
                   <li><a href="/logout" class="gn-icon fa-sign-out">ออกจากระบบ</a></li>
                 </ul>
@@ -38,48 +38,75 @@
         </div>
       </nav>
     </li>
+
     <li class="brand-l"><a href="/">TicketSnap</a></li>
+
     @if(Auth::check())
-    <li>
-      <div class="avatar-frame pointer">
+
+    <li class="dd-menu btn-hover">
+      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="avatar-frame pointer">
         <img class="avatar" src="/avatar?d=1">
-      </div>
+      </a>
+      <ul class="dropdown-menu">
+        <li class="dd-link"><a href="/account/edit"><i class="fa fa-pencil"></i>&nbsp;&nbsp;แก้ไขโปรไฟล์</a></li>
+        <li class="dd-link"><a href="/account/ticket"><i class="fa fa-pencil"></i>&nbsp;&nbsp;รายการขายของคุณ</a></li>
+        <li class="dd-link"><a href="/logout"><i class="fa fa-pencil"></i>&nbsp;&nbsp;ออกจากระบบ</a></li>
+      </ul>
     </li>
-    <li class="notification">
+
+    <li class="dd-menu btn-hover">
       <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="notification pointer">
-        <div class="header-badge"></div>
+        <div class="count-badge"></div>
         <i class="fa fa-comments"></i>
       </a>
 
-      <ul class="dropdown-menu notify-drop">
-        <div class="notify-drop-title">
-          <p>แจ้งเตือน</p>
+      <ul class="dropdown-menu dd-notification">
+        <h5 class="p-3 text-center">ข้อความ</h5>
+
+        <div class="notification-list">
+
+          <a href="" class="notification-list-item clearfix">
+            <div class="notification-icon fl">
+              <img class="avatar" src="/avatar?d=1">
+            </div>
+            <div class="notification-content fl">
+              <p>New Message!!!</p>
+            </div>
+          </a>
+
+          <a href="" class="notification-list-item clearfix">
+            <div class="notification-icon fl">
+              <img class="avatar" src="/avatar?d=1">
+            </div>
+            <div class="notification-content fl">
+              <p>New Message!!!</p>
+            </div>
+          </a>
+
+          <a class="notification-list-item clearfix">
+            <div class="notification-icon fl">
+              <img class="avatar" src="/avatar?d=1">
+            </div>
+            <div class="notification-content fl">
+              <p>New Message!!!</p>
+            </div>
+          </a>
+
         </div>
 
-        <div class="drop-content">
-          
-
-
-          <div class="clearfix">
-            <div class="w-30 fl">
-              <div class="notify-img">
-                <img src="http://placehold.it/45x45" alt="">
-              </div>
-            </div>
-            <div class="w-70 fl">
-              <p class="time">Şimdi</p>
-            </div>
-          </div>
-
-        </div>
- 
       </ul>
+
     </li>
     @else
-    <li>
-      <a>
+    <li class="dd-menu">
+      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="pointer">
         <i class="fa fa-user"></i>&nbsp;บัญชี
       </a>
+      <ul class="dropdown-menu">
+
+
+
+      </ul>
     </li>
     @endif
   </ul>

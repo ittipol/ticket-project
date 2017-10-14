@@ -11,16 +11,11 @@ header {
 	border-bottom: 1px solid #ccc;
 }
 
-.gn-menu-main a {
-	font-weight: 500;
-}
-
 .gn-menu-main > li > a {
 	font-size: 0.875rem;
 }
 
 header .gn-menu-main > li > .notification {
-	position: relative;
 	padding: 0.625rem;
 }
 
@@ -30,10 +25,10 @@ header .notification > i {
 }
 
 header .notification.on > i {
-	color: #311B92;
+	color: #448AFF;
 }
 
-header .notification > .header-badge {
+header .notification > .count-badge {
 	position: absolute;
 	top: 7px;
 	right: 0px;

@@ -17,8 +17,6 @@
     'assets/lib/moment/moment.js',
     // 'assets/lib/moment/moment-timezone.js',
 
-
-    // 'assets/lib/header/js/modernizr.custom.js',
     'assets/lib/header/js/classie.js',
     'assets/lib/header/js/gnmenu.js',
 
@@ -87,6 +85,7 @@
     'assets/css/ui/md-chip.css',
     'assets/css/ui/snackbar.css',
     'assets/css/ui/chat.css',
+    'assets/css/ui/dropdown-menu.css',
     'assets/css/page/landing.css',
     'assets/css/page/login.css',
     'assets/css/page/register.css',

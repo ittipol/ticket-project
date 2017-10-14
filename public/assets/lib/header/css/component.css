@@ -26,6 +26,7 @@
 		color: #5f6f81;
 		text-decoration: none;
 		cursor: pointer;
+		font-weight: 500;
 }
 
 .no-touch .gn-menu-main a:hover,
