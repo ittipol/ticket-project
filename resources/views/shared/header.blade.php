@@ -103,9 +103,8 @@
         <i class="fa fa-user"></i>&nbsp;บัญชี
       </a>
       <ul class="dropdown-menu">
-
-
-
+        <li class="dd-link"><a href="/login"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;เข้าสู่ระบบ</a></li>
+        <li class="dd-link"><a href="/subscribe"><i class="fa fa-pencil"></i>&nbsp;&nbsp;สร้างบัญชี</a></li>
       </ul>
     </li>
     @endif
