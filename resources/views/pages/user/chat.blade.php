@@ -31,17 +31,21 @@
     <h5 class="m-0">แชท</h5>
   </div> -->
   <div class="user-chat-list p-3">
-    <div class="avatar-frame fl">
-      <div class="online_status_indicator_{{$seller['id']}} online-status-indicator @if($seller['online']) is-online @endif"></div>
-      <div class="avatar">
-        @if(empty($seller['avatar']))
-        <img src="/avatar?d=1">
-        @else
-        <img src="/avatar/{{$seller['avatar']}}?d=1">
-        @endif
+    @foreach($users as $user)
+      <div class="clearfix mb-2">
+        <div class="avatar-frame fl">
+          <div class="online_status_indicator_{{$user['id']}} online-status-indicator @if($user['online']) is-online @endif"></div>
+          <div class="avatar">
+            @if(empty($user['avatar']))
+            <img src="/avatar?d=1">
+            @else
+            <img src="/avatar/{{$user['avatar']}}?d=1">
+            @endif
+          </div>
+        </div>
+        <div class="online-name fl">{{$user['name']}}</div>
       </div>
-    </div>
-    <div class="online-name fl">{{$seller['name']}}</div>
+    @endforeach
   </div>
 </div>
 

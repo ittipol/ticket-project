@@ -75,10 +75,11 @@
 
 .chat-section {
 	position: relative;
-	overflow-y: scroll; 
 	left: 350px;
 	background-color: #fff;
 	background: #8e9eab;
+	height: 100vh;
+	overflow-y: scroll; 
 }
 
 .chat-thread {

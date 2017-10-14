@@ -13,7 +13,7 @@ class TicketController extends Controller
     // GET Ticket
     $model = Service::loadModel('Ticket');
 
-    $data = $model->orderBy('created_at','desc')->get();
+    $data = $model->orderBy('created_at','desc')->take(24)->get();
 
     $list = array();
     foreach ($data as $value) {

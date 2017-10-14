@@ -11,7 +11,7 @@ var clients = [];
 const MESSAGE_TAKE = 20;
 
 function userOnline(userId) {
-  let index = clients.indexOf(data.userId);
+  let index = clients.indexOf(userId);
 
   if(index !== -1){
     return true;

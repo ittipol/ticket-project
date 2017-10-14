@@ -143,8 +143,6 @@
       thumbnailGutterWidth: 4,
       galleryDisplayMode: 'rows',
       thumbnailAlignment: 'left',
-      // thumbnailDisplayTransition: 'flipUp',
-      // thumbnailLabel: { hideIcons: true },
       slideshowAutoStart: false,
       viewerToolbar: { display: false },
       touchAnimation: false,

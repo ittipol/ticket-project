@@ -72,9 +72,6 @@
     'assets/lib/image_gallery/css/nanogallery2.min.css',
     'assets/css/func.css',
     'assets/css/spacing.css',
-    'assets/css/ui/calendar.css',
-    'assets/css/ui/navbar.css',
-    'assets/css/ui/md-chip.css',
 
     'assets/lib/header/css/normalize.css',
     'assets/lib/header/css/component.css',
@@ -85,14 +82,17 @@
     'assets/lib/notification/css/ns-style-growl.css',
     'assets/lib/notification/css/ns-style-other.css',
 
-    'assets/css/core.css',
+    'assets/css/ui/calendar.css',
+    'assets/css/ui/navbar.css',
+    'assets/css/ui/md-chip.css',
+    'assets/css/ui/snackbar.css',
+    'assets/css/ui/chat.css',
     'assets/css/page/landing.css',
     'assets/css/page/login.css',
     'assets/css/page/register.css',
     'assets/css/page/ticket.css',
     'assets/css/form/tagging.css',
-    'assets/css/ui/snackbar.css',
-    'assets/css/ui/chat.css',
+    'assets/css/core.css',
   );
 
   if($combine){

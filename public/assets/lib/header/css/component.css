@@ -2,13 +2,13 @@
 .gn-menu-main ul {
 		margin: 0;
 		padding: 0;
-		background: white;
 		color: #5f6f81;
+		background-color: #fff;
 		list-style: none;
 		text-transform: none;
 		font-weight: 300;
-		font-family: 'Lato', Arial, sans-serif;
 		line-height: 60px;
+		/*position: relative;*/
 }
 
 .gn-menu-main {
@@ -37,9 +37,9 @@
 
 .gn-menu-main > li {
 		display: block;
-		float: left;
+		float: right;
 		height: 100%;
-		border-right: 1px solid #c6d0da;
+		/*border-right: 1px solid #c6d0da;*/
 		text-align: center;
 }
 
@@ -56,11 +56,18 @@
 		user-select: none;
 }
 
-.gn-menu-main > li:last-child {
+.gn-menu-main > li:first-child,
+.gn-menu-main > li:nth-child(2) {
+		float: left;
+		/*border-left: none;*/
+		border-right: 1px solid #c6d0da;
+}
+
+/*.gn-menu-main > li:last-child {
 		float: right;
 		border-right: none;
 		border-left: 1px solid #c6d0da;
-}
+}*/
 
 .gn-menu-main > li > a {
 		padding: 0 30px;
@@ -82,7 +89,8 @@
 		left: 0;
 		overflow: hidden;
 		width: 60px;
-		border-top: 1px solid #c6d0da;
+		/*border-top: 1px solid #c6d0da;*/
+		border-right: 1px solid #c6d0da;
 		background: white;
 		-webkit-transform: translateX(-60px);
 		-moz-transform: translateX(-60px);
