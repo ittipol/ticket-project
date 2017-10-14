@@ -129,65 +129,74 @@ class UserController extends Controller
 
   }
 
-  public function chat($ticketId) {
+  // public function chat($ticketId) {
 
-    $roomModel = Service::loadModel('ChatRoom');
-    $messageModel = Service::loadModel('ChatMessage');
-    $sellerChatRoomModel = Service::loadModel('SellerChatRoom');
-    $userInChatRoomModel = Service::loadModel('UserInChatRoom');
+  //   $roomModel = Service::loadModel('ChatRoom');
+  //   $messageModel = Service::loadModel('ChatMessage');
+  //   $sellerChatRoomModel = Service::loadModel('SellerChatRoom');
+  //   // $userInChatRoomModel = Service::loadModel('UserInChatRoom');
 
-    $ticket = Service::loadModel('Ticket')->select('created_by')->find($ticketId);
+  //   $ticket = Service::loadModel('Ticket')->select('created_by')->find($ticketId);
 
-    if(empty($ticket)) {
-      Snackbar::message('ไม่พบรายการนี้');
-      return Redirect::to('/ticket');
-    }
+  //   if(empty($ticket)) {
+  //     Snackbar::message('ไม่พบรายการนี้');
+  //     return Redirect::to('/ticket');
+  //   }
 
-    if(Auth::user()->id == $ticket->created_by) {
-      Snackbar::message('ขออภัยคุณไมาสามารถคุยกับผู้ขายรายนี้ได้ คุณกับผู้ขายคือบุคคลเดียวกัน');
-      return Redirect::to('/');
-    }
+  //   if(Auth::user()->id == $ticket->created_by) {
+  //     Snackbar::message('ขออภัยคุณไมาสามารถคุยกับผู้ขายรายนี้ได้ คุณกับผู้ขายคือบุคคลเดียวกัน');
+  //     return Redirect::to('/');
+  //   }
 
-    // check seller and buyer
-    $_room = $sellerChatRoomModel->where([
-      ['seller','=',$ticket->created_by],
-      ['buyer','=',Auth::user()->id]
-    ])->first();
+  //   // check seller and buyer
+  //   $_room = $sellerChatRoomModel->where([
+  //     ['seller','=',$ticket->created_by],
+  //     ['buyer','=',Auth::user()->id]
+  //   ])->first();
 
-    if(empty($_room)) {
-      // Create room
-      $roomModel->room_key = Token::generate(128);
-      $roomModel->save();
+  //   if(empty($_room)) {
+  //     // Create room
+  //     $roomModel->room_key = Token::generate(128);
+  //     $roomModel->save();
 
-      $sellerChatRoomModel->chat_room_id = $roomModel->id;
-      $sellerChatRoomModel->seller = $ticket->created_by;
-      $sellerChatRoomModel->buyer = Auth::user()->id;
-      $sellerChatRoomModel->save();
-    }else{
-      $roomModel = $roomModel->find($_room->chat_room_id);
-    }
+  //     $sellerChatRoomModel->chat_room_id = $roomModel->id;
+  //     $sellerChatRoomModel->seller = $ticket->created_by;
+  //     $sellerChatRoomModel->buyer = Auth::user()->id;
+  //     $sellerChatRoomModel->save();
 
-    // Push user to chat room
-    // $userInChatRoomModel->
+  //     // Push user to chat room
+  //     $_user = Service::loadModel('UserInChatRoom');
+  //     $_user->chat_room_id = $roomModel->id;
+  //     $_user->user_id = $ticket->created_by;
+  //     $_user->save();
 
-    $chat = array(
-      'user' => Auth::user()->id,
-      // 'user' => {
-      //   'id' => Auth::user()->id,
-      //   'name' => Auth::user()->name,
-      //   'avatar' => Auth::user()->avatar
-      // },
-      'room' => $roomModel->id,
-      'key' => $roomModel->room_key,
-      'page' => 1,
-      'time' => date('Y-m-d H:i:s')
-    );
+  //     $_user = Service::loadModel('UserInChatRoom');
+  //     $_user->chat_room_id = $roomModel->id;
+  //     $_user->user_id = Auth::user()->id;
+  //     $_user->save();
 
-    $this->setData('chat',json_encode($chat));
-    $this->setData('seller',User::select('id','name','avatar','online')->find($ticket->created_by)->getAttributes());
+  //   }else{
+  //     $roomModel = $roomModel->find($_room->chat_room_id);
+  //   }
 
-    return $this->view('pages.user.chat');
-  }
+  //   $chat = array(
+  //     'user' => Auth::user()->id,
+  //     // 'user' => {
+  //     //   'id' => Auth::user()->id,
+  //     //   'name' => Auth::user()->name,
+  //     //   'avatar' => Auth::user()->avatar
+  //     // },
+  //     'room' => $roomModel->id,
+  //     'key' => $roomModel->room_key,
+  //     'page' => 1,
+  //     'time' => date('Y-m-d H:i:s')
+  //   );
+
+  //   $this->setData('chat',json_encode($chat));
+  //   $this->setData('seller',User::select('id','name','avatar','online')->find($ticket->created_by)->getAttributes());
+
+  //   return $this->view('pages.user.chat');
+  // }
 
   public function logout() {
     

@@ -245,19 +245,19 @@ class Chat {
 
 		let wH = window.innerHeight;
 		let wW = window.innerWidth;
-		let navbarH = $('.navbar').innerHeight();
+		let navbarH = 60;
 		let sidebarW = $('.chat-left-sidenav').innerWidth();
 
 		$('.chat-left-sidenav').css({
-			height: (wH-navbarH)+'px',
-			top: navbarH+'px'
+			'height': (wH-navbarH)+'px',
+			'top': navbarH+'px'
 		});
 
 		$('.chat-section').css({
-			height: (wH-navbarH)+'px',
-			width: (wW-sidebarW)+'px'
+			'height': (wH-navbarH)+'px',
+			'width': (wW-sidebarW)+'px'
 		});
-console.log('xxx');
+
 		$('.chat-footer-section').css('width',(wW-sidebarW)+'px');
 
 	}

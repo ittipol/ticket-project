@@ -27,9 +27,9 @@
 </style>
 
 <div class="chat-left-sidenav">
-  <div class="chat-left-sidenav-header p-3">
+  <!-- <div class="chat-left-sidenav-header p-3">
     <h5 class="m-0">แชท</h5>
-  </div>
+  </div> -->
   <div class="user-chat-list p-3">
     <div class="avatar-frame fl">
       <div class="online_status_indicator_{{$seller['id']}} online-status-indicator @if($seller['online']) is-online @endif"></div>

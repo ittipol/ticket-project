@@ -3,7 +3,8 @@
 	left: 0;
 	height: 100%;
 	width: 350px;
-	background-color: #90A4AE;
+	/*background-color: #90A4AE;*/
+	background-color: #fff;
 	border-right: 1px solid #546E7A;
   z-index: 9;
 }
@@ -77,6 +78,7 @@
 	overflow-y: scroll; 
 	left: 350px;
 	background-color: #fff;
+	background: #8e9eab;
 }
 
 .chat-thread {

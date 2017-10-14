@@ -56,16 +56,15 @@
       // snackbar.setType('');
       snackbar.display();
 
-      var notification = new NotificationFx({
-        message : '{{ Session::get("message.title") }}',
-        layout : 'bar',
-        effect : 'scale',
-        ttl : 6000,
-        type : 'notice', // notice, warning or error
-      });
+      // var notification = new NotificationFx({
+      //   message : '',
+      //   layout : 'bar',
+      //   effect : 'scale',
+      //   ttl : 6000,
+      //   type : 'notice',
+      // });
 
-      // show the notification
-      notification.show();
+      // notification.show();
 
   </script>
   @endif

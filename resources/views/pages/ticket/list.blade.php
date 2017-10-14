@@ -18,7 +18,7 @@
   }
 </style>
 
-<div class="container-fliud margin-top-20">
+<div class="container-fliud margin-top-10">
 
   <div class="left-sidenav">
     <div class="p-3">

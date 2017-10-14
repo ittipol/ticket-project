@@ -7,9 +7,9 @@ class Word extends Model
   public $table = 'words';
   protected $fillable = ['word'];
 
-  public function __construct() {  
-    parent::__construct();
-  }
+  // public function __construct() {  
+  //   parent::__construct();
+  // }
 
   public function saveSpecial($value) {
 
