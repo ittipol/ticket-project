@@ -9,14 +9,16 @@
               <input placeholder="Search" type="search" class="gn-search">
               <a class="gn-icon fa-search"><span>Search</span></a>
             </li>
-            <li><a href="/logout" class="gn-icon fa-sign-out">logout</a></li>
-            <li>
+            <li><a href="/logout" class="gn-icon fa-tags">รายการขายบัตร</a></li>
+            <li><a href="/logout" class="gn-icon fa-pencil">ขายบัตร</a></li>
+            <li><a href="/logout" class="gn-icon fa-sign-out">ออกจากระบบ</a></li>
+            <!-- <li>
               <a class="gn-icon fa-heart">Help</a>
               <ul class="gn-submenu">
                 <li><a class="gn-icon fa-user">ติดต่อเรา</a></li>
                 <li><a class="gn-icon fa-user">นโยบาย</a></li>
               </ul>
-            </li>
+            </li> -->
           </ul>
         </div>
       </nav>
