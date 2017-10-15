@@ -8,7 +8,6 @@
 		text-transform: none;
 		font-weight: 300;
 		line-height: 60px;
-		/*position: relative;*/
 }
 
 .gn-menu-main {
@@ -112,6 +111,7 @@
 		border-bottom: 1px solid #c6d0da;
 		text-align: left;
 		font-size: 18px;
+		position: relative;
 }
 
 .gn-menu li:not(:first-child),
@@ -281,6 +281,7 @@ input.gn-search:focus {
 	}
 
 	.gn-menu-wrapper.gn-open-all .gn-scroller {
-			width: 130%
+			width: 130%;
+			/*width: 100%;*/
 	}
 }

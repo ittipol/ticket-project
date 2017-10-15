@@ -2,9 +2,13 @@ header {
 	height: 60px;
 }
 
-/*header .brand-s {
+header .brand-s {
 	display: none;
-}*/
+}
+
+.brand-s > h5 {
+	border-bottom: 1px solid #c6d0da;
+}
 
 .gn-menu-main {
 	z-index: 90;
@@ -15,11 +19,11 @@ header {
 	font-size: 0.875rem;
 }
 
-header .gn-menu-main > li > .notification {
+header ul.gn-menu-main > li a.nav-icon {
 	padding: 0.625rem;
 }
 
-header .notification > i {
+header ul.gn-menu-main > li a.nav-icon > i {
 	font-size: 2.25rem;
 	color: #999;
 }
@@ -63,5 +67,13 @@ header .avatar-frame .avatar {
 @media (max-width: 480px) {
 	.gn-menu-main > li > a {
 		padding: 0 10px;
+	}
+
+	header .brand-l {
+		display: none;
+	}
+
+	header .brand-s {
+		display: block;
 	}
 }

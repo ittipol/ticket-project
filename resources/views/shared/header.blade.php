@@ -3,19 +3,17 @@
     <li class="gn-trigger">
       <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
       <nav class="gn-menu-wrapper">
+        <div class="brand-s text-center">
+          <h5 class="py-3 m-0">TicketSnap</h5>
+        </div>
         <div class="gn-scroller">
-
-          <!-- <div class="brand-s text-center">
-            <h5 class="py-3 m-0"></h5>
-          </div> -->
-
           <ul class="gn-menu">
             <li class="gn-search-item">
               <input placeholder="Search" type="search" class="gn-search">
               <a class="gn-icon fa-search"><span>Search</span></a>
             </li>
             <li><a href="/ticket" class="gn-icon fa-tags">รายการขายบัตร</a></li>
-            <li><a href="/ticket/new" class="gn-icon fa-plus">เพิ่มรายการขาย</a></li>
+            <!-- <li><a href="/ticket/new" class="gn-icon fa-plus">เพิ่มรายการขาย</a></li> -->
             @if(Auth::check())
               <li>
                 <a href="javascript:void(0);" class="gn-icon fa-user">{{Auth::user()->name}}</a>
@@ -55,7 +53,7 @@
     </li>
 
     <li class="dd-menu static relative-ns btn-hover">
-      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="notification pointer">
+      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="notification nav-icon pointer">
         <div class="count-badge"></div>
         <i class="fa fa-comments"></i>
       </a>
@@ -79,8 +77,14 @@
         </div>
 
       </ul>
-
     </li>
+
+    <li class="btn-hover">
+      <a href="/ticket/new">
+        <i class="fa fa-plus"></i>&nbsp;เพิ่มรายการขาย
+      </a>
+    </li>
+
     @else
     <li class="dd-menu">
       <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="pointer">
