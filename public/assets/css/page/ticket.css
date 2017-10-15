@@ -1,9 +1,4 @@
 .left-sidenav {
-	/*position: absolute;
-	top: 0;
-	left: 0;
-	width: 280px;
-	background-color: #fff;*/
 	position: fixed;
   top: 60px;
   left: 0;
@@ -11,6 +6,39 @@
   background-color: #fff;
   height: 100%;
   border-right: 1px solid #ccc;
+  z-index: 50;
+}
+
+.fiter-panel-toggle {
+	background-color: #fff;
+	/*border-top: 1px solid #999;*/
+	z-index: 49;
+	display: none;
+}
+
+.fiter-panel-toggle > button {
+	padding: 10px;
+}
+
+@media (max-width: 480px) {
+	.left-sidenav {
+		top: 100%;
+		width: 100%;
+		height: 100% !important;
+		transition: top .35s ease-out;
+	}
+
+	.left-sidenav.show {
+		top: 0;
+	}
+
+	.fiter-panel-toggle {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		display: block;
+	}
 }
 
 .left-sidenav h4 {
@@ -98,6 +126,13 @@
 	margin-bottom: 0;
 }
 
+.data-list-item .data-image {
+	position: relative;
+	min-height: 150px;
+	background-color: #bbb;
+	display: block;
+}
+
 .data-list-item .data-image > img {
 	width: 100%;
 }
@@ -122,12 +157,6 @@
 
 .image-more > img {
 	width: 30px;
-}
-
-.data-list-item .data-image {
-	position: relative;
-	min-height: 150px;
-	background-color: #bbb;
 }
 
 .price-section {
@@ -155,6 +184,7 @@
 
 .seller-section {
 	position: relative;
+	background-color: #CFD8DC;
 }
 
 .seller-section .avatar-frame {
@@ -226,9 +256,9 @@
 		margin-left: 0;
 	}
 
-	.left-sidenav {
+	/*.left-sidenav {
 		left: -290px;
-	}
+	}*/
 
 	.nav-tabs {
 		margin-right: 0;
@@ -243,7 +273,7 @@
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		background-color: #ececec;
+		/*background-color: #ececec;*/
 		border-top: 2px solid rgb(65,133,242);
 		z-index: 9;
 	}

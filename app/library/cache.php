@@ -8,6 +8,11 @@ class Cache
 {
   private $cachePath = 'cache/';
   private $imageCache = array(
+    'avatar_preview' => array(
+      'width' => 50,
+      'height' => 50,
+      'fx' => 'getImageSizeByRatio',
+    ),
     // 'xs' => array(
     //   'width' => 50,
     //   'height' => 50,

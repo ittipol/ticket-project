@@ -1071,7 +1071,7 @@ code, .code { font-family: Consolas, monaco, monospace; }
      -l  = large
 
 */
-.static { position: static; }
+.static { position: static !important; }
 .relative { position: relative; }
 .absolute { position: absolute; }
 .fixed { position: fixed; }
@@ -2299,8 +2299,8 @@ code, .code { font-family: Consolas, monaco, monospace; }
  .overflow-y-hidden-ns { overflow-y: hidden; }
  .overflow-y-scroll-ns { overflow-y: scroll; }
  .overflow-y-auto-ns { overflow-y: auto; }
- .static-ns { position: static; }
- .relative-ns { position: relative; }
+ .static-ns { position: static !important; }
+ .relative-ns { position: relative !important; }
  .absolute-ns { position: absolute; }
  .fixed-ns { position: fixed; }
  .rotate-45-ns { -webkit-transform: rotate( 45deg ); transform: rotate( 45deg ); }

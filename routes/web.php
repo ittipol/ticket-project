@@ -15,7 +15,7 @@ Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index');
 // Route::get('about', 'HomeController@about');
 
-Route::get('avatar/{filename?}', 'StaticFileController@userAvatar');
+Route::get('avatar/{userId?}/{filename?}', 'StaticFileController@userAvatar');
 Route::get('get_image/{filename}', 'StaticFileController@serveImages');
 
 Route::get('ticket', 'TicketController@listView');

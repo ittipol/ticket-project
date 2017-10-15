@@ -80,25 +80,29 @@ class StaticFileController extends Controller
 
   }
 
-  public function userAvatar($filename = null){
+  public function userAvatar($userId = null,$filename = null){
 
-    if(empty($filename)) {
-
-      if(!Auth::check()) {
-        return null;
-      }
-
-      $user = User::select('id','avatar')->where('id','=',Auth::user()->id);
-
-    }else{
+    if($userId === 'f') {
       $user = User::select('id','avatar')->where('avatar','like',$filename);
+    }elseif(is_numeric($userId)) {
+      $user = User::select('id','avatar')->find($userId);
+    }elseif(Auth::check()) {
+      $user = User::select('id','avatar')->where('id','=',Auth::user()->id);
+    }else{
+      return null;
     }
-
-    
 
     if(!$user->exists()) {
       return null;
     }
+
+    // $image = Service::loadModel('Image')
+    // ->where('filename','like',$user->avatar)
+    // ->select(array('model','model_id','filename','image_type_id'))
+    // ->first();
+
+    // $cache = new Cache;
+    // $path = $cache->getCacheImageUrl($image,'avatar_preview');
 
     $path = $user->first()->getAvartarImage();
 

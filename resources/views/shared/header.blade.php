@@ -49,12 +49,12 @@
       </a>
       <ul class="dropdown-menu">
         <li class="dd-link"><a href="/account/edit"><i class="fa fa-pencil"></i>&nbsp;&nbsp;แก้ไขโปรไฟล์</a></li>
-        <li class="dd-link"><a href="/account/ticket"><i class="fa fa-pencil"></i>&nbsp;&nbsp;รายการขายของคุณ</a></li>
-        <li class="dd-link"><a href="/logout"><i class="fa fa-pencil"></i>&nbsp;&nbsp;ออกจากระบบ</a></li>
+        <li class="dd-link"><a href="/account/ticket"><i class="fa fa-list"></i>&nbsp;&nbsp;รายการขายของคุณ</a></li>
+        <li class="dd-link"><a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;ออกจากระบบ</a></li>
       </ul>
     </li>
 
-    <li class="dd-menu btn-hover">
+    <li class="dd-menu static relative-ns btn-hover">
       <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="notification pointer">
         <div class="count-badge"></div>
         <i class="fa fa-comments"></i>
@@ -65,32 +65,16 @@
 
         <div class="notification-list">
 
-          <a href="" class="notification-list-item clearfix">
-            <div class="notification-icon fl">
-              <img class="avatar" src="/avatar?d=1">
-            </div>
-            <div class="notification-content fl">
-              <p>New Message!!!</p>
-            </div>
-          </a>
-
-          <a href="" class="notification-list-item clearfix">
-            <div class="notification-icon fl">
-              <img class="avatar" src="/avatar?d=1">
-            </div>
-            <div class="notification-content fl">
-              <p>New Message!!!</p>
-            </div>
-          </a>
-
-          <a class="notification-list-item clearfix">
-            <div class="notification-icon fl">
-              <img class="avatar" src="/avatar?d=1">
-            </div>
-            <div class="notification-content fl">
-              <p>New Message!!!</p>
-            </div>
-          </a>
+          @for($i = 0; $i <= 10; $i++)
+            <a href="" class="notification-list-item clearfix">
+              <div class="notification-icon fl">
+                <img class="avatar" src="/avatar?d=1">
+              </div>
+              <div class="notification-content fl">
+                <p class="m-0">New Message!!!</p>
+              </div>
+            </a>
+          @endFor
 
         </div>
 
