@@ -2,11 +2,12 @@ class Chat {
 
 	constructor(chat) {
 		this.chat = chat;
-		this.typingHandle = null;
+		this.io = null;
 		this.loading = false;
 		this.loadPostition = 0;
 		this.messagePlaced = false;
-		this.io = null;
+		this.typingHandle = null;
+		this.messageReceivedHandle = null;
 	}
 
 	init() {
@@ -82,25 +83,42 @@ class Chat {
 
 		this.io.socket.on('chat-message', function(res){
 
+			clearTimeout(this.messageReceivedHandle);
+
 			if(_this.messagePlaced) {
 				_this.messagePlaced = false;
 				return false;
 			}
 
-			let me = false;
+			// let me = false;
 
-			if(_this.chat.user == res.user) {
-				me = true;
-			}
+			// if(_this.chat.user == res.user) {
+			// 	me = true;
+			// }
 
-			if(!me) {
-				this.io.socket.emit('message-received', {
-					user: _this.chat.user
-				});
-			}
+			// if(!me) {
+			// 	setTimeout(function(){
+			// 		_this.io.socket.emit('message-received', {
+			// 			user: res.user,
+			// 			room: _this.chat.room
+			// 		});
+			// 	},3000);
+			// }
 
-	    _this.placeMessage(res,me);
-	    _this.toButtom();
+	  //   _this.placeMessage(res,me);
+	  //   _this.toButtom();
+
+	  	if(_this.chat.user != res.user) {
+	  		setTimeout(function(){
+					_this.io.socket.emit('message-received', {
+						room: _this.chat.room,
+						user: _this.chat.user
+					});
+				},3000);
+
+	  		_this.placeMessage(res,false);
+	  		_this.toButtom();
+	  	}
 
 	  });
 
@@ -182,8 +200,7 @@ class Chat {
 	}
 
 	send(message) {
-
-		this.io.socket.emit('chat-message', {
+		this.io.socket.emit('send-message', {
 		  message: message,
 		  room: this.chat.room,
 		  user: this.chat.user,

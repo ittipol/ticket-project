@@ -5,19 +5,54 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var db = require('./db');
 
-var handle = [];
+var userHandle = [];
 var clients = [];
+
+var notifyMessageHandle = [];
 
 const MESSAGE_TAKE = 20;
 
 function userOnline(userId) {
-  let index = clients.indexOf(userId);
-
-  if(index !== -1){
+  if(clients.indexOf(userId) !== -1){
     return true;
   }
-
   return false;
+}
+
+function updateMessageRead(roomId,userId) {
+  db.query("SELECT `id` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, rows){
+    if(rows.length === 1) {
+      db.query("UPDATE `user_in_chat_room` SET `notify` = 0, `message_read` = "+rows[0].id+" WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+userId);
+      console.log('message read -> '+rows[0].id);
+    }
+  });
+}
+
+function notifyMessage(roomId,userId) {
+  
+  db.query("SELECT `id`, `message` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, rows){
+    if(rows.length === 1) {
+      db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `user_id` != "+userId+" AND `chat_room_id` = "+roomId+" AND `notify` = 0 AND `message_read` < "+rows[0].id, function(err, _rows){
+        if(_rows.length > 0) {
+          for (var i = 0; i < _rows.length; i++) {
+            if(_rows[i].user_id != userId) {
+
+              db.query("UPDATE `user_in_chat_room` SET `notify` = 1 WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+_rows[i].user_id);
+
+              io.in('u_'+_rows[i].user_id).emit('notify-message', {
+                id: rows[0].id,
+                message: rows[0].message,
+                user: _rows[i].user_id
+              });
+            }
+          }
+        }
+
+      });
+    }
+  });
+
+  // db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `chat_room_id` = 1 AND `notify` = 0 AND `message_read` != 1");
 
 }
 
@@ -34,8 +69,8 @@ io.on('connection', function(socket){
   
   socket.on('online', function(data){
 
-    if(handle[data.userId] !== undefined) {
-      clearTimeout(handle[data.userId]);
+    if(userHandle[data.userId] !== undefined) {
+      clearTimeout(userHandle[data.userId]);
     }
 
     socket.userId = data.userId;
@@ -60,7 +95,7 @@ io.on('connection', function(socket){
       return false;
     }
 
-    handle[socket.userId] = setTimeout(function(){
+    userHandle[socket.userId] = setTimeout(function(){
 
       if(userOnline(socket.userId)){
         // Clear
@@ -114,26 +149,25 @@ io.on('connection', function(socket){
     });
   });
 
-  socket.on('chat-message', function(data){
+  socket.on('send-message', function(data){
 
     if((!data.room) || (!data.user) || (!data.key)) {
       return false;
     }
 
+    clearTimeout(notifyMessageHandle[data.room]);
+
   	// save message
   	db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', CURRENT_TIMESTAMP);");
 
-    // if(userOnline()) {
-
-    // }
-  	console.log('message saved');
-
-    // save to queue
-
-    io.in('chat_'+data.key).emit('chat-message', {
+    io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
       user: data.user,
       message: data.message
     });
+
+    notifyMessageHandle[data.room] = setTimeout(function(){
+      notifyMessage(data.room,data.user);
+    },6000);
 
   });
 
@@ -158,6 +192,10 @@ io.on('connection', function(socket){
     });
 
   });
+
+  socket.on('message-received', function(data){
+    updateMessageRead(data.room,data.user);
+  })
 
   setInterval(function(){
     console.log('fetch');

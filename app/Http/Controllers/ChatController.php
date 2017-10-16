@@ -6,6 +6,7 @@ use App\library\service;
 use App\library\token;
 use App\library\snackbar;
 use Auth;
+use Redirect;
 
 class ChatController extends Controller
 {
@@ -115,7 +116,7 @@ class ChatController extends Controller
       //   'name' => Auth::user()->name,
       //   'avatar' => Auth::user()->avatar
       // },
-      'room' => $room->id,
+      'room' => $roomId,
       'key' => $room->room_key,
       'page' => 1,
       'time' => date('Y-m-d H:i:s')

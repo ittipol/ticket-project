@@ -24,7 +24,7 @@
 	min-width: 200px;
 	left: auto;
 	right: -1px;
-	border: 0;
+	border: 1px solid #ccc;
 	border-radius: 0;
 	overflow: hidden;
 }
@@ -42,18 +42,18 @@
 	padding: 20px;
 }
 
-.dd-notification {
+.dd-message-notification {
 	width: 400px !important;
-	border-bottom: 1px solid #999 !important;
+	/*border-bottom: 1px solid #999 !important;*/
 }
 
-.dd-notification > h5 {
+.dd-message-notification > h5 {
 	font-size: 1.125rem;
 	border-bottom: 1px solid #999;
 	background-color: #CFD8DC;
 }
 
-.dd-notification > .notification-list {
+.dd-message-notification > .message-notification-list {
 	height: 300px;
 	max-height: 300px;
 	width: 100%;
@@ -61,7 +61,7 @@
 	overflow-x: hidden;
 }
 
-.notification-list > .notification-list-item {
+.message-notification-list > .message-notification-list-item {
 	position: relative;
 	height: 40px;
 	min-height: 40px;
@@ -71,17 +71,17 @@
 	border-bottom: 1px solid #ccc;
 }
 
-.notification-list > .notification-list-item:last-child {
+.message-notification-list > .message-notification-list-item:last-child {
 	margin-bottom: 0;
 	border-bottom: none;
 }
 
-.notification-list-item img {
+.message-notification-list-item img {
 	vertical-align: top;
 	height: 100%;
 }
 
-.notification-list-item > .notification-icon {
+.message-notification-list-item > .message-notification-icon {
 	position: absolute;
 	top: 0;
 	left: 10px;
@@ -91,7 +91,7 @@
 	overflow: hidden;
 }
 
-.notification-list-item > .notification-content {
+.message-notification-list-item > .message-notification-content {
 	width: 100%;
 	margin-left: 50px;
 	padding: 6px;
@@ -99,7 +99,7 @@
 }
 
 @media (max-width: 480px) {
-	.dd-notification {
+	.dd-message-notification {
 		width: 100% !important;
 		right: 0 !important;
 	}

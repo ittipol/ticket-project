@@ -19,20 +19,20 @@ header .brand-s {
 	font-size: 0.875rem;
 }
 
-header ul.gn-menu-main > li a.nav-icon {
+.gn-menu-main > li > a.nav-icon {
 	padding: 0.625rem;
 }
 
-header ul.gn-menu-main > li a.nav-icon > i {
+.gn-menu-main > li > a.nav-icon > i {
 	font-size: 2.25rem;
 	color: #999;
 }
 
-header .notification.on > i {
-	color: #448AFF;
+.gn-menu-main > li > .message-notification.on > i {
+	color: #ff4081;
 }
 
-header .notification > .count-badge {
+header .message-notification > .count-badge {
 	position: absolute;
 	top: 7px;
 	right: 0px;
@@ -40,14 +40,14 @@ header .notification > .count-badge {
 	text-align: center;
 	line-height: 28px;
 	color: #fff;
-	background-color: #ff4081;
+	background-color: #448AFF;
 	width: 28px;
 	height: 28px;
 	border-radius: 50%;
 	display: none;
 }
 
-header .notification.on > .header-badge {
+header .message-notification.on > .count-badge {
 	display: block;
 }
 

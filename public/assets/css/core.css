@@ -232,14 +232,6 @@ label.image-label a:hover {
 	box-shadow: 0 0 10px 2px rgba(28,156,1,.85);
 }
 
-/*.show .dropdown-menu:hover {
-	border: 1px solid red;
-	outline: none !important;
-}*/
-
-/*header li.dd-menu > .dropdown-menu {
-	left: auto;
-	right: 0;
-	width: 300px;
-	border-radius: 0;
-}*/
+.avatar > img {
+	height: 100%;
+}

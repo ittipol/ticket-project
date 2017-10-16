@@ -53,36 +53,11 @@
     </li>
 
     <li class="dd-menu static relative-ns btn-hover">
-      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="notification nav-icon pointer">
-        <div class="count-badge"></div>
+      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="message-notification @if($_message_total > 0) on @endif nav-icon pointer">
+        <div class="count-badge">{{$_message_total}}</div>
         <i class="fa fa-comments"></i>
       </a>
-
-      <ul class="dropdown-menu dd-notification">
-        <h5 class="p-3 text-center">ข้อความ</h5>
-
-        <div class="notification-list">
-
-          @for($i = 0; $i <= 10; $i++)
-            <a href="" class="notification-list-item clearfix">
-              <div class="notification-icon fl">
-                <img class="avatar" src="/avatar?d=1">
-              </div>
-              <div class="notification-content fl">
-                <p class="m-0">New Message!!!</p>
-              </div>
-            </a>
-          @endFor
-
-        </div>
-
-      </ul>
-    </li>
-
-    <li class="btn-hover">
-      <a href="/ticket/new">
-        <i class="fa fa-plus"></i>&nbsp;เพิ่มรายการขาย
-      </a>
+      @include('shared.message-notification');
     </li>
 
     @else
@@ -96,5 +71,16 @@
       </ul>
     </li>
     @endif
+
+    <li class="dd-menu btn-hover">
+      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="pointer">
+        <i class="fa fa-exchange"></i>&nbsp;เพิ่มประกาศ
+      </a>
+      <ul class="dropdown-menu">
+        <li class="dd-link"><a href="/ticket/new"><i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp;ประการศซื้อ</a></li>
+        <li class="dd-link"><a href="/ticket/new"><i class="fa fa-long-arrow-left"></i>&nbsp;&nbsp;ประกาศขาย</a></li>
+      </ul>
+    </li>
+    
   </ul>
 </header>
