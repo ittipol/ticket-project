@@ -43,7 +43,7 @@
 
     <li class="dd-menu btn-hover">
       <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="avatar-frame pointer">
-        <img class="avatar" src="/avatar?d=1">
+        <img src="/avatar?d=1">
       </a>
       <ul class="dropdown-menu">
         <li class="dd-link"><a href="/account/edit"><i class="fa fa-pencil"></i>&nbsp;&nbsp;แก้ไขโปรไฟล์</a></li>
@@ -53,8 +53,8 @@
     </li>
 
     <li class="dd-menu static relative-ns btn-hover">
-      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="message-notification @if($_message_total > 0) on @endif nav-icon pointer">
-        <div class="count-badge">{{$_message_total}}</div>
+      <a id="message_notification" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="message-notification nav-icon pointer">
+        <div id="message_notification_count" class="count-badge"></div>
         <i class="fa fa-comments"></i>
       </a>
       @include('shared.message-notification');

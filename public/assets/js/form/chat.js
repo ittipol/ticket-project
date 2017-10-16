@@ -14,13 +14,19 @@ class Chat {
 
 		this.io = new IO();
 
+		let _this = this;
+
 		this.join();
-	  this.bind();
+	  this.bind(_this);
+	  this.socketEvent(_this);
+
+	  this.messageRead();
+
 	  this.more();
 	  this.layout();
 	  this.calPosition(window.innerHeight);
 
-	  let _this = this;
+
 
 	  setTimeout(function(){
 	  	_this.toButtom();
@@ -34,9 +40,7 @@ class Chat {
 	  });
 	}
 
-	bind() {
-
-		let _this = this;
+	bind(_this) {
 
 		$('#message_input').on('keyup',function(event){
 
@@ -45,21 +49,6 @@ class Chat {
 			}
 
 			_this.typing();
-
-		});
-
-		this.io.socket.on('typing', function(res){
-
-			if(_this.chat.user == res.user) {
-				return false;
-			}
-
-			$('.typing-indicator').css('display','block');
-			
-			clearTimeout(_this.typingHandle);
-			_this.typingHandle = setTimeout(function(){
-				$('.typing-indicator').css('display','none');
-			},400);
 
 		});
 
@@ -81,6 +70,30 @@ class Chat {
 
 	  });
 
+	  $(window).resize(function(){
+	  	_this.layout();
+	  	_this.calPosition(window.innerHeight);
+	  });
+
+	}
+
+	socketEvent(_this) {
+
+		this.io.socket.on('typing', function(res){
+
+			if(_this.chat.user == res.user) {
+				return false;
+			}
+
+			$('.typing-indicator').css('display','block');
+			
+			clearTimeout(_this.typingHandle);
+			_this.typingHandle = setTimeout(function(){
+				$('.typing-indicator').css('display','none');
+			},400);
+
+		});
+
 		this.io.socket.on('chat-message', function(res){
 
 			clearTimeout(this.messageReceivedHandle);
@@ -98,7 +111,7 @@ class Chat {
 
 			// if(!me) {
 			// 	setTimeout(function(){
-			// 		_this.io.socket.emit('message-received', {
+			// 		_this.io.socket.emit('message-read', {
 			// 			user: res.user,
 			// 			room: _this.chat.room
 			// 		});
@@ -110,11 +123,11 @@ class Chat {
 
 	  	if(_this.chat.user != res.user) {
 	  		setTimeout(function(){
-					_this.io.socket.emit('message-received', {
+					_this.io.socket.emit('message-read', {
 						room: _this.chat.room,
 						user: _this.chat.user
 					});
-				},3000);
+				},2000);
 
 	  		_this.placeMessage(res,false);
 	  		_this.toButtom();
@@ -139,7 +152,6 @@ class Chat {
 	  	_this.chat.page = res.page;
 
 	  	for (var i = 0; i < res.data.length; i++) {
-
 	  		me = false;
 
 	  		if(_this.chat.user == res.data[i].user_id) {
@@ -147,18 +159,12 @@ class Chat {
 	  		}
 
 	  		$('#message_display').prepend(_this.getHtml(res.data[i].message, moment(res.data[i].created_at, "YYYYMMDDThhmmss.SSS").format("YYYY-MM-DD hh:mm:ss"), me));
-
 	  	};
 
 	  	setTimeout(function(){
 	  		_this.loading = false;
 	  	},1000);
 
-	  });
-
-	  $(window).resize(function(){
-	  	_this.layout();
-	  	_this.calPosition(window.innerHeight);
 	  });
 
 	}
@@ -277,6 +283,13 @@ class Chat {
 
 		$('.chat-footer-section').css('width',(wW-sidebarW)+'px');
 
+	}
+
+	messageRead() {
+		this.io.socket.emit('message-read', {
+			room: this.chat.room,
+			user: this.chat.user
+		});
 	}
 
 }

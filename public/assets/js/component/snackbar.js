@@ -68,9 +68,9 @@ class Snackbar {
     if(!this.alwaysVisible) {
       clearTimeout(this.handle);
 
-      this.handle = setTimeout(function(){
-        $('#snackbar').css({bottom:-140,opacity:0});
-      },this.delay);
+      // this.handle = setTimeout(function(){
+      //   $('#snackbar').css({bottom:-140,opacity:0});
+      // },this.delay);
     }
     
   }

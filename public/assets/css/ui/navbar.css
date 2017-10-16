@@ -29,7 +29,7 @@ header .brand-s {
 }
 
 .gn-menu-main > li > .message-notification.on > i {
-	color: #ff4081;
+	color: #fc152e;
 }
 
 header .message-notification > .count-badge {
@@ -40,7 +40,7 @@ header .message-notification > .count-badge {
 	text-align: center;
 	line-height: 28px;
 	color: #fff;
-	background-color: #448AFF;
+	background-color: #367caf;
 	width: 28px;
 	height: 28px;
 	border-radius: 50%;
@@ -56,7 +56,7 @@ header .gn-menu-main > li > .avatar-frame {
 	padding: 0 0.625rem;
 }
 
-header .avatar-frame .avatar {
+header .avatar-frame > img{
 	width: 40px;
 	height: 40px;
 	overflow: hidden;

@@ -106,7 +106,7 @@ class StaticFileController extends Controller
 
     $path = $user->first()->getAvartarImage();
 
-    if(file_exists($path) && !empty($user->avatar)){
+    if(file_exists($path) && !empty($user->first()->avatar)){
 
       $headers = array(
         'Cache-Control' => 'public, max-age=86400',

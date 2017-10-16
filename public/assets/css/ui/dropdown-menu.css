@@ -94,7 +94,7 @@
 .message-notification-list-item > .message-notification-content {
 	width: 100%;
 	margin-left: 50px;
-	padding: 6px;
+	/*padding: 6px;*/
 	line-height: normal;
 }
 

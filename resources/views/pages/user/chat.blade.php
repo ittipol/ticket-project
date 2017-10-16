@@ -27,20 +27,13 @@
 </style>
 
 <div class="chat-left-sidenav">
-  <!-- <div class="chat-left-sidenav-header p-3">
-    <h5 class="m-0">แชท</h5>
-  </div> -->
   <div class="user-chat-list p-3">
     @foreach($users as $user)
       <div class="clearfix mb-2">
         <div class="avatar-frame fl">
           <div class="online_status_indicator_{{$user['id']}} online-status-indicator @if($user['online']) is-online @endif"></div>
           <div class="avatar">
-            @if(empty($user['avatar']))
-            <img src="/avatar?d=1">
-            @else
-            <img src="/avatar/{{$user['avatar']}}?d=1">
-            @endif
+            <img src="/avatar/{{$user['id']}}?d=1">
           </div>
         </div>
         <div class="online-name fl">{{$user['name']}}</div>

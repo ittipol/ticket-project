@@ -44,16 +44,16 @@ class ChatController extends Controller
       $sellerChatRoomModel->buyer = Auth::user()->id;
       $sellerChatRoomModel->save();
 
-      // Push user to chat room
-      $_user = Service::loadModel('UserInChatRoom');
-      $_user->chat_room_id = $roomModel->id;
-      $_user->user_id = $ticket->created_by;
-      $_user->save();
+      // Add user to chat room
+      $_userInChatRoom = Service::loadModel('UserInChatRoom');
+      $_userInChatRoom->chat_room_id = $roomModel->id;
+      $_userInChatRoom->user_id = $ticket->created_by;
+      $_userInChatRoom->save();
 
-      $_user = Service::loadModel('UserInChatRoom');
-      $_user->chat_room_id = $roomModel->id;
-      $_user->user_id = Auth::user()->id;
-      $_user->save();
+      $_userInChatRoom = Service::loadModel('UserInChatRoom');
+      $_userInChatRoom->chat_room_id = $roomModel->id;
+      $_userInChatRoom->user_id = Auth::user()->id;
+      $_userInChatRoom->save();
 
     }else{
       $roomModel = $roomModel->find($_room->chat_room_id);
@@ -99,12 +99,12 @@ class ChatController extends Controller
     }
 
     // check user room
-    $in = Service::loadModel('UserInChatRoom')->where([
+    $count = Service::loadModel('UserInChatRoom')->where([
       ['chat_room_id','=',$roomId],
       ['user_id','=',Auth::user()->id]
     ])->count();
 
-    if(!$in) {
+    if(!$count) {
       Snackbar::message('ไม่สามารถแชทได้');
       return Redirect::to('/');
     }

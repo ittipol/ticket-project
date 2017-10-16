@@ -74,6 +74,7 @@
 		text-transform: uppercase;
 		letter-spacing: 1px;
 		font-weight: bold;
+		position: relative;
 }
 
 .gn-menu-main:after {

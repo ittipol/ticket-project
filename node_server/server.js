@@ -19,31 +19,34 @@ function userOnline(userId) {
   return false;
 }
 
-function updateMessageRead(roomId,userId) {
-  db.query("SELECT `id` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, rows){
-    if(rows.length === 1) {
-      db.query("UPDATE `user_in_chat_room` SET `notify` = 0, `message_read` = "+rows[0].id+" WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+userId);
-      console.log('message read -> '+rows[0].id);
+function updateUserReadMessage(roomId,userId) {
+  db.query("SELECT `id` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, messages){
+    if(messages.length === 1) {
+      db.query("UPDATE `user_in_chat_room` SET `notify` = 0, `message_read` = "+messages[0].id+", `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+userId); 
     }
   });
 }
 
+// Notify message to users
 function notifyMessage(roomId,userId) {
   
-  db.query("SELECT `id`, `message` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, rows){
-    if(rows.length === 1) {
-      db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `user_id` != "+userId+" AND `chat_room_id` = "+roomId+" AND `notify` = 0 AND `message_read` < "+rows[0].id, function(err, _rows){
-        if(_rows.length > 0) {
-          for (var i = 0; i < _rows.length; i++) {
-            if(_rows[i].user_id != userId) {
+  // GET Last Message
+  db.query("SELECT `id`, `message` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, messages){
+    if(messages.length === 1) {
+      // Get Users in room
+      db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `user_id` != "+userId+" AND `chat_room_id` = "+roomId+" AND `notify` = 0 AND `message_read` < "+messages[0].id, function(err, rows){
+        if(rows.length > 0) {
+          //
+          for (var i = 0; i < rows.length; i++) {
+            //
+            if(rows[i].user_id != userId) {
+              
+              // Update notify = 1
+              db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+rows[i].user_id);
+             
+              countMessageNotication(rows[i].user_id);
+              displayNewMessage(roomId, rows[i].user_id, messages[0].message);
 
-              db.query("UPDATE `user_in_chat_room` SET `notify` = 1 WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+_rows[i].user_id);
-
-              io.in('u_'+_rows[i].user_id).emit('notify-message', {
-                id: rows[0].id,
-                message: rows[0].message,
-                user: _rows[i].user_id
-              });
             }
           }
         }
@@ -52,8 +55,23 @@ function notifyMessage(roomId,userId) {
     }
   });
 
-  // db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `chat_room_id` = 1 AND `notify` = 0 AND `message_read` != 1");
+}
 
+function displayNewMessage(roomId,userId,message) {
+  console.log('display notification');
+  io.in('u_'+userId).emit('display-new-message', {
+    message: message,
+    room: roomId,
+    user: userId
+  });
+}
+
+function countMessageNotication(userId) {
+  db.query("SELECT * FROM `user_in_chat_room` WHERE `user_id` = "+userId+" AND `notify` = 1", function(err, rows){
+    io.in('u_'+userId).emit('count-message-notification', {
+      count: rows.length
+    });
+  });
 }
 
 io.on('connection', function(socket){
@@ -167,7 +185,7 @@ io.on('connection', function(socket){
 
     notifyMessageHandle[data.room] = setTimeout(function(){
       notifyMessage(data.room,data.user);
-    },6000);
+    },3500);
 
   });
 
@@ -193,20 +211,24 @@ io.on('connection', function(socket){
 
   });
 
-  socket.on('message-received', function(data){
-    updateMessageRead(data.room,data.user);
+  socket.on('message-read', function(data){
+    updateUserReadMessage(data.room,data.user);
   })
 
-  setInterval(function(){
-    console.log('fetch');
+  socket.on('count-message-notification', function(data){
+    countMessageNotication(data.user);
+  })
 
-    // FETCH Notifications
+  // setInterval(function(){
+  //   console.log('fetch');
 
-    if(true) {
-      io.emit('send-notification', {});
-      // io.in(data.chanel).emit('send-notification', res);
-    }
-  },30000);
+  //   // FETCH Notifications
+
+  //   if(true) {
+  //     io.emit('send-notification', {});
+  //     // io.in(data.chanel).emit('send-notification', res);
+  //   }
+  // },30000);
 
 });
 

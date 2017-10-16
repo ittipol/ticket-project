@@ -15,20 +15,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      view()->composer('shared.header', function($view){
+      view()->composer('shared.message-notification', function($view){
 
         if(Auth::check()) {
-          $messageTotal = Service::loadModel('UserInChatRoom')->where([
+
+          $messageUnreads = Service::loadModel('UserInChatRoom')->where([
             ['user_id','=',Auth::user()->id],
             ['notify','=',1]
-          ])->count();
+          ])
+          ->orderBy('message_read_date','desc')
+          ->take(15)
+          ->get();
 
-          view()->share('_message_total',$messageTotal);
+          $_messageNotifications = array();
+          foreach ($messageUnreads as $value) {
+            $_messageNotifications[] = $value->getAttributes();
+          }
+
+          view()->share('_messageNotifications',$_messageNotifications);
         }
-
-      });
-
-      view()->composer('shared.message-notification', function($view){
 
       });
     }
