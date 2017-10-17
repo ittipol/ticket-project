@@ -41,8 +41,11 @@ function notifyMessage(roomId,userId) {
             // Update notify = 1
             db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+rows[i].user_id);
            
-            countMessageNotication(rows[i].user_id);
-            displayNewMessage(roomId, rows[i].user_id, messages[0].message);
+            if(userOnline(rows[i].user_id)) {
+              countMessageNotication(rows[i].user_id);
+              displayNewMessage(roomId, rows[i].user_id, messages[0].message);
+            }
+            
           }
         }
       });
@@ -74,13 +77,14 @@ function messageNoticationList(userId) {
     
     let data = [];
     let count = 0;
+    let _now = now();
 
     for (var i = 0; i < rows.length; i++) {
 
       let _room = rows[i].chat_room_id;
       // let _i = i+1;
 
-      db.query("SELECT cm.message, cm.user_id, u.name, t.title FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id LEFT JOIN `ticket_chat_rooms` AS tcr ON cm.chat_room_id = tcr.chat_room_id LEFT JOIN `tickets` AS t ON tcr.ticket_id = t.id WHERE cm.chat_room_id = "+rows[i].chat_room_id+" ORDER BY cm.created_at DESC LIMIT 1", function(err, messages){
+      db.query("SELECT cm.message, cm.user_id, u.name, t.title, cm.created_at FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id LEFT JOIN `ticket_chat_rooms` AS tcr ON cm.chat_room_id = tcr.chat_room_id LEFT JOIN `tickets` AS t ON tcr.ticket_id = t.id WHERE cm.chat_room_id = "+rows[i].chat_room_id+" ORDER BY cm.created_at DESC LIMIT 1", function(err, messages){
 
         if(messages.length == 1) {
 
@@ -95,7 +99,8 @@ function messageNoticationList(userId) {
             ticket: messages[0].title,
             room: _room,
             user: messages[0].user_id,
-            isSender: isSender
+            isSender: isSender,
+            date: passingDate(messages[0].created_at,_now)
           });
 
           if(++count === rows.length) {
@@ -107,6 +112,88 @@ function messageNoticationList(userId) {
       })
     }
   });
+}
+
+function now() {
+  return parseInt(new Date().getTime()/1000);
+}
+
+function dateToTimestamp(dateTime) {
+
+  let _dateTime = dateTime.split(' ');
+
+  let date = _dateTime[0].split('-');
+  let time = _dateTime[1].split(':');
+
+  return new Date(parseInt(date[0]), (parseInt(date[1])-1), parseInt(date[2]), parseInt(time[0]), parseInt(time[1]), parseInt(time[2]), 0).getTime()/1000;
+}
+
+function passingDate(dateTime,now) {
+
+  let secs = now - dateToTimestamp(dateTime);
+  let mins = parseInt(Math.floor(secs / 60));
+  let hours = parseInt(Math.floor(mins / 60));
+  let days = parseInt(Math.floor(hours / 24));
+
+  let passing = 'เมื่อสักครู่นี้';
+  if(days == 0) {
+    
+    let passingSecs = secs % 60;
+    let passingMins = mins % 60;
+    let passingHours = hours % 24;
+
+    if(passingHours != 0) {
+      passing = passingHours+' ชั่วโมงที่แล้ว';
+    }else if(passingMins != 0) {
+      passing = passingMins+' นาทีที่แล้ว';
+    }else if(passingSecs > 30) {
+      passing = passingSecs+' วินาทีที่แล้ว';
+    }else if(passingSecs > 10) {
+      passing = 'ไม่กี่วินาทีที่แล้ว';
+    }
+  }else if(days == 1){
+    passing = 'เมื่อวานนี้ เวลา '+covertTimeToSting(dateTime);
+  }else{
+    passing = covertDateTimeToSting(dateTime);
+  }
+
+  return passing;
+}
+
+function covertTimeToSting(dateTime) {
+  dateTime = dateTime.split(' ');
+
+  let time = dateTime[1].split(':');
+
+  return parseInt(time[0])+':'+time[1];
+}
+
+function covertDateTimeToSting(dateTime,includeSec = false) {
+  let _dateTime = dateTime.split(' ');
+
+  let date = _dateTime[0].split('-');
+  let time = _dateTime[1].split(':');
+
+  return date[2]+' '+getMonthName(parseInt(date[1]))+' '+(parseInt(date[0])+543)+' '+parseInt(time[0])+':'+time[1];
+}
+
+function getMonthName(month) {
+  let monthName = [
+    'มกราคม',
+    'กุมภาพันธ์',
+    'มีนาคม',
+    'เมษายน',
+    'พฤษภาคม',
+    'มิถุนายน',
+    'กรกฎาคม',
+    'สิงหาคม',
+    'กันยายน',
+    'ตุลาคม',
+    'พฤศจิกายน',
+    'ธันวาคม',
+  ];
+
+  return monthName[month-1];
 }
 
 io.on('connection', function(socket){

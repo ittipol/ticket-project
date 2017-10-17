@@ -115,11 +115,7 @@
           <div class="avatar-frame fl">
             <div class="online_status_indicator_{{$data['created_by']}} online-status-indicator @if($seller['online']) is-online @endif"></div>
             <div class="avatar">
-              @if(empty($seller['avatar']))
-              <img src="/avatar?d=1">
-              @else
-              <img src="/avatar/{{$seller['avatar']}}?d=1">
-              @endif
+              <img src="/avatar/{{$data['created_by']}}?d=1">
             </div>
           </div>
           <div class="online-name fl">{{$seller['name']}}</div>

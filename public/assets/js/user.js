@@ -41,10 +41,10 @@ class User {
 		});
 
 		this.io.socket.on('message-notification-list', function(res){
-			
+
 			// loop data and patch message notification
 			// patchMessageNotification
-console.log('message notification list update');
+// console.log('message notification list update');
 			for (var i = 0; i < res.length; i++) {
 				console.log(res[i])
 				$('#message_notification_list').append(_this.messageNotificationListHtml(res[i]));
@@ -89,9 +89,9 @@ console.log('message notification list update');
   //   `;
 
   			if(data.isSender) {
-  				var senderLable = 'คุณได้ส่งข้อความถึง '+data.name;
+  				var senderLable = 'คุณได้ส่งข้อความถึง '+data.name+' ('+data.date+')';
   			}else{
-  				var senderLable = data.name+' ได้ส่งข้อความถึงคุณ';
+  				var senderLable = data.name+' ได้ส่งข้อความถึงคุณ'+' ('+data.date+')';
   			}
 
   			return `

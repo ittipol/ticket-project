@@ -158,7 +158,8 @@ class Chat {
 	  			me = true;
 	  		}
 
-	  		$('#message_display').prepend(_this.getHtml(res.data[i].user_id, res.data[i].message, moment(res.data[i].created_at, "YYYYMMDDThhmmss.SSS").format("YYYY-MM-DD hh:mm:ss"), me));
+				// moment(res.data[i].created_at, "YYYYMMDDThhmmss.SSS").format("YYYY-MM-DD hh:mm:ss")
+	  		$('#message_display').prepend(_this.getHtml(res.data[i].user_id, res.data[i].message, res.data[i].created_at, me));
 	  	};
 
 	  	setTimeout(function(){
