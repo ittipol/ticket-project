@@ -1028,13 +1028,13 @@ code, .code { font-family: Consolas, monaco, monospace; }
 .w-33 { width: 33%; }
 .w-34 { width: 34%; }
 .w-40 { width: 40%; }
-.w-50 { width: 50%; }
+.w-50 { width: 50% !important; }
 .w-60 { width: 60%; }
 .w-70 { width: 70%; }
 .w-75 { width: 75%; }
 .w-80 { width: 80%; }
 .w-90 { width: 90%; }
-.w-100 { width: 100%; }
+.w-100 { width: 100% !important; }
 .w-third { width: calc( 100% / 3 ); }
 .w-two-thirds { width: calc( 100% / 1.5 ); }
 .w-auto { width: auto; }
@@ -2286,7 +2286,7 @@ code, .code { font-family: Consolas, monaco, monospace; }
  .w-100-ns { width: 100%; }
  .w-third-ns { width: calc( 100% / 3 ); }
  .w-two-thirds-ns { width: calc( 100% / 1.5 ); }
- .w-auto-ns { width: auto; }
+ .w-auto-ns { width: auto !important; }
  .overflow-visible-ns { overflow: visible; }
  .overflow-hidden-ns { overflow: hidden; }
  .overflow-scroll-ns { overflow: scroll; }

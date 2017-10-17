@@ -7,10 +7,10 @@
     background-color: #ccc;
   }
 
-  .grid-item { width: 32.5%; margin: 0.4%; }
+  .grid-item { width: 22.7%; margin: 1%; }
 
-  @media (max-width: 1024px) {
-    .grid-item { width: 49%; margin: 0.5%; }
+  @media (max-width: 1366px) {
+    .grid-item { width: 47%; margin: 1.5%; }
   }
 
   @media (max-width: 480px) {
@@ -99,8 +99,8 @@
           @endif
         </div>
 
-        <h5 class="mx-2 mt-3 mb-0">
-          <a href="/ticket/view/{{$value['id']}}">
+        <h5 class="mx-2 mt-3 mb-1">
+          <a class="title" href="/ticket/view/{{$value['id']}}">
             {{$value['title']}}
           </a>
         </h5>
@@ -197,6 +197,8 @@
     }
 
     bind() {
+
+      let _this = this;
 
       $("#price_range_slider").slider();
 

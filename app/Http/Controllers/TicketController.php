@@ -116,6 +116,11 @@ class TicketController extends Controller
     $this->setData('seller',$seller->getAttributes());
     $this->setData('ticketId',$ticketId);
 
+    // SET META
+    $this->setMeta('title',$model->title);
+    $this->setMeta('description','');
+    $this->setMeta('image',null);
+
     return $this->view('pages.ticket.detail');
 
   }

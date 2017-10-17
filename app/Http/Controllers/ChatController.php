@@ -12,10 +12,6 @@ class ChatController extends Controller
 {
   public function sellerChat($ticketId) {
 
-    $roomModel = Service::loadModel('ChatRoom');
-    // $messageModel = Service::loadModel('ChatMessage');
-    $sellerChatRoomModel = Service::loadModel('SellerChatRoom');
-
     $ticket = Service::loadModel('Ticket')->select('created_by')->find($ticketId);
 
     if(empty($ticket)) {
@@ -28,53 +24,37 @@ class ChatController extends Controller
       return Redirect::to('/');
     }
 
-    // check seller and buyer
-    $_room = $sellerChatRoomModel->where([
-      ['seller','=',$ticket->created_by],
-      ['buyer','=',Auth::user()->id]
-    ])->first();
 
-    if(empty($_room)) {
-      // Create room
-      $roomModel->room_key = Token::generate(32);
-      $roomModel->save();
+    $room = Service::loadModel('TicketChatRoom')
+    ->join('user_in_chat_room', 'ticket_chat_rooms.chat_room_id', '=', 'user_in_chat_room.chat_room_id')
+    ->select('ticket_chat_rooms.chat_room_id')
+    ->where([
+      ['ticket_chat_rooms.ticket_id','=',$ticketId],
+      ['user_in_chat_room.user_id','=',Auth::user()->id],
+      ['user_in_chat_room.role','=','b'],
+    ]);
 
-      $sellerChatRoomModel->chat_room_id = $roomModel->id;
-      $sellerChatRoomModel->seller = $ticket->created_by;
-      $sellerChatRoomModel->buyer = Auth::user()->id;
-      $sellerChatRoomModel->save();
+    if($room->exists()) {
+      // check has buyer in this room
+      // Service::loadModel('UserInChatRoom')
+      $room = Service::loadModel('ChatRoom')->select('id','room_key')->find($room->first()->chat_room_id);
 
-      // Add user to chat room
-      $_userInChatRoom = Service::loadModel('UserInChatRoom');
-      $_userInChatRoom->chat_room_id = $roomModel->id;
-      $_userInChatRoom->user_id = $ticket->created_by;
-      $_userInChatRoom->save();
+    }else {
+      $room = $this->createRoom($ticketId,$ticket->created_by);
 
-      $_userInChatRoom = Service::loadModel('UserInChatRoom');
-      $_userInChatRoom->chat_room_id = $roomModel->id;
-      $_userInChatRoom->user_id = Auth::user()->id;
-      $_userInChatRoom->save();
-
-    }else{
-      $roomModel = $roomModel->find($_room->chat_room_id);
     }
 
     $chat = array(
       'user' => Auth::user()->id,
-      // 'user' => {
-      //   'id' => Auth::user()->id,
-      //   'name' => Auth::user()->name,
-      //   'avatar' => Auth::user()->avatar
-      // },
-      'room' => $roomModel->id,
-      'key' => $roomModel->room_key,
+      'room' => $room->id,
+      'key' => $room->room_key,
       'page' => 1,
       'time' => date('Y-m-d H:i:s')
     );
 
     // Get Other users in room
     $_users = Service::loadModel('UserInChatRoom')->where([
-      ['chat_room_id','=',$roomModel->id],
+      ['chat_room_id','=',$room->id],
       ['user_id','!=',Auth::user()->id]
     ])->get();
 
@@ -90,7 +70,7 @@ class ChatController extends Controller
   }
 
   public function chatRoom($roomId) {
-    
+
     $room = Service::loadModel('ChatRoom')->select('room_key')->find($roomId);
 
     if(empty($room)) {
@@ -111,11 +91,6 @@ class ChatController extends Controller
 
     $chat = array(
       'user' => Auth::user()->id,
-      // 'user' => {
-      //   'id' => Auth::user()->id,
-      //   'name' => Auth::user()->name,
-      //   'avatar' => Auth::user()->avatar
-      // },
       'room' => $roomId,
       'key' => $room->room_key,
       'page' => 1,
@@ -138,5 +113,35 @@ class ChatController extends Controller
 
     return $this->view('pages.user.chat');
 
+  }
+
+  private function createRoom($ticketId,$by) {
+    // create new room
+    $room = Service::loadModel('ChatRoom');
+    $room->room_key = Token::generate(16);
+    $room->save();
+
+    // create room with this ticket
+    $ticketChatRoom = Service::loadModel('TicketChatRoom');
+    $ticketChatRoom->ticket_id = $ticketId;
+    $ticketChatRoom->chat_room_id = $room->id;
+    $ticketChatRoom->save();
+
+    // Add user to chat room
+    // Seller
+    $_user = Service::loadModel('UserInChatRoom');
+    $_user->chat_room_id = $room->id;
+    $_user->user_id = $by;
+    $_user->role = 's';
+    $_user->save();
+
+    // Buyer
+    $_user = Service::loadModel('UserInChatRoom');
+    $_user->chat_room_id = $room->id;
+    $_user->user_id = Auth::user()->id;
+    $_user->role = 'b';
+    $_user->save();
+
+    return $room;
   }
 }

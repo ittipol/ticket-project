@@ -24,9 +24,12 @@
 	min-width: 200px;
 	left: auto;
 	right: -1px;
-	border: 1px solid #ccc;
+	/*border: 1px solid #ccc;*/
+	border: 0;
 	border-radius: 0;
 	overflow: hidden;
+	/*box-shadow: 0 1px 4px rgba(41,51,57,.5);*/
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 .dd-menu > a {
@@ -44,13 +47,16 @@
 
 .dd-message-notification {
 	width: 400px !important;
-	/*border-bottom: 1px solid #999 !important;*/
+	/*background-color: #ba3341 !important;*/
 }
 
 .dd-message-notification > h5 {
-	font-size: 1.125rem;
-	border-bottom: 1px solid #999;
-	background-color: #CFD8DC;
+	font-size: 15px;
+	line-height: 24px;
+	min-height: 24px;
+	padding-bottom: 8px;
+	padding-top: 7px;
+	margin: 0;
 }
 
 .dd-message-notification > .message-notification-list {
@@ -59,21 +65,29 @@
 	width: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
+	padding: 10px;
 }
 
 .message-notification-list > .message-notification-list-item {
 	position: relative;
-	height: 40px;
+	/* height: 40px; */
+	height: auto;
 	min-height: 40px;
-	width: 100%;
-	padding: 0 0.625rem;
-	margin-bottom: 0.625rem;
-	border-bottom: 1px solid #ccc;
+	margin-bottom: 10px;
+	padding-bottom: 0;
+	color: #000;
+	/*background-color: #F8BBD0;*/
+	/* background-clip: padding-box; */
+	/*border: solid #fa3753;*/
+	/*border: solid #FFB300;*/
+	background-color: #e2e2e2;
+	border: solid #2979FF;
+	border-width: 0 0 0 3px;
+	box-shadow: 0 1px 4px rgba(41,51,57,.5);
 }
 
-.message-notification-list > .message-notification-list-item:last-child {
-	margin-bottom: 0;
-	border-bottom: none;
+.message-notification-list > .message-notification-list-item i {
+	color: #2979FF;
 }
 
 .message-notification-list-item img {
@@ -83,18 +97,19 @@
 
 .message-notification-list-item > .message-notification-icon {
 	position: absolute;
-	top: 0;
-	left: 10px;
+	top: 5px;
+	left: 5px;
 	width: 40px;
 	height: 40px;
+	border: 2px solid #5f6f81;
 	border-radius: 50%;
 	overflow: hidden;
 }
 
 .message-notification-list-item > .message-notification-content {
-	width: 100%;
+	/* width: 100%; */
 	margin-left: 50px;
-	/*padding: 6px;*/
+	padding: 6px;
 	line-height: normal;
 }
 

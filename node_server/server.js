@@ -38,13 +38,11 @@ function notifyMessage(roomId,userId) {
         for (var i = 0; i < rows.length; i++) {
           //
           if(rows[i].user_id != userId) {
-            
             // Update notify = 1
             db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+rows[i].user_id);
            
             countMessageNotication(rows[i].user_id);
             displayNewMessage(roomId, rows[i].user_id, messages[0].message);
-
           }
         }
       });
@@ -71,34 +69,41 @@ function countMessageNotication(userId) {
 }
 
 function messageNoticationList(userId) {
-  console.log('list');
+
   db.query("SELECT `chat_room_id` FROM `user_in_chat_room` WHERE `user_id` = "+userId+" ORDER BY message_read_date DESC LIMIT 15", function(err, rows){
     
     let data = [];
+    let count = 0;
 
     for (var i = 0; i < rows.length; i++) {
+
       let _room = rows[i].chat_room_id;
-      let _i = i+1;
-      db.query("SELECT cm.message, u.name FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id WHERE cm.chat_room_id = "+rows[i].chat_room_id+" ORDER BY cm.created_at LIMIT 1", function(err, messages){
+      // let _i = i+1;
 
-        data.push({
-          user: userId,
-          room: _room,
-          message: messages[0].message,
-          name: messages[0].name
-        });
+      db.query("SELECT cm.message, cm.user_id, u.name, t.title FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id LEFT JOIN `ticket_chat_rooms` AS tcr ON cm.chat_room_id = tcr.chat_room_id LEFT JOIN `tickets` AS t ON tcr.ticket_id = t.id WHERE cm.chat_room_id = "+rows[i].chat_room_id+" ORDER BY cm.created_at DESC LIMIT 1", function(err, messages){
 
-        if(_i === rows.length) {
-          console.log('emit!!!');
-          io.in('u_'+userId).emit('message-notification-list', data);
+        if(messages.length == 1) {
+
+          let isSender = false;
+          if(messages[0].user_id == userId) {
+            isSender = true;
+          }
+
+          data.push({
+            message: messages[0].message,
+            name: messages[0].name,
+            ticket: messages[0].title,
+            room: _room,
+            user: messages[0].user_id,
+            isSender: isSender
+          });
+
+          if(++count === rows.length) {
+            console.log('emit!!!');
+            io.in('u_'+userId).emit('message-notification-list', data);
+          }
         }
 
-        // io.in('u_'+userId).emit('message-notification-list', {
-        //   user: userId,
-        //   room: _room,
-        //   message: messages[0].message,
-        //   name: messages[0].name
-        // });
       })
     }
   });

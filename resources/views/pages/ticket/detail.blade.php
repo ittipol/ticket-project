@@ -6,72 +6,32 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-12">
+    <div class="col-md-8">
+      <h3>{{$data['title']}}</h3>
+      <div class="text-left">
+        <small><strong>แชร์</strong></small>
+        <a class="btn btn-facebook btn-share" href="https://www.facebook.com/sharer/sharer.php?u={{Request::fullUrl()}}" target="_blank">
+          <i class="fa fa-facebook"></i>
+        </a>
+        <a class="btn btn-twitter btn-share" href="https://twitter.com/intent/tweet?url={{Request::fullUrl()}}&amp;text={{$data['title']}}" target="_blank">
+          <i class="fa fa-twitter"></i>
+        </a>
+        <a class="btn btn-googleplus btn-share" href="https://plus.google.com/share?url={{Request::fullUrl()}}" target="_blank">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </div>  
+    </div>
 
-      <div class="clearfix">
-        <div class="w-100 w-80-ns fn fl-ns">
-          <h3>{{$data['title']}}</h3>
-        </div>
-
-        <div class="w-100 w-20-ns fn fl-ns">
-          แชร์
-        </div>
-      </div>
-
-      <hr>
-
+    <div class="col-md-4">
     </div>
 
     <div class="col-md-8">
 
-      <p class="mb-4">{!!$data['description']!!}</p>
+      <p class="ticket-detail-section pa2 pt2-ns pa0-ns mb-3">{!!$data['description']!!}</p>
 
-      <div class="additional-data-section mb-4">
-
-        @if($data['date_type'] == 1)
-          
-          @if(!empty($data['date_1']))
-          <div class="additional-item">
-            ใช้ได้ตั้งแต่ {{$data['date_1']}} ถึง {{$data['date_2']}}
-          </div>
-          @else
-          <div class="additional-item">
-            ใช้ได้ถึงวันที่ {{$data['date_2']}}
-          </div>
-          @endif
-          
-        @elseif($data['date_type'] == 2)
-          <div class="additional-item">
-            วันที่แสดง {{$data['date_2']}}
-          </div>
-        @elseif($data['date_type'] == 3)
-          <div class="additional-item">
-            วันที่เดินทาง {{$data['date_2']}}
-          </div>
-        @endif
-
-        @if(!empty($data['place_location']))
-          <div class="additional-item">
-            สถานที่ {{$data['place_location']}}
-          </div>
-        @endif
-
-      </div>
-
-      @if(!empty($data['save']))
-        <div class="price-saving-flag">-{{$data['save']}}</div>
-      @endif
-
-      <div class="price-section py-2">
-        <span class="price fs-46">{{$data['price']}}</span>
-        @if(!empty($data['original_price']))
-        <span class="original-price">{{$data['original_price']}}</span>
-        @endif
-      </div>
-
-      @if(!empty($value['tags']))
+      @if(!empty($data['tags']))
       <div class="tags mx-2 mb-4">
-        @foreach($value['tags'] as $tag)
+        @foreach($data['tags'] as $tag)
           <div class="md-chip">
             <div class="md-chip-icon">
               <i class="fa fa-tag"></i>
@@ -83,8 +43,8 @@
       @endif
 
       @if(!empty($data['images']))
-      <hr>
-      <div class="image-gallery-section p-2 bg-moon-gray">
+     
+      <div class="image-gallery-section p-2">
         <div class="n2">
         @foreach($data['images'] as $image)
           <a href="{{$image['_url']}}" data-ngThumb="{{$image['_preview_url']}}"></a>
@@ -93,11 +53,65 @@
       </div>
       @endif
 
+      <div class="quick-chat-section px-2 py-3">
+        <h5>
+          <i class="fa fa-comments" aria-hidden="true"></i>&nbsp;<small>สอบถามผู้ขาย</small>
+        </h5>
+        <div>
+          <a href="" class="btn btn-primary br0 pa2 pa1-ns mb2 ma0-ns w-100 w-auto-ns">ต้องการสั่งซื้อสินค้านี้?</a>
+          <a href="" class="btn btn-primary br0 pa2 pa1-ns mb2 ma0-ns w-100 w-auto-ns">ยังมีของอยู่ไหม?</a>
+          <a href="" class="btn btn-primary br0 pa2 pa1-ns mb2 ma0-ns w-100 w-auto-ns">ใช้งานได้ที่ไหนบ้าง?</a>
+          <a href="" class="btn btn-primary br0 pa2 pa1-ns mb2 ma0-ns w-100 w-auto-ns">จัดส่งสินค้ายังไง?</a>
+        </div>
+      </div>
+
     </div>
 
     <div class="col-md-4">
+
+      @if(!empty($data['save']))
+        <div class="price-saving-flag">-{{$data['save']}}</div>
+      @endif
+
+      <div class="price-section py-2">
+        <span class="price">{{$data['price']}}</span>
+        @if(!empty($data['original_price']))
+        <span class="original-price">{{$data['original_price']}}</span>
+        @endif
+      </div>
+
+      <div class="additional-data-section mt-2 mb-4">
+        @if($data['date_type'] == 1)
+          
+          @if(!empty($data['date_1']))
+          <div class="additional-item">
+            <i class="fa fa-calendar"></i>&nbsp;ใช้ได้ตั้งแต่ {{$data['date_1']}} ถึง {{$data['date_2']}}
+          </div>
+          @else
+          <div class="additional-item">
+            <i class="fa fa-calendar"></i>&nbsp;ใช้ได้ถึงวันที่ {{$data['date_2']}}
+          </div>
+          @endif
+          
+        @elseif($data['date_type'] == 2)
+          <div class="additional-item">
+            <i class="fa fa-calendar"></i>&nbsp;วันที่แสดง {{$data['date_2']}}
+          </div>
+        @elseif($data['date_type'] == 3)
+          <div class="additional-item">
+            <i class="fa fa-calendar"></i>&nbsp;วันที่เดินทาง {{$data['date_2']}}
+          </div>
+        @endif
+
+        @if(!empty($data['place_location']))
+          <div class="additional-item">
+            <i class="fa fa-map-marker"></i>&nbsp;สถานที่ {{$data['place_location']}}
+          </div>
+        @endif
+      </div>
+
       <div class="seller-section seller-fixed-bottom">
-        <div class="pv2 pv2-ns ph3 ph2-ns clearfix">
+        <div class="pt3 pb2 pv2-ns ph3 ph2-ns clearfix">
           <div class="avatar-frame fl">
             <div class="online_status_indicator_{{$data['created_by']}} online-status-indicator @if($seller['online']) is-online @endif"></div>
             <div class="avatar">
@@ -117,11 +131,12 @@
         </div>
       </div>
 
-      <div class="contact-section">
+      <div class="contact-section pa2 pa0-ns mt-2 bt">
         <div class="clearfix pa0 pa3-ns">
           <h5 class="mt-1 pb-2">
             <i class="fa fa-address-book" aria-hidden="true"></i>
-            &nbsp;ติดต่อผู้ขาย</h5>
+            &nbsp;ช่องทางสำหรับติดต่อผู้ขาย
+          </h5>
           {!!$data['contact']!!}
         </div>
       </div>

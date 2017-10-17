@@ -29,20 +29,20 @@ header .brand-s {
 }
 
 .gn-menu-main > li > .message-notification.on > i {
-	color: #fc152e;
+	color: #2979FF;
 }
 
 header .message-notification > .count-badge {
 	position: absolute;
 	top: 7px;
-	right: 0px;
-	font-size: 1rem;
+	right: 2px;
+	font-size: 14px;
 	text-align: center;
-	line-height: 28px;
+	line-height: 24px;
 	color: #fff;
-	background-color: #367caf;
-	width: 28px;
-	height: 28px;
+	background-color: #D50000;
+	width: 24px;
+	height: 24px;
 	border-radius: 50%;
 	display: none;
 }

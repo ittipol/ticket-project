@@ -11,7 +11,6 @@
 
 .fiter-panel-toggle {
 	background-color: #fff;
-	/*border-top: 1px solid #999;*/
 	z-index: 49;
 	display: none;
 }
@@ -86,23 +85,22 @@
 }
 
 .data-list-item {
-	position: relative;
+	/*position: relative;
 	width: 100%;
 	color: #37454d;
 	background-color: #fff;
 	border: 1px solid #aaa;
-	box-shadow: 0 1px 4px rgba(41,51,57,.5);
+	box-shadow: 0 1px 4px rgba(41,51,57,.5);*/
+
+	position: relative;
+	width: 100%;
+	color: #37454d;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	box-shadow: 0 1px 4px rgba(41,51,57,.5); 
+	border-radius: 8px;
+	overflow: hidden;
 }
-
-/*.data-list-item .main-data-section h5 {
-	color: #000;
-	line-height: 1.625rem;
-}*/
-
-
-/*.data-list-item .seller-section {
-	background-color: #dadada;
-}*/
 
 .data-list-item .seller-chat-btn {
 	margin: 0.3125rem;
@@ -119,7 +117,7 @@
 	margin-bottom: 1rem;
 	font-size: 14px;
 	font-weight: bold;
-	margin-left: 10px;
+	/*margin-left: 10px;*/
 }
 
 .additional-data-section .additional-item:last-child {
@@ -130,6 +128,7 @@
 	position: relative;
 	min-height: 150px;
 	background-color: #bbb;
+	overflow: hidden;
 	display: block;
 }
 
@@ -143,6 +142,11 @@
 	background-size: 100%;
 	width: 50%;
 	height: 100%;
+}
+
+.data-list-item a.title {
+	line-height: 26px;
+	font-size: 1.125rem;
 }
 
 .image-more {
@@ -224,8 +228,22 @@
 	font-size: 1rem;
 }
 
+.ticket-detail-section {
+	line-height: 28px;
+	color: #000;
+	background-color: #ececec;
+	border-top: 1px solid #aaa;
+}
+
 .image-gallery-section {
-	min-height: 180px;
+	min-height: 120px;
+	background: #606c88;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #3f4c6b, #606c88);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #3f4c6b, #606c88); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.quick-chat-section i {
+	color: #2979FF;
 }
 
 .nav-tabs {
@@ -250,6 +268,38 @@
 	text-decoration: none;
 }*/
 
+.btn-share {
+	border-radius: 0;
+}
+
+.btn-share:hover i {
+	color: #fff !important;
+}
+
+.btn-share.btn-facebook > i {
+	color: rgb(27,68,140);
+}
+
+.btn-share.btn-facebook:hover {
+	background-color: rgb(27,68,140);
+}
+
+.btn-share.btn-twitter > i {
+	color: #1da1f2;
+}
+
+.btn-share.btn-twitter:hover {
+	background-color: #1da1f2;
+}
+
+.btn-share.btn-googleplus > i {
+	color: rgb(195,33,16);
+}
+
+.btn-share.btn-googleplus:hover {
+	background-color: rgb(195,33,16);
+}
+
 @media (max-width: 480px) {
 
 	.main-panel {
@@ -260,9 +310,9 @@
 		left: -290px;
 	}*/
 
-	.nav-tabs {
+	/*.nav-tabs {
 		margin-right: 0;
-	}
+	}*/
 
 	.image-gallery-section {
 		min-height: 120px;

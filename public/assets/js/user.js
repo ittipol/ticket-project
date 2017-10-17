@@ -41,26 +41,15 @@ class User {
 		});
 
 		this.io.socket.on('message-notification-list', function(res){
-			console.log(res[0])
-
+			
 			// loop data and patch message notification
 			// patchMessageNotification
-
+console.log('message notification list update');
 			for (var i = 0; i < res.length; i++) {
-				// _this.messageNotificationListHtml
+				console.log(res[i])
+				$('#message_notification_list').append(_this.messageNotificationListHtml(res[i]));
 			}
 
-			let html = `
-				<a href="/chat/r/" id="" class="message-notification-list-item clearfix">
-				  <div class="message-notification-icon fl">
-				    <img class="avatar" src="/avatar/?d=1">
-				  </div>
-				  <div class="message-notification-content fl">
-				    <div><strong>username xxx</strong></div>
-				    <div>New Message!!!</div>
-				  </div>
-				</a>
-       `;
 		})
 
 	}
@@ -86,17 +75,39 @@ class User {
 	}
 
 	messageNotificationListHtml(data) {
-		let html = `
-			<a href="/chat/r/" id="" class="message-notification-list-item clearfix">
-			  <div class="message-notification-icon fl">
-			    <img class="avatar" src="/avatar/?d=1">
-			  </div>
-			  <div class="message-notification-content fl">
-			    <div><strong>username xxx</strong></div>
-			    <div>New Message!!!</div>
-			  </div>
-			</a>
-    `;
+
+		// return `
+		// 	<a href="/chat/r/${data.room}" id="" class="message-notification-list-item clearfix">
+		// 	  <div class="message-notification-icon fl">
+		// 	    <img class="avatar" src="/avatar/${data.user}?d=1">
+		// 	  </div>
+		// 	  <div class="message-notification-content fl">
+		// 	    <div><small><strong>${data.name}</strong></small></div>
+		// 	    <div>${data.message}</div>
+		// 	  </div>
+		// 	</a>
+  //   `;
+
+  			if(data.isSender) {
+  				var senderLable = 'คุณได้ส่งข้อความถึง '+data.name;
+  			}else{
+  				var senderLable = data.name+' ได้ส่งข้อความถึงคุณ';
+  			}
+
+  			return `
+  				<a href="/chat/r/${data.room}" id="" class="message-notification-list-item">
+  				  <div class="message-notification-icon">
+  				    <img class="avatar" src="/avatar/${data.user}?d=1">
+  				  </div>
+  				  <div class="message-notification-content">
+  				    <div><i class="fa fa-comment" aria-hidden="true"></i>&nbsp;${data.message}</div>
+  				    <div class="bb b--moon-gray pb-2"><small>${senderLable}</small></div>
+  				  	<div><small>${data.ticket}</small></div>
+  				  </div>
+  				</a>
+  	    `;
+
+    // return html;
 	}
 
 }
