@@ -85,7 +85,7 @@ class StaticFileController extends Controller
     if($userId === 'f') {
       $user = User::select('id','avatar')->where('avatar','like',$filename);
     }elseif(is_numeric($userId)) {
-      $user = User::select('id','avatar')->find($userId);
+      $user = User::select('id','avatar')->where('id','=',$userId);
     }elseif(Auth::check()) {
       $user = User::select('id','avatar')->where('id','=',Auth::user()->id);
     }else{

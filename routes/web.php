@@ -38,10 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('ticket/new', 'TicketController@add');
   Route::post('ticket/new', 'TicketController@addingSubmit');
 
-  Route::get('chat/{ticketId}', 'ChatController@chat');
-
-  // Route::get('chat/t/{ticketId}', 'UserController@chat');
-  Route::get('chat/r/{roomId}', 'ChatController@chatRoom');
+  Route::get('chat/s/{ticketId}', 'ChatController@sellerChat'); // s = seller
+  // Route::get('chat/b/{ticketId}', 'ChatController@buyerChat'); // b = buyer
+  Route::get('chat/r/{roomId}', 'ChatController@chatRoom'); // r = room
 
   Route::post('upload/image', 'ImageController@upload');
 

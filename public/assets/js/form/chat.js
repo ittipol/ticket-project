@@ -158,7 +158,7 @@ class Chat {
 	  			me = true;
 	  		}
 
-	  		$('#message_display').prepend(_this.getHtml(res.data[i].message, moment(res.data[i].created_at, "YYYYMMDDThhmmss.SSS").format("YYYY-MM-DD hh:mm:ss"), me));
+	  		$('#message_display').prepend(_this.getHtml(res.data[i].user_id, res.data[i].message, moment(res.data[i].created_at, "YYYYMMDDThhmmss.SSS").format("YYYY-MM-DD hh:mm:ss"), me));
 	  	};
 
 	  	setTimeout(function(){
@@ -222,7 +222,7 @@ class Chat {
 		});
 	}
 
-	getHtml(message,date,me = true) {
+	getHtml(user,message,date,me = true) {
 
 		let html = '';
 
@@ -242,7 +242,7 @@ class Chat {
 			html = `
 			<div class="message-section">
 			  <div class="avatar">
-			    <img src="/avatar?d=1">
+			    <img src="/avatar/${user}?d=1">
 			  </div>
 			  <div class="message-box">
 			  	${message}
@@ -257,7 +257,7 @@ class Chat {
 	}
 
 	placeMessage(data,me = true) {
-		$('#message_display').append(this.getHtml(data.message, moment().format('YYYY-MM-DD h:mm:ss'), me));
+		$('#message_display').append(this.getHtml(data.user,data.message, moment().format('YYYY-MM-DD h:mm:ss'), me));
 	}
 
 	calPosition(screenHeight) {

@@ -1,6 +1,6 @@
 <ul class="dropdown-menu dd-message-notification">
   <h5 class="p-3 text-center">ข้อความ</h5>
-  <div class="message-notification-list">
+  <div id="message_notification_lis" class="message-notification-list">
     @foreach($_messageNotifications as $value)
       <a href="" class="message-notification-list-item clearfix">
         <div class="message-notification-icon fl">

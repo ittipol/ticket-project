@@ -35,22 +35,18 @@ function notifyMessage(roomId,userId) {
     if(messages.length === 1) {
       // Get Users in room
       db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `user_id` != "+userId+" AND `chat_room_id` = "+roomId+" AND `notify` = 0 AND `message_read` < "+messages[0].id, function(err, rows){
-        if(rows.length > 0) {
+        for (var i = 0; i < rows.length; i++) {
           //
-          for (var i = 0; i < rows.length; i++) {
-            //
-            if(rows[i].user_id != userId) {
-              
-              // Update notify = 1
-              db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+rows[i].user_id);
-             
-              countMessageNotication(rows[i].user_id);
-              displayNewMessage(roomId, rows[i].user_id, messages[0].message);
+          if(rows[i].user_id != userId) {
+            
+            // Update notify = 1
+            db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+rows[i].user_id);
+           
+            countMessageNotication(rows[i].user_id);
+            displayNewMessage(roomId, rows[i].user_id, messages[0].message);
 
-            }
           }
         }
-
       });
     }
   });
@@ -67,10 +63,44 @@ function displayNewMessage(roomId,userId,message) {
 }
 
 function countMessageNotication(userId) {
-  db.query("SELECT * FROM `user_in_chat_room` WHERE `user_id` = "+userId+" AND `notify` = 1", function(err, rows){
+  db.query("SELECT `chat_room_id` FROM `user_in_chat_room` WHERE `user_id` = "+userId+" AND `notify` = 1", function(err, rows){
     io.in('u_'+userId).emit('count-message-notification', {
       count: rows.length
     });
+  });
+}
+
+function messageNoticationList(userId) {
+  console.log('list');
+  db.query("SELECT `chat_room_id` FROM `user_in_chat_room` WHERE `user_id` = "+userId+" ORDER BY message_read_date DESC LIMIT 15", function(err, rows){
+    
+    let data = [];
+
+    for (var i = 0; i < rows.length; i++) {
+      let _room = rows[i].chat_room_id;
+      let _i = i+1;
+      db.query("SELECT cm.message, u.name FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id WHERE cm.chat_room_id = "+rows[i].chat_room_id+" ORDER BY cm.created_at LIMIT 1", function(err, messages){
+
+        data.push({
+          user: userId,
+          room: _room,
+          message: messages[0].message,
+          name: messages[0].name
+        });
+
+        if(_i === rows.length) {
+          console.log('emit!!!');
+          io.in('u_'+userId).emit('message-notification-list', data);
+        }
+
+        // io.in('u_'+userId).emit('message-notification-list', {
+        //   user: userId,
+        //   room: _room,
+        //   message: messages[0].message,
+        //   name: messages[0].name
+        // });
+      })
+    }
   });
 }
 
@@ -217,6 +247,10 @@ io.on('connection', function(socket){
 
   socket.on('count-message-notification', function(data){
     countMessageNotication(data.user);
+  })
+
+  socket.on('message-notification-list', function(data){
+    messageNoticationList(data.user);
   })
 
   // setInterval(function(){

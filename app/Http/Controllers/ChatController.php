@@ -10,7 +10,7 @@ use Redirect;
 
 class ChatController extends Controller
 {
-  public function chat($ticketId) {
+  public function sellerChat($ticketId) {
 
     $roomModel = Service::loadModel('ChatRoom');
     // $messageModel = Service::loadModel('ChatMessage');

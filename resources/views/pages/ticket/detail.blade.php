@@ -111,7 +111,7 @@
           <div class="online-name fl">{{$seller['name']}}</div>
         </div>
         <div class="pa2 pa2-ns">
-          <a href="/chat/{{$ticketId}}" class="btn btn-primary btn-block br0">
+          <a href="/chat/s/{{$ticketId}}" class="btn btn-primary btn-block br0">
             <i class="fa fa-comments" aria-hidden="true"></i> คุยกับผู้ขาย
           </a>
         </div>
