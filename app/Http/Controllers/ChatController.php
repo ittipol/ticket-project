@@ -89,7 +89,7 @@ class ChatController extends Controller
     }
 
     // update read to last message
-    $this->setReadMessage($room->id,Auth::user()->id);
+    $this->setReadMessage($roomId,Auth::user()->id);
 
     $chat = array(
       'user' => Auth::user()->id,

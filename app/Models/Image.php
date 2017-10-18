@@ -7,6 +7,7 @@ use App\library\stringHelper;
 use App\library\handleImageFile;
 use App\library\cache;
 use File;
+use Auth;
 
 class Image extends Model
 {
@@ -114,7 +115,7 @@ class Image extends Model
     ->where([
       ['model','=',$model->modelName],
       ['model_id','=',$model->id],
-      ['created_by','=',Session::get('Person.id')]
+      ['created_by','=',Auth::user()->id]
     ])
     ->get();
 
@@ -135,16 +136,14 @@ class Image extends Model
   }
 
   public function addImage($model,$image,$options = array()) {
-
     $temporaryFile = new TemporaryFile;
 
     $imageId = $this->handleImage($model,$image,$options);
 
-    $temporaryFile->deleteTemporaryDirectory($model->modelName.'_'.$options['token'].'_profile-image');
+    $temporaryFile->deleteTemporaryDirectory($model->modelName.'_'.$options['token'].'_'.$options['type']);
     $temporaryFile->deleteTemporaryRecords($model->modelName,$options['token']);
 
     return $imageId;
-
   }
 
   public function handleImage($model,$image,$options = array()) {
@@ -158,7 +157,7 @@ class Image extends Model
     if(!empty($image['id'])) {
       $imageInstance = $imageInstance->where([
         ['id','=',$image['id']],
-        ['created_by','=',Session::get('Person.id')]
+        ['created_by','=',Auth::user()->id]
       ])->first();
 
       if(empty($imageInstance)) {
@@ -195,9 +194,9 @@ class Image extends Model
       $imageInstance->model_id = $model->id;
     }
 
-    if(!empty($image['description'])) {
-      $imageInstance->description = $image['description'];
-    }
+    // if(!empty($image['description'])) {
+    //   $imageInstance->description = $image['description'];
+    // }
 
     if(!$imageInstance->save()) {
       return false;
@@ -329,9 +328,9 @@ class Image extends Model
 
     $this->filename = $image->getFileName();
 
-    if(!empty($options['description'])) {
-      $this->description = $options['description'];
-    }
+    // if(!empty($options['description'])) {
+    //   $this->description = $options['description'];
+    // }
 
     if(!$this->save()) {
       return false;

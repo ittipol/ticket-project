@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\library\service;
+use App\library\Snackbar;
 use Illuminate\Http\Request;
 use Redirect;
 
@@ -72,6 +73,7 @@ class TicketController extends Controller
     $model->original_price = request()->get('original_price');
     $model->date_type = request()->get('date_type');
     $model->contact = request()->get('contact');
+    $model->purpose = 's';
    
     if(!$model->save()) {
       return Redirect::back();

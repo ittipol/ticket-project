@@ -66,7 +66,7 @@ class User {
 			// patchMessageNotification
 // console.log('message notification list update');
 			for (var i = 0; i < res.length; i++) {
-				console.log(res[i])
+				// console.log(res[i])
 				$('#message_notification_list').append(_this.messageNotificationListHtml(res[i]));
 			}
 

@@ -52,7 +52,7 @@ class HandleImageFile
 
   public function generateImageSize($imageType,$originalWidth = null,$originalHeight = null){
 
-    $accepteType = array('photo','profile-image');
+    $accepteType = array('photo','avatar');
 
     if(empty($originalWidth)) {
       $originalWidth = $this->width; 
@@ -103,7 +103,7 @@ class HandleImageFile
 
       }
 
-    }elseif($imageType == 'profile-image') {
+    }elseif($imageType == 'avatar') {
       
       if($height > 400) {
         // or automatic crop

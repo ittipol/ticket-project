@@ -8,7 +8,7 @@ class Cache
 {
   private $cachePath = 'cache/';
   private $imageCache = array(
-    'avatar_preview' => array(
+    'avatar_sm' => array(
       'width' => 50,
       'height' => 50,
       'fx' => 'getImageSizeByRatio',
@@ -65,7 +65,7 @@ class Cache
 
   }
 
-  public function getCacheImageUrl($model,$alias) {
+  public function getCacheImageUrl($model,$alias,$getPath = false) {
 
     $url = new Url;
 
@@ -94,6 +94,10 @@ class Cache
 
     if(!file_exists($cacheFile) && !$this->_cacheImage($path,$width,$height,$cachePath,$cacheFile)) {
       return false;
+    }
+
+    if($getPath) {
+      return $this->cachePath.$filename.'/'.$newFilename;
     }
 
     return '/get_image/'.$newFilename;
@@ -151,20 +155,6 @@ class Cache
 
     $ratio = abs($originalWidth/$originalHeight);
 
-    // if(($originalHeight > $originalWidth) && ($ratio > 1)) {
-    //   if($originalHeight > $height) {
-    //     $width = (int)ceil($originalWidth * ($height / $originalHeight));
-    //   }else{
-    //     $height = (int)ceil($originalHeight * ($width / $originalWidth));
-    //   }
-    // }elseif(($originalWidth > $originalHeight) && ($ratio > 1)) {
-    //   if($originalWidth > $width) {
-    //     $width = (int)ceil($originalWidth * ($height / $originalHeight));
-    //   }else{
-    //     $height = (int)ceil($originalHeight * ($width / $originalWidth));
-    //   }
-    // }
-
     if($ratio == 1) {
       return array($width,$height);
     }
@@ -183,7 +173,10 @@ class Cache
       }
     }
 
-    return array($width,$height);
+    return array(
+      $width,
+      $height
+    );
   }
 
   public function cacheDirectoryExist($directoryName) {

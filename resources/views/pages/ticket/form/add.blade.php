@@ -25,15 +25,6 @@
 
       <div class="col-md-8">
 
-        <!-- <div class="form-group">
-          <label class="mr-4">
-            {{Form::radio('type', 'b', true)}} ซื้อ
-          </label>
-          <label>
-            {{Form::radio('type', 's', false)}} ขาย
-          </label>
-        </div> -->
-
         <div class="form-group">
           <label class="form-control-label required">หัวข้อ</label>
           {{ Form::text('title', null, array(

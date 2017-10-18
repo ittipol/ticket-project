@@ -17,9 +17,15 @@ class UploadImage {
 
 	setImages(images = []){
 
-		for (let i = 0; i < Object.keys(images).length; i++) {
-			this.index = this._createUploader(this.index,images[i]);
+		if(typeof images[0] === 'undefined') {
+			this.index = this._createUploader(this.index,images);
+		}else{
+			for (let i = 0; i < Object.keys(images).length; i++) {
+				this.index = this._createUploader(this.index,images[i]);
+			}
 		}
+
+		
 
 		if(this.index < this.limit){
 			this.index = this.createUploader(this.index);
@@ -28,8 +34,6 @@ class UploadImage {
 	}
 
 	init(){
-		// let token = new Token();
-		// this.code = token.generateToken(7);
 
 		this.code = Token.generateToken();
 

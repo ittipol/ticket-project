@@ -96,17 +96,21 @@ class StaticFileController extends Controller
       return null;
     }
 
-    // $image = Service::loadModel('Image')
-    // ->where('filename','like',$user->avatar)
-    // ->select(array('model','model_id','filename','image_type_id'))
-    // ->first();
+    $path = null;
 
-    // $cache = new Cache;
-    // $path = $cache->getCacheImageUrl($image,'avatar_preview');
+    if(!empty($user->first()->avatar)) {
+      $image = Service::loadModel('Image')
+      ->where('id','=',$user->first()->avatar)
+      ->select(array('model','model_id','filename','image_type_id'))
+      ->first();
 
-    $path = $user->first()->getAvartarImage();
+      $cache = new Cache;
+      $path = $cache->getCacheImageUrl($image,'avatar_sm',true);
 
-    if(file_exists($path) && !empty($user->first()->avatar)){
+      // $path = $user->first()->getAvartarImage($image->filename);
+    }
+
+    if(file_exists($path)){
 
       $headers = array(
         'Cache-Control' => 'public, max-age=86400',

@@ -33,7 +33,13 @@ class User extends Model implements AuthenticatableContract,AuthorizableContract
       'password', 'remember_token',
   ];
 
-  private $path = 'app/public/users/';
+  private $path = 'app/public/images/user/';
+
+  public $imageTypeAllowed = array(
+    'avatar' => array(
+      'limit' => 1
+    )
+  );
 
   /**
     * Get the unique identifier for the user.
@@ -101,11 +107,44 @@ class User extends Model implements AuthenticatableContract,AuthorizableContract
    }
 
    public function getAvartarImage($avatar = '') {
-
      if(empty($avatar)) {
        $avatar = $this->avatar;
      }
 
      return $this->getAvartarPath().$avatar;
    }
+
+   public function getProfileImage() {
+     $image = Image::select('id','model','model_id','filename','image_type_id')->find($this->avatar);
+
+     if(empty($image)) {
+       return array();
+     }
+
+     return array(
+       'id' => $image->id,
+       '_url' => $image->getImageUrl()
+     );
+   }
+
+   // public function getProfileImageUrl($size = null) {
+
+   //   if(empty($size)) {
+   //     $size = 'xsm';
+   //   }
+
+   //   $image = Image::select('id','model','model_id','filename','image_type_id')->find($this->avatar);
+
+   //   if(empty($image)) {
+   //     return null;
+   //   }
+
+   //   if(empty($size)) {
+   //     return $image->getImageUrl();
+   //   }
+
+   //   $cache = new Cache;
+
+   //   return $cache->getCacheImageUrl($image,$size);
+   // }
 }
