@@ -20,8 +20,6 @@ class Chat {
 	  this.bind(_this);
 	  this.socketEvent(_this);
 
-	  this.messageRead();
-
 	  this.more();
 	  this.layout();
 	  this.calPosition(window.innerHeight);
@@ -286,11 +284,11 @@ class Chat {
 
 	}
 
-	messageRead() {
-		this.io.socket.emit('message-read', {
-			room: this.chat.room,
-			user: this.chat.user
-		});
-	}
+	// messageRead() {
+	// 	this.io.socket.emit('message-read', {
+	// 		room: this.chat.room,
+	// 		user: this.chat.user
+	// 	});
+	// }
 
 }

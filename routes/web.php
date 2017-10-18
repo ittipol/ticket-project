@@ -33,6 +33,8 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
 
+  Route::get('account/edit', 'AccountController@edit');
+
   Route::get('logout', 'UserController@logout');
 
   Route::get('ticket/new', 'TicketController@add');

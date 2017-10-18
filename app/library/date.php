@@ -4,7 +4,7 @@ namespace App\library;
 
 class Date
 {
-  public function today($time = true, $timestamp = false) {
+  public static function today($time = true, $timestamp = false) {
 
     $today = date('Y-m-d 00:00:00');
     if(!$time) {
@@ -19,7 +19,7 @@ class Date
 
   }
 
-  public function now($time = true, $timestamp = false) {
+  public static function now($time = true, $timestamp = false) {
 
     $now = date('Y-m-d H:i:s');
     if(!$time) {
@@ -34,17 +34,17 @@ class Date
 
   }
 
-  public function covertDateToSting($date) {
+  public static function covertDateToSting($date) {
 
     if(empty($date)) {
       return null;
     }
 
     $date = explode('-', $date);
-    return (int)$date[2].' '.$this->getMonthName($date[1]).' '.($date[0]+543);
+    return (int)$date[2].' '.Date::getMonthName($date[1]).' '.($date[0]+543);
   }
 
-  public function covertTimeToSting($dateTime) {
+  public static function covertTimeToSting($dateTime) {
     list($date,$time) = explode(' ', $dateTime);
 
     $time = explode(':', $time);
@@ -52,17 +52,17 @@ class Date
     return (int)$time[0].':'.$time[1];
   }
 
-  public function covertDateTimeToSting($dateTime,$includeSec = false) {
+  public static function covertDateTimeToSting($dateTime,$includeSec = false) {
 
     list($date,$time) = explode(' ', $dateTime);
 
     $date = explode('-', $date);
     $time = explode(':', $time);
 
-    return (int)$date[2].' '.$this->getMonthName($date[1]).' '.($date[0]+543). ' เวลา '.(int)$time[0].':'.$time[1];
+    return (int)$date[2].' '.Date::getMonthName($date[1]).' '.($date[0]+543). ' เวลา '.(int)$time[0].':'.$time[1];
   }
 
-  public function explodeDateTime($dateTime) {
+  public static function explodeDateTime($dateTime) {
     list($date,$time) = explode(' ', $dateTime);
 
     $date = explode('-', $date);
@@ -78,7 +78,7 @@ class Date
     );
   }
 
-  public function getDayName($day) {   
+  public static function getDayName($day) {   
 
     $dayName = array(
       'วันจันทร์',
@@ -94,7 +94,7 @@ class Date
 
   }
 
-  public function getMonthName($month) {   
+  public static function getMonthName($month) {   
 
     $monthName = array(
       'มกราคม',
@@ -115,14 +115,14 @@ class Date
 
   }
 
-  public function appendTimeForDateStartAndDateEnd($dateStart,$dateEnd) {
+  public static function appendTimeForDateStartAndDateEnd($dateStart,$dateEnd) {
     return array(
       'date_start' => date('Y-m-d',strtotime($dateStart)). ' 00:00:00',
       'date_end' => date('Y-m-d',strtotime($dateEnd)). ' 23:59:59'
     );
   }
 
-  public function setPeriodData($attributes) {
+  public static function setPeriodData($attributes) {
 
     $data = array();
 
@@ -155,7 +155,7 @@ class Date
 
   }
 
-  public function calPassedDate($dateTime) {
+  public static function calPassedDate($dateTime) {
 
     $secs = time() - strtotime($dateTime);
     $mins = (int)floor($secs / 60);
@@ -179,30 +179,30 @@ class Date
       }
 
     }elseif($days == 1){
-      $passed = 'เมื่อวานนี้ เวลา '.$this->covertTimeToSting($dateTime);
+      $passed = 'เมื่อวานนี้ เวลา '.Date::covertTimeToSting($dateTime);
     }else{
-      $passed = $this->covertDateTimeToSting($dateTime);
+      $passed = Date::covertDateTimeToSting($dateTime);
     }
 
     return $passed;
   }
 
-  public function isLeapYear($year) {
+  public static function isLeapYear($year) {
     return ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0)));
   }
 
-  public function findDateRange($start,$end,$date = array()) {
+  public static function findDateRange($start,$end,$date = array()) {
 
     $yearStart = $date['year'] - $end;
     $yearEnd = $date['year'] - $start;
 
-    if(!$this->isLeapYear($yearStart) && ((int)$date['month'] == 2) && ($date['day'] == 29)) {
+    if(!Date::isLeapYear($yearStart) && ((int)$date['month'] == 2) && ($date['day'] == 29)) {
       $start = $yearStart.'-'.$date['month'].'-28 00:00:00';
     }else{
       $start = $yearStart.'-'.$date['month'].'-'.$date['day'].' 00:00:00';
     }
 
-    if(!$this->isLeapYear($yearEnd) && ((int)$date['month'] == 2) && ($date['day'] == 29)) {
+    if(!Date::isLeapYear($yearEnd) && ((int)$date['month'] == 2) && ($date['day'] == 29)) {
       $end = $yearEnd.'-'.$date['month'].'-28 23:59:59';
     }else{
       $end = $yearEnd.'-'.$date['month'].'-'.$date['day'].' 23:59:59';

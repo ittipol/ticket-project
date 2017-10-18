@@ -32,13 +32,13 @@ function setAllMessageRead(userId) {
 }
 
 // Update specifically message
-function updateUserReadMessage(roomId,userId) {
-  db.query("SELECT `id` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, messages){
-    if(messages.length === 1) {
-      db.query("UPDATE `user_in_chat_room` SET `notify` = 0, `message_read` = "+messages[0].id+", `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+userId); 
-    }
-  });
-}
+// function updateUserReadMessage(roomId,userId) {
+//   db.query("SELECT `id` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, messages){
+//     if(messages.length === 1) {
+//       db.query("UPDATE `user_in_chat_room` SET `notify` = 0, `message_read` = "+messages[0].id+", `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+userId); 
+//     }
+//   });
+// }
 
 // Notify message to users
 function notifyMessage(roomId,userId) {
@@ -291,9 +291,9 @@ io.on('connection', function(socket){
 
   });
 
-  socket.on('message-read', function(data){
-    updateUserReadMessage(data.room,data.user);
-  })
+  // socket.on('message-read', function(data){
+  //   updateUserReadMessage(data.room,data.user);
+  // })
 
   socket.on('count-message-notification', function(data){
     countMessageNotication(data.user);

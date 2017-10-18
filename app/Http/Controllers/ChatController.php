@@ -35,10 +35,9 @@ class ChatController extends Controller
     ]);
 
     if($room->exists()) {
-      // check has buyer in this room
-      // Service::loadModel('UserInChatRoom')
       $room = Service::loadModel('ChatRoom')->select('id','room_key')->find($room->first()->chat_room_id);
-
+      // update read to last message
+      $this->setReadMessage($room->id,Auth::user()->id);
     }else {
       $room = $this->createRoom($ticketId,$ticket->created_by);
 
@@ -89,6 +88,9 @@ class ChatController extends Controller
       return Redirect::to('/');
     }
 
+    // update read to last message
+    $this->setReadMessage($room->id,Auth::user()->id);
+
     $chat = array(
       'user' => Auth::user()->id,
       'room' => $roomId,
@@ -122,26 +124,68 @@ class ChatController extends Controller
     $room->save();
 
     // create room with this ticket
-    $ticketChatRoom = Service::loadModel('TicketChatRoom');
-    $ticketChatRoom->ticket_id = $ticketId;
-    $ticketChatRoom->chat_room_id = $room->id;
-    $ticketChatRoom->save();
+    // $ticketChatRoom = Service::loadModel('TicketChatRoom');
+    // $ticketChatRoom->ticket_id = $ticketId;
+    // $ticketChatRoom->chat_room_id = $room->id;
+    // $ticketChatRoom->save();
+
+    Service::loadModel('TicketChatRoom')
+    ->fill([
+      'ticket_id' => $ticketId,
+      'chat_room_id' => $room->id
+    ])->save();
 
     // Add user to chat room
     // Seller
-    $_user = Service::loadModel('UserInChatRoom');
-    $_user->chat_room_id = $room->id;
-    $_user->user_id = $by;
-    $_user->role = 's';
-    $_user->save();
+    // $_user = Service::loadModel('UserInChatRoom');
+    // $_user->chat_room_id = $room->id;
+    // $_user->user_id = $by;
+    // $_user->role = 's';
+    // $_user->save();
 
-    // Buyer
-    $_user = Service::loadModel('UserInChatRoom');
-    $_user->chat_room_id = $room->id;
-    $_user->user_id = Auth::user()->id;
-    $_user->role = 'b';
-    $_user->save();
+    // // Buyer
+    // $_user = Service::loadModel('UserInChatRoom');
+    // $_user->chat_room_id = $room->id;
+    // $_user->user_id = Auth::user()->id;
+    // $_user->role = 'b';
+    // $_user->save();
+
+    Service::loadModel('UserInChatRoom')
+    ->fill([
+      'chat_room_id' => $room->id,
+      'user_id' => $by,
+      'role' => 's',
+    ])->save();
+
+    Service::loadModel('UserInChatRoom')
+    ->fill([
+      'chat_room_id' => $room->id,
+      'user_id' => Auth::user()->id,
+      'role' => 'b',
+    ])->save();
 
     return $room;
+  }
+
+  private function setReadMessage($roomId,$userId) {
+    
+    $message = Service::loadModel('ChatMessage')
+    ->select('id')
+    ->where('chat_room_id','=',$roomId)
+    ->orderBy('created_at','desc')
+    ->take(1)
+    ->first();
+
+    $user = Service::loadModel('UserInChatRoom')
+    ->where([
+      ['chat_room_id','=',$roomId],
+      ['user_id','=',$userId],
+    ])
+    ->update([
+      'message_read' => $message->id,
+      'message_read_date' => date('Y-m-d H:i:s'),
+      'notify' => 0
+    ]);
+
   }
 }

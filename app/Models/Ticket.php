@@ -11,7 +11,7 @@ use App\library\format;
 class Ticket extends Model
 {
   protected $table = 'tickets';
-  protected $fillable = ['title','description','place_location','price','original_price','date_type','date_1','date_2','contact','created_by'];
+  protected $fillable = ['title','description','place_location','price','original_price','date_type','date_1','date_2','contact','purpose','created_by'];
 
   private $dateType = array(
     1 => 'ช่วงวันที่ใช้งานได้',
