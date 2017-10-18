@@ -1,11 +1,12 @@
 .ui-datepicker {
-	display: none;
+	color: #666;
+	font: 13px/1.55 'Open Sans', Helvetica, Arial, sans-serif;
+	text-align: center;
 	padding: 10px 12px;
 	background: rgba(255,255,255,0.9);
 	box-shadow: 0 0 10px rgba(0,0,0,.3);
-	font: 13px/1.55 'Open Sans', Helvetica, Arial, sans-serif;
-	text-align: center;
-	color: #666;
+	display: none;
+	z-index: 51 !important;
 }
 .ui-datepicker a {
 	color: #404040;

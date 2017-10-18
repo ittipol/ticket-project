@@ -11,7 +11,7 @@
     'assets/js/jquery-ui.min.js',
     'assets/js/jquery.validate.min.js',
     'assets/js/bootstrap.min.js',
-    'assets/lib/image_gallery/jquery.nanogallery2.min.js',
+    'assets/lib/image_gallery/jquery.nanogallery2.core.min.js',
     'assets/js/modernizr.custom.js',
     'assets/js/masonry.pkgd.min.js',
     'assets/lib/moment/moment.js',

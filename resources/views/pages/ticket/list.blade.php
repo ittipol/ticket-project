@@ -29,11 +29,15 @@
       <span aria-hidden="true">&times;</span>
     </button>
 
-    {{Form::open(['class' => 'sky-form','method' => 'get', 'enctype' => 'multipart/form-data'])}}
+    {{Form::open(['method' => 'get', 'enctype' => 'multipart/form-data'])}}
 
       <div class="mb-3">
         <h4 class="my-2">ค้นหา</h4>
-        <input type="text" class="w-100 p-2" placeholder="ชื่อบัตร, สถานที่, คำค้นอื่นๆ">
+        {{ Form::text('q', null, array(
+          'class' => 'w-100 p-2',
+          'placeholder' => 'ชื่อบัตร, สถานที่, คำค้นอื่นๆ',
+          'autocomplete' => 'off'
+        )) }}
       </div>
 
       <div class="mb-3">

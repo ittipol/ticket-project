@@ -9,7 +9,9 @@
         <div class="gn-scroller">
           <ul class="gn-menu">
             <li class="gn-search-item">
-              <input placeholder="Search" type="search" class="gn-search">
+              {{Form::open(['url' => 'ticket','method' => 'get', 'enctype' => 'multipart/form-data'])}}
+              <input placeholder="Search" type="search" name="q" class="gn-search">
+              {{Form::close()}}
               <a class="gn-icon fa-search"><span>Search</span></a>
             </li>
             <li><a href="/ticket" class="gn-icon fa-tags">รายการขายบัตร</a></li>

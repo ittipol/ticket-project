@@ -1,6 +1,6 @@
 var env = require('./env');
 var constVar = require('./const');
-var dateTime = require('./date_time');
+var dateTime = require('./func/date_time');
 //
 var app = require('express')();
 var server = require('http').Server(app);
@@ -20,6 +20,18 @@ function userOnline(userId) {
   return false;
 }
 
+// Update read all message
+function setAllMessageRead(userId) {
+  console.log('+++++++++++++++++++++++++++');
+  console.log('+++++++++++++++++++++++++++');
+  console.log('+++++++++++++++++++++++++++');
+
+  // update notify = 1
+  db.query("UPDATE `user_in_chat_room` SET `notify` = 0 WHERE `user_id` = "+userId);
+
+}
+
+// Update specifically message
 function updateUserReadMessage(roomId,userId) {
   db.query("SELECT `id` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, messages){
     if(messages.length === 1) {
@@ -30,31 +42,29 @@ function updateUserReadMessage(roomId,userId) {
 
 // Notify message to users
 function notifyMessage(roomId,userId) {
-  
   // GET Last Message
   db.query("SELECT `id`, `message` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, messages){
     if(messages.length === 1) {
       // Get Users in room
       db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `user_id` != "+userId+" AND `chat_room_id` = "+roomId+" AND `notify` = 0 AND `message_read` < "+messages[0].id, function(err, rows){
+        //
         for (var i = 0; i < rows.length; i++) {
-          //
           if(rows[i].user_id != userId) {
             // Update notify = 1
             db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+rows[i].user_id);
-           
+            // Notify if user online
             if(userOnline(rows[i].user_id)) {
               countMessageNotication(rows[i].user_id);
+              messageNotication(roomId, rows[i].user_id)
               displayNewMessage(roomId, rows[i].user_id, messages[0].message);
             }
-            
           }
         }
       });
     }
   });
-
 }
-
+// display notification with snackbar
 function displayNewMessage(roomId,userId,message) {
   console.log('display notification');
   io.in('u_'+userId).emit('display-new-message', {
@@ -63,7 +73,7 @@ function displayNewMessage(roomId,userId,message) {
     user: userId
   });
 }
-
+// update message notification total in header
 function countMessageNotication(userId) {
   db.query("SELECT `chat_room_id` FROM `user_in_chat_room` WHERE `user_id` = "+userId+" AND `notify` = 1", function(err, rows){
     io.in('u_'+userId).emit('count-message-notification', {
@@ -72,6 +82,36 @@ function countMessageNotication(userId) {
   });
 }
 
+function messageNotication(roomId,userId) {
+console.log('-----------------------------------');
+console.log('room '+roomId);
+console.log('user '+userId);
+  db.query("SELECT cm.message, cm.user_id, u.name, t.title, cm.created_at FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id LEFT JOIN `ticket_chat_rooms` AS tcr ON cm.chat_room_id = tcr.chat_room_id LEFT JOIN `tickets` AS t ON tcr.ticket_id = t.id WHERE cm.chat_room_id = "+roomId+" ORDER BY cm.created_at DESC LIMIT 1", function(err, messages){
+    console.log(messages.length);
+    if(messages.length == 1) {
+
+      let isSender = false;
+      if(messages[0].user_id == userId) {
+        isSender = true;
+      }
+
+      console.log('ssss message-notification!!!');
+      io.in('u_'+userId).emit('message-notification', {
+        room: roomId,
+        user: messages[0].user_id,
+        message: messages[0].message,
+        name: messages[0].name,
+        ticket: messages[0].title,
+        isSender: isSender,
+        date: dateTime.passingDate(messages[0].created_at,dateTime.now())
+      });
+      
+    }
+  });
+
+}
+
+// update notification message to panel
 function messageNoticationList(userId) {
 
   db.query("SELECT `chat_room_id` FROM `user_in_chat_room` WHERE `user_id` = "+userId+" ORDER BY message_read_date DESC LIMIT 15", function(err, rows){
@@ -82,11 +122,10 @@ function messageNoticationList(userId) {
 
     for (var i = 0; i < rows.length; i++) {
 
-      let _room = rows[i].chat_room_id;
+      let _roomId = rows[i].chat_room_id;
       // let _i = i+1;
 
       db.query("SELECT cm.message, cm.user_id, u.name, t.title, cm.created_at FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id LEFT JOIN `ticket_chat_rooms` AS tcr ON cm.chat_room_id = tcr.chat_room_id LEFT JOIN `tickets` AS t ON tcr.ticket_id = t.id WHERE cm.chat_room_id = "+rows[i].chat_room_id+" ORDER BY cm.created_at DESC LIMIT 1", function(err, messages){
-
         if(messages.length == 1) {
 
           let isSender = false;
@@ -95,21 +134,21 @@ function messageNoticationList(userId) {
           }
 
           data.push({
+            room: _roomId,
+            user: messages[0].user_id,
             message: messages[0].message,
             name: messages[0].name,
             ticket: messages[0].title,
-            room: _room,
-            user: messages[0].user_id,
             isSender: isSender,
             date: dateTime.passingDate(messages[0].created_at,_now)
           });
 
           if(++count === rows.length) {
-            console.log('emit!!!');
+            console.log('message-notification-list!!!');
             io.in('u_'+userId).emit('message-notification-list', data);
           }
-        }
 
+        }
       })
     }
   });
@@ -262,6 +301,10 @@ io.on('connection', function(socket){
 
   socket.on('message-notification-list', function(data){
     messageNoticationList(data.user);
+  })
+
+  socket.on('set-all-message-read', function(data){
+    setAllMessageRead(data.user);
   })
 
   // setInterval(function(){

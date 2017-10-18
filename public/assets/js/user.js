@@ -3,6 +3,7 @@ class User {
 	constructor(user){
 		this.user = user;
 		this.io;
+		this.newMessage = false;
 	}
 
 	init() {
@@ -15,7 +16,25 @@ class User {
 		this.countMessageNotication();
 		this.messageNoticationList();
 
+		this.bind();
 		this.socketEvent();
+	}
+
+	bind() {
+
+		let _this = this;
+
+		$('#message_notification').on('click',function(){
+			if(_this.newMessage) {
+				_this.newMessage = false;
+
+				$('#message_notification_count').text(0);
+				$('#message_notification').removeClass('on');
+
+				_this.setAllMessageRead();
+			}
+		});
+
 	}
 
 	socketEvent() {
@@ -25,11 +44,12 @@ class User {
 		this.io.socket.on('offline', function(res){
 			_this.online();
 		});
-		
+
 		this.io.socket.on('count-message-notification', function(res){
 			$('#message_notification_count').text(res.count);
 			$('#message_notification').removeClass('on');
 			if(res.count > 0) {
+				_this.newMessage = true;
 				$('#message_notification').addClass('on');
 			}
 		});
@@ -50,6 +70,16 @@ class User {
 				$('#message_notification_list').append(_this.messageNotificationListHtml(res[i]));
 			}
 
+		})
+
+		this.io.socket.on('message-notification', function(res){
+			console.log('message+list....');
+
+			// remove by id
+			// $('message_'+res.room).remove();
+
+			// create new and place top of list
+			$('#message_notification_list').prepend(_this.messageNotificationListHtml(res));
 		})
 
 	}
@@ -95,7 +125,7 @@ class User {
   			}
 
   			return `
-  				<a href="/chat/r/${data.room}" id="" class="message-notification-list-item">
+  				<a href="/chat/r/${data.room}" id="message_${data.room}" class="message-notification-list-item">
   				  <div class="message-notification-icon">
   				    <img class="avatar" src="/avatar/${data.user}?d=1">
   				  </div>
@@ -108,6 +138,12 @@ class User {
   	    `;
 
     // return html;
+	}
+
+	setAllMessageRead() {
+		this.io.socket.emit('set-all-message-read', {
+			user: this.user
+		});
 	}
 
 }
