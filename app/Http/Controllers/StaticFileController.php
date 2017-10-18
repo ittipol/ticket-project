@@ -104,10 +104,13 @@ class StaticFileController extends Controller
       ->select(array('model','model_id','filename','image_type_id'))
       ->first();
 
-      $cache = new Cache;
-      $path = $cache->getCacheImageUrl($image,'avatar_sm',true);
+      if(request()->has('f')) {
+        $path = $user->first()->getAvartarImage($image->filename);
+      }else {
+        $cache = new Cache;
+        $path = $cache->getCacheImageUrl($image,'avatar_sm',true);
+      }
 
-      // $path = $user->first()->getAvartarImage($image->filename);
     }
 
     if(file_exists($path)){

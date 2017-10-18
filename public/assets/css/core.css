@@ -1,3 +1,7 @@
+.btn {
+	white-space: normal;
+}
+
 .alert {
 	border-radius: 0;
 }
@@ -237,6 +241,11 @@ label.image-label a:hover {
 	height: 40px;
 	border-radius: 50%;
 	overflow: hidden;
+}
+
+.avatar.avatar-md {
+	width: 200px;
+	height: 200px;
 }
 
 .avatar > img {

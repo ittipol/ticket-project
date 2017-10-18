@@ -10,6 +10,22 @@ use Redirect;
 
 class AccountController extends Controller
 {
+  public function profile() {
+
+    $data = Service::loadModel('Ticket')
+    ->orderBy('created_at','desc')
+    ->take(3)
+    ->get();
+
+    $list = array();
+    foreach ($data as $value) {
+      $list[] = $value->buildDataList();
+    }
+
+    $this->setData('list',$list);
+
+    return $this->view('pages.account.profile');
+  }
   public function edit() {
     $user = Service::loadModel('User')->find(Auth::user()->id);
 
@@ -50,25 +66,45 @@ class AccountController extends Controller
     }
 
     Snackbar::message('โปรไฟล์ถูกบันทึกแล้ว');
-    return Redirect::to('/');
+    return Redirect::to('/account');
   }
 
   public function listView() {
 
-    Service::loadModel('Ticket');
+    $model = Service::loadModel('Ticket');
 
-    // if(!empty($conditions)) {
-    //   $data = $model->where($conditions)->paginate(24);
-    // }else{
-    //   $data = $model->paginate(24);
-    // }
-
+    $currentPage = 1;
+    if(!empty(request()->page)) {
+      $currentPage = request()->page;
+    }
     //set page
     Paginator::currentPageResolver(function() use ($currentPage) {
         return $currentPage;
     });
 
+    // Search Query String
+    $conditions = array();
+
+    if(!empty(request()->q)) {
+      $conditions[] = array('name','=','%'.request()->q.'%');
+    }
+
+    if(!empty($conditions)) {
+      $data = $model->where($conditions)->paginate(24);
+    }else{
+      $data = $model->paginate(24);
+    }
+
+    $this->setData('data',$data);
+
     // {{$data->links('shared.pagination', ['paginator' => $data])}}
+
+    // SET META
+    // $this->setMeta('title','');
+    // $this->setMeta('description','');
+    // $this->setMeta('image',null);
+
+    return $this->view('page.account.list');
 
   }
 }

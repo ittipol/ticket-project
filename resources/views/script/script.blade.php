@@ -89,6 +89,7 @@
     'assets/css/page/landing.css',
     'assets/css/page/login.css',
     'assets/css/page/register.css',
+    'assets/css/page/account.css',
     'assets/css/page/ticket.css',
     'assets/css/form/tagging.css',
     'assets/css/core.css',
