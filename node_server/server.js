@@ -1,16 +1,17 @@
 var env = require('./env');
-
+var constVar = require('./const');
+var dateTime = require('./date_time');
+//
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var db = require('./db');
-
+// 
 var userHandle = [];
 var clients = [];
-
 var notifyMessageHandle = [];
 
-const MESSAGE_TAKE = 20;
+// const constVar.MESSAGE_TAKE = 20;
 
 function userOnline(userId) {
   if(clients.indexOf(userId) !== -1){
@@ -77,7 +78,7 @@ function messageNoticationList(userId) {
     
     let data = [];
     let count = 0;
-    let _now = now();
+    let _now = dateTime.now();
 
     for (var i = 0; i < rows.length; i++) {
 
@@ -100,7 +101,7 @@ function messageNoticationList(userId) {
             room: _room,
             user: messages[0].user_id,
             isSender: isSender,
-            date: passingDate(messages[0].created_at,_now)
+            date: dateTime.passingDate(messages[0].created_at,_now)
           });
 
           if(++count === rows.length) {
@@ -112,88 +113,6 @@ function messageNoticationList(userId) {
       })
     }
   });
-}
-
-function now() {
-  return parseInt(new Date().getTime()/1000);
-}
-
-function dateToTimestamp(dateTime) {
-
-  let _dateTime = dateTime.split(' ');
-
-  let date = _dateTime[0].split('-');
-  let time = _dateTime[1].split(':');
-
-  return new Date(parseInt(date[0]), (parseInt(date[1])-1), parseInt(date[2]), parseInt(time[0]), parseInt(time[1]), parseInt(time[2]), 0).getTime()/1000;
-}
-
-function passingDate(dateTime,now) {
-
-  let secs = now - dateToTimestamp(dateTime);
-  let mins = parseInt(Math.floor(secs / 60));
-  let hours = parseInt(Math.floor(mins / 60));
-  let days = parseInt(Math.floor(hours / 24));
-
-  let passing = 'เมื่อสักครู่นี้';
-  if(days == 0) {
-    
-    let passingSecs = secs % 60;
-    let passingMins = mins % 60;
-    let passingHours = hours % 24;
-
-    if(passingHours != 0) {
-      passing = passingHours+' ชั่วโมงที่แล้ว';
-    }else if(passingMins != 0) {
-      passing = passingMins+' นาทีที่แล้ว';
-    }else if(passingSecs > 30) {
-      passing = passingSecs+' วินาทีที่แล้ว';
-    }else if(passingSecs > 10) {
-      passing = 'ไม่กี่วินาทีที่แล้ว';
-    }
-  }else if(days == 1){
-    passing = 'เมื่อวานนี้ เวลา '+covertTimeToSting(dateTime);
-  }else{
-    passing = covertDateTimeToSting(dateTime);
-  }
-
-  return passing;
-}
-
-function covertTimeToSting(dateTime) {
-  dateTime = dateTime.split(' ');
-
-  let time = dateTime[1].split(':');
-
-  return parseInt(time[0])+':'+time[1];
-}
-
-function covertDateTimeToSting(dateTime,includeSec = false) {
-  let _dateTime = dateTime.split(' ');
-
-  let date = _dateTime[0].split('-');
-  let time = _dateTime[1].split(':');
-
-  return date[2]+' '+getMonthName(parseInt(date[1]))+' '+(parseInt(date[0])+543)+' '+parseInt(time[0])+':'+time[1];
-}
-
-function getMonthName(month) {
-  let monthName = [
-    'มกราคม',
-    'กุมภาพันธ์',
-    'มีนาคม',
-    'เมษายน',
-    'พฤษภาคม',
-    'มิถุนายน',
-    'กรกฎาคม',
-    'สิงหาคม',
-    'กันยายน',
-    'ตุลาคม',
-    'พฤศจิกายน',
-    'ธันวาคม',
-  ];
-
-  return monthName[month-1];
 }
 
 io.on('connection', function(socket){
@@ -312,9 +231,9 @@ io.on('connection', function(socket){
   });
 
   socket.on('chat-load-more', function(data){
-    let skip = (MESSAGE_TAKE * data.page) - MESSAGE_TAKE;
+    let skip = (constVar.MESSAGE_TAKE * data.page) - constVar.MESSAGE_TAKE;
 
-    db.query("SELECT message, user_id, created_at FROM `chat_messages` WHERE `chat_room_id` = "+data.room+" AND `created_at` < '"+data.time+"' ORDER BY `created_at` DESC LIMIT "+skip+","+MESSAGE_TAKE, function(err, rows){
+    db.query("SELECT message, user_id, created_at FROM `chat_messages` WHERE `chat_room_id` = "+data.room+" AND `created_at` < '"+data.time+"' ORDER BY `created_at` DESC LIMIT "+skip+","+constVar.MESSAGE_TAKE, function(err, rows){
       
       let res = {
         next: false
