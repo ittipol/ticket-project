@@ -53,6 +53,7 @@
       </div>
       @endif
 
+      @if(Auth::guest() || (Auth::check() && (Auth::user()->id != $data['created_by'])))
       <div class="quick-chat-section px-2 py-3">
         <h5>
           <i class="fa fa-comments" aria-hidden="true"></i>&nbsp;<small>สอบถามผู้ขาย</small>
@@ -64,6 +65,7 @@
           <a href="" class="btn btn-primary br0 pa2 pa1-ns mb2 ma0-ns w-100 w-auto-ns">จัดส่งสินค้ายังไง?</a>
         </div>
       </div>
+      @endif
 
     </div>
 
@@ -110,7 +112,9 @@
         @endif
       </div>
 
-      <div class="seller-section seller-fixed-bottom">
+      @if(Auth::guest() || (Auth::check() && (Auth::user()->id != $data['created_by'])))
+
+      <div class="seller-section content-fixed-bottom">
         <div class="pt3 pb2 pv2-ns ph3 ph2-ns clearfix">
           <div class="avatar-frame fl">
             <div class="online_status_indicator_{{$data['created_by']}} online-status-indicator @if($seller['online']) is-online @endif"></div>
@@ -136,6 +140,17 @@
           {!!$data['contact']!!}
         </div>
       </div>
+
+      @else
+
+      <div class="action-section content-fixed-bottom ph2 pv3 pa0-ns mt-2 bt">
+        <a href="/chat/s/{{$ticketId}}" class="btn btn-primary btn-block br0">
+          <i class="fa fa-pencil" aria-hidden="true"></i> ปิดประกาศ
+        </a>
+        <small>ปิดประกาศของคุณเมื่อ <strong>ขายสินค้านี้แล้ว</strong> หรือหากต้องการ <strong>ยกเลิกรายการ</strong></small>
+      </div>
+
+      @endif
       
     </div>
 

@@ -112,6 +112,7 @@ class Ticket extends Model
       'date_1' => $date->covertDateToSting($this->date_1),
       'date_2' => $date->covertDateToSting($this->date_2),
       'created_by' => $this->created_by,
+      'created_at' => $date->calPassedDate($this->created_at->format('Y-m-d H:i:s')),
       'user' => $user,
       'image' => $image,
       'imageTotal' => $imageTotal,
@@ -176,6 +177,7 @@ class Ticket extends Model
     }
 
     return array(
+      'id' => $this->id,
       'title' => $this->title,
       'description' => $this->description,
       'place_location' => $this->place_location,

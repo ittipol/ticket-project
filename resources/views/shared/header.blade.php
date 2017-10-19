@@ -6,19 +6,19 @@
         <div class="brand-s text-center">
           <h5 class="py-3 m-0">TicketSnap</h5>
         </div>
+
         <div class="gn-scroller">
           <ul class="gn-menu">
             <li class="gn-search-item">
               {{Form::open(['url' => 'ticket','method' => 'get', 'enctype' => 'multipart/form-data'])}}
-              <input placeholder="Search" type="search" name="q" class="gn-search">
+              <input placeholder="ค้นหา..." type="search" name="q" class="gn-search">
               {{Form::close()}}
-              <a class="gn-icon fa-search"><span>Search</span></a>
+              <a class="gn-icon fa-search"><span>ค้นหา...</span></a>
             </li>
             <li><a href="/ticket" class="gn-icon fa-tags">รายการขายบัตร</a></li>
-            <!-- <li><a href="/ticket/new" class="gn-icon fa-plus">เพิ่มรายการขาย</a></li> -->
             @if(Auth::check())
               <li>
-                <a href="javascript:void(0);" class="gn-icon fa-user">{{Auth::user()->name}}</a>
+                <a href="/account" class="gn-icon fa-user">{{Auth::user()->name}}</a>
                 <ul class="gn-submenu">
                   <li><a href="/account/edit" class="gn-icon fa-pencil">แก้ไขโปรไฟล์</a></li>
                   <li><a href="/account/ticket" class="gn-icon fa-list">รายการขายของคุณ</a></li>
@@ -36,6 +36,7 @@
             @endif
           </ul>
         </div>
+        
       </nav>
     </li>
 
@@ -43,35 +44,40 @@
 
     @if(Auth::check())
 
-    <li class="dd-menu btn-hover">
-      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="avatar-frame pointer">
-        <img src="/avatar?d=1">
-      </a>
-      <ul class="dropdown-menu">
-        <li class="dd-link"><a href="/account/edit"><i class="fa fa-pencil"></i>&nbsp;&nbsp;แก้ไขโปรไฟล์</a></li>
-        <li class="dd-link"><a href="/account/ticket"><i class="fa fa-list"></i>&nbsp;&nbsp;รายการขายของคุณ</a></li>
-        <li class="dd-link"><a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;ออกจากระบบ</a></li>
-      </ul>
-    </li>
+      <li class="dd-menu btn-hover">
+        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="avatar-frame pointer">
+          <img src="/avatar?d=1">
+        </a>
+        <ul class="dropdown-menu">
+          <li class="dd-link"><a href="/account/edit"><i class="fa fa-pencil"></i>&nbsp;&nbsp;แก้ไขโปรไฟล์</a></li>
+          <li class="dd-link"><a href="/account/ticket"><i class="fa fa-list"></i>&nbsp;&nbsp;รายการขายของคุณ</a></li>
+          <li class="dd-link"><a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;ออกจากระบบ</a></li>
+        </ul>
+      </li>
 
-    <li class="dd-menu static relative-ns btn-hover">
-      <a id="message_notification" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="message-notification nav-icon pointer">
-        <div id="message_notification_count" class="count-badge"></div>
-        <i class="fa fa-comments"></i>
-      </a>
-      @include('shared.message-notification');
+      <li class="dd-menu static relative-ns btn-hover">
+        <a id="message_notification" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="message-notification nav-icon pointer">
+          <div id="message_notification_count" class="count-badge"></div>
+          <i class="fa fa-comments"></i>
+        </a>
+        <ul class="dropdown-menu dd-message-notification">
+          <h5 class="text-center">ข้อความ</h5>
+          <div id="message_notification_list" class="message-notification-list"></div>
+        </ul>
     </li>
 
     @else
-    <li class="dd-menu">
-      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="pointer">
-        <i class="fa fa-user"></i>&nbsp;บัญชี
-      </a>
-      <ul class="dropdown-menu">
-        <li class="dd-link"><a href="/login"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;เข้าสู่ระบบ</a></li>
-        <li class="dd-link"><a href="/subscribe"><i class="fa fa-pencil"></i>&nbsp;&nbsp;สร้างบัญชี</a></li>
-      </ul>
-    </li>
+
+      <li class="dd-menu">
+        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="pointer">
+          <i class="fa fa-user"></i>&nbsp;บัญชี
+        </a>
+        <ul class="dropdown-menu">
+          <li class="dd-link"><a href="/login"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;เข้าสู่ระบบ</a></li>
+          <li class="dd-link"><a href="/subscribe"><i class="fa fa-pencil"></i>&nbsp;&nbsp;สร้างบัญชี</a></li>
+        </ul>
+      </li>
+
     @endif
 
     <li class="dd-menu btn-hover">
@@ -83,6 +89,5 @@
         <li class="dd-link"><a href="/ticket/new"><i class="fa fa-long-arrow-left"></i>&nbsp;&nbsp;ประกาศขาย</a></li>
       </ul>
     </li>
-    
   </ul>
 </header>

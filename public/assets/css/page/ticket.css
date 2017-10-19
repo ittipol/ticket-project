@@ -94,18 +94,11 @@
 }
 
 .data-list-item {
-	/*position: relative;
-	width: 100%;
-	color: #37454d;
-	background-color: #fff;
-	border: 1px solid #aaa;
-	box-shadow: 0 1px 4px rgba(41,51,57,.5);*/
-
 	position: relative;
 	width: 100%;
 	color: #37454d;
 	background-color: #fff;
-	border: 1px solid #ccc;
+	/*border: 1px solid #ccc;*/
 	box-shadow: 0 1px 4px rgba(41,51,57,.5); 
 	border-radius: 8px;
 	overflow: hidden;
@@ -197,12 +190,12 @@
 
 .seller-section {
 	position: relative;
-	background-color: #CFD8DC;
+	background-color: #b5ccdc;
 }
 
 .seller-section .avatar-frame {
-	width: 40px;
-	height: 40px;
+	width: 50px;
+	height: 50px;
 	position: relative;
 }
 
@@ -211,6 +204,7 @@
 	height: 100%;
 	border-radius: 50%;
 	background-color: #ddd;
+	border: 2px solid #5f6f81;
 	overflow: hidden;
 }
 
@@ -262,20 +256,20 @@
 	line-height: 45px;
 }
 
-/*.nav-tabs > li {
+.nav-tabs > li {
 	width: 100%;
 	text-align: center;
-	background-color: #ddd;
+	/*background-color: #c2d2e9;*/
 }
 
-.nav-tabs > li:hover {
-	background-color: #bbb;
-}
+/*.nav-tabs > li:hover {
+	background-color: #5e83ba;
+}*/
 
 .nav-tabs > li:hover a {
 	display: block;
 	text-decoration: none;
-}*/
+}
 
 .btn-share {
 	border-radius: 0;
@@ -309,6 +303,13 @@
 	background-color: rgb(195,33,16);
 }
 
+.ticket-posting-detail {
+	color: #fff;
+	/*background-color: #7597b3;*/
+	background-color: #63aa73;
+	/*background-color: #2a87dd;*/
+}
+
 @media (max-width: 480px) {
 
 	.main-panel {
@@ -319,21 +320,21 @@
 		left: -290px;
 	}*/
 
-	/*.nav-tabs {
+	.nav-tabs {
 		margin-right: 0;
-	}*/
+	}
 
 	.image-gallery-section {
 		min-height: 120px;
 	}
 
-	.seller-section.seller-fixed-bottom {
+	.content-fixed-bottom {
 		position: fixed;
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		/*background-color: #ececec;*/
-		border-top: 2px solid rgb(65,133,242);
+		background-color: rgba(255,255,255,.8);
+		border-top: 2px solid #0b7abf;
 		z-index: 9;
 	}
 

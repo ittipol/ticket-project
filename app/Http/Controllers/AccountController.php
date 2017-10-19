@@ -85,25 +85,14 @@ class AccountController extends Controller
     Paginator::currentPageResolver(function() use ($currentPage) {
         return $currentPage;
     });
-    $data = $model->paginate(24);
-// dd($data);
-//     // paging
-//     $skip = (24 * $currentPage) - 24;
 
-//     $data = $model
-//     ->orderBy('created_at','desc')
-//     ->skip($skip)
-//     ->take(24)
-//     ->get();
-
-//     $list = array();
-//     foreach ($data as $value) {
-//       $list[] = $value->buildDataList();
-//     }
+    $data = $model->where([
+              ['created_by','=',Auth::user()->id]
+            ])
+            ->orderBy('created_at','asc')
+            ->paginate(24);
 
     $this->setData('data',$data);
-
-    // {{$data->links('shared.pagination', ['paginator' => $data])}}
 
     // SET META
     // $this->setMeta('title','');

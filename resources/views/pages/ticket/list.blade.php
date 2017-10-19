@@ -4,7 +4,7 @@
 <style type="text/css">
   body {
     /*background-color: #445268;*/
-    background-color: #ccc;
+    background-color: #ddd;
   }
 
   .grid-item { width: 22.7%; margin: 1%; }
@@ -27,7 +27,12 @@
 <div class="container-fliud margin-top-10 margin-bottom-200">
 
   <div class="grid data-list main-panel">
-    @foreach($list as $value)
+    @foreach($data as $_value)
+
+    <?php 
+      $value = $_value->buildDataList();
+    ?>
+
     <div class="grid-item">
       <div class="data-list-item">
 
@@ -120,6 +125,10 @@
     @endforeach
   </div>
 
+  <div class="main-panel">
+    {{$data->links('shared.pagination', ['paginator' => $data])}}
+  </div>
+
 </div>
 
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
@@ -130,12 +139,6 @@
     constructor() {}
 
     init() {
-
-      $('.grid').masonry({
-        itemSelector: '.grid-item',
-        percentPosition: true
-      });
-
       this.bind();
       this.layout();
     }
@@ -182,6 +185,11 @@
   }
 
   $(document).ready(function(){
+
+    $('.grid').masonry({
+      itemSelector: '.grid-item',
+      percentPosition: true
+    });
 
     const _ticket = new Ticket();
     _ticket.init();

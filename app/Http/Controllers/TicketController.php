@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Pagination\Paginator;
 use App\library\service;
 use App\library\Snackbar;
 use Illuminate\Http\Request;
@@ -12,8 +13,16 @@ class TicketController extends Controller
 {
   public function listView() {
 
-    // GET Ticket
     $model = Service::loadModel('Ticket');
+
+    $currentPage = 1;
+    if(request()->has('page')) {
+      $currentPage = request()->page;
+    }
+    //set page
+    Paginator::currentPageResolver(function() use ($currentPage) {
+        return $currentPage;
+    });
 
     // if(!empty(request()->q)) {
     //   $conditions[] = array('name','=','%'.request()->q.'%');
@@ -25,14 +34,20 @@ class TicketController extends Controller
     //   $data = $model->paginate(24);
     // }
 
-    $data = $model->orderBy('created_at','desc')->take(24)->get();
+    // $data = $model->orderBy('created_at','desc')->take(24)->get();
 
-    $list = array();
-    foreach ($data as $value) {
-      $list[] = $value->buildDataList();
-    }
+    // $list = array();
+    // foreach ($data as $value) {
+    //   $list[] = $value->buildDataList();
+    // }
 
-    $this->setData('list',$list);
+    // $this->setData('list',$list);
+
+    $data = $model
+            ->orderBy('created_at','desc')
+            ->paginate(24);
+
+    $this->setData('data',$data);
 
     return $this->view('pages.ticket.list');
   }
