@@ -322,7 +322,7 @@ io.on('connection', function(socket){
   // },30000);
 
   setInterval(function(){
-
+    console.log('check user not active');
     db.query("SELECT `id` FROM `users` WHERE `online` = 1 AND `last_active` <= '"+dateTime.now(true,1800000)+"' ORDER BY last_active ASC LIMIT 100", function(err, rows){
       // if(rows.length > 0) {
         for (var i = 0; i < rows.length; i++) {
