@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2017 at 08:40 PM
+-- Generation Time: Oct 19, 2017 at 06:09 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -86,8 +86,8 @@ CREATE TABLE `image_types` (
 
 INSERT INTO `image_types` (`id`, `name`, `alias`, `path`) VALUES
 (1, 'photo', 'photo', 'photo'),
-(2, 'profile image', 'profile-image', 'profile'),
-(3, 'cover', 'cover', 'profile'),
+(2, 'avatar', 'avatar', 'avatar'),
+(3, 'cover', 'cover', 'cover'),
 (4, 'Banner', 'banner', 'banner');
 
 -- --------------------------------------------------------
@@ -116,6 +116,20 @@ CREATE TABLE `place_locations` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `place_locations`
+--
+
+INSERT INTO `place_locations` (`id`, `name`) VALUES
+(1, 'Siam Center'),
+(2, 'Asok'),
+(3, 'xxxx'),
+(4, 'test'),
+(5, 'เขาใหญ่'),
+(6, 'กรุงเทพมหานคร'),
+(7, 'xxx'),
+(8, '');
 
 -- --------------------------------------------------------
 
@@ -184,6 +198,7 @@ CREATE TABLE `tickets` (
   `date_1` datetime DEFAULT NULL,
   `date_2` datetime NOT NULL,
   `contact` text NOT NULL,
+  `purpose` varchar(1) NOT NULL,
   `created_by` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -215,13 +230,14 @@ CREATE TABLE `users` (
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
-  `avatar` varchar(255) DEFAULT NULL,
+  `avatar` int(11) DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `user_key` varchar(32) NOT NULL,
   `jwt_secret_key` varchar(128) NOT NULL,
   `has_password` tinyint(1) NOT NULL DEFAULT '0',
   `email_verified` tinyint(1) NOT NULL DEFAULT '0',
   `online` tinyint(1) NOT NULL DEFAULT '0',
+  `last_active` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -230,12 +246,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `social_provider_id`, `social_user_id`, `email`, `password`, `name`, `avatar`, `remember_token`, `user_key`, `jwt_secret_key`, `has_password`, `email_verified`, `online`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, '1', '$2y$12$/sh.edRN23AavlQyBYK5uOM45Upw9dyCkD.X9K.mhbbkVp/ybXqPO', 'Seller Name #1', '1508087415622489821464736116100.jpg', 'KXi3a6jiwIy8TdC42FWcxwgBt6cxnx32rEifDrLKUvSHF6Sh3L18diqhD4hk', 'O6M5GeWgMyc6U3G42LWnop11AxpvxhYG', '', 1, 0, 1, '2017-10-05 06:06:28', '2017-10-17 23:26:53'),
-(2, NULL, NULL, '2', '$2y$12$/sh.edRN23AavlQyBYK5uOM45Upw9dyCkD.X9K.mhbbkVp/ybXqPO', 'USER ##1', NULL, 'FrIkiQtFT4k8FPhoCxmo13SHRGFvdEcapGlK6XoV2nTNHkq9Z9RqeDpawlPa', 'dOXSq4WOu3NvBoAHVKUBE3RrCyd0kX8r', '', 1, 0, 1, '2017-10-05 09:18:40', '2017-10-18 00:44:51'),
-(4, NULL, NULL, 'xxx@mail.com', '$2y$12$14L8axtvGyjd154cu/mxlOf/g/SBIoPX5CiPfS8jbw0mxeo9BqGVa', 'xxxx', NULL, NULL, 'e5d4cda72ae59f50fe0db2858b5eace2', '', 1, 0, 0, '2017-10-11 10:01:50', '2017-10-11 10:01:50'),
-(5, NULL, NULL, 'test@mail.com', '$2y$12$0gYQ8EVrbtEuHCkNLl5OVOuXlzpRXckfkSx8wVraAJUm5ZxBnQ3Di', 'test', NULL, NULL, 'afe0ee8471d878ec731d9ae72b4c5a44', '', 1, 0, 0, '2017-10-11 10:04:26', '2017-10-11 10:04:26'),
-(6, NULL, NULL, 'aaaaa@mail.com', '$2y$12$Cb9rkDgMvohjfrWxHdlSEO3CQSUF9DflimUTmYZ/DGby7ncAgINdW', 'aaaa', NULL, NULL, 'e49ced394567a59e9b8aebd645dcee2f', '', 1, 0, 0, '2017-10-11 10:04:46', '2017-10-11 10:04:46');
+INSERT INTO `users` (`id`, `social_provider_id`, `social_user_id`, `email`, `password`, `name`, `avatar`, `remember_token`, `user_key`, `jwt_secret_key`, `has_password`, `email_verified`, `online`, `last_active`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, '1', '$2y$12$/sh.edRN23AavlQyBYK5uOM45Upw9dyCkD.X9K.mhbbkVp/ybXqPO', 'Seller Name #1', 25, 'l27vJniZ0P5M6bmr2kA0BqYKcuETX76gEOU2xOiGl1VMZ3h1ZnwTpcC8o6vu', 'oTqfDJBFZzZZSDM7zCOqjezDno2DlPqJ', '', 1, 0, 0, '2017-10-19 09:43:40', '2017-10-05 06:06:28', '2017-10-19 09:43:40'),
+(2, NULL, NULL, '2', '$2y$12$/sh.edRN23AavlQyBYK5uOM45Upw9dyCkD.X9K.mhbbkVp/ybXqPO', 'USER ##1', NULL, 'WE45a3Zf7TNxYmRzq6jWRA2aCwYVnb4cMDTS4pueiTzPChWA5FLeg6V52Qjk', '0SnSxdKuOwyuw74vgNTxDQXSdT4NWGSD', '', 1, 0, 1, '2017-10-19 11:06:57', '2017-10-05 09:18:40', '2017-10-19 11:06:57'),
+(4, NULL, NULL, 'xxx@mail.com', '$2y$12$14L8axtvGyjd154cu/mxlOf/g/SBIoPX5CiPfS8jbw0mxeo9BqGVa', 'xxxx', NULL, NULL, 'e5d4cda72ae59f50fe0db2858b5eace2', '', 1, 0, 0, NULL, '2017-10-11 10:01:50', '2017-10-11 10:01:50'),
+(5, NULL, NULL, 'test@mail.com', '$2y$12$0gYQ8EVrbtEuHCkNLl5OVOuXlzpRXckfkSx8wVraAJUm5ZxBnQ3Di', 'test', NULL, NULL, 'afe0ee8471d878ec731d9ae72b4c5a44', '', 1, 0, 0, NULL, '2017-10-11 10:04:26', '2017-10-11 10:04:26'),
+(6, NULL, NULL, 'aaaaa@mail.com', '$2y$12$Cb9rkDgMvohjfrWxHdlSEO3CQSUF9DflimUTmYZ/DGby7ncAgINdW', 'aaaa', NULL, NULL, 'e49ced394567a59e9b8aebd645dcee2f', '', 1, 0, 0, NULL, '2017-10-11 10:04:46', '2017-10-11 10:04:46');
 
 -- --------------------------------------------------------
 
@@ -354,7 +370,7 @@ ALTER TABLE `words`
 -- AUTO_INCREMENT for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `chat_rooms`
 --
@@ -364,7 +380,7 @@ ALTER TABLE `chat_rooms`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `image_types`
 --
@@ -389,12 +405,12 @@ ALTER TABLE `social_providers`
 -- AUTO_INCREMENT for table `temporary_files`
 --
 ALTER TABLE `temporary_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `ticket_chat_rooms`
 --
