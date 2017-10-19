@@ -143,7 +143,7 @@
 
       @else
 
-      <div class="action-section content-fixed-bottom ph2 pv3 pa0-ns mt-2 bt">
+      <div class="action-section content-fixed-bottom ph2 pv3 pa0-ns mt-2">
         <a href="/chat/s/{{$ticketId}}" class="btn btn-primary btn-block br0">
           <i class="fa fa-pencil" aria-hidden="true"></i> ปิดประกาศ
         </a>
