@@ -200,7 +200,6 @@ io.on('connection', function(socket){
       if(userOnline(socket.userId)){
         // Clear
         clients.splice(clients.indexOf(socket.userId), 1);
-
         // Emit
         io.in('u_'+socket.userId).emit('offline', {});
         // Check if other page is open
@@ -324,16 +323,31 @@ io.on('connection', function(socket){
 
   setInterval(function(){
 
-    // get user if lazy > 1hr.
-    db.query("SELECT `id` FROM `users` WHERE `online` = 1 AND `last_active` <");
+    db.query("SELECT `id` FROM `users` WHERE `online` = 1 AND `last_active` <= '"+dateTime.now(true,1800000)+"' ORDER BY last_active ASC LIMIT 100", function(err, rows){
+      // if(rows.length > 0) {
+        for (var i = 0; i < rows.length; i++) {
+          if(userOnline(rows[i].id)) {
+            // Clear
+            clients.splice(clients.indexOf(rows[i].id), 1);
+            // Emit
+            // io.in('u_'+rows[i].id).emit('offline', {});
+          }
 
-    // if(!userOnline(rows[i].user_id)) {
-    //   // doing here
-    // }
+          io.in('check-online').emit('check-user-online', {
+            user: rows[i].id,
+            online: false
+          });
+          db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+rows[i].id);
+        }
+      // }
+    });
 
-  },10000);
+  },1000);
 
 });
+
+
+
 
 server.listen(env.SOCKET_PORT, env.SOCKET_HOST, () => {
   console.log('App listening on port -> '+env.SOCKET_PORT)

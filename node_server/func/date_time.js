@@ -2,8 +2,21 @@ module.exports = class DateTime {
 
   constructor(){}
 
-  static now() {
-    return parseInt(new Date().getTime()/1000);
+  static now(format = false,subtract = 0) {
+
+    let ts = null;
+    if(subtract > 0) {
+      ts = new Date().getTime()-subtract;
+    }else{
+      ts = new Date().getTime();
+    }
+
+    if(format) {
+      let d = new Date(ts);
+      return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+    }
+
+    return parseInt(ts/1000);
   }
 
   static covertDateToSting(date) {
