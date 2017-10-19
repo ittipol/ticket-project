@@ -20,11 +20,11 @@
 
 <div class="container">
 
+  @if(!empty($data))
+
   <div class="pt-5">
     <h5>รายการของคุณ</h5>
   </div>
-
-  @if(!empty($data))
 
   <div class="grid data-list">
 
@@ -136,9 +136,12 @@
 
   @else
 
-  <div class="text-center">
-    <h3>คุณยังไม่มีรายการที่ประกาศ</h3>
-  </div>
+    <div class="text-center mv5">
+      <h3>ยังไม่มีรายการขายบัตรของคุณ</h3>
+      <a href="/ticket/new" class="pv2 ph4 mt3 btn btn-primary">
+        ขายบัตร
+      </a>
+    </div>
 
   @endif
 

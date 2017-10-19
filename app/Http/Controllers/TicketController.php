@@ -48,6 +48,8 @@ class TicketController extends Controller
             ->paginate(24);
 
     $this->setData('data',$data);
+    
+    $this->setData('search',true);
 
     return $this->view('pages.ticket.list');
   }

@@ -31,6 +31,8 @@
       <div class="col-md-9">
         <div class="bt b--silver pt-5">
 
+          @if(!empty($list))
+
           <h5>รายการล่าสุดของคุณ</h5>
           <div class="data-list">
             @foreach($list as $value)
@@ -117,18 +119,14 @@
             แสดงรายการทั้งหมด
           </a>
 
-          <div class="item-banner mt-5 pa3 text-center">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-          </div>
-
-          <div class="text-center mt-3">
-            <h5>คุณได้เริ่มขายสินค้าไปแล้ว?</h5>
-            <p>ยกเลิกรายการของคณเมื่อสินค้าของคุณถูกขายแล้วหรือหากต้องการลบรายการ</p>
-          </div>
-
-          <a href="/account/ticket" class="pa3 btn btn-primary btn-block">
-            เลือกรายการที่ขายไปแล้วและระบุว่าขายไปแล้ว
-          </a>
+          @else
+            <div class="text-center">
+              <h3>ยังไม่มีรายการขายบัตรของคุณ</h3>
+              <a href="/ticket/new" class="pv2 ph4 mt3 btn btn-primary">
+                ขายบัตร
+              </a>
+            </div>
+          @endif
 
         </div>
       </div>

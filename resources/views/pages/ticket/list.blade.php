@@ -26,6 +26,7 @@
 
 <div class="container-fliud margin-top-10 margin-bottom-200">
 
+  @if(!empty($data))
   <div class="grid data-list main-panel">
     @foreach($data as $_value)
 
@@ -128,6 +129,25 @@
   <div class="main-panel">
     {{$data->links('shared.pagination', ['paginator' => $data])}}
   </div>
+
+  @elseif($search)
+
+    <div class="main-panel text-center mv5">
+      <h3>ไม่พบรายการที่กำลังค้นหา</h3>
+      <p>โปรดลองค้นหาอีกครั้ง ด้วยคำที่แตกต่างหรือคำที่ใกล้เคียง</p>
+    </div>
+
+  @else
+
+    <div class="main-panel text-center mv5">
+      <h3>ยังไม่มีรายการขายบัตร</h3>
+      <p>บัตรคอนเสิร์ต ตั๋ว วอชเชอร์ และอื่นๆที่ไม่ได้ใช้แล้วสามารถนำมาขายได้ที่นี่</p>
+      <a href="/ticket/new" class="pv2 ph4 mt3 btn btn-primary">
+        ขายบัตรของคุณ
+      </a>
+    </div>
+
+  @endif
 
 </div>
 
