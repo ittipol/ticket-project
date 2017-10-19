@@ -34,10 +34,14 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth'], function () {
 
   Route::get('account', 'AccountController@profile');
+
   Route::get('account/edit', 'AccountController@edit');
   Route::patch('account/edit', 'AccountController@profileEditingSubmit');
+
+  Route::get('account/ticket', 'AccountController@ticket');
+
   Route::get('account/ticket/edit/{ticketId}', 'TicketController@edit');
-  // Route::patch('account/ticket/edit/{ticketId}', 'TicketController@editingSubmit');
+  Route::patch('account/ticket/edit/{ticketId}', 'TicketController@editingSubmit');
 
   Route::get('logout', 'UserController@logout');
 

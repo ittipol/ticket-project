@@ -100,6 +100,10 @@ form .state-error + em {
   z-index: -1;
 }*/
 
+.upload-image {
+	min-height: 180px;
+}
+
 .image-panel {
 	width: 160px;
   display: inline-block;
@@ -112,13 +116,15 @@ label.image-label {
 	width: 100%;
 	height: 160px;
 	position: relative;
-	/*background-color: #f1f1f1;*/
-	/*border: 1px solid #E0E0E0;*/
 	background-color: #E3F2FD;
 	border: 2px dashed #0087F7;
   margin: 0;
 	overflow: hidden;
   cursor: pointer;
+}
+
+.upload-image-circle label.image-label {
+	border-radius: 50%;
 }
 
 .image-panel.banner > label.image-label {
@@ -170,6 +176,11 @@ label.image-label::after {
 	background-size: 40%;
 	background-repeat: no-repeat;
 	z-index: 4;
+}
+
+label.image-label.avatar-d::after {
+	background-image: url(/assets/images/common/avatar.png);
+	background-size: 100%;
 }
 
 label.image-label .error-message {
@@ -250,4 +261,14 @@ label.image-label a:hover {
 
 .avatar > img {
 	height: 100%;
+}
+
+
+
+.list-h {
+	border-bottom: 1px solid #ccc;
+}
+
+.list-h h5 {
+	line-height: 26px;
 }

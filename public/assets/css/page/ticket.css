@@ -9,9 +9,13 @@
   z-index: 30;
 }
 
+.left-sidenav button.close {
+	display: none;
+}
+
 .fiter-panel-toggle {
 	background-color: #fff;
-	z-index: 49;
+	z-index: 30;
 	display: none;
 }
 
@@ -37,6 +41,10 @@
 		left: 0;
 		bottom: 0;
 		width: 100%;
+		display: block;
+	}
+
+	.left-sidenav button.close {
 		display: block;
 	}
 }

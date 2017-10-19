@@ -1,7 +1,7 @@
 @extends('shared.main')
 @section('content')
 
-<div class="container">
+<div class="container-fluid w-100 w-60-ns mx-auto">
 
   <div class="margin-top-40 margin-bottom-20">
     <h4>แก้ไขโปรไฟล์</h4>
@@ -10,10 +10,6 @@
   {{Form::model($data, ['id' => 'profile_edit_form', 'method' => 'PATCH', 'enctype' => 'multipart/form-data'])}}
 
     @include('component.form_error')
-
-    <div class="row">
-
-      <div class="col-md-8">
 
         <div class="form-group">
           <label class="form-control-label">รูปภาพโปรไฟล์</label>
@@ -24,7 +20,7 @@
             </ul>
           </div>
 
-          <div id="_profile_image"></div>
+          <div id="_profile_image" class="upload-image upload-image-circle text-center"></div>
 
         </div>
 
@@ -36,13 +32,9 @@
           )) }}
         </div>
 
-      </div>
-
-      <div class="col-md-8 margin-top-30">
+      <div>
         {{Form::submit('บันทึก', array('class' => 'btn btn-primary btn-block'))}}
       </div>
-
-    </div>
 
   {{Form::close()}}
 
@@ -51,7 +43,7 @@
 <script type="text/javascript">
   
   $(document).ready(function(){
-    const images = new UploadImage('#profile_edit_form','#_profile_image','User','avatar',1);
+    const images = new UploadImage('#profile_edit_form','#_profile_image','User','avatar',1,'avatar-d');
     images.init();
     images.setImages({!!$profileImage!!});
   });

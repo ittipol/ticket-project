@@ -80,6 +80,7 @@
     'assets/lib/notification/css/ns-style-growl.css',
     'assets/lib/notification/css/ns-style-other.css',
 
+    'assets/css/ui/pagination.css',
     'assets/css/ui/calendar.css',
     'assets/css/ui/navbar.css',
     'assets/css/ui/md-chip.css',

@@ -2,9 +2,7 @@
 $linkLimit = 7;
 ?>
 
-<div class="clearfix margin-bottom-60"></div>
-
-<div class="claerfix">
+<div class="mt4 mb-3 claerfix">
     <ul class="pagination pull-right">
         <li class="{{ ($paginator->currentPage() == 1) ? ' disabled' : '' }}">
             <a href="{{ $paginator->url(1) }}"><i class="fa fa-chevron-left"></i></a>

@@ -1,31 +1,29 @@
 class UploadImage {
-	constructor(form, panel, model, type ,limit = 5, style = 'default') {
+	constructor(form, panel, model, type ,limit = 5, defaultPreview = '') {
 		this.form = form;
 		this.panel = panel;
 		this.model = model;
 		this.type = type;
 		this.limit = limit;
-		this.style = style; // default, description
+		// this.style = 'default'; // default, description
 		this.code = null;
 		this.index = 0;
 		this.runningNumber = 0;
 		this.imagesPlaced = [];
-		this.defaultImage = '/assets/images/common/add_image.png';
+		this.defaultPreview = defaultPreview;
 		this.allowedClick = true;
 		this.inputDisable = [];
 	}
 
 	setImages(images = []){
 
-		if(typeof images[0] === 'undefined') {
+		if(typeof images.id !== 'undefined') {
 			this.index = this._createUploader(this.index,images);
-		}else{
+		}else if(images.length > 0){
 			for (let i = 0; i < Object.keys(images).length; i++) {
 				this.index = this._createUploader(this.index,images[i]);
 			}
 		}
-
-		
 
 		if(this.index < this.limit){
 			this.index = this.createUploader(this.index);
@@ -282,18 +280,17 @@ class UploadImage {
 	createUploader(index){
 
 		let html = '';
-		html += '<div class="image-panel '+this.style+' clearfix">';
-		html += '<label id="'+this.code+'_'+this.runningNumber+'" class="image-label">';
+		html += '<div class="image-panel clearfix">';
+		html += '<label id="'+this.code+'_'+this.runningNumber+'" class="image-label '+this.defaultPreview+'">';
 		html += '<input id="'+this.code+'_image_'+this.runningNumber+'" class="image-input" type="file">';
-		// html +=	'<div class="preview-image" style="background-image:url('+this.defaultImage+')"></div>';
 		html +=	'<div class="preview-image"></div>';
 		html += '<a href="javscript:void(0);" class="image-remove-btn">×</a>'
 		html += '<p class="error-message"></p>';
 		html += '<div class="progress-bar"><div class="status"></div></div>'
 		html += '</label>';
-		if(this.style == 'description'){
-			html += '<textarea id="'+this.code+'_textarea_'+this.runningNumber+'" placeholder="คำอธิบายเี่ยวกับรูปภาพนี้"></textarea>';
-		}
+		// if(this.style == 'description'){
+		// 	html += '<textarea id="'+this.code+'_textarea_'+this.runningNumber+'" placeholder="คำอธิบายเี่ยวกับรูปภาพนี้"></textarea>';
+		// }
 		html += '</div>';
 
 		++this.runningNumber;
@@ -308,18 +305,18 @@ class UploadImage {
 		this.imagesPlaced.push(this.code+'_'+this.runningNumber);
 
 		let html = '';
-		html += '<div class="image-panel '+this.style+' clearfix">';
+		html += '<div class="image-panel clearfix">';
 		html += '<input type="hidden" name="Image['+this.type+'][images]['+index+'][id]" value="'+image.id+'" >';
-		html += '<label id="'+this.code+'_'+this.runningNumber+'" class="image-label">';
+		html += '<label id="'+this.code+'_'+this.runningNumber+'" class="image-label '+this.defaultPreview+'">';
 		html += '<input id="'+this.code+'_image_'+this.runningNumber+'" class="image-input" type="file">';
 		html +=	'<div class="preview-image" style="background-image:url('+image._url+')"></div>';
 		html += '<a href="javscript:void(0);" class="image-remove-btn" data-id="'+image.id+'" style="display:block;">×</a>';
 		html += '<p class="error-message"></p>';
 		html += '<div class="progress-bar"><div class="status"></div></div>'
 		html += '</label>';
-		if(this.style == 'description'){
-			html += '<textarea id="'+this.code+'_textarea_'+this.runningNumber+'" name="Image['+this.type+'][images]['+index+'][description]" placeholder="คำอธิบายเี่ยวกับรูปภาพนี้">'+image.description+'</textarea>';
-		}
+		// if(this.style == 'description'){
+		// 	html += '<textarea id="'+this.code+'_textarea_'+this.runningNumber+'" name="Image['+this.type+'][images]['+index+'][description]" placeholder="คำอธิบายเี่ยวกับรูปภาพนี้">'+image.description+'</textarea>';
+		// }
 		html += '</div>';
 
 		++this.runningNumber;

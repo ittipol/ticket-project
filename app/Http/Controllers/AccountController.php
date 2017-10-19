@@ -10,6 +10,10 @@ use Redirect;
 
 class AccountController extends Controller
 {
+  public function __construct() {
+    $this->botDisallowed();
+  }
+
   public function profile() {
 
     $data = Service::loadModel('Ticket')
@@ -69,31 +73,33 @@ class AccountController extends Controller
     return Redirect::to('/account');
   }
 
-  public function listView() {
+  public function ticket() {
 
     $model = Service::loadModel('Ticket');
 
     $currentPage = 1;
-    if(!empty(request()->page)) {
+    if(request()->has('page')) {
       $currentPage = request()->page;
     }
     //set page
     Paginator::currentPageResolver(function() use ($currentPage) {
         return $currentPage;
     });
+    $data = $model->paginate(24);
+// dd($data);
+//     // paging
+//     $skip = (24 * $currentPage) - 24;
 
-    // Search Query String
-    $conditions = array();
+//     $data = $model
+//     ->orderBy('created_at','desc')
+//     ->skip($skip)
+//     ->take(24)
+//     ->get();
 
-    if(!empty(request()->q)) {
-      $conditions[] = array('name','=','%'.request()->q.'%');
-    }
-
-    if(!empty($conditions)) {
-      $data = $model->where($conditions)->paginate(24);
-    }else{
-      $data = $model->paginate(24);
-    }
+//     $list = array();
+//     foreach ($data as $value) {
+//       $list[] = $value->buildDataList();
+//     }
 
     $this->setData('data',$data);
 
@@ -104,7 +110,7 @@ class AccountController extends Controller
     // $this->setMeta('description','');
     // $this->setMeta('image',null);
 
-    return $this->view('page.account.list');
+    return $this->view('pages.account.ticket_list');
 
   }
 

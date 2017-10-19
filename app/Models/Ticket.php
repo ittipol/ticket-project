@@ -60,13 +60,6 @@ class Ticket extends Model
       ));
     }
 
-    // GET Images
-    // $imageModel = new Image;
-    // $imageTotal = $imageModel->where([
-    //   'model' => $this->modelName,
-    //   'model_id' => $this->id,
-    // ])->count();
-
     $imageTotal = Image::where([
       'model' => $this->modelName,
       'model_id' => $this->id,
@@ -87,7 +80,12 @@ class Ticket extends Model
     }
 
     // Get user
-    $user = User::select('name','avatar','online')->find($this->created_by);
+    $_user = User::select('name','online')->find($this->created_by);
+
+    $uesr = null;
+    if(!empty($_user)) {
+      $user = $_user->getAttributes();
+    }
 
     $originalPrice = null;
     $save = null;

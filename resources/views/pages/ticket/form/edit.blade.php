@@ -1,23 +1,13 @@
 @extends('shared.main')
 @section('content')
 
-<div class="image-cover" style="background-image: url(/assets/images/content_add2.jpg);">
-  <div class="image-cover-content">
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1>บัตรคอนเสิร์ต ตั๋ว วอชเชอร์ และอื่นๆที่ไม่ได้ใช้แล้วสามารถนำมาขายได้ที่นี่</h1>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="container">
 
   <div class="margin-top-40 margin-bottom-20">
-    <h4>เพิ่มรายการขาย</h4>
-    <p>กรอกข้อมูลรายการของคุณให้ได้มากที่สุดเพื่อให้สินค้าของคุณมีรายละเอียดมากพอในการขาย</p>
+    <h4>แก้ไขรายการ</h4>
   </div>
-  {{Form::open(['id' => 'add_ticket_form', 'method' => 'post', 'enctype' => 'multipart/form-data'])}}
+
+  {{Form::model($data, ['id' => 'add_ticket_form', 'method' => 'PATCH', 'enctype' => 'multipart/form-data'])}}
 
     @include('component.form_error')
 
@@ -255,7 +245,7 @@
 
     const images = new UploadImage('#add_ticket_form','#_image_group','Ticket','photo',10);
     images.init();
-    images.setImages();
+    images.setImages({!!$images!!});
 
     const ticket = new Ticket();
     ticket.init();

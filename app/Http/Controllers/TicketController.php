@@ -15,6 +15,16 @@ class TicketController extends Controller
     // GET Ticket
     $model = Service::loadModel('Ticket');
 
+    // if(!empty(request()->q)) {
+    //   $conditions[] = array('name','=','%'.request()->q.'%');
+    // }
+
+    // if(!empty($conditions)) {
+    //   $data = $model->where($conditions)->paginate(24);
+    // }else{
+    //   $data = $model->paginate(24);
+    // }
+
     $data = $model->orderBy('created_at','desc')->take(24)->get();
 
     $list = array();
@@ -99,6 +109,7 @@ class TicketController extends Controller
     }
     // Lookup
 
+    Snackbar::message('เพิ่มรายการแล้ว');
     return Redirect::to('ticket/view/'.$model->id);
     
   }
@@ -107,29 +118,97 @@ class TicketController extends Controller
 
     $model = Service::loadModel('Ticket')->find($ticketId);
 
-    if(empty($model) && ($model->created_by != Auth::user()->id)) {
+    if(empty($model) || ($model->created_by != Auth::user()->id)) {
       Snackbar::message('ไม่สามารถแก้ไขรายการนี้ได้');
       return Redirect::to('/ticket');
     }
 
-    $images = $model->getRelatedData('Image',array(
+    $_images = $model->getRelatedData('Image',array(
       'fields' => array('id','model','model_id','filename','description','image_type_id')
     ));
 
-    if(empty($images)){
-      return array();
+    $images = array();
+    if(!empty($_images)) {
+      foreach ($_images as $image) {
+        $images[] = $image->buildFormData();
+      }
     }
 
-    $_images = array();
-    foreach ($images as $image) {
-      $_images[] = $image->buildFormData();
-    }
-   
+    $this->setData('data',$model);
+    $this->setData('images',json_encode($images));
+
     $this->setData('dateType',$model->getDateType());
 
     $this->setMeta('title','แก้ไขรายการ — TicketSnap');
 
     return $this->view('pages.ticket.form.edit');
+  }
+
+  public function editingSubmit($ticketId) {
+
+    $model = Service::loadModel('Ticket')->find($ticketId);
+
+    if(empty($model) || ($model->created_by != Auth::user()->id)) {
+      Snackbar::message('ไม่สามารถแก้ไขรายการนี้ได้');
+      return Redirect::to('/ticket');
+    }
+
+    switch (request()->get('date_type')) {
+      case 1:
+        
+        if(!empty(request()->get('date_1'))) {
+          $model->date_1 = request()->get('date_1').' 00:00:00';
+        }
+
+        $model->date_2 = request()->get('date_2').' 23:59:59';
+
+        break;
+      
+      case 2:
+        $model->date_1 = request()->get('date_2').' 00:00:00';
+        $model->date_2 = request()->get('date_2').' 23:59:59';
+        break;
+
+      case 3:
+        $model->date_1 = request()->get('date_2').' 00:00:00';
+        $model->date_2 = request()->get('date_2').' 23:59:59';
+        break;
+    }
+dd(request()->all());
+    $model->title = request()->get('title');
+    $model->description = request()->get('description');
+    $model->place_location = request()->get('place_location');
+    $model->price = request()->get('price');
+    $model->original_price = request()->get('original_price');
+    $model->date_type = request()->get('date_type');
+    $model->contact = request()->get('contact');
+    $model->purpose = 's';
+    
+    if(!$model->save()) {
+      return Redirect::back();
+    }
+
+    // Tagging
+    if(!empty(request()->get('Tagging'))) {
+      $taggingModel = Service::loadModel('Tagging');
+      $taggingModel->__saveRelatedData($model,request()->get('Tagging'));
+    }
+
+    // images
+    if(!empty(request()->get('Image'))) {
+      $imageModel = Service::loadModel('Image');
+      $imageModel->__saveRelatedData($model,request()->get('Image'));
+    }
+
+    // save Place location
+    if(!empty(request()->get('place_location'))) {
+      $placeLocationModel = Service::loadModel('PlaceLocation');
+      $placeLocationModel->__saveRelatedData($model,request()->get('place_location'));
+    }
+    // Lookup
+
+    Snackbar::message('แก้ไขรายการแล้ว');
+    return Redirect::to('ticket/view/'.$model->id);
   }
 
   public function detail($ticketId) {
