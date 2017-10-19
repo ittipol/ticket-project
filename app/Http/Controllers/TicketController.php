@@ -6,6 +6,7 @@ use App\library\service;
 use App\library\Snackbar;
 use Illuminate\Http\Request;
 use Redirect;
+use Auth;
 
 class TicketController extends Controller
 {
@@ -32,7 +33,7 @@ class TicketController extends Controller
    
     $this->setData('dateType',$model->getDateType());
 
-    $this->setMeta('title','เพิ่มรายการขาย — TicketSnap');
+    $this->setMeta('title','เพิ่มรายการ — TicketSnap');
     return $this->view('pages.ticket.form.add');
   }
 
@@ -100,6 +101,35 @@ class TicketController extends Controller
 
     return Redirect::to('ticket/view/'.$model->id);
     
+  }
+
+  public function edit($ticketId) {
+
+    $model = Service::loadModel('Ticket')->find($ticketId);
+
+    if(empty($model) && ($model->created_by != Auth::user()->id)) {
+      Snackbar::message('ไม่สามารถแก้ไขรายการนี้ได้');
+      return Redirect::to('/ticket');
+    }
+
+    $images = $model->getRelatedData('Image',array(
+      'fields' => array('id','model','model_id','filename','description','image_type_id')
+    ));
+
+    if(empty($images)){
+      return array();
+    }
+
+    $_images = array();
+    foreach ($images as $image) {
+      $_images[] = $image->buildFormData();
+    }
+   
+    $this->setData('dateType',$model->getDateType());
+
+    $this->setMeta('title','แก้ไขรายการ — TicketSnap');
+
+    return $this->view('pages.ticket.form.edit');
   }
 
   public function detail($ticketId) {

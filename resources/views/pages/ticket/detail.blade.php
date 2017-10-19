@@ -161,6 +161,7 @@
 
     const _userOnline = new UserOnline();
     _userOnline.init();
+    _userOnline.check({{$data['created_by']}});
 
   });
 </script>

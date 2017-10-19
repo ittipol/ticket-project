@@ -107,4 +107,5 @@ class AccountController extends Controller
     return $this->view('page.account.list');
 
   }
+
 }

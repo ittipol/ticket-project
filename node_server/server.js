@@ -166,6 +166,8 @@ io.on('connection', function(socket){
   });
   
   socket.on('online', function(data){
+    console.log('user active');
+    db.query("UPDATE `users` SET `last_active` = CURRENT_TIME() WHERE `users`.`id` = "+data.userId);
 
     if(userHandle[data.userId] !== undefined) {
       clearTimeout(userHandle[data.userId]);
@@ -221,11 +223,13 @@ io.on('connection', function(socket){
         user: data.userId,
         online: true
       });
+      // db.query("UPDATE `users` SET `online` = '1' WHERE `users`.`id` = "+data.userId+";");
     }else{
       io.in('check-online').emit('check-user-online', {
         user: data.userId,
         online: false
       });
+      // db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+data.userId+";");
     }
 
   });
@@ -317,6 +321,17 @@ io.on('connection', function(socket){
   //     // io.in(data.chanel).emit('send-notification', res);
   //   }
   // },30000);
+
+  setInterval(function(){
+
+    // get user if lazy > 1hr.
+    db.query("SELECT `id` FROM `users` WHERE `online` = 1 AND `last_active` <");
+
+    // if(!userOnline(rows[i].user_id)) {
+    //   // doing here
+    // }
+
+  },10000);
 
 });
 
