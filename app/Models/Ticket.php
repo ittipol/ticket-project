@@ -122,7 +122,7 @@ class Ticket extends Model
 
   public function buildDataDetail() {
 
-    $cache = new cache;
+    // $cache = new cache;
     $url = new url;
     // $date = new date;
     $currency = new currency;
@@ -153,13 +153,17 @@ class Ticket extends Model
     if($imageTotal > 0) {
 
       $_images = $this->getRelatedData('Image',array(
-        'fields' => array('id','model','model_id','filename','description','image_type_id')
+        'fields' => array('id','model','model_id','filename','image_type_id')
       ));
 
+      // foreach ($_images as $image) {
+      //   $images[] = array_merge($image->buildModelData(),array(
+      //     '_preview_url' => $cache->getCacheImageUrl($image,'md_scale')
+      //   ));
+      // }
+
       foreach ($_images as $image) {
-        $images[] = array_merge($image->buildModelData(),array(
-          '_preview_url' => $cache->getCacheImageUrl($image,'md_scale')
-        ));
+        $images[] = $image->buildSlide();
       }
 
     }

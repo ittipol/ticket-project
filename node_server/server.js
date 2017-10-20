@@ -245,7 +245,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('typing', function(data){
-    io.in('chat_'+data.key).emit('typing', {
+    io.in('cr_'+data.room+'.'+data.key).emit('typing', {
       user: data.user
     });
   });

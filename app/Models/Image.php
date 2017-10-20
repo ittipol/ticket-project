@@ -295,18 +295,36 @@ class Image extends Model
     return base64_encode(File::get($path));
   }
 
-  public function buildModelData() {
+  // public function buildModelData() {
+  //   return array(
+  //     'filename' => $this->filename,
+  //     '_url' => $this->getImageUrl()
+  //   );
+  // }
+
+  public function buildSlide() {
+
+    // need
+    // Size format wxh
+    // original image url
+    // preview image url
+
+    $cache = new cache;
+
+    $info = getimagesize($this->getImagePath());
+
     return array(
-      'filename' => $this->filename,
-      // 'description' => $this->description ? $this->description : '-',
-      '_url' => $this->getImageUrl()
+      'size' => $info[0].'x'.$info[1],
+      '_url' => $this->getImageUrl(),
+      '_preview_url' => $cache->getCacheImageUrl($this,'md_scale')
     );
+
+
   }
 
   public function buildFormData() {
     return array(
       'id' => $this->id,
-      // 'description' => $this->description ? $this->description : '',
       '_url' => $this->getImageUrl()
     );
   }

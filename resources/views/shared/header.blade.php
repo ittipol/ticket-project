@@ -79,15 +79,15 @@
       </li>
 
     @endif
-
-    <li class="dd-menu btn-hover">
-      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="pointer">
-        <i class="fa fa-exchange"></i>&nbsp;ขายบัตร
+    <li>
+      <a href="/ticket/new">
+        ขายบัตร
       </a>
-      <ul class="dropdown-menu">
-        <li class="dd-link"><a href="/ticket/new"><i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp;ประการศซื้อ</a></li>
-        <li class="dd-link"><a href="/ticket/new"><i class="fa fa-long-arrow-left"></i>&nbsp;&nbsp;ประกาศขาย</a></li>
-      </ul>
+    </li>
+    <li>
+      <a href="/ticket">
+        รายการขาย
+      </a>
     </li>
   </ul>
 </header>

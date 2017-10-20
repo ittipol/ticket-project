@@ -152,7 +152,6 @@
 </div>
 
 <script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
-
 <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
 <script type="text/javascript" src="/assets/js/bootstrap-slider.min.js"></script>
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>

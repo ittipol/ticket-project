@@ -36,14 +36,10 @@ class TicketController extends Controller
 
     // $data = $model->orderBy('created_at','desc')->take(24)->get();
 
-    // $list = array();
-    // foreach ($data as $value) {
-    //   $list[] = $value->buildDataList();
-    // }
-
-    // $this->setData('list',$list);
-
     $data = $model
+            // ->where([
+            //   ['date_2','>=',date('Y-m-d')]
+            // ])
             ->orderBy('created_at','desc')
             ->paginate(24);
 

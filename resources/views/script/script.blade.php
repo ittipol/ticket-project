@@ -25,10 +25,8 @@
     'assets/js/token.js',
     'assets/js/io.js',
     'assets/js/user.js',
-    // 'assets/js/user_online.js',
     'assets/js/date_time.js',
     'assets/js/common.js',
-    // 'assets/js/form/upload_image.js',
     'assets/js/component/snackbar.js',
   );
 
@@ -66,12 +64,14 @@
     'assets/css/bootstrap.min.css',
     'assets/css/font-awesome.min.css',
     'assets/css/bootstrap-slider.min.css',
-    'assets/lib/image_gallery/css/nanogallery2.min.css',
     'assets/css/func.css',
     'assets/css/spacing.css',
 
     'assets/lib/header/css/normalize.css',
     'assets/lib/header/css/component.css',
+
+    'assets/lib/ig/photoswipe.css',
+    'assets/lib/ig/default-skin/default-skin.css',
 
     // 'assets/lib/notification/css/ns-default.css',
     // 'assets/lib/notification/css/ns-style-attached.css',

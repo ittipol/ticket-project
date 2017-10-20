@@ -95,8 +95,8 @@
 }
 
 .typing-indicator {
-	bottom: 20px;
-	left: 110px;
+	bottom: 70px;
+	left: 40px;
   background-color: #E6E7ED;
   will-change: transform;
   width: auto;
