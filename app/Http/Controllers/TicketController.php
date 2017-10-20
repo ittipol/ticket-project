@@ -57,16 +57,19 @@ class TicketController extends Controller
   public function add() {
 
     $model = Service::loadModel('Ticket');
-   
+
+    $categories = Service::loadModel('TicketCategory')->get();
+
+    $this->setData('categories',$categories);
     $this->setData('dateType',$model->getDateType());
 
-    $this->setMeta('title','เพิ่มรายการ — TicketSnap');
+    $this->setMeta('title','ขายบัตร — TicketSnap');
     return $this->view('pages.ticket.form.add');
   }
 
   public function addingSubmit() {
 
-    // dd(request()->all());
+    dd(request()->all());
 
     $model = Service::loadModel('Ticket');
 
@@ -107,22 +110,24 @@ class TicketController extends Controller
       return Redirect::back();
     }
 
+    // Add to category
+    // if(!empty(request()->get('TicketToCategory'))) {
+      // Service::loadModel('TicketToCategory')->__saveRelatedData($model,request()->get('TicketToCategory'));
+    // }
+
     // Tagging
     if(!empty(request()->get('Tagging'))) {
-      $taggingModel = Service::loadModel('Tagging');
-      $taggingModel->__saveRelatedData($model,request()->get('Tagging'));
+      Service::loadModel('Tagging')->__saveRelatedData($model,request()->get('Tagging'));
     }
 
     // images
     if(!empty(request()->get('Image'))) {
-      $imageModel = Service::loadModel('Image');
-      $imageModel->__saveRelatedData($model,request()->get('Image'));
+      Service::loadModel('Image')->__saveRelatedData($model,request()->get('Image'));
     }
 
     // save Place location
     if(!empty(request()->get('place_location'))) {
-      $placeLocationModel = Service::loadModel('PlaceLocation');
-      $placeLocationModel->__saveRelatedData($model,request()->get('place_location'));
+      Service::loadModel('PlaceLocation')->__saveRelatedData($model,request()->get('place_location'));
     }
     // Lookup
 

@@ -14,7 +14,7 @@
 <div class="container">
 
   <div class="margin-top-40 margin-bottom-20">
-    <h4>เพิ่มรายการขาย</h4>
+    <h4>ขายบัตร</h4>
     <p>กรอกข้อมูลรายการของคุณให้ได้มากที่สุดเพื่อให้สินค้าของคุณมีรายละเอียดมากพอในการขาย</p>
   </div>
   {{Form::open(['id' => 'add_ticket_form', 'method' => 'post', 'enctype' => 'multipart/form-data'])}}
@@ -26,7 +26,20 @@
       <div class="col-md-8">
 
         <div class="form-group">
-          <label class="form-control-label required">ประเภท</label>
+          <label class="form-control-label required">ประเภทบัตร</label>
+          <div class="row">
+            @foreach($categories as $key => $category)
+            <?php $checked = false; if($key == 0) {$checked = true;} ?>
+            <div class="col-6 col-md-4">
+              <div class="c-radio">
+                {{Form::radio('TicketToCategory[ticket_category_id]', $category->id, $checked, array('id' => 'cat'.$key))}}
+                <label for="cat{{$key}}">
+                  {{$category->name}}
+                </label>
+              </div>
+            </div>
+            @endforeach
+          </div>
         </div>
 
         <div class="form-group">

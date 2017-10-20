@@ -82,7 +82,7 @@
 
     <li class="dd-menu btn-hover">
       <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="pointer">
-        <i class="fa fa-exchange"></i>&nbsp;เพิ่มประกาศ
+        <i class="fa fa-exchange"></i>&nbsp;ขายบัตร
       </a>
       <ul class="dropdown-menu">
         <li class="dd-link"><a href="/ticket/new"><i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp;ประการศซื้อ</a></li>
