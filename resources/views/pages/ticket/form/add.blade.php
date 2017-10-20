@@ -26,6 +26,10 @@
       <div class="col-md-8">
 
         <div class="form-group">
+          <label class="form-control-label required">ประเภท</label>
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label required">หัวข้อ</label>
           {{ Form::text('title', null, array(
             'class' => 'form-control',
