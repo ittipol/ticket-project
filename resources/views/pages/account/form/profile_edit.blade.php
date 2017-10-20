@@ -40,12 +40,18 @@
 
 </div>
 
+<script type="text/javascript" src="/assets/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/js/form/upload_image.js"></script>
+<script type="text/javascript" src="/assets/js/form/profile-validation.js"></script>
+
 <script type="text/javascript">
   
   $(document).ready(function(){
     const images = new UploadImage('#profile_edit_form','#_profile_image','User','avatar',1,'avatar-d');
     images.init();
     images.setImages({!!$profileImage!!});
+
+    Validation.initValidation();
   });
 
 </script>

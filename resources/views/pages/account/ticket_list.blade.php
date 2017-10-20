@@ -112,7 +112,7 @@
           </div>
 
           <div class="ticket-posting-detail p-2">
-            <small>ประกาศเมื่อ</small>
+            <small>เมื่อ</small>
             <div class="f6">{{$value['created_at']}}</div>
           </div>
 
@@ -146,6 +146,8 @@
   @endif
 
 </div>
+
+<script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function(){

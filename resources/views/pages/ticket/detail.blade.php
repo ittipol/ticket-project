@@ -159,6 +159,9 @@
 
 <div class="clearfix margin-top-200"></div>
 
+<script type="text/javascript" src="/assets/js/user_online.js"></script>
+<script type="text/javascript" src="/assets/lib/image_gallery/jquery.nanogallery2.core.min.js"></script>
+
 <script type="text/javascript">
   $(document).ready(function () {
     $(".n2").nanogallery2({

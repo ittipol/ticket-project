@@ -62,7 +62,9 @@
   </div>
 </div>
 
+<script type="text/javascript" src="/assets/js/user_online.js"></script>
 <script type="text/javascript" src="/assets/js/form/chat.js"></script>
+
 <script type="text/javascript">
   $(document).ready(function(){
     const _chat = new Chat({!!$chat!!});

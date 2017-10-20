@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Redirect;
 
 class ProfileEditRequest extends FormRequest
 {
@@ -20,6 +21,7 @@ class ProfileEditRequest extends FormRequest
     {
       return [
         'name.required' => 'ชื่อ นามสกุลห้ามว่าง',
+        'name.max' => 'จำนวนตัวอักษรเกินกว่าที่กำหนด',
       ];
     }
 

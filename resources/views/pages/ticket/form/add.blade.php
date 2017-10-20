@@ -162,11 +162,14 @@
 
 </div>
 
-<div class="clearfix margin-top-100"></div>
-<div class="clearfix margin-top-100"></div>
+<div class="clearfix margin-top-200"></div>
 
+<script type="text/javascript" src="/assets/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="/assets/js/form/upload_image.js"></script>
 <script type="text/javascript" src="/assets/js/form/tagging.js"></script>
-<script type="text/javascript" src="/assets/js/form/add-ticket-validation.js"></script>
+<script type="text/javascript" src="/assets/js/form/ticket-validation.js"></script>
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
 
 <script type="text/javascript">

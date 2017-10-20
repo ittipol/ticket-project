@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileEditRequest;
 use Illuminate\Pagination\Paginator;
 use App\library\service;
 use App\library\Snackbar;
@@ -41,10 +42,10 @@ class AccountController extends Controller
     return $this->view('pages.account.form.profile_edit');
   }
 
-  public function profileEditingSubmit() {
+  public function profileEditingSubmit(ProfileEditRequest $request) {
     $user = Service::loadModel('User')->find(Auth::user()->id);
 
-    $user->name = request()->get('name');
+    $user->name = $request->name;
 
     if(!$user->save()) {
       Snackbar::message('ไม่สามารถบันทึกได้');
