@@ -112,13 +112,13 @@
           </div>
 
           <div class="ticket-posting-detail p-2">
-            <small>เมื่อ</small>
-            <div class="f6">{{$value['created_at']}}</div>
+            <div class="f6"><i class="fa fa-pencil"></i>&nbsp;&nbsp;{{$value['created_at']}}</div>
           </div>
 
           <ul class="nav nav-tabs">
+
             <li class="nav-item">
-              <a href="">แสดง</a>
+              <a href="/ticket/edit/{{$value['id']}}">แก้ไข</a>
             </li>
             <li class="nav-item">
               <a href="">ปิดประกาศ</a>
@@ -146,6 +146,8 @@
   @endif
 
 </div>
+
+<div class="clearfix margin-top-200"></div>
 
 <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
 

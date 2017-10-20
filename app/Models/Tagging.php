@@ -45,7 +45,6 @@ class Tagging extends Model
   }
 
   public function buildModelData() {
-    
     if(empty($this->word)) {
       return null;
     }
@@ -54,15 +53,11 @@ class Tagging extends Model
       'word_id' => $this->word->id,
       'word' => $this->word->word
     );
-
   }
 
   public function buildFormData() {
-    
-    return array(
-      '_word' => $this->word->word
-    );
-
+  
+    return $this->word->word;
   }
 
   public function setUpdatedAt($value) {}

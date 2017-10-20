@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\library\date;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -58,86 +59,96 @@ class User extends Model implements AuthenticatableContract,AuthorizableContract
     *
     * @return mixed
     */
-   public function getAuthIdentifier()
-   {
-       return $this->getKey();
+  public function getAuthIdentifier()
+  {
+     return $this->getKey();
+  }
+
+  /**
+  * Get the token value for the "remember me" session.
+  *
+  * @return string
+  */
+  public function getRememberToken()
+  {
+     return $this->remember_token;
+  }
+
+  /**
+  * Set the token value for the "remember me" session.
+  *
+  * @param  string  $value
+  * @return void
+  */
+  public function setRememberToken($value)
+  {
+     $this->remember_token = $value;
+  }
+
+  /**
+  * Get the column name for the "remember me" token.
+  *
+  * @return string
+  */
+  public function getRememberTokenName()
+  {
+     return 'remember_token';
+  }
+
+  /**
+  * Get the e-mail address where password reminders are sent.
+  *
+  * @return string
+  */
+  public function getReminderEmail()
+  {
+     return $this->user_mail;
+  }
+
+  /**
+  * Get the password for the user.
+  *
+  * @return string
+  */
+  public function getAuthPassword()
+  {
+     return $this->user_password;
+  }
+
+  public function getAvartarPath() {
+  return storage_path($this->path.$this->id.'/avatar/');
+  }
+
+  public function getAvartarImage($avatar = '') {
+   if(empty($avatar)) {
+     $avatar = $this->avatar;
    }
 
-   /**
-    * Get the token value for the "remember me" session.
-    *
-    * @return string
-    */
-   public function getRememberToken()
-   {
-       return $this->remember_token;
+   return $this->getAvartarPath().$avatar;
+  }
+
+  public function getProfileImage() {
+   $image = Image::select('id','model','model_id','filename','image_type_id')->find($this->avatar);
+
+   if(empty($image)) {
+     return array();
    }
 
-   /**
-    * Set the token value for the "remember me" session.
-    *
-    * @param  string  $value
-    * @return void
-    */
-   public function setRememberToken($value)
-   {
-       $this->remember_token = $value;
-   }
+   return array(
+     'id' => $image->id,
+     '_url' => $image->getImageUrl()
+   );
+  }
 
-   /**
-    * Get the column name for the "remember me" token.
-    *
-    * @return string
-    */
-   public function getRememberTokenName()
-   {
-       return 'remember_token';
-   }
-
-   /**
-    * Get the e-mail address where password reminders are sent.
-    *
-    * @return string
-    */
-   public function getReminderEmail()
-   {
-       return $this->user_mail;
-   }
-
-   /**
-    * Get the password for the user.
-    *
-    * @return string
-    */
-   public function getAuthPassword()
-   {
-       return $this->user_password;
-   }
-
-   public function getAvartarPath() {
-    return storage_path($this->path.$this->id.'/avatar/');
-   }
-
-   public function getAvartarImage($avatar = '') {
-     if(empty($avatar)) {
-       $avatar = $this->avatar;
-     }
-
-     return $this->getAvartarPath().$avatar;
-   }
-
-   public function getProfileImage() {
-     $image = Image::select('id','model','model_id','filename','image_type_id')->find($this->avatar);
-
-     if(empty($image)) {
-       return array();
-     }
-
-     return array(
-       'id' => $image->id,
-       '_url' => $image->getImageUrl()
-     );
-   }
+  public function buildDataDetail() {
+    return array(
+      'id' => $this->id,
+      'name' => $this->name,
+      'avatar' => $this->avatar,
+      'online' => $this->online,
+      'last_active' => Date::calPassedDate($this->last_active)
+    );
+  }
 
    // public function getProfileImageUrl($size = null) {
 

@@ -59,10 +59,10 @@
           <i class="fa fa-comments" aria-hidden="true"></i>&nbsp;<small>สอบถามผู้ขาย</small>
         </h5>
         <div>
-          <a href="" class="btn btn-primary br0 pa2 pa1-ns mb2 ma0-ns w-100 w-auto-ns">ต้องการสั่งซื้อสินค้านี้?</a>
-          <a href="" class="btn btn-primary br0 pa2 pa1-ns mb2 ma0-ns w-100 w-auto-ns">ยังมีของอยู่ไหม?</a>
-          <a href="" class="btn btn-primary br0 pa2 pa1-ns mb2 ma0-ns w-100 w-auto-ns">ใช้งานได้ที่ไหนบ้าง?</a>
-          <a href="" class="btn btn-primary br0 pa2 pa1-ns mb2 ma0-ns w-100 w-auto-ns">จัดส่งสินค้ายังไง?</a>
+          <a href="" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">ต้องการสั่งซื้อสินค้านี้?</a>
+          <a href="" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">ยังมีของอยู่ไหม?</a>
+          <a href="" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">ใช้งานได้ที่ไหนบ้าง?</a>
+          <a href="" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">จัดส่งสินค้ายังไง?</a>
         </div>
       </div>
       @endif
@@ -116,13 +116,20 @@
 
       <div class="seller-section content-fixed-bottom">
         <div class="pt3 pb2 pv2-ns ph3 ph2-ns clearfix">
-          <div class="avatar-frame fl">
-            <div class="online_status_indicator_{{$data['created_by']}} online-status-indicator @if($seller['online']) is-online @endif"></div>
+          <div class="avatar-frame fl">       
             <div class="avatar">
               <img src="/avatar/{{$data['created_by']}}?d=1">
             </div>
           </div>
-          <div class="online-name fl">{{$seller['name']}}</div>
+          <div class="online-name fl">
+            <div>{{$seller['name']}}</div>
+            <div class="online_status_indicator_{{$data['created_by']}} online-status-indicator @if($seller['online']) is-online @endif"></div>
+            @if($seller['online'])
+              <small class="dark-gray ml-4">ออนไลน์อยู่</small>
+            @else
+              <small class="dark-gray ml-4">{{$seller['last_active']}}</small>
+            @endif
+          </div>
         </div>
         <div class="pa2 pa2-ns">
           <a href="/chat/s/{{$ticketId}}" class="btn btn-primary btn-block br0">
@@ -131,7 +138,7 @@
         </div>
       </div>
 
-      <div class="contact-section pa2 pa0-ns mt-2 bt">
+      <div class="contact-section pa2 pa0-ns mt-3 mt-2-ns bt">
         <div class="clearfix pa0 pa3-ns">
           <h5 class="mt-1 pb-2">
             <i class="fa fa-address-book" aria-hidden="true"></i>
@@ -151,6 +158,10 @@
       </div>
 
       @endif
+
+      <!-- <div class="ticket-posting-detail p-2">
+        <div class="f6"><i class="fa fa-pencil"></i>&nbsp;&nbsp;{{$data['created_at']}}</div>
+      </div> -->
       
     </div>
 

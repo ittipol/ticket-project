@@ -40,8 +40,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('account/ticket', 'AccountController@ticket');
 
-  Route::get('account/ticket/edit/{ticketId}', 'TicketController@edit');
-  Route::patch('account/ticket/edit/{ticketId}', 'TicketController@editingSubmit');
+  Route::get('ticket/edit/{ticketId}', 'TicketController@edit');
+  Route::patch('ticket/edit/{ticketId}', 'TicketController@editingSubmit');
 
   Route::get('logout', 'UserController@logout');
 

@@ -3,10 +3,11 @@
   top: 60px;
   left: 0;
   width: 290px;
-  background-color: #fff;
   height: 100%;
+  background-color: #fff;
   border-right: 1px solid #ccc;
   z-index: 30;
+  overflow: auto;
 }
 
 .left-sidenav button.close {
@@ -190,7 +191,9 @@
 
 .seller-section {
 	position: relative;
-	background-color: #b5ccdc;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	margin-top: 1rem;
 }
 
 .seller-section .avatar-frame {
@@ -210,7 +213,13 @@
 
 .seller-section .online-name {
 	margin-left: 1rem;
-	line-height: 40px;
+	line-height: 24px;
+	position: relative;
+}
+
+.seller-section .online-name > .online-status-indicator {
+	top: 31px;
+	left: 0px;
 }
 
 .seller-chat-btn {
@@ -305,8 +314,7 @@
 
 .ticket-posting-detail {
 	color: #fff;
-	/*background-color: #7597b3;*/
-	background-color: #63aa73;
+	background-color: #054a7d;
 	/*background-color: #2a87dd;*/
 }
 

@@ -1,5 +1,5 @@
 <div class="left-sidenav">
-  <div class="p-3">
+  <div class="p-3 mb5">
 
     <button type="button" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
@@ -7,8 +7,24 @@
 
     {{Form::open(['method' => 'get', 'enctype' => 'multipart/form-data'])}}
 
-      <div class="mb-3">
-        <h4 class="my-2">ค้นหา</h4>
+    <h4 class="my-2">ค้นหา</h4>
+
+    <div>
+      <div class="row">
+        @foreach($categories as $key => $category)
+        <div class="col-12">
+          <div class="c-input">
+            {{Form::checkbox('TicketToCategory[ticket_category_id]', $category->id, false, array('id' => 'cat'.$key))}}
+            <label for="cat{{$key}}">
+              {{$category->name}}
+            </label>
+          </div>
+        </div>
+        @endforeach
+      </div>
+    </div>
+
+      <div class="my-3">
         {{ Form::text('q', null, array(
           'class' => 'w-100 p-2',
           'placeholder' => 'ชื่อบัตร, สถานที่, คำค้นอื่นๆ',

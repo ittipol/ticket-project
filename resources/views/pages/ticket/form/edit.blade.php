@@ -16,6 +16,22 @@
       <div class="col-md-8">
 
         <div class="form-group">
+          <label class="form-control-label required">ประเภทบัตร</label>
+          <div class="row">
+            @foreach($categories as $key => $category)
+            <div class="col-6 col-md-4">
+              <div class="c-input">
+                {{Form::radio('TicketToCategory[ticket_category_id]', $category->id, false, array('id' => 'cat'.$key))}}
+                <label for="cat{{$key}}">
+                  {{$category->name}}
+                </label>
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label required">หัวข้อ</label>
           {{ Form::text('title', null, array(
             'class' => 'form-control',
@@ -254,7 +270,8 @@
     ticket.init();
 
     const tagging = new Tagging();
-    tagging.load();
+    tagging.init();
+    tagging.setTags({!!$taggings!!});
 
     const date1 = new Datepicker('#date_input_1');
     date1.init();

@@ -68,7 +68,7 @@
 
     @else
 
-      <li class="dd-menu">
+      <li class="dd-menu btn-hover">
         <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="pointer">
           <i class="fa fa-user"></i>&nbsp;บัญชี
         </a>

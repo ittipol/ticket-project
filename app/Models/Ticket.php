@@ -42,7 +42,7 @@ class Ticket extends Model
 
     $cache = new cache;
     $url = new url;
-    $date = new date;
+    // $date = new date;
     $currency = new currency;
     $format = new format;
 
@@ -109,10 +109,10 @@ class Ticket extends Model
       'save' => $save,
       'date_type' => $this->date_type,
       'dateTypeLabel' => $this->getDateTypeById($this->date_type),
-      'date_1' => $date->covertDateToSting($this->date_1),
-      'date_2' => $date->covertDateToSting($this->date_2),
+      'date_1' => Date::covertDateToSting($this->date_1),
+      'date_2' => Date::covertDateToSting($this->date_2),
       'created_by' => $this->created_by,
-      'created_at' => $date->calPassedDate($this->created_at->format('Y-m-d H:i:s')),
+      'created_at' => Date::calPassedDate($this->created_at->format('Y-m-d H:i:s')),
       'user' => $user,
       'image' => $image,
       'imageTotal' => $imageTotal,
@@ -124,7 +124,7 @@ class Ticket extends Model
 
     $cache = new cache;
     $url = new url;
-    $date = new date;
+    // $date = new date;
     $currency = new currency;
     $format = new format;
 
@@ -186,10 +186,11 @@ class Ticket extends Model
       'save' => $save,
       'date_type' => $this->date_type,
       'dateTypeLabel' => $this->getDateTypeById($this->date_type),
-      'date_1' => $date->covertDateToSting($this->date_1),
-      'date_2' => $date->covertDateToSting($this->date_2),
+      'date_1' => Date::covertDateToSting($this->date_1),
+      'date_2' => Date::covertDateToSting($this->date_2),
       'contact' => $this->contact,
       'created_by' => $this->created_by,
+      'created_at' => Date::calPassedDate($this->created_at->format('Y-m-d H:i:s')),
       'images' => $images,
       'imageTotal' => $imageTotal,
       'tags' => $tags

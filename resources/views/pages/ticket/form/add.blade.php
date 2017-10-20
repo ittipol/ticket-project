@@ -31,7 +31,7 @@
             @foreach($categories as $key => $category)
             <?php $checked = false; if($key == 0) {$checked = true;} ?>
             <div class="col-6 col-md-4">
-              <div class="c-radio">
+              <div class="c-input">
                 {{Form::radio('TicketToCategory[ticket_category_id]', $category->id, $checked, array('id' => 'cat'.$key))}}
                 <label for="cat{{$key}}">
                   {{$category->name}}
@@ -281,7 +281,7 @@
     ticket.init();
 
     const tagging = new Tagging();
-    tagging.load();
+    tagging.init();
 
     const date1 = new Datepicker('#date_input_1');
     date1.init();

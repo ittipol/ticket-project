@@ -43,8 +43,7 @@
 
 {{Form::close()}}
 
-<div class="clearfix margin-top-100"></div>
-<div class="clearfix margin-top-100"></div>
+<div class="clearfix margin-top-200"></div>
 
 <script type="text/javascript" src="/assets/js/form/login-validation.js"></script>
 <script type="text/javascript">

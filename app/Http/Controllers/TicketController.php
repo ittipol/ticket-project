@@ -48,7 +48,8 @@ class TicketController extends Controller
             ->paginate(24);
 
     $this->setData('data',$data);
-    
+
+    $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('search',true);
 
     return $this->view('pages.ticket.list');
@@ -58,9 +59,7 @@ class TicketController extends Controller
 
     $model = Service::loadModel('Ticket');
 
-    $categories = Service::loadModel('TicketCategory')->get();
-
-    $this->setData('categories',$categories);
+    $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('dateType',$model->getDateType());
 
     $this->setMeta('title','ขายบัตร — TicketSnap');
@@ -69,7 +68,7 @@ class TicketController extends Controller
 
   public function addingSubmit() {
 
-    dd(request()->all());
+    // dd(request()->all());
 
     $model = Service::loadModel('Ticket');
 
@@ -110,10 +109,10 @@ class TicketController extends Controller
       return Redirect::back();
     }
 
-    // Add to category
-    // if(!empty(request()->get('TicketToCategory'))) {
-      // Service::loadModel('TicketToCategory')->__saveRelatedData($model,request()->get('TicketToCategory'));
-    // }
+    // Add category to ticket
+    if(!empty(request()->get('TicketToCategory'))) {
+      Service::loadModel('TicketToCategory')->__saveRelatedData($model,request()->get('TicketToCategory'));
+    }
 
     // Tagging
     if(!empty(request()->get('Tagging'))) {
@@ -145,6 +144,26 @@ class TicketController extends Controller
       return Redirect::to('/ticket');
     }
 
+    $ticketCategoryId = null;
+
+    $_ticketCategoryId = $model->getRelatedData('TicketToCategory',array(
+      'fields' => array('ticket_category_id'),
+      'first' => true
+    ));
+
+    if(!empty($_ticketCategoryId)) {
+      $ticketCategoryId = $_ticketCategoryId->ticket_category_id;
+    }
+
+    $taggings = $model->getRelatedData('Tagging', array(
+      'fields' => array('word_id')
+    ));
+
+    $words = array();
+    foreach ($taggings as $tagging) {
+      $words[] = $tagging->buildFormData();
+    }
+
     $_images = $model->getRelatedData('Image',array(
       'fields' => array('id','model','model_id','filename','description','image_type_id')
     ));
@@ -156,9 +175,14 @@ class TicketController extends Controller
       }
     }
 
+    $model['TicketToCategory'] = array(
+      'ticket_category_id' => $ticketCategoryId
+    );
+
     $this->setData('data',$model);
     $this->setData('images',json_encode($images));
-
+    $this->setData('taggings',json_encode($words));
+    $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('dateType',$model->getDateType());
 
     $this->setMeta('title','แก้ไขรายการ — TicketSnap');
@@ -175,28 +199,28 @@ class TicketController extends Controller
       return Redirect::to('/ticket');
     }
 
-    switch (request()->get('date_type')) {
-      case 1:
+    // switch (request()->get('date_type')) {
+    //   case 1:
         
-        if(!empty(request()->get('date_1'))) {
-          $model->date_1 = request()->get('date_1').' 00:00:00';
-        }
+    //     if(!empty(request()->get('date_1'))) {
+    //       $model->date_1 = request()->get('date_1').' 00:00:00';
+    //     }
 
-        $model->date_2 = request()->get('date_2').' 23:59:59';
+    //     $model->date_2 = request()->get('date_2').' 23:59:59';
 
-        break;
+    //     break;
       
-      case 2:
-        $model->date_1 = request()->get('date_2').' 00:00:00';
-        $model->date_2 = request()->get('date_2').' 23:59:59';
-        break;
+    //   case 2:
+    //     $model->date_1 = request()->get('date_2').' 00:00:00';
+    //     $model->date_2 = request()->get('date_2').' 23:59:59';
+    //     break;
 
-      case 3:
-        $model->date_1 = request()->get('date_2').' 00:00:00';
-        $model->date_2 = request()->get('date_2').' 23:59:59';
-        break;
-    }
-dd(request()->all());
+    //   case 3:
+    //     $model->date_1 = request()->get('date_2').' 00:00:00';
+    //     $model->date_2 = request()->get('date_2').' 23:59:59';
+    //     break;
+    // }
+
     $model->title = request()->get('title');
     $model->description = request()->get('description');
     $model->place_location = request()->get('place_location');
@@ -208,6 +232,11 @@ dd(request()->all());
     
     if(!$model->save()) {
       return Redirect::back();
+    }
+
+    // Add category to ticket
+    if(!empty(request()->get('TicketToCategory'))) {
+      Service::loadModel('TicketToCategory')->__saveRelatedData($model,request()->get('TicketToCategory'));
     }
 
     // Tagging
@@ -243,10 +272,10 @@ dd(request()->all());
     }
 
     // GET SELLER
-    $seller = Service::loadModel('User')->select('name','avatar','online')->find($model->created_by);
+    $seller = Service::loadModel('User')->select('name','avatar','online','last_active')->find($model->created_by);
 
     $this->setData('data',$model->buildDataDetail());
-    $this->setData('seller',$seller->getAttributes());
+    $this->setData('seller',$seller->buildDataDetail());
     $this->setData('ticketId',$ticketId);
 
     // SET META

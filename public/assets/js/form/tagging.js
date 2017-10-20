@@ -10,35 +10,20 @@ class Tagging {
 		this.code = null;
 	}
 
-	load(tags){
-
-		this.init();
-		this.crateTagList();
-		this.crateInputTagField();
-
-		if (typeof tags != 'undefined') {
-			for (let i = 0; i < tags.length; i++) {
-				this.createTagChip(tags[i]['_word']);
-			}
-		}
-
-	}
-
 	init(){
 		this.tagChipsWidth = 0;
-		// let token = new Token();
-		// this.code = token.generateToken();
-
 		this.code = Token.generateToken();
-		
+
+		this.crateTagList();
+		this.crateInputTagField();
 	}
 
-	setTags(tagJson) {
-		if (typeof tagJson != 'undefined'){
-			for (let i = 0; i < tagJson.length; i++) {
-				this.createTagChip(tagJson[i]);
+	setTags(tags) {
+		// if (typeof tags !== 'undefined'){
+			for (let i = 0; i < tags.length; i++) {
+				this.createTagChip(tags[i]);
 			}
-		}
+		// }
 	}
 
 	createHiddenField(index,id,tagName) {

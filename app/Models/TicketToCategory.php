@@ -8,9 +8,9 @@ class TicketToCategory extends Model
   protected $fillable = ['ticket_id','ticket_category_id'];
   public $timestamps  = false;
 
-  public function __saveRelatedData($model,$options = array()) {
-dd('gere');
-    if(!empty($options['value']['ticket_category_id'])) {
+  public function __saveRelatedData($model,$value) {
+
+    if(!empty($value['ticket_category_id'])) {
 
       if($model->state == 'update') {
         $this->where('ticket_id','=',$model->id)->delete();
@@ -18,7 +18,7 @@ dd('gere');
       
       return $this->fill(array(
         'ticket_id' => $model->id,
-        'ticket_category_id' => $options['value']['ticket_category_id']
+        'ticket_category_id' => $value['ticket_category_id']
       ))->save();
 
     }
