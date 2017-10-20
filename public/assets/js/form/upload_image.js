@@ -10,6 +10,7 @@ class UploadImage {
 		this.index = 0;
 		this.runningNumber = 0;
 		this.imagesPlaced = [];
+		this.deletingImages = [];
 		this.defaultPreview = defaultPreview;
 		this.allowedClick = true;
 		this.inputDisable = [];
@@ -172,6 +173,10 @@ class UploadImage {
 
 	  		let key = parent.prop('id').split('_');
 
+	  		// if($(parent).find('.image-remove-btn').length) {
+	  		// 	_this._removePreview($(parent).find('.image-remove-btn')[0],parent);
+	  		// }
+
 	  		_this.createAddedImage(parent,key[0],key[1],response.filename);
 	  		
 	  	}else{
@@ -236,7 +241,6 @@ class UploadImage {
 	}
 
 	removePreview(input){
-
 		if(this.allowedClick){
 
 			let _this = this;
@@ -252,12 +256,19 @@ class UploadImage {
 				this.index = this.createUploader(this.index);
 			}
 
-			this.imagesPlaced.splice(this.imagesPlaced.indexOf($(parent).prop('id')),1);
-
-			if(input.getAttribute('data-id') != null) {
-				let key = $(parent).prop('id').split('_');
-			 	this.createHiddenDeletedImage(parent.parent().parent(),key[1],input.getAttribute('data-id'));
+			if(this.imagesPlaced.indexOf($(parent).prop('id')) !== -1) {
+				this.imagesPlaced.splice(this.imagesPlaced.indexOf($(parent).prop('id')),1);
 			}
+
+			this._removePreview(input,parent);
+
+			// if((input.getAttribute('data-id') != null) && (this.deletingImages.indexOf(input.getAttribute('data-id')) === -1)) {
+
+			// 	this.deletingImages.push(input.getAttribute('data-id'));
+
+			// 	let key = $(parent).prop('id').split('_');
+			//  	this.createHiddenDeletedImage(parent.parent().parent(),key[1],input.getAttribute('data-id'));
+			// }
 
 			parent.parent().remove();
 
@@ -266,7 +277,18 @@ class UploadImage {
 			},500);
 
 		}
-		
+	}
+
+	_removePreview(input,parent) {
+
+		if((input.getAttribute('data-id') != null) && (this.deletingImages.indexOf(input.getAttribute('data-id')) === -1)) {
+
+			this.deletingImages.push(input.getAttribute('data-id'));
+
+			let key = $(parent).prop('id').split('_');
+		 	this.createHiddenDeletedImage(parent.parent().parent(),key[1],input.getAttribute('data-id'));
+		}
+
 	}
 
 	createHiddenDeletedImage(parent,index,value) {

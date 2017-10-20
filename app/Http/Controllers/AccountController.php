@@ -60,7 +60,8 @@ class AccountController extends Controller
 
       $image = $user->getRelatedData('Image',array(
         'fields' => array('id'),
-        'first' => true
+        'first' => true,
+        'order' => array('id','desc')
       ));
 
       // remove old avatar

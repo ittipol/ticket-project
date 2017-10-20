@@ -127,6 +127,11 @@ label.image-label {
 	border-radius: 50%;
 }
 
+.upload-image-circle label.image-label > .image-remove-btn {
+	top: 12px;
+	right: 36px;
+}
+
 .image-panel.banner > label.image-label {
 	height: 300px;
 }

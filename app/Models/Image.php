@@ -74,13 +74,11 @@ class Image extends Model
     $imageType = $imageType->where('alias','like',$options['type'])->select('path')->first();
 
     foreach ($images as $image) {
-
       if($model->imageTypeAllowed[$options['type']]['limit'] < ++$count[$options['type']]) {
         break;
       }
 
       $this->handleImage($model,$image,$options);
-
     }
 
     // remove temp dir
@@ -92,8 +90,6 @@ class Image extends Model
 
   public function deleteImage() {
 
-    $cache = new Cache;
-
     $path = $this->getImagePath();
 
     if(!file_exists($path)){
@@ -101,6 +97,7 @@ class Image extends Model
     }
 
     if(File::Delete($path)) {
+      $cache = new Cache;
       $cache->deleteCacheDirectory(pathinfo($this->filename, PATHINFO_FILENAME));
     }
 
@@ -170,7 +167,8 @@ class Image extends Model
     if(!empty($image['filename'])) {
 
       if($imageInstance->exists) {
-        $cache->deleteCacheDirectory(pathinfo($imageInstance->filename, PATHINFO_FILENAME));
+        $imageInstance->deleteImage();
+        // $cache->deleteCacheDirectory(pathinfo($imageInstance->filename, PATHINFO_FILENAME));
       }
 
       // Set image name

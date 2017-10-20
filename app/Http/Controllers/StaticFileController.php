@@ -116,7 +116,8 @@ class StaticFileController extends Controller
     if(file_exists($path)){
 
       $headers = array(
-        'Cache-Control' => 'public, max-age=86400',
+        // 'Cache-Control' => 'public, max-age=86400',
+        'Cache-Control' => 'no-store, no-cache, must-revalidate',
         'Content-Type' => mime_content_type($path),
       );
 
