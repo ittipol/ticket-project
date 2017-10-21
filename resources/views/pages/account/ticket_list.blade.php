@@ -7,7 +7,7 @@
     background-color: #ddd;
   }
 
-  .grid-item { width: 32%; margin: 0.5%; }
+  .grid-item { width: 30%; margin: 1%; }
 
   @media (max-width: 1366px) {
     .grid-item { width: 47%; margin: 1.5%; }
@@ -121,7 +121,7 @@
               <a href="/ticket/edit/{{$value['id']}}">แก้ไข</a>
             </li>
             <li class="nav-item">
-              <a href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" class="ticket-close">ปิดประกาศ</a>
+              <a href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" data-t-closing-modal="1">ปิดประกาศ</a>
             </li>
           </ul>
 

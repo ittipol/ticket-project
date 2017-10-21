@@ -7,7 +7,7 @@
     background-color: #ddd;
   }
 
-  .grid-item { width: 22.7%; margin: 1%; }
+  .grid-item { width: 23%; margin: 1%; }
 
   @media (max-width: 1366px) {
     .grid-item { width: 47%; margin: 1.5%; }

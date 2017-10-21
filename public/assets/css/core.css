@@ -442,7 +442,7 @@ label.image-label a:hover {
   transition: opacity 200ms;
 }
 #closing_ticket_modal a.close:hover {
-  /*opacity: 0.4;*/
+  opacity: 0.4;
 }
 #closing_ticket_modal a.modal-close {
 	position: absolute;

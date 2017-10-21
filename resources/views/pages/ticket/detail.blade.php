@@ -142,9 +142,18 @@
       @else
 
       <div class="action-section content-fixed-bottom ph2 pv3 pa0-ns mt-2">
-        <a href="javascript:void(0);" data-t-id="{{$data['id']}}" data-t-title="{{$data['title']}}" class="btn btn-primary btn-block br0 ticket-close">
-          <i class="fa fa-pencil" aria-hidden="true"></i> ปิดประกาศ
-        </a>
+        <div class="clearfix mb-2">
+          <div class="w-50 fl">
+            <a href="/ticket/edit/{{$data['id']}}" class="btn btn-primary btn-block br0">
+              <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;แก้ไข
+            </a>
+          </div>
+          <div class="w-50 fl">
+            <a href="javascript:void(0);" data-t-id="{{$data['id']}}" data-t-title="{{$data['title']}}" data-t-closing-modal="1" class="btn btn-primary btn-block br0">
+              <i class="fa fa-close" aria-hidden="true"></i>&nbsp;ปิดประกาศ
+            </a>
+          </div>
+        </div>
         <small>ปิดประกาศของคุณเมื่อ <strong>ขายสินค้านี้แล้ว</strong> หรือหากต้องการ <strong>ยกเลิกรายการ</strong></small>
       </div>
 

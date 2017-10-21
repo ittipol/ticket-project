@@ -37,9 +37,10 @@ class TicketController extends Controller
     // $data = $model->orderBy('created_at','desc')->take(24)->get();
 
     $data = $model
-            // ->where([
-            //   ['date_2','>=',date('Y-m-d')]
-            // ])
+            ->where([
+              ['closing_option','=',0],
+              // ['date_2','>=',date('Y-m-d')]
+            ])
             ->orderBy('created_at','desc')
             ->paginate(24);
 
@@ -53,7 +54,10 @@ class TicketController extends Controller
 
   public function detail($ticketId) {
 
-    $model = Service::loadModel('Ticket')->find($ticketId);
+    $model = Service::loadModel('Ticket')->where([
+      ['id','=',request()->ticketId],
+      ['closing_option','=',0]
+    ])->first();
 
     if(empty($model)) {
       Snackbar::message('ไม่พบรายการนี้');
@@ -160,8 +164,9 @@ class TicketController extends Controller
 
     $model = Service::loadModel('Ticket')->where([
       ['id','=',$ticketId],
+      ['closing_option','=',0],
       ['created_by','=',Auth::user()->id]
-    ]);
+    ])->first();
 
     if(empty($model)) {
       Snackbar::message('ไม่สามารถแก้ไขรายการนี้ได้');

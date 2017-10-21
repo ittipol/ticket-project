@@ -12,7 +12,7 @@ class TicketClose {
 
     let _this = this;
 
-    $('.ticket-close').on('click',function(){
+    $('[data-t-closing-modal="1"]').on('click',function(){
       $('.ticket-title').text($(this).data('t-title'));
 
       _this.ticket = $(this).data('t-id');
