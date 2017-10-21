@@ -344,6 +344,10 @@ io.on('connection', function(socket){
 
   },300000);
 
+  setInterval(function(){
+    console.log('checking...');
+  },1000);
+
 });
 
 
