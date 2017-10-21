@@ -29,6 +29,8 @@ class AccountController extends Controller
 
     $this->setData('list',$list);
 
+    $this->setMeta('title','โปรไฟล์');
+
     return $this->view('pages.account.profile');
   }
   public function edit() {
@@ -98,10 +100,8 @@ class AccountController extends Controller
     $this->setData('data',$data);
 
     // SET META
-    // $this->setMeta('title','');
-    // $this->setMeta('description','');
-    // $this->setMeta('image',null);
-
+    $this->setMeta('title','รายการขายของคุณ');
+    
     return $this->view('pages.account.ticket_list');
 
   }

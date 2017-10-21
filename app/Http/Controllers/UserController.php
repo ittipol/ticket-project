@@ -15,7 +15,7 @@ use Redirect;
 class UserController extends Controller
 {
   public function login() {
-    $this->setMeta('title','เข้าสู่ระบบ — TicketShare');
+    $this->setMeta('title','เข้าสู่ระบบ — TicketSnap');
     return $this->view('pages.user.login');
   }
 
@@ -44,10 +44,10 @@ class UserController extends Controller
     Snackbar::message($message);
 
     return Redirect::back()->withErrors([$message]);
-
   }
 
   public function register() {
+    $this->setMeta('title','เข้าสู่ระบบ');
     return $this->view('pages.user.register');
   }
 
@@ -62,7 +62,7 @@ class UserController extends Controller
     $user->email = trim($request->email);
     $user->password = $hashed;
     $user->name = trim($request->name);
-    $user->user_key = 1;
+    $user->user_key = Token::generate(32);
     $user->jwt_secret_key = Token::generate(32);
     $user->has_password = 1;
 
@@ -83,9 +83,9 @@ class UserController extends Controller
     }
 
     $fb = new \Facebook\Facebook([
-      'app_id' => '227375124451364',
-      'app_secret' => 'd9d3b4300ebf9d1839dad310d62295fd',
-      'default_graph_version' => 'v2.9',
+      'app_id' => env('FB_APP_ID'),
+      'app_secret' => env('FB_SECRET_ID'),
+      'default_graph_version' => env('GRAPH_VERSION'),
     ]);
 
     try {
@@ -116,7 +116,7 @@ class UserController extends Controller
       }
 
       $user->name = $_user['name'];
-      $user->user_key = 1;
+      $user->user_key = Token::generate(32);
       $user->jwt_secret_key = Token::generate(32);
       $user->save();
     }

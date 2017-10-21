@@ -7,6 +7,9 @@
 <meta name="robots" content="noindex,nofollow">
 @endif
 
+<meta name="description" content="{{$_meta['description']}}">
+<meta name="keywords" content="{{$_meta['keywords']}}">
+
 <meta property="fb:app_id"          content="227375124451364" /> 
 <meta property="og:type"            content="website" /> 
 <meta property="og:url"             content="{{Request::fullUrl()}}" /> 

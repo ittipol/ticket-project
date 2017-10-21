@@ -49,6 +49,8 @@ class TicketController extends Controller
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('search',true);
 
+    $this->setMeta('title','รายการขาย');
+
     return $this->view('pages.ticket.list');
   }
 
@@ -67,6 +69,13 @@ class TicketController extends Controller
     // GET SELLER
     $seller = Service::loadModel('User')->select('name','avatar','online','last_active')->find($model->created_by);
 
+    $data = $model->buildDataDetail();
+
+    $keywords = array();
+    foreach ($data['tags'] as $tag) {
+      $keywords[] = $tag['word'];
+    }
+
     $this->setData('data',$model->buildDataDetail());
     $this->setData('seller',$seller->buildDataDetail());
     $this->setData('ticketId',$ticketId);
@@ -75,6 +84,7 @@ class TicketController extends Controller
     $this->setMeta('title',$model->title);
     $this->setMeta('description','');
     $this->setMeta('image',null);
+    $this->setMeta('keywords',implode(',',$keywords));
 
     return $this->view('pages.ticket.detail');
 
@@ -88,6 +98,7 @@ class TicketController extends Controller
     $this->setData('dateType',$model->getDateType());
 
     $this->setMeta('title','ขายบัตร — TicketSnap');
+
     return $this->view('pages.ticket.form.add');
   }
 

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
   public function index() {
+
+    $this->setMeta('title','Ticket');
+
     return $this->view('pages.home.index');
   }
 }

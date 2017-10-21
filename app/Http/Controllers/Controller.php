@@ -16,7 +16,8 @@ class Controller extends BaseController
   protected $meta = array(
     'title' => 'Ticket',
     'description' => '',
-    'image' => ''
+    'image' => '',
+    'keywords' => '',
   );
 
   protected $botDisallowed = false;

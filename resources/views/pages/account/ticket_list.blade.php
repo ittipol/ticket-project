@@ -118,10 +118,10 @@
           <ul class="nav nav-tabs">
 
             <li class="nav-item">
-              <a href="/ticket/edit/{{$value['id']}}">แก้ไข</a>
+              <a href="/ticket/edit/{{$value['id']}}"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;แก้ไข</a>
             </li>
             <li class="nav-item">
-              <a href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" data-t-closing-modal="1">ปิดประกาศ</a>
+              <a href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" data-t-closing-modal="1"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;ปิดประกาศ</a>
             </li>
           </ul>
 

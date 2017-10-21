@@ -58,19 +58,21 @@
 
 {{Form::close()}}
 
+<script type="text/javascript" src="/assets/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/js/form/register-validation.js"></script>
+
 <script type="text/javascript">
 
   $(document).ready(function(){
     Validation.initValidation();
-  });
 
-  $('#fb_login_btn').on('click',function(e){
-    FB.login(function(response) {
-      if (response.authResponse) {
-        window.location.href = "/facebook/login?code="+response.authResponse.accessToken;
-      }
-    }, {scope: 'email,public_profile'});
+    $('#fb_login_btn').on('click',function(e){
+      FB.login(function(response) {
+        if (response.authResponse) {
+          window.location.href = "/facebook/login?code="+response.authResponse.accessToken;
+        }
+      }, {scope: 'email,public_profile'});
+    });
   });
 
 </script>

@@ -159,7 +159,7 @@
       </div>
 
       <div class="col-md-8 margin-top-30">
-        {{Form::submit('เริ่มต้นการขาย', array('class' => 'btn btn-primary btn-block'))}}
+        {{Form::submit('บันทึก', array('class' => 'btn btn-primary btn-block'))}}
       </div>
       
     </div>
