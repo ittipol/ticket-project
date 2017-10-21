@@ -85,7 +85,7 @@
           ขายบัตร&nbsp;<i class="fa fa-angle-down"></i>
         </a>
         <ul class="dropdown-menu">
-          <li class="dd-link"><a href="/ticket/new">เพิ่มรายการขาย</a></li>
+          <li class="dd-link"><a href="/ticket/new">ลงขายบัตรของคุณ</a></li>
           <li class="dd-link"><a href="/ticket">รายการขายทั้งหมด</a></li>
         </ul>
       </li>

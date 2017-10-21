@@ -329,9 +329,19 @@ label.image-label a:hover {
 
 
 
-
-/*.md-radio {
-  margin: 16px 0;
+@keyframes ripple {
+  0% {
+    box-shadow: 0px 0px 0px 1px transparent;
+  }
+  50% {
+    box-shadow: 0px 0px 0px 15px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    box-shadow: 0px 0px 0px 15px transparent;
+  }
+}
+.md-radio {
+  margin: 10px 0;
 }
 .md-radio.md-radio-inline {
   display: inline-block;
@@ -347,13 +357,13 @@ label.image-label a:hover {
   transform: scale(1);
 }
 .md-radio label {
-  display: inline-block;
-  height: 20px;
+  width: 100%;
   position: relative;
   padding: 0 30px;
   margin-bottom: 0;
   cursor: pointer;
   vertical-align: bottom;
+  display: inline-block;
 }
 .md-radio label:before, .md-radio label:after {
   position: absolute;
@@ -364,16 +374,85 @@ label.image-label a:hover {
 }
 .md-radio label:before {
   left: 0;
-  top: 0;
+  top: 5px;
   width: 20px;
   height: 20px;
   border: 2px solid rgba(0, 0, 0, 0.54);
 }
 .md-radio label:after {
-  top: 5px;
+  top: 10px;
   left: 5px;
   width: 10px;
   height: 10px;
   transform: scale(0);
   background: #337ab7;
-}*/
+}
+
+
+
+
+#target-content {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 50;
+  transition: opacity 200ms;
+}
+#target-content:target {
+  pointer-events: all;
+  opacity: 1;
+}
+#target-content #target-inner {
+  position: absolute;
+  display: block;
+  padding: 48px;
+  line-height: 1.8;
+  width: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+  background: white;
+  color: #34495E;
+}
+#target-content #target-inner h2 {
+  margin-top: 0;
+}
+#target-content #target-inner code {
+  font-weight: bold;
+}
+#target-content a.close {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #34495E;
+  opacity: 0.5;
+  -webkit-transition: opacity 200ms;
+  transition: opacity 200ms;
+}
+#target-content a.close:hover {
+  /*opacity: 0.4;*/
+}
+#target-content a.modal-close {
+	position: absolute;
+	top: 5px;
+	right: 16px;
+	font-size: 1.625rem;
+}
+#target-content a.modal-close:hover {
+	text-decoration: none;
+}
+
+@media (max-width: 320px) {
+	#target-content #target-inner {
+		width: 100%;
+		padding: 30px;
+	}
+}

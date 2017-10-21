@@ -309,7 +309,6 @@
 .ticket-posting-detail {
 	color: #fff;
 	background-color: #054a7d;
-	/*background-color: #2a87dd;*/
 }
 
 @media (max-width: 480px) {
@@ -317,10 +316,6 @@
 	.main-panel {
 		margin-left: 0;
 	}
-
-	/*.left-sidenav {
-		left: -290px;
-	}*/
 
 	.nav-tabs {
 		margin-right: 0;
