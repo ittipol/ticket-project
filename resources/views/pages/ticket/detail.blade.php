@@ -29,8 +29,10 @@
 
       <p class="ticket-detail-section pa2 pt2-ns pa0-ns mb-3">{!!$data['description']!!}</p>
 
+      @include('shared.ig')
+
       @if(!empty($data['tags']))
-      <div class="tags mx-2 mb-4">
+      <div class="tags mx-2 mt4 mb3">
         @foreach($data['tags'] as $tag)
           <div class="md-chip">
             <div class="md-chip-icon">
@@ -41,8 +43,6 @@
         @endforeach
       </div>
       @endif
-
-      @include('shared.ig')
 
       @if(Auth::guest() || (Auth::check() && (Auth::user()->id != $data['created_by'])))
       <div class="quick-chat-section px-2 py-3">

@@ -18,6 +18,10 @@ class AccountController extends Controller
   public function profile() {
 
     $data = Service::loadModel('Ticket')
+    ->where([
+      ['closing_option','=',0],
+      ['created_by','=',Auth::user()->id]
+    ])
     ->orderBy('created_at','desc')
     ->take(3)
     ->get();

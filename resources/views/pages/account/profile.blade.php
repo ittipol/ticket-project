@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="col-md-9">
-        <div class="bt b--silver pt-5">
+        <div class="bt b--silver pt-5 mt4 mt0-ns">
 
           @if(!empty($list))
 
