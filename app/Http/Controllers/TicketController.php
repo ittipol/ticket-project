@@ -76,9 +76,11 @@ class TicketController extends Controller
       $keywords[] = $tag['word'];
     }
 
-    $this->setData('data',$model->buildDataDetail());
+    $this->setData('data',$data);
     $this->setData('seller',$seller->buildDataDetail());
     $this->setData('ticketId',$ticketId);
+
+    $this->setData('_text',$data['title']);
 
     // SET META
     $this->setMeta('title',$model->title);
