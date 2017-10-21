@@ -121,7 +121,7 @@
               <a href="/ticket/edit/{{$value['id']}}">แก้ไข</a>
             </li>
             <li class="nav-item">
-              <a href="#target-content" data-t-id="{{$value['id']}}" data-t-title="" class="ticket-close">ปิดประกาศ</a>
+              <a href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" class="ticket-close">ปิดประกาศ</a>
             </li>
           </ul>
 
@@ -149,100 +149,16 @@
 
 <div class="clearfix margin-top-200"></div>
 
-<!-- <div class="c-modal"></div> -->
-
-<!-- <a href="#target-content" id="button">Open CSS Modal via <code>:target</code></a> -->
-
-<div class="close-option-modal" id="target-content">
-  <a href="#" class="close"></a>
-  <div id="target-inner">
-
-    <a href="#modal-close" title="Close" class="modal-close">
-      <span aria-hidden="true">&times;</span>
-    </a>
-
-    <h2>ปิดประกาศ</h2>
-    <p>title</p>
-
-    <div>
-      <div class="md-radio">
-        <input id="close_option_1" class="close-option" type="radio" value="1" name="close_option" checked>
-        <label for="close_option_1">ขายสินค้านี้แล้ว</label>
-      </div>
-      <div class="md-radio">
-        <input id="close_option_2" class="close-option" type="radio" value="2" name="close_option">
-        <label for="close_option_2">ยกเลิกการขาย</label>
-      </div>
-      <div class="md-radio">
-        <input id="close_option_3" class="close-option" type="radio" value="3" name="close_option">
-        <label for="close_option_3"><input id="close_option_message" class="form-control close-option-message w-80" autocomplete="off" name="title" type="text" placeholder="อื่นๆ" disabled></label>
-      </div>
-    </div>
-
-    <button type="button" class="btn btn-primary btn-block br0">ตกลง</button>
-    
-  </div>
-</div>
+@include('shared.ticket-closing-modal')
 
 <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
 
 <script type="text/javascript">
-
-  class TicketClose {
-
-    constructor() {}
-
-    init() {
-      this.bind();
-    }
-
-    bind() {
-
-      $('.ticket-close').on('click',function(){
-        
-        // modal popup
-
-        // set title
-
-      });
-
-      $('.close-option').on('click',function(){
-        
-        console.log($(this).val());
-
-        switch($(this).val()) {
-
-          case '1':
-            document.getElementById('close_option_message').setAttribute('disabled','disabled');
-          break;
-
-          case '2':
-            document.getElementById('close_option_message').setAttribute('disabled','disabled');
-          break;
-
-          case '3':
-            document.getElementById('close_option_message').removeAttribute('disabled');
-            document.getElementById('close_option_message').focus()
-          break;
-
-        }
-
-      });
-
-    }
-
-  }
-
   $(document).ready(function(){
-
     $('.grid').masonry({
       itemSelector: '.grid-item',
       percentPosition: true
     });
-
-    const _ticketClose = new TicketClose();
-    _ticketClose.init();
-
   });
 </script>
 

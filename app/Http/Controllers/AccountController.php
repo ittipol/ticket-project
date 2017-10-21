@@ -89,6 +89,7 @@ class AccountController extends Controller
     });
 
     $data = $model->where([
+              ['closing_option','=',0],
               ['created_by','=',Auth::user()->id]
             ])
             ->orderBy('created_at','asc')

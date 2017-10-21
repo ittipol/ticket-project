@@ -142,17 +142,13 @@
       @else
 
       <div class="action-section content-fixed-bottom ph2 pv3 pa0-ns mt-2">
-        <a href="/chat/s/{{$ticketId}}" class="btn btn-primary btn-block br0">
+        <a href="javascript:void(0);" data-t-id="{{$data['id']}}" data-t-title="{{$data['title']}}" class="btn btn-primary btn-block br0 ticket-close">
           <i class="fa fa-pencil" aria-hidden="true"></i> ปิดประกาศ
         </a>
         <small>ปิดประกาศของคุณเมื่อ <strong>ขายสินค้านี้แล้ว</strong> หรือหากต้องการ <strong>ยกเลิกรายการ</strong></small>
       </div>
 
       @endif
-
-      <!-- <div class="ticket-posting-detail p-2">
-        <div class="f6"><i class="fa fa-pencil"></i>&nbsp;&nbsp;{{$data['created_at']}}</div>
-      </div> -->
       
     </div>
 
@@ -160,6 +156,10 @@
 </div>
 
 <div class="clearfix margin-top-200"></div>
+
+@if(Auth::check() && (Auth::user()->id == $data['created_by']))
+@include('shared.ticket-closing-modal')
+@endif
 
 <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
 <script type="text/javascript" src="/assets/js/user_online.js"></script>

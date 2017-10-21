@@ -40,13 +40,15 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('account/ticket', 'AccountController@ticket');
 
-  Route::get('ticket/edit/{ticketId}', 'TicketController@edit');
-  Route::patch('ticket/edit/{ticketId}', 'TicketController@editingSubmit');
-
   Route::get('logout', 'UserController@logout');
 
   Route::get('ticket/new', 'TicketController@add');
   Route::post('ticket/new', 'TicketController@addingSubmit');
+
+  Route::get('ticket/edit/{ticketId}', 'TicketController@edit');
+  Route::patch('ticket/edit/{ticketId}', 'TicketController@editingSubmit');
+
+  Route::post('ticket/close', 'TicketController@close');
 
   Route::get('chat/s/{ticketId}', 'ChatController@sellerChat'); // s = seller
   // Route::get('chat/b/{ticketId}', 'ChatController@buyerChat'); // b = buyer

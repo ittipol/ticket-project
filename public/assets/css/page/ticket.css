@@ -263,6 +263,7 @@
 .nav-tabs > li {
 	width: 100%;
 	text-align: center;
+	background-color: #C5CAE9;
 }
 
 /*.nav-tabs > li:hover {
@@ -307,8 +308,8 @@
 }
 
 .ticket-posting-detail {
-	color: #fff;
-	background-color: #054a7d;
+	color: #222;
+	background-color: #ddd;
 }
 
 @media (max-width: 480px) {

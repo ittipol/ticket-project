@@ -51,6 +51,31 @@ class TicketController extends Controller
     return $this->view('pages.ticket.list');
   }
 
+  public function detail($ticketId) {
+
+    $model = Service::loadModel('Ticket')->find($ticketId);
+
+    if(empty($model)) {
+      Snackbar::message('ไม่พบรายการนี้');
+      return Redirect::to('/ticket');
+    }
+
+    // GET SELLER
+    $seller = Service::loadModel('User')->select('name','avatar','online','last_active')->find($model->created_by);
+
+    $this->setData('data',$model->buildDataDetail());
+    $this->setData('seller',$seller->buildDataDetail());
+    $this->setData('ticketId',$ticketId);
+
+    // SET META
+    $this->setMeta('title',$model->title);
+    $this->setMeta('description','');
+    $this->setMeta('image',null);
+
+    return $this->view('pages.ticket.detail');
+
+  }
+
   public function add() {
 
     $model = Service::loadModel('Ticket');
@@ -133,9 +158,12 @@ class TicketController extends Controller
 
   public function edit($ticketId) {
 
-    $model = Service::loadModel('Ticket')->find($ticketId);
+    $model = Service::loadModel('Ticket')->where([
+      ['id','=',$ticketId],
+      ['created_by','=',Auth::user()->id]
+    ]);
 
-    if(empty($model) || ($model->created_by != Auth::user()->id)) {
+    if(empty($model)) {
       Snackbar::message('ไม่สามารถแก้ไขรายการนี้ได้');
       return Redirect::to('/ticket');
     }
@@ -258,28 +286,30 @@ class TicketController extends Controller
     return Redirect::to('ticket/view/'.$model->id);
   }
 
-  public function detail($ticketId) {
+  public function close() {
 
-    $model = Service::loadModel('Ticket')->find($ticketId);
+    if(empty(request()->ticketId)) {
+      return Redirect::to('/');
+    }
+
+    $model = Service::loadModel('Ticket')->where([
+      ['id','=',request()->ticketId],
+      ['created_by','=',Auth::user()->id],
+      ['closing_option','=',0]
+    ]);
 
     if(empty($model)) {
-      Snackbar::message('ไม่พบรายการนี้');
+      Snackbar::message('ไม่สามารถปิดประกาศนี้ได้');
       return Redirect::to('/ticket');
     }
 
-    // GET SELLER
-    $seller = Service::loadModel('User')->select('name','avatar','online','last_active')->find($model->created_by);
+    $model->update([
+      'closing_option' => request()->closing_option,
+      'closing_reason' => request()->closing_reason
+    ]);
 
-    $this->setData('data',$model->buildDataDetail());
-    $this->setData('seller',$seller->buildDataDetail());
-    $this->setData('ticketId',$ticketId);
-
-    // SET META
-    $this->setMeta('title',$model->title);
-    $this->setMeta('description','');
-    $this->setMeta('image',null);
-
-    return $this->view('pages.ticket.detail');
-
+    Snackbar::message('ปิดประกาศแล้ว');
+    return Redirect::to('/account/ticket');
+    
   }
 }
