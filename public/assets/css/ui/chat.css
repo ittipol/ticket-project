@@ -3,9 +3,8 @@
 	left: 0;
 	height: 100%;
 	width: 350px;
-	/*background-color: #90A4AE;*/
 	background-color: #fff;
-	border-right: 1px solid #546E7A;
+	border-right: 1px solid #027dc5;
   z-index: 9;
 }
 
@@ -16,6 +15,27 @@
 
 .chat-left-sidenav-header > h5 {
 	font-size: 1rem;
+}
+
+.chat-title {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	background-color: #fff;
+	padding: 0 1rem;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	z-index: 10;
+}
+
+.chat-title > .online-status-indicator {
+	top: 13px;
+	left: 13px;
+	display: none;
 }
 
 .user-chat-list .avatar-frame {
@@ -84,8 +104,9 @@
 
 .chat-thread {
 	width: 100%;
-	padding: 50px 20px 100px;
+	padding: 60px 20px 100px;
 	position: relative;
+	z-index: 9;
 }
 
 .chat-thread::after {
@@ -271,7 +292,27 @@
 }
 
 @media (max-width: 480px) {
+
+	.chat-title {
+		padding-left: 34px;
+	}
+
+	.chat-title > a {
+		border-left: 1px solid #aaa;
+		padding-left: 0.625rem;
+	}
+
+	.chat-title > .online-status-indicator {
+		display: block;
+	}
+
 	.message-section .message-box {
 		width: 220px;
+	}
+}
+
+@media (max-width: 320px) {
+	.message-section .message-box {
+		width: 160px;
 	}
 }

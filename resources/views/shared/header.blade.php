@@ -79,15 +79,15 @@
       </li>
 
     @endif
-    <li>
-      <a href="/ticket/new">
-        ขายบัตร
-      </a>
-    </li>
-    <li>
-      <a href="/ticket">
-        รายการขาย
-      </a>
-    </li>
+
+      <li class="dd-menu btn-hover">
+        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="pointer">
+          ขายบัตร&nbsp;<i class="fa fa-angle-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+          <li class="dd-link"><a href="/ticket/new">เพิ่มรายการขาย</a></li>
+          <li class="dd-link"><a href="/ticket">รายการขายทั้งหมด</a></li>
+        </ul>
+      </li>
   </ul>
 </header>

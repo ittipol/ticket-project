@@ -14,7 +14,7 @@
     <div class="row">
       <div class="col-md-3">
         <div class="avatar avatar-md mx-auto">
-          <img src="/avatar?d=1&f=1">
+          <img src="/avatar?d=1&o=1">
         </div>
         <h5 class="text-center my-4">
           {{Auth::user()->name}}

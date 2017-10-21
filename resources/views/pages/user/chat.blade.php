@@ -44,15 +44,20 @@
 
 <div class="chat-section">
 
+  <div class="chat-title text-center">
+    @foreach($users as $user)
+      <div class="online_status_indicator_{{$user['id']}} online-status-indicator @if($user['online']) is-online @endif"></div>
+    @endforeach
+    <a href="/ticket/view/{{$ticket->id}}">{{$ticket->title}}</a>
+  </div>
+
   <div class="typing-indicator">
     <span></span>
     <span></span>
     <span></span>
   </div>
 
-  <div id="message_display" class="chat-thread clearfix">
-
-  </div>
+  <div id="message_display" class="chat-thread clearfix"></div>
 
   <div class="chat-footer-section">
     <input type="text" id="message_input" class="chat-input">
