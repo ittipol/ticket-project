@@ -1,16 +1,17 @@
 class Datepicker {
 
-	constructor(selector = '#date',hiddenSelector = '#_date') {
+	constructor(selector = '#date',dateFormat = 'yy-mm-dd') {
 		this.selector = selector;
-		this.hiddenSelector = hiddenSelector;
+		// this.hiddenSelector = hiddenSelector;
+		this.dateFormat = dateFormat;
 	}
 
 	init() {
 
-		let _this = this;
+		// let _this = this;
 
 		$(this.selector).datepicker({
-      dateFormat: 'yy-mm-dd',
+      dateFormat: this.dateFormat,
       prevText: '<i class="fa fa-angle-left"></i>',
       nextText: '<i class="fa fa-angle-right"></i>'
 	  });

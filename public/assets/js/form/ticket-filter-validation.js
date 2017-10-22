@@ -5,10 +5,6 @@ var Validation = function () {
         //Validation
         initValidation: function () {
 
-          $.validator.addMethod("regx", function(value, element, regexpr) {          
-              return regexpr.test(value);
-          }, '');
-
           $.validator.addMethod("greaterThan", function(value, element, params) {
             
             if($(params).val() === '') {
@@ -23,7 +19,7 @@ var Validation = function () {
 
           }, '');
 
-	        $("#add_ticket_form").validate({  
+	        $("#ticket_filter_form").validate({  
 
             // ignore: '.ignore-field, :hidden, :disabled',
             ignore: ':hidden, :disabled',
@@ -31,16 +27,7 @@ var Validation = function () {
 	          // Rules for form validation
             rules:
             {
-              title:
-              {
-                required: true,
-                maxlength: 255
-              },
-              description:
-              {
-                required: true
-              },
-              place_location:
+              q:
               {
                 maxlength: 255
               },
@@ -51,33 +38,14 @@ var Validation = function () {
               },
               date_2:
               {
-                required: true,
                 date: true
-              },
-              price:
-              {
-                required: true,
-                regx: /^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/
-              },
-              contact:
-              {
-                required: true
               }
             },
                                 
             // Messages for form validation
             messages:
             {
-              title:
-              {
-                required: 'ยังไม่ได้ป้อนหัวข้อ',
-                maxlength: 'จำนวนตัวอักษรเกินกว่าที่กำหนด'
-              },
-              description:
-              {
-                required: 'ยังไม่ได้ป้อนรายละเอียด'
-              },
-              place_location:
+              q:
               {
                 maxlength: 'จำนวนตัวอักษรเกินกว่าที่กำหนด'
               },
@@ -88,17 +56,7 @@ var Validation = function () {
               },
               date_2:
               {
-                required: 'ยังไม่ได้ป้อนวันที่',
                 date: 'วันที่ไม่ถูกต้อง'
-              },
-              price:
-              {
-                required: 'ยังไม่ได้ป้อนราคาที่ต้องการขาย',
-                regx: 'ราคาที่ต้องการขายไม่ถูกต้อง'
-              },
-              contact:
-              {
-                required: 'ยังไม่ได้ป้อนช่องทางการติดต่อ'
               }
             },    
 

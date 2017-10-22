@@ -10,7 +10,7 @@
 
   <div class="p-3 mb5">
 
-    {{Form::open(['method' => 'get', 'enctype' => 'multipart/form-data'])}}
+    {{Form::open(['id' => 'ticket_filter_form', 'method' => 'get', 'enctype' => 'multipart/form-data'])}}
 
     <h4 class="my-2">ค้นหา</h4>
 
@@ -29,52 +29,62 @@
       </div>
     </div>
 
-      <div class="my-3">
-        {{ Form::text('q', null, array(
-          'class' => 'w-100 p-2',
-          'placeholder' => 'ชื่อบัตร, สถานที่, คำค้นอื่นๆ',
-          'autocomplete' => 'off'
-        )) }}
+    <div>
+      {{ Form::text('q', null, array(
+        'id' => 'q',
+        'class' => 'w-100 p-2',
+        'placeholder' => 'ชื่อบัตร หรือ คำค้นอื่นๆ',
+        'autocomplete' => 'off'
+      )) }}
+    </div>
+
+    <div class="mt-4 mb-3">
+      <h4 class="my-2">ราคา</h4>
+      <div class="mb-2 clearfix">
+        <small class="fl"><strong id="price_range_min">1</strong>&nbsp;บาท</small>
+        <small class="fr"><strong id="price_range_max">50000</strong>&nbsp;บาท</small>
+      </div>
+      <div class="price-range text-center">
+        <input id="price_range_slider" data-slider-id='price_range' type="text" name="price" data-slider-min="1" data-slider-max="50000" data-slider-step="5" data-slider-value="[1,50000]"/>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <h4 class="my-2">ช่วงวันที่</h4>
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </span>
+        {{Form::text('startDate', null, array(
+        'id' => 'start_date', 
+        'class' => 'form-control w-100 p-2', 
+        'placeholder' => 'เริ่มต้น',
+        'autocomplete' => 'off', 
+        'readonly' => 'true'))}}
       </div>
 
-      <div class="mb-3">
-        <h4 class="my-2">ราคา</h4>
-        <div class="mb-2 clearfix">
-          <small class="fl"><strong id="price_range_min">1</strong>&nbsp;บาท</small>
-          <small class="fr"><strong id="price_range_max">50000</strong>&nbsp;บาท</small>
-        </div>
-        <div class="price-range text-center">
-          <input id="price_range_slider" data-slider-id='price_range' type="text" data-slider-min="1" data-slider-max="50000" data-slider-step="5" data-slider-value="[1,50000]"/>
-        </div>
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </span>
+        {{Form::text('endDate', null, array('id' => 'end_date', 'class' => 'form-control w-100 p-2', 'placeholder' => 'ถึง', 'autocomplete' => 'off', 'readonly' => 'true'))}}
       </div>
+    </div>      
 
-      <div class="mb-3">
-        <h4 class="my-2">วันที่</h4>
-        <div class="input-group">
-          <span class="input-group-addon" id="location-addon">
-            <i class="fa fa-calendar"></i>
-          </span>
-          {{Form::text('date_1', null, array(
-          'id' => 'date_input_1', 
-          'class' => 'form-control w-100 p-2', 
-          'placeholder' => 'เริ่มต้น',
-          'autocomplete' => 'off', 
-          'readonly' => 'true'))}}
-        </div>
-
-        <div class="input-group">
-          <span class="input-group-addon" id="location-addon">
-            <i class="fa fa-calendar"></i>
-          </span>
-          {{Form::text('date_2', null, array('id' => 'date_input_2', 'class' => 'form-control w-100 p-2', 'placeholder' => 'ถึง', 'autocomplete' => 'off', 'readonly' => 'true'))}}
-        </div>
-      </div>      
-
-      <div class="text-center mt-2">
-        <button type="submit" class="btn btn-primary btn-block br0">ค้นหา</button>
-      </div>
+    <div class="text-center mt-2">
+      <button id="ticket_fiter_btn" type="submit" class="btn btn-primary btn-block br0">ค้นหา</button>
+    </div>
 
     {{Form::close()}}
 
   </div>
 </div>
+
+<!-- <script type="text/javascript" src="/assets/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/js/form/ticket-filter-validation.js"></script> -->
+
+<script type="text/javascript">
+  // $(document).ready(function(){
+  //   Validation.initValidation();
+  // });
+</script>
