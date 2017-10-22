@@ -1,9 +1,14 @@
-<div class="left-sidenav">
-  <div class="p-3 mb5">
+<div class="fiter-panel-toggle">
+  <button id="fiter_panel_toggle" type="button" class="btn btn-primary btn-block br0"><i class="fa fa-search"></i>&nbsp;กรองการค้นหา</button>
+</div>
 
-    <button type="button" class="close" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+<div class="left-sidenav">
+
+  <button type="button" class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div class="p-3 mb5">
 
     {{Form::open(['method' => 'get', 'enctype' => 'multipart/form-data'])}}
 
@@ -14,7 +19,7 @@
         @foreach($categories as $key => $category)
         <div class="col-12">
           <div class="c-input">
-            {{Form::checkbox('TicketToCategory[ticket_category_id]', $category->id, false, array('id' => 'cat'.$key))}}
+            {{Form::checkbox('category[]', $category->id, false, array('id' => 'cat'.$key))}}
             <label for="cat{{$key}}">
               {{$category->name}}
             </label>
@@ -66,7 +71,7 @@
       </div>      
 
       <div class="text-center mt-2">
-        <button type="button" class="btn btn-primary btn-block br0">ค้นหา</button>
+        <button type="submit" class="btn btn-primary btn-block br0">ค้นหา</button>
       </div>
 
     {{Form::close()}}

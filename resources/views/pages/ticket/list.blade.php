@@ -18,10 +18,6 @@
   }
 </style>
 
-<div class="fiter-panel-toggle">
-  <button type="button" class="btn btn-primary btn-block br0"><i class="fa fa-search"></i>&nbsp;กรองการค้นหา</button>
-</div>
-
 @include('shared.filter-leftside-nav')
 
 <div class="container-fliud margin-top-10 margin-bottom-200">
@@ -153,12 +149,13 @@
 
 <script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="/assets/js/user_online.js"></script>
 <script type="text/javascript" src="/assets/js/bootstrap-slider.min.js"></script>
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
 
 <script type="text/javascript">
 
-  class Ticket {
+  class TicketFilter {
 
     constructor() {}
 
@@ -171,20 +168,32 @@
 
       let _this = this;
 
-      $("#price_range_slider").slider();
+      $('#price_range_slider').slider();
 
-      $("#price_range").on('click', function() {
+      $('#price_range').on('click', function() {
 
-        let val = $("#price_range_slider").val();
+        let val = $('#price_range_slider').val();
         val = val.split(',');
 
-        $("#price_range_min").text(val[0]);
-        $("#price_range_max").text(val[1]);
+        $('#price_range_min').text(val[0]);
+        $('#price_range_max').text(val[1]);
       });
 
-      $("#price_range_slider").on("slide", function(e) {
-        $("#price_range_min").text(e.value[0]);
-        $("#price_range_max").text(e.value[1]);
+      $('#price_range_slider').on('slide', function(e) {
+        $('#price_range_min').text(e.value[0]);
+        $('#price_range_max').text(e.value[1]);
+      });
+
+      $('#fiter_panel_toggle').on('click', function() {
+        $('#fiter_panel_toggle').attr('disabled',true);
+        $('body').css('overflow-y','hidden');
+        $('.left-sidenav').addClass('show');
+      });
+
+      $('.left-sidenav > button.close').on('click',function(){
+        $('#fiter_panel_toggle').attr('disabled',false);
+        $('body').css('overflow-y','auto');
+        $('.left-sidenav').removeClass('show');
       });
 
       $(window).resize(function(){
@@ -215,8 +224,8 @@
       percentPosition: true
     });
 
-    const _ticket = new Ticket();
-    _ticket.init();
+    const _ticketFilter = new TicketFilter();
+    _ticketFilter.init();
 
     const date1 = new Datepicker('#date_input_1');
     date1.init();

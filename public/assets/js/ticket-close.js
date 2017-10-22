@@ -13,6 +13,9 @@ class TicketClose {
     let _this = this;
 
     $('[data-t-closing-modal="1"]').on('click',function(){
+
+      $('body').css('overflow-y','hidden');
+
       $('.ticket-title').text($(this).data('t-title'));
 
       _this.ticket = $(this).data('t-id');
@@ -22,11 +25,13 @@ class TicketClose {
     });
 
     $('#closing_ticket_modal > .close').on('click',function(){
+      $('body').css('overflow-y','auto');
       $('#closing_ticket_modal').removeClass('show');
       _this.clear();
     });
 
     $('#target-inner > .modal-close').on('click',function(){
+      $('body').css('overflow-y','auto');
       $('#closing_ticket_modal').removeClass('show');
       _this.clear();
     });

@@ -32,19 +32,29 @@ class DateTime {
     return date[2]+' '+DateTime.getMonthName(parseInt(date[1]))+' '+(parseInt(date[0])+543)+' '+parseInt(time[0])+':'+time[1];
   }
 
-  static dateToTimestamp(dateTime) {
+  static dateTimeToTimestamp(dateTime) {
 
     let _dateTime = dateTime.split(' ');
 
     let date = _dateTime[0].split('-');
+
+    // if ( _dateTime[1] !== void 0 ) {
+    //   let time = _dateTime[1].split(':');
+    // }
+
     let time = _dateTime[1].split(':');
 
     return new Date(parseInt(date[0]), (parseInt(date[1])-1), parseInt(date[2]), parseInt(time[0]), parseInt(time[1]), parseInt(time[2]), 0).getTime()/1000;
   }
 
+  static dateToTimestamp(date) {
+    let _date = date.split('-');
+    return new Date(parseInt(_date[0]), (parseInt(_date[1])-1), parseInt(_date[2])).getTime()/1000;
+  }
+
   static passingDate(dateTime,now) {
 
-    let secs = now - dateToTimestamp(dateTime);
+    let secs = now - dateTimeToTimestamp(dateTime);
     let mins = parseInt(Math.floor(secs / 60));
     let hours = parseInt(Math.floor(mins / 60));
     let days = parseInt(Math.floor(hours / 24));

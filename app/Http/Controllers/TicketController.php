@@ -24,6 +24,8 @@ class TicketController extends Controller
         return $currentPage;
     });
 
+    
+
     // if(!empty(request()->q)) {
     //   $conditions[] = array('name','=','%'.request()->q.'%');
     // }
@@ -106,7 +108,7 @@ class TicketController extends Controller
 
   public function addingSubmit() {
 
-    // dd(request()->all());
+    dd(request()->all());
 
     $model = Service::loadModel('Ticket');
 

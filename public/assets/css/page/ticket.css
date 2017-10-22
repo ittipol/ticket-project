@@ -10,7 +10,10 @@
   overflow: auto;
 }
 
-.left-sidenav button.close {
+.left-sidenav > button.close {
+	position: absolute;
+	top: 15px;
+	right: 20px;
 	display: none;
 }
 
@@ -22,32 +25,6 @@
 
 .fiter-panel-toggle > button {
 	padding: 10px;
-}
-
-@media (max-width: 480px) {
-	.left-sidenav {
-		top: 100%;
-		width: 100%;
-		height: 100% !important;
-		transition: top .35s ease-out;
-		z-index: 50;
-	}
-
-	.left-sidenav.show {
-		top: 0;
-	}
-
-	.fiter-panel-toggle {
-		position: fixed;
-		left: 0;
-		bottom: 0;
-		width: 100%;
-		display: block;
-	}
-
-	.left-sidenav button.close {
-		display: block;
-	}
 }
 
 .left-sidenav h4 {
@@ -137,6 +114,7 @@
 
 .data-list-item .data-image > img {
 	width: 100%;
+	min-height: 150px;
 }
 
 .data-list-item .data-image > .ticket-preview-image {
@@ -312,7 +290,30 @@
 	background-color: #ddd;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+	.left-sidenav {
+		top: 100%;
+		width: 100%;
+		height: 100% !important;
+		transition: top .3s ease-out;
+		z-index: 50;
+	}
+
+	.left-sidenav.show {
+		top: 0;
+	}
+
+	.fiter-panel-toggle {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		display: block;
+	}
+
+	.left-sidenav.show > button.close {
+		display: block;
+	}
 
 	.main-panel {
 		margin-left: 0;
@@ -335,5 +336,8 @@
 		border-top: 2px solid #0b7abf;
 		z-index: 9;
 	}
+}
+
+@media (max-width: 480px) {
 
 }

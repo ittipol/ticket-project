@@ -7,14 +7,28 @@ var Validation = function () {
 
           $.validator.addMethod("regx", function(value, element, regexpr) {          
               return regexpr.test(value);
-          }, "");
+          }, '');
+
+          $.validator.addMethod("greaterThan", function(value, element, params) {
+            
+            if($(params).val() === '') {
+              return true;
+            }
+
+            if(DateTime.dateToTimestamp($(params).val()) > DateTime.dateToTimestamp(value)) {
+              return true;
+            }
+
+            return false;
+
+          }, '');
 
 	        $("#add_ticket_form").validate({  
 
             // ignore: '.ignore-field, :hidden, :disabled',
             ignore: ':hidden, :disabled',
 
-	            // Rules for form validation
+	          // Rules for form validation
             rules:
             {
               title:
@@ -30,9 +44,10 @@ var Validation = function () {
               {
                 maxlength: 255
               },
-              data_1:
+              date_1:
               {
-                date: true
+                date: true,
+                greaterThan: '#date_input_2'
               },
               date_2:
               {
@@ -44,10 +59,6 @@ var Validation = function () {
                 required: true,
                 regx: /^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/
               },
-              // original_price:
-              // {
-              //   regx: /^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/
-              // }
               contact:
               {
                 required: true
@@ -73,21 +84,18 @@ var Validation = function () {
               date_1:
               {
                 date: 'วันที่ไม่ถูกต้อง',
+                greaterThan: 'วันที่เริ่มต้นมากกว่าวันที่สิ้นสุด'
               },
               date_2:
               {
                 required: 'ยังไม่ได้ป้อนวันที่',
-                date: 'วันที่ไม่ถูกต้อง',
+                date: 'วันที่ไม่ถูกต้อง'
               },
               price:
               {
                 required: 'ยังไม่ได้ป้อนราคาที่ต้องการขาย',
                 regx: 'ราคาที่ต้องการขายไม่ถูกต้อง'
               },
-              // original_price:
-              // {
-              //   regx: 'ราคาเดิมของบัตรไม่ถูกต้อง'
-              // },
               contact:
               {
                 required: 'ยังไม่ได้ป้อนช่องทางการติดต่อ'
