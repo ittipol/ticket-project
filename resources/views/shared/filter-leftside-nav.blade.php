@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="mt-2">
       {{ Form::text('q', null, array(
         'id' => 'q',
         'class' => 'w-100 p-2',
@@ -78,13 +78,7 @@
     {{Form::close()}}
 
   </div>
+
+  <div class="clearfix margin-top-200"></div>
+
 </div>
-
-<!-- <script type="text/javascript" src="/assets/js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="/assets/js/form/ticket-filter-validation.js"></script> -->
-
-<script type="text/javascript">
-  // $(document).ready(function(){
-  //   Validation.initValidation();
-  // });
-</script>

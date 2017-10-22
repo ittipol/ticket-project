@@ -24,27 +24,108 @@ class TicketController extends Controller
         return $currentPage;
     });
 
-    
+    // dd(request()->all());
 
-    // if(!empty(request()->q)) {
-    //   $conditions[] = array('name','=','%'.request()->q.'%');
-    // }
+    $model = $model->query();
 
-    // if(!empty($conditions)) {
-    //   $data = $model->where($conditions)->paginate(24);
-    // }else{
-    //   $data = $model->paginate(24);
-    // }
+    if(request()->has('q')) {
 
-    // $data = $model->orderBy('created_at','desc')->take(24)->get();
+      $_q = preg_replace('/\s[+\'\'\\\\\/:;()*\-^&!<>\[\]\|]\s/', ' ', trim(request()->q));
+      $_q = preg_replace('/\s{1,}/', ' ', $_q);
 
+      // $words = explode(' ', $_q);
+
+      $keywords = array();
+      $wordIds = array();
+
+      foreach (explode(' ', $_q) as $word) {
+
+        $word = str_replace(array('\'','"'), '', $word);
+        $word = str_replace('+', ' ', $word);
+
+        $len = mb_strlen($word);
+
+        if($len < 2) {
+          continue;
+        }else{
+
+          $keywords[] = array('title','like','%'.$word.'%');
+          $keywords[] = array('description','like','%'.$word.'%');
+          $keywords[] = array('place_location','like','%'.$word.'%');
+
+          $_word = Service::loadModel('Word')->select('id')->where('word','like',$word);
+          if($_word->exists()) {
+            $wordIds[] = $_word->first()->id;
+          }
+        }
+      }
+
+      $model->where(function ($query) use ($keywords) {
+        foreach ($keywords as $keyword) {
+          $query->orWhere($keyword[0], $keyword[1], $keyword[2]);
+        }
+      });
+
+      if(!empty($wordIds)) {
+        $model
+        ->join('taggings', 'taggings.model_id', '=', 'tickets.id')
+        ->where(function ($query) use ($wordIds) {
+          $query
+          ->where('taggings.model_id','=','Ticket')
+          ->whereIn('taggings.word_id',$wordIds,'or');
+        });
+      }
+    }
+
+    if(request()->has('price')) {
+      $model->whereBetween('tickets.price', explode(',', request()->price));
+    }
+
+    if(request()->has('category')) {
+      $model
+      ->join('ticket_to_categories', 'ticket_to_categories.ticket_id', '=', 'tickets.id')
+      ->whereIn('ticket_to_categories.ticket_category_id',request()->get('category'));
+    }
+
+    if(request()->has('startDate') || request()->has('endDate')) {
+
+      $date = array();
+
+      // startDate < value
+      // endDate > value
+
+      // startDate < value < endDate
+
+      if(request()->has('startDate')) {
+        $_date[] = array(
+          'tickets.date_1', 
+          array(request()->startDate,request()->endDate)
+        );
+      }
+
+      if(request()->has('endDate')) {
+        $date[] = array(
+          'tickets.date_2', 
+          array(request()->startDate,request()->endDate)
+        );
+      }
+
+      $model->where(function ($query) use ($date) {
+        foreach ($date as $value) {
+          $query->orWhereBetween($value[0], $value[1]);
+        }
+      });
+    }
+dd($model);
     $data = $model
-            ->where([
-              ['closing_option','=',0],
-              // ['date_2','>=',date('Y-m-d')]
-            ])
-            ->orderBy('created_at','desc')
-            ->paginate(24);
+    ->where(function($q) {
+      $q->where([
+        ['closing_option','=',0],
+        // ['date_2','>=',date('Y-m-d')]
+      ]);
+    })
+    ->orderBy('tickets.created_at','desc')
+    ->paginate(24);
 
     $this->setData('data',$data);
 

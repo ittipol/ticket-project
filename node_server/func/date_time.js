@@ -52,8 +52,8 @@ module.exports = class DateTime {
   }
 
   static dateToTimestamp(date) {
-    let date = date.split('-');
-    return new Date(parseInt(date[0]), (parseInt(date[1])-1), parseInt(date[2])).getTime()/1000;
+    let _date = date.split('-');
+    return new Date(parseInt(_date[0]), (parseInt(_date[1])-1), parseInt(_date[2])).getTime()/1000;
   }
 
   static passingDate(dateTime,now) {

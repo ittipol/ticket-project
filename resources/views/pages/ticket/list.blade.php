@@ -196,57 +196,39 @@
         $('.left-sidenav').removeClass('show');
       });
 
-      // $('#ticket_fiter_btn').on('click',function(){
-      //   console.log('xxxx');
-      // });
-
       $('#ticket_filter_form').on('submit',function(){
         
-        // console.log($(this).serialize());
+        if(($('#start_date').val() !== '') && ($('#end_date').val() !== '')) {        
+          if(DateTime.dateToTimestamp($('#start_date').val()) >= DateTime.dateToTimestamp($('#end_date').val())) {
+            // $('#start_date').removeAttr('name');
+            // $('#end_date').removeAttr('name');
 
-        // console.log($('#q').val());
+            const snackbar = new Snackbar();
+            snackbar.setTitle('ไม่อนุญาตให้กรอกวันที่เริ่มต้นมากกว่าหรือเท่ากับวันที่สิ้นสุด');
+            snackbar.display();
+
+            return false;
+          }
+        }else{
+          if($('#start_date').val() === '') {
+            $('#start_date').removeAttr('name');
+          }
+
+          if($('#end_date').val() === '') {
+            $('#end_date').removeAttr('name');
+          }
+        }
 
         if($('#q').val() == '') {
           $('#q').removeAttr('name');
         }
 
-        console.log($('#start_date').val());
-
-        if($('#start_date').val() === '') {
-          $('#start_date').removeAttr('name');
-        }
-
-        if($('#end_date').val() === '') {
-          $('#end_date').removeAttr('name');
-        }
-
-        if(($('#start_date').val() !== '') && ($('#end_date').val() !== '')) {
-          // check greater than
-          console.log(_this.timestamp($('#start_date').val()));
-          console.log(_this.timestamp($('#end_date').val()));
-        }
-
-        
-
-        console.log($(this).serialize());
-
-        return false;
       });
 
       $(window).resize(function(){
         _this.layout();
       });
 
-    }
-
-    timestamp(date) {
-
-      if(date === '') {
-        return false;
-      }
-
-      let _date = date.split('/');
-      return new Date(parseInt(_date[2]), (parseInt(_date[1])-1), parseInt(_date[0])).getTime()/1000;
     }
 
     layout() {
@@ -274,10 +256,10 @@
     const _ticketFilter = new TicketFilter();
     _ticketFilter.init();
 
-    const date1 = new Datepicker('#start_date','dd/mm/yy');
+    const date1 = new Datepicker('#start_date');
     date1.init();
 
-    const date2 = new Datepicker('#end_date','dd/mm/yy');
+    const date2 = new Datepicker('#end_date');
     date2.init();
 
     const _userOnline = new UserOnline();
