@@ -41,11 +41,11 @@
     <div class="mt-4 mb-3">
       <h4 class="my-2">ราคา</h4>
       <div class="mb-2 clearfix">
-        <small class="fl"><strong id="price_range_min">1</strong>&nbsp;บาท</small>
-        <small class="fr"><strong id="price_range_max">50000</strong>&nbsp;บาท</small>
+        <small class="fl"><strong id="price_range_min">{{$priceRange['range_1']}}</strong>&nbsp;บาท</small>
+        <small class="fr"><strong id="price_range_max">{{$priceRange['range_2']}}</strong>&nbsp;บาท</small>
       </div>
       <div class="price-range text-center">
-        <input id="price_range_slider" data-slider-id='price_range' type="text" name="price" data-slider-min="1" data-slider-max="50000" data-slider-step="5" data-slider-value="[1,50000]"/>
+        <input id="price_range_slider" data-slider-id='price_range' type="text" name="price" data-slider-min="1" data-slider-max="50000" data-slider-step="5" data-slider-value="[{{$priceRange['range_1']}},{{$priceRange['range_2']}}]"/>
       </div>
     </div>
 

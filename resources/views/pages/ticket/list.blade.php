@@ -3,8 +3,8 @@
 
 <style type="text/css">
   body {
-    /*background-color: #445268;*/
-    background-color: #ddd;
+    background-color: #607D8B;
+    /*background-color: #ddd;*/
   }
 
   .grid-item { width: 23%; margin: 1%; }
@@ -22,7 +22,7 @@
 
 <div class="container-fliud margin-top-10 margin-bottom-200">
 
-  @if(!empty($data))
+  @if($data->currentPage() <= $data->lastPage())
   <div class="grid data-list main-panel">
     @foreach($data as $_value)
 
@@ -128,14 +128,14 @@
 
   @elseif($search)
 
-    <div class="main-panel text-center mv5">
+    <div class="main-panel text-center mv5 pa3 pa0-ns white">
       <h3>ไม่พบรายการที่กำลังค้นหา</h3>
-      <p>โปรดลองค้นหาอีกครั้ง ด้วยคำที่แตกต่างหรือคำที่ใกล้เคียง</p>
+      <p>โปรดลองค้นหาอีกครั้ง ด้วยคำที่แตกต่างหรือคำที่มีความหมายใกล้เคียง</p>
     </div>
 
   @else
 
-    <div class="main-panel text-center mv5">
+    <div class="main-panel text-center mv5 pa3 pa0-ns  white">
       <h3>ยังไม่มีรายการขายบัตร</h3>
       <p>บัตรคอนเสิร์ต ตั๋ว วอชเชอร์ และอื่นๆที่ไม่ได้ใช้แล้วสามารถนำมาขายได้ที่นี่</p>
       <a href="/ticket/new" class="pv2 ph4 mt3 btn btn-primary">

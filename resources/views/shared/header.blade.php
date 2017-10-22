@@ -80,14 +80,10 @@
 
     @endif
 
-      <li class="dd-menu btn-hover">
-        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="pointer">
-          ขายบัตร&nbsp;<i class="fa fa-angle-down"></i>
+      <li class="btn-hover">
+        <a href="/ticket/new">
+          ขายบัตร
         </a>
-        <ul class="dropdown-menu">
-          <li class="dd-link"><a href="/ticket/new">ลงขายบัตรของคุณ</a></li>
-          <li class="dd-link"><a href="/ticket">รายการขายทั้งหมด</a></li>
-        </ul>
       </li>
   </ul>
 </header>

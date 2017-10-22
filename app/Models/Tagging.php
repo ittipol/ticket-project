@@ -7,10 +7,6 @@ class Tagging extends Model
   public $table = 'taggings';
   protected $fillable = ['model','model_id','word_id'];
 
-  // public function __construct() {  
-  //   parent::__construct();
-  // }
-
   public function word() {
     return $this->hasOne('App\Models\Word','id','word_id');
   }

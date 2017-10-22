@@ -13,7 +13,7 @@ class TicketController extends Controller
 {
   public function listView() {
 
-    $model = Service::loadModel('Ticket');
+    $model = Service::loadModel('Ticket')->query();
 
     $currentPage = 1;
     if(request()->has('page')) {
@@ -24,16 +24,23 @@ class TicketController extends Controller
         return $currentPage;
     });
 
+    $priceRange = array(
+      'range_1' => 0,
+      'range_2' => 50000
+    );
+
     // dd(request()->all());
 
-    $model = $model->query();
+    $searching = false;
+
+    // $model = $model->query();
 
     if(request()->has('q')) {
 
+      $searching = true;
+
       $_q = preg_replace('/\s[+\'\'\\\\\/:;()*\-^&!<>\[\]\|]\s/', ' ', trim(request()->q));
       $_q = preg_replace('/\s{1,}/', ' ', $_q);
-
-      // $words = explode(' ', $_q);
 
       $keywords = array();
       $wordIds = array();
@@ -60,28 +67,41 @@ class TicketController extends Controller
         }
       }
 
-      $model->where(function ($query) use ($keywords) {
+      $model->where(function ($query) use ($keywords,$wordIds) {
         foreach ($keywords as $keyword) {
           $query->orWhere($keyword[0], $keyword[1], $keyword[2]);
+        }
+  
+        if(!empty($wordIds)) {
+          $query
+          ->orWhere(function ($query) use ($wordIds) {
+            $query
+            ->where('taggings.model','=','Ticket')
+            ->whereIn('taggings.word_id',$wordIds);
+          });
         }
       });
 
       if(!empty($wordIds)) {
-        $model
-        ->join('taggings', 'taggings.model_id', '=', 'tickets.id')
-        ->where(function ($query) use ($wordIds) {
-          $query
-          ->where('taggings.model_id','=','Ticket')
-          ->whereIn('taggings.word_id',$wordIds,'or');
-        });
+        $model->join('taggings', 'taggings.model_id', '=', 'tickets.id');
       }
     }
 
     if(request()->has('price')) {
-      $model->whereBetween('tickets.price', explode(',', request()->price));
+      $searching = true;
+
+      $_price = explode(',', request()->price);
+
+      $priceRange = array(
+        'range_1' => $_price[0],
+        'range_2' => $_price[1]
+      );
+
+      $model->whereBetween('tickets.price', $_price);
     }
 
     if(request()->has('category')) {
+      $searching = true;
       $model
       ->join('ticket_to_categories', 'ticket_to_categories.ticket_id', '=', 'tickets.id')
       ->whereIn('ticket_to_categories.ticket_category_id',request()->get('category'));
@@ -89,34 +109,44 @@ class TicketController extends Controller
 
     if(request()->has('startDate') || request()->has('endDate')) {
 
+      $searching = true;
+
       $date = array();
 
-      // startDate < value
-      // endDate > value
-
-      // startDate < value < endDate
-
       if(request()->has('startDate')) {
-        $_date[] = array(
-          'tickets.date_1', 
-          array(request()->startDate,request()->endDate)
-        );
+        $date['s'] = request()->startDate;
       }
 
       if(request()->has('endDate')) {
-        $date[] = array(
-          'tickets.date_2', 
-          array(request()->startDate,request()->endDate)
-        );
+        $date['e'] = request()->endDate;
       }
 
       $model->where(function ($query) use ($date) {
-        foreach ($date as $value) {
-          $query->orWhereBetween($value[0], $value[1]);
+
+        if(!empty($date['s']) && !empty($date['e'])) {
+          $query
+          ->where([
+            ['tickets.date_1','>=',$date['s']],
+            ['tickets.date_1','<=',$date['e']]
+          ])
+          ->orWhere([
+            ['tickets.date_2','>=',$date['s']],
+            ['tickets.date_2','<=',$date['e']]
+          ]);
+        }elseif(!empty($date['s'])) {
+          $query
+          ->where('tickets.date_1','>=',$date['s'])
+          ->orWhere('tickets.date_2','>=',$date['s']);
+        }elseif(!empty($date['e'])) {
+          $query
+          ->where('tickets.date_1','<=',$date['e'])
+          ->orWhere('tickets.date_2','<=',$date['e']);
         }
+
       });
+      
     }
-dd($model);
+
     $data = $model
     ->where(function($q) {
       $q->where([
@@ -128,9 +158,9 @@ dd($model);
     ->paginate(24);
 
     $this->setData('data',$data);
-
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
-    $this->setData('search',true);
+    $this->setData('priceRange',$priceRange);
+    $this->setData('search',$searching);
 
     $this->setMeta('title','รายการขาย');
 
@@ -189,33 +219,33 @@ dd($model);
 
   public function addingSubmit() {
 
-    dd(request()->all());
+    // dd(request()->all());
 
     $model = Service::loadModel('Ticket');
 
     // create slug
 
-    switch (request()->get('date_type')) {
-      case 1:
+    // switch (request()->get('date_type')) {
+    //   case 1:
         
-        if(!empty(request()->get('date_1'))) {
-          $model->date_1 = request()->get('date_1').' 00:00:00';
-        }
+    //     if(!empty(request()->get('date_1'))) {
+    //       $model->date_1 = request()->get('date_1').' 00:00:00';
+    //     }
 
-        $model->date_2 = request()->get('date_2').' 23:59:59';
+    //     $model->date_2 = request()->get('date_2').' 23:59:59';
 
-        break;
+    //     break;
       
-      case 2:
-        $model->date_1 = request()->get('date_2').' 00:00:00';
-        $model->date_2 = request()->get('date_2').' 23:59:59';
-        break;
+    //   case 2:
+    //     $model->date_1 = request()->get('date_2').' 00:00:00';
+    //     $model->date_2 = request()->get('date_2').' 23:59:59';
+    //     break;
 
-      case 3:
-        $model->date_1 = request()->get('date_2').' 00:00:00';
-        $model->date_2 = request()->get('date_2').' 23:59:59';
-        break;
-    }
+    //   case 3:
+    //     $model->date_1 = request()->get('date_2').' 00:00:00';
+    //     $model->date_2 = request()->get('date_2').' 23:59:59';
+    //     break;
+    // }
 
     $model->title = request()->get('title');
     $model->description = request()->get('description');
@@ -223,6 +253,8 @@ dd($model);
     $model->price = request()->get('price');
     $model->original_price = request()->get('original_price');
     $model->date_type = request()->get('date_type');
+    $model->date_1 = request()->get('date_1');
+    $model->date_2 = request()->get('date_2');
     $model->contact = request()->get('contact');
     $model->purpose = 's';
    
@@ -324,36 +356,15 @@ dd($model);
       return Redirect::to('/ticket');
     }
 
-    // switch (request()->get('date_type')) {
-    //   case 1:
-        
-    //     if(!empty(request()->get('date_1'))) {
-    //       $model->date_1 = request()->get('date_1').' 00:00:00';
-    //     }
-
-    //     $model->date_2 = request()->get('date_2').' 23:59:59';
-
-    //     break;
-      
-    //   case 2:
-    //     $model->date_1 = request()->get('date_2').' 00:00:00';
-    //     $model->date_2 = request()->get('date_2').' 23:59:59';
-    //     break;
-
-    //   case 3:
-    //     $model->date_1 = request()->get('date_2').' 00:00:00';
-    //     $model->date_2 = request()->get('date_2').' 23:59:59';
-    //     break;
-    // }
-
     $model->title = request()->get('title');
     $model->description = request()->get('description');
     $model->place_location = request()->get('place_location');
     $model->price = request()->get('price');
     $model->original_price = request()->get('original_price');
     $model->date_type = request()->get('date_type');
+    $model->date_1 = request()->get('date_1');
+    $model->date_2 = request()->get('date_2');
     $model->contact = request()->get('contact');
-    $model->purpose = 's';
     
     if(!$model->save()) {
       return Redirect::back();

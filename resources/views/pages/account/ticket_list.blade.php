@@ -136,7 +136,7 @@
 
   @else
 
-    <div class="text-center mv5">
+    <div class="text-center mv5 pa3 pa0-ns ">
       <h3>ยังไม่มีรายการขายบัตรของคุณ</h3>
       <a href="/ticket/new" class="pv2 ph4 mt3 btn btn-primary">
         ขายบัตร
