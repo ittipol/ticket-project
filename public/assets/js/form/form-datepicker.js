@@ -1,9 +1,10 @@
 class Datepicker {
 
-	constructor(input = '#date',readable = true, dateFormat = 'yy-mm-dd') {
+	constructor(input = '#date',readable = true, allowedClear = false, dateFormat = 'yy-mm-dd') {
 		this.input = input;
 		this.dateFormat = dateFormat;
 		this.readable = readable;
+		this.allowedClear = allowedClear;
 		this.el = null;
 	}
 
@@ -25,7 +26,6 @@ class Datepicker {
 	}
 
 	// bind() {
-	// 	let _this = this;
 	// }
 
 	setReadable() {
@@ -48,6 +48,24 @@ class Datepicker {
 	  $(this.input).on('change',function(){
 	    _this.covertToReadable();
 	  });
+
+	  if(this.allowedClear) {
+	  	let a = document.createElement('a');
+	  	a.setAttribute('class','date-clear');
+	  	a.innerHTML = '<span aria-hidden="true">×</span>';
+
+	  	$(a).on('click',function(){
+		  	_this.clearValue();
+		  });
+
+	  	$(this.input).parent().append(a);
+
+	  }
+	}
+
+	clearValue() {
+		$(this.el).text('');
+		$(this.input).val('');
 	}
 
 	covertToReadable() {

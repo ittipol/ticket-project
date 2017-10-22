@@ -38,6 +38,19 @@ form .required::after {
 	padding-left: 50px;
 }
 
+.input-group > .date-clear {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 30px;
+	height: 100%;
+	line-height: 38px;
+	text-align: center;
+	font-size: 1rem;
+	cursor: pointer;
+	z-index: 8;
+}
+
 .input-group-addon:not(:last-child) {
 	border: 1px solid #999;
 	border-right: none;

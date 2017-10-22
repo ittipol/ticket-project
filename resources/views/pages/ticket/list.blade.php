@@ -256,10 +256,10 @@
     const _ticketFilter = new TicketFilter();
     _ticketFilter.init();
 
-    const date1 = new Datepicker('#start_date');
+    const date1 = new Datepicker('#start_date',true,true);
     date1.init();
 
-    const date2 = new Datepicker('#end_date');
+    const date2 = new Datepicker('#end_date',true,true);
     date2.init();
 
     const _userOnline = new UserOnline();
