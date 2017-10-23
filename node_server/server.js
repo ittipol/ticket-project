@@ -2,6 +2,7 @@ var env = require('./env');
 var constVar = require('./const');
 var dateTime = require('./func/date_time');
 //
+var mailer = require("nodemailer");
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -10,8 +11,6 @@ var db = require('./db');
 var userHandle = [];
 var clients = [];
 var notifyMessageHandle = [];
-
-// const constVar.MESSAGE_TAKE = 20;
 
 function userOnline(userId) {
   if(clients.indexOf(userId) !== -1){
@@ -344,13 +343,44 @@ io.on('connection', function(socket){
 
   },300000);
 
-  setInterval(function(){
-    console.log('checking...');
-  },1000);
+  // setInterval(function(){
+  //   console.log('checking...');
+  // },1000);
 
 });
 
+console.log('sending....');
+var smtp = {
+  host: 'mail.charityth.com', //set to your host name or ip
+  port: 587, //25, 465, 587 depend on your 
+  secure: true, // use SSL
+  auth: {
+    user: 'admin@charityth.com', //user account
+    pass: 'qqww1q2w' //user password
+  }
+};
+var smtpTransport = mailer.createTransport(smtp);
 
+var mail = {
+   from: 'admin@charityth.com',
+   to: 'k.m.ittipol@gmail.com',
+   subject: 'Sending Email using Node.js',
+   text: 'That was easy!'
+}
+
+smtpTransport.sendMail(mail, function(error, response){
+
+  console.log(error);
+
+   smtpTransport.close();
+   if(error){
+      //error handler
+      console.log('send error...');
+   }else{
+      //success handler 
+      console.log('send email success');
+   }
+});
 
 
 server.listen(env.SOCKET_PORT, env.SOCKET_HOST, () => {
