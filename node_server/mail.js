@@ -2,7 +2,7 @@ var mailer = require("nodemailer");
 
 console.log('sending....');
 var smtp = {
-  host: '103.13.228.35', //set to your host name or ip
+  host: 'mail.charityth.com', //set to your host name or ip
   port: 587, //25, 465, 587 depend on your 
   secure: true, // use SSL
   auth: {
