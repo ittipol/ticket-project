@@ -73,21 +73,6 @@
   </div>
 </div>
 
-<!-- <div class="container margin-top-60 margin-bottom-60">
-  <div class="tc">
-    <h4>หมวดหมู่มากถึง 15 หมวดหมู่</h4>
-    <p>แบ่งหมวดหมู่ออกเป็น 15 หมวดหมู่เพื่อง่ายต่อการเข้าถึงและค้นหา</p>
-  </div>
-
-  <div class="row">
-    @foreach($categories as $key => $category)
-    <div class="col-6 col-md-4">
-      <a href="/ticket?category[]={{$category->id}}" class="w-40-ns db-ns mx-auto">{{$category->name}}</a>
-    </div>
-    @endforeach
-  </div>
-</div> -->
-
 <footer></footer>
 
 @stop

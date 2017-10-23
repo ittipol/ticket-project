@@ -15,7 +15,7 @@
               {{Form::close()}}
               <a class="gn-icon fa-search"><span>ค้นหาบัตร</span></a>
             </li>
-            <li><a href="/ticket" class="gn-icon fa-tags">รายการขายบัตร</a></li>
+            <li><a href="/ticket" class="gn-icon fa-ticket">รายการขายบัตร</a></li>
             @if(Auth::check())
               <li>
                 <a href="/account" class="gn-icon fa-user">{{Auth::user()->name}}</a>
