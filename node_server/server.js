@@ -2,7 +2,6 @@ var env = require('./env');
 var constVar = require('./const');
 var dateTime = require('./func/date_time');
 //
-var mailer = require("nodemailer");
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -348,40 +347,6 @@ io.on('connection', function(socket){
   // },1000);
 
 });
-
-// console.log('sending....');
-// var smtp = {
-//   host: '103.13.228.35', //set to your host name or ip
-//   port: 587, //25, 465, 587 depend on your 
-//   secure: true, // use SSL
-//   auth: {
-//     user: 'admin@charityth.com', //user account
-//     pass: 'qqww1q2w' //user password
-//   }
-// };
-// var smtpTransport = mailer.createTransport(smtp);
-
-// var mail = {
-//    from: 'admin@charityth.com',
-//    to: 'k.m.ittipol@gmail.com',
-//    subject: 'Sending Email using Node.js',
-//    text: 'That was easy!'
-// }
-
-// smtpTransport.sendMail(mail, function(error, response){
-
-//   console.log(error);
-
-//    smtpTransport.close();
-//    if(error){
-//       //error handler
-//       console.log('send error...');
-//    }else{
-//       //success handler 
-//       console.log('send email success');
-//    }
-// });
-
 
 server.listen(env.SOCKET_PORT, env.SOCKET_HOST, () => {
   console.log('App listening on port -> '+env.SOCKET_PORT)
