@@ -48,7 +48,7 @@
     @foreach($users as $user)
       <div class="online_status_indicator_{{$user['id']}} online-status-indicator @if($user['online']) is-online @endif"></div>
     @endforeach
-    <a href="/ticket/view/{{$ticket->id}}">{{$ticket->title}}</a>
+    <a href="/ticket/view/{{$ticket->id}}"><i class="fa fa-ticket"></i>&nbsp;&nbsp;{{$ticket->title}}</a>
   </div>
 
   <div class="typing-indicator">

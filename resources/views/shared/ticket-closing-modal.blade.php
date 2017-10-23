@@ -1,6 +1,6 @@
-<div id="closing_ticket_modal">
+<div id="closing_ticket_modal" class="c-modal">
   <a class="close"></a>
-  <div id="target-inner">
+  <div class="c-modal-inner">
 
     <a class="modal-close">
       <span aria-hidden="true">&times;</span>

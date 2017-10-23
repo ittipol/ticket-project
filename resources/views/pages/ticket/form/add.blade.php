@@ -1,7 +1,7 @@
 @extends('shared.main')
 @section('content')
 
-<div class="image-cover" style="background-image: url(/assets/images/content_add2.jpg);">
+<div class="ticket-add-image-cover">
   <div class="image-cover-content">
     <div class="jumbotron jumbotron-fluid">
       <div class="container">

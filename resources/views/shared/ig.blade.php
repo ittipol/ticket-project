@@ -20,9 +20,9 @@
       display: none;
     }*/
 
-    .i-gallery > figure img {
+    /*.i-gallery > figure img {
       width: 100%;
-    }
+    }*/
 
     .grid-item { width: 47.8%; margin: 0.5%; }
 

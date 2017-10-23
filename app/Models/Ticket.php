@@ -196,7 +196,7 @@ class Ticket extends Model
     return array(
       'id' => $this->id,
       'title' => $this->title,
-      'description' => $this->description,
+      'description' => nl2br($this->description),
       'place_location' => $this->place_location,
       'price' => $currency->format($this->price),
       'original_price' => $originalPrice,

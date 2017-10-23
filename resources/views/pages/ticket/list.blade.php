@@ -7,6 +7,11 @@
     /*background-color: #ddd;*/
   }
 
+  .data-list {
+    opacity: 0;
+    transition: opacity .25s ease-out ;
+  }
+
   .grid-item { width: 23%; margin: 1%; }
 
   @media (max-width: 1366px) {
@@ -108,14 +113,32 @@
 
         </div>
         
-        <div class="w-100">
-          <div class="seller-section text-center">
+        @if(Auth::guest() || (Auth::check() && (Auth::user()->id != $value['created_by'])))
+        
+          <div class="w-100 seller-section text-center">
             <a href="/chat/s/{{$value['id']}}" class="btn seller-chat-btn">
               <div class="online_status_indicator_{{$value['created_by']}} online-status-indicator @if($value['user']['online']) is-online @endif"></div>
               <i class="fa fa-comments" aria-hidden="true"></i> คุยกับผู้ขาย
             </a>
           </div>
-        </div>
+     
+        @else
+
+          <div class="ticket-posting-detail p-2 text-center">
+            <div class="f6"><i class="fa fa-pencil"></i>&nbsp;&nbsp;รายการของคุณ</div>
+          </div>
+
+          <ul class="nav nav-tabs">
+
+            <li class="nav-item">
+              <a href="/ticket/edit/{{$value['id']}}"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;แก้ไข</a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" data-t-closing-modal="1"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;ปิดประกาศ</a>
+            </li>
+          </ul>
+
+        @endif
 
       </div>
     </div>
@@ -146,6 +169,10 @@
   @endif
 
 </div>
+
+<div class="clearfix margin-top-200"></div>
+
+@include('shared.ticket-closing-modal')
 
 <script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
@@ -248,10 +275,14 @@
 
   $(document).ready(function(){
 
-    $('.grid').masonry({
-      itemSelector: '.grid-item',
-      percentPosition: true
-    });
+    setTimeout(function(){
+      $('.grid').masonry({
+        itemSelector: '.grid-item',
+        percentPosition: true
+      });
+
+      $('.data-list').css('opacity','1');
+    },200);
 
     const _ticketFilter = new TicketFilter();
     _ticketFilter.init();

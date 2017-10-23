@@ -3,7 +3,7 @@ $linkLimit = 7;
 ?>
 
 @if($paginator->currentPage() > 1)
-<div class="mt4 mb-3 pt-4 bt b--silver clearfix text-center">
+<div class="mt4 pt4 bt b--silver clearfix tc">
   <ul class="pagination fr">
     <li class="{{ ($paginator->currentPage() == 1) ? ' disabled' : '' }}">
         <a href="{{ $paginator->url(1) }}"><i class="fa fa-chevron-left"></i></a>

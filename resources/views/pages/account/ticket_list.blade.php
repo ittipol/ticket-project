@@ -7,6 +7,11 @@
     background-color: #ddd;
   }
 
+  .data-list {
+    opacity: 0;
+    transition: opacity .25s ease-out ;
+  }
+
   .grid-item { width: 30%; margin: 1%; }
 
   @media (max-width: 1366px) {
@@ -155,10 +160,20 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('.grid').masonry({
-      itemSelector: '.grid-item',
-      percentPosition: true
-    });
+    // $('.grid').masonry({
+    //   itemSelector: '.grid-item',
+    //   percentPosition: true
+    // });
+
+    setTimeout(function(){
+      $('.grid').masonry({
+        itemSelector: '.grid-item',
+        percentPosition: true
+      });
+
+      $('.data-list').css('opacity','1');
+    },200);
+
   });
 </script>
 

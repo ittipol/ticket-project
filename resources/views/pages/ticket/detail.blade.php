@@ -50,10 +50,10 @@
           <i class="fa fa-comments" aria-hidden="true"></i>&nbsp;<small>สอบถามผู้ขาย</small>
         </h5>
         <div>
-          <a href="" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">ต้องการสั่งซื้อสินค้านี้?</a>
-          <a href="" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">ยังมีของอยู่ไหม?</a>
-          <a href="" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">ใช้งานได้ที่ไหนบ้าง?</a>
-          <a href="" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">จัดส่งสินค้ายังไง?</a>
+          <a href="javascript:void(0);" data-chat-modal="1" data-chat-message="ต้องการสั่งซื้อสินค้านี้ต้องทำยังไง" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">ต้องการสั่งซื้อสินค้านี้?</a>
+          <a href="javascript:void(0);" data-chat-modal="1" data-chat-message="ยังมีของอยู่ไหม" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">ยังมีของอยู่ไหม?</a>
+          <a href="javascript:void(0);" data-chat-modal="1" data-chat-message="ใช้งานได้ที่ไหนบ้าง" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">ใช้งานได้ที่ไหนบ้าง?</a>
+          <a href="javascript:void(0);" data-chat-modal="1" data-chat-message="จัดส่งสินค้าด้วยวิธีไหน" class="btn btn-primary br4 pa2 ph3-ns mb2 mr2-ns w-100 w-auto-ns">จัดส่งสินค้ายังไง?</a>
         </div>
       </div>
       @endif
@@ -167,7 +167,89 @@
 <div class="clearfix margin-top-200"></div>
 
 @if(Auth::check() && (Auth::user()->id == $data['created_by']))
-@include('shared.ticket-closing-modal')
+  @include('shared.ticket-closing-modal')
+@else
+  <div id="chat_modal" class="c-modal">
+    <a class="close"></a>
+    <div class="c-modal-inner">
+
+      <a class="modal-close">
+        <span aria-hidden="true">×</span>
+      </a>
+
+      <h5 class="f5"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;<strong>สอบถามรายละเอียดกับผู้ขาย</strong></h5>
+        <textarea id="chat_message" class="form-control w-100 mt3"></textarea>
+        <button type="button" id="chat_submit_message_btn" class="btn btn-primary btn-block br0 mt3">ส่งข้อความ</button>
+      </form>
+
+    </div>
+  </div>
+
+  <script type="text/javascript">
+
+    class TicketChat {
+
+      constructor(user,ticket) {
+        this.user = user;
+        this.ticket = ticket;
+        this.io = null;
+      }
+
+      init() {
+        this.io = new IO();
+        this.bind();
+      }
+
+      bind() {
+
+        let _this = this;
+
+        $('[data-chat-modal="1"]').on('click',function(){
+          $('body').css('overflow-y','hidden');
+
+          // _this.chat = $(this).data('chat-id');
+
+          $('#chat_message').val($(this).data('chat-message'));
+
+          $('#chat_modal').addClass('show');
+        });
+
+        $('#chat_modal > .close').on('click',function(){
+          $('body').css('overflow-y','auto');
+          $('#chat_modal').removeClass('show');
+        });
+
+        $('#chat_modal .modal-close').on('click',function(){
+          $('body').css('overflow-y','auto');
+          $('#chat_modal').removeClass('show');
+        });
+
+        $('#chat_submit_message_btn').on('click',function(){
+          // check message
+          console.log('xds');
+          $(this).attr('disabled',true);
+
+          // GET message
+          message = $('#chat_message').val();
+
+          _this.io.socket.emit('send-message', {
+            message: message,
+            user: _this.user,
+            ticket: _this.ticket,
+          })
+        });
+
+      }
+
+    }
+
+    $(document).ready(function () {
+      const ticketChat = new TicketChat({{Auth::user()->id}},{{$ticketId}});
+      ticketChat.init();
+    });
+
+  </script>
+
 @endif
 
 <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
@@ -176,7 +258,6 @@
 <script type="text/javascript" src="/assets/lib/ig/photoswipe-ui-default.min.js"></script>
 
 <script type="text/javascript">
-
   $(document).ready(function () {
 
     setTimeout(function(){

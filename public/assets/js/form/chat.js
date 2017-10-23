@@ -101,24 +101,6 @@ class Chat {
 				return false;
 			}
 
-			// let me = false;
-
-			// if(_this.chat.user == res.user) {
-			// 	me = true;
-			// }
-
-			// if(!me) {
-			// 	setTimeout(function(){
-			// 		_this.io.socket.emit('message-read', {
-			// 			user: res.user,
-			// 			room: _this.chat.room
-			// 		});
-			// 	},3000);
-			// }
-
-	  //   _this.placeMessage(res,me);
-	  //   _this.toButtom();
-
 	  	if(_this.chat.user != res.user) {
 	  		setTimeout(function(){
 					_this.io.socket.emit('message-read', {
@@ -283,12 +265,5 @@ class Chat {
 		$('.chat-footer-section').css('width',(wW-sidebarW)+'px');
 
 	}
-
-	// messageRead() {
-	// 	this.io.socket.emit('message-read', {
-	// 		room: this.chat.room,
-	// 		user: this.chat.user
-	// 	});
-	// }
 
 }

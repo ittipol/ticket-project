@@ -20,13 +20,8 @@ function userOnline(userId) {
 
 // Update read all message
 function setAllMessageRead(userId) {
-  console.log('+++++++++++++++++++++++++++');
-  console.log('+++++++++++++++++++++++++++');
-  console.log('+++++++++++++++++++++++++++');
-
   // update notify = 1
   db.query("UPDATE `user_in_chat_room` SET `notify` = 0 WHERE `user_id` = "+userId);
-
 }
 
 // Update specifically message
@@ -64,7 +59,6 @@ function notifyMessage(roomId,userId) {
 }
 // display notification with snackbar
 function displayNewMessage(roomId,userId,message) {
-  console.log('display notification');
   io.in('u_'+userId).emit('display-new-message', {
     message: message,
     room: roomId,
@@ -81,9 +75,6 @@ function countMessageNotication(userId) {
 }
 
 function messageNotication(roomId,userId) {
-console.log('-----------------------------------');
-console.log('room '+roomId);
-console.log('user '+userId);
   db.query("SELECT cm.message, cm.user_id, u.name, t.title, cm.created_at FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id LEFT JOIN `ticket_chat_rooms` AS tcr ON cm.chat_room_id = tcr.chat_room_id LEFT JOIN `tickets` AS t ON tcr.ticket_id = t.id WHERE cm.chat_room_id = "+roomId+" ORDER BY cm.created_at DESC LIMIT 1", function(err, messages){
     console.log(messages.length);
     if(messages.length == 1) {
@@ -340,7 +331,7 @@ io.on('connection', function(socket){
       // }
     });
 
-  },300000);
+  },120000);
 
   // setInterval(function(){
   //   console.log('checking...');

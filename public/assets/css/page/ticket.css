@@ -221,10 +221,11 @@
 }
 
 .ticket-detail-section {
-	line-height: 28px;
 	color: #333;
-	background-color: #ececec;
+	line-height: 28px;
+	background-color: #eaeaea;
 	border-top: 1px solid #aaa;
+	padding: 0.625rem;
 }
 
 .quick-chat-section i {
@@ -288,6 +289,15 @@
 .ticket-posting-detail {
 	color: #222;
 	background-color: #ddd;
+}
+
+.ticket-add-image-cover .jumbotron {
+	border-bottom: 1px solid #aaa;
+	background-color: #B0BEC5;
+}
+
+.ticket-add-image-cover .jumbotron h1 {
+	line-height: 38px;
 }
 
 @media (max-width: 768px) {

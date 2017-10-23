@@ -40,7 +40,6 @@ class ChatController extends Controller
       $this->setReadMessage($room->id,Auth::user()->id);
     }else {
       $room = $this->createRoom($ticketId,$ticket->created_by);
-
     }
 
     $chat = array(
@@ -162,6 +161,10 @@ class ChatController extends Controller
     ->orderBy('created_at','desc')
     ->take(1)
     ->first();
+
+    if(empty($message)) {
+      return false;
+    }
 
     $user = Service::loadModel('UserInChatRoom')
     ->where([
