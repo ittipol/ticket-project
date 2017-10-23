@@ -13,7 +13,7 @@
               {{Form::open(['url' => 'ticket','method' => 'get', 'enctype' => 'multipart/form-data'])}}
               <input placeholder="ค้นหา..." type="search" name="q" class="gn-search">
               {{Form::close()}}
-              <a class="gn-icon fa-search"><span>ค้นหา...</span></a>
+              <a class="gn-icon fa-search"><span>ค้นหาบัตร</span></a>
             </li>
             <li><a href="/ticket" class="gn-icon fa-tags">รายการขายบัตร</a></li>
             @if(Auth::check())

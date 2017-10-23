@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\library\service;
 
 class HomeController extends Controller
 {
@@ -10,6 +10,8 @@ class HomeController extends Controller
 
     $this->setMeta('title','Ticket');
 
+    $this->setData('categories',Service::loadModel('TicketCategory')->get());
+    
     return $this->view('pages.home.index');
   }
 }

@@ -47,6 +47,14 @@
       <div class="price-range text-center">
         <input id="price_range_slider" data-slider-id='price_range' type="text" name="price" data-slider-min="1" data-slider-max="50000" data-slider-step="5" data-slider-value="[{{$priceRange['range_1']}},{{$priceRange['range_2']}}]"/>
       </div>
+
+      <div>
+        <label>
+        {{Form::checkbox('not_filter_price', 1, false, array('id' => 'not_filter_price_chkbox'))}}
+        ไม่จำกัดราคา
+        </label>
+      </div>
+
     </div>
 
     <div class="mb-3">
