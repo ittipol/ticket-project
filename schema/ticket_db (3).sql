@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2017 at 02:04 PM
+-- Generation Time: Oct 24, 2017 at 06:07 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -43,7 +43,6 @@ CREATE TABLE `chat_messages` (
 CREATE TABLE `chat_rooms` (
   `id` int(11) UNSIGNED NOT NULL,
   `room_key` varchar(255) NOT NULL,
-  `type` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -129,14 +128,6 @@ CREATE TABLE `social_providers` (
   `alias` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `social_providers`
---
-
-INSERT INTO `social_providers` (`id`, `name`, `alias`) VALUES
-(1, 'facebook', 'fb'),
-(2, 'twitter', '');
-
 -- --------------------------------------------------------
 
 --
@@ -166,13 +157,6 @@ CREATE TABLE `temporary_files` (
   `created_by` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `temporary_files`
---
-
-INSERT INTO `temporary_files` (`id`, `model`, `token`, `filename`, `filesize`, `alias`, `created_by`, `created_at`) VALUES
-(1, 'Ticket', 'kA8ekxas', NULL, NULL, NULL, 1, '2017-10-22 18:14:49');
 
 -- --------------------------------------------------------
 
@@ -294,18 +278,6 @@ CREATE TABLE `users` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `social_provider_id`, `social_user_id`, `email`, `password`, `name`, `avatar`, `remember_token`, `user_key`, `jwt_secret_key`, `has_password`, `email_verified`, `online`, `last_active`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, '1', '$2y$12$/sh.edRN23AavlQyBYK5uOM45Upw9dyCkD.X9K.mhbbkVp/ybXqPO', 'Seller Name #1', 33, 'YiTR8ZMCJLfZPj47zD4gyWgxoHzrD8JoMCP2n3IHeUVHm8Er4NDo9gzBp0aN', 'P8MMnjylNpRuKJhPOUFMmD2LEqYSvDkI', '', 1, 0, 1, '2017-10-22 18:55:44', '2017-10-05 06:06:28', '2017-10-22 18:55:44'),
-(2, NULL, NULL, '2', '$2y$12$/sh.edRN23AavlQyBYK5uOM45Upw9dyCkD.X9K.mhbbkVp/ybXqPO', 'new user !!!!', 34, 'WE45a3Zf7TNxYmRzq6jWRA2aCwYVnb4cMDTS4pueiTzPChWA5FLeg6V52Qjk', '0zS1Gz5j46atvP8MlVVT4Ts5ovyWSw2d', '', 1, 0, 0, '2017-10-21 11:58:21', '2017-10-05 09:18:40', '2017-10-21 11:59:14'),
-(4, NULL, NULL, 'xxx@mail.com', '$2y$12$14L8axtvGyjd154cu/mxlOf/g/SBIoPX5CiPfS8jbw0mxeo9BqGVa', 'xxxx', NULL, NULL, 'e5d4cda72ae59f50fe0db2858b5eace2', '', 1, 0, 0, NULL, '2017-10-11 10:01:50', '2017-10-11 10:01:50'),
-(5, NULL, NULL, 'test@mail.com', '$2y$12$0gYQ8EVrbtEuHCkNLl5OVOuXlzpRXckfkSx8wVraAJUm5ZxBnQ3Di', 'test', NULL, NULL, 'afe0ee8471d878ec731d9ae72b4c5a44', '', 1, 0, 0, NULL, '2017-10-11 10:04:26', '2017-10-11 10:04:26'),
-(6, NULL, NULL, 'aaaaa@mail.com', '$2y$12$Cb9rkDgMvohjfrWxHdlSEO3CQSUF9DflimUTmYZ/DGby7ncAgINdW', 'aaaa', NULL, NULL, 'e49ced394567a59e9b8aebd645dcee2f', '', 1, 0, 0, NULL, '2017-10-11 10:04:46', '2017-10-11 10:04:46'),
-(7, 1, '1433656016731239', 'ittipol_master@hotmail.com', NULL, 'Ittipol Kaewprasert', 35, 'cIemGiLjyuAE1W5AUDTvGmGEr2NHydXru89V3gllq02i1DcoW0CQqaMnxMOK', '1', 'vXIrCHaH6dvINxn0D5A0MMVN1cmjtDS9', 0, 0, 0, '2017-10-22 15:57:40', '2017-10-21 22:40:13', '2017-10-22 18:12:23');
 
 -- --------------------------------------------------------
 
@@ -442,17 +414,17 @@ ALTER TABLE `words`
 -- AUTO_INCREMENT for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `chat_rooms`
 --
 ALTER TABLE `chat_rooms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `image_types`
 --
@@ -477,12 +449,12 @@ ALTER TABLE `social_providers`
 -- AUTO_INCREMENT for table `temporary_files`
 --
 ALTER TABLE `temporary_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `ticket_categories`
 --
@@ -492,7 +464,7 @@ ALTER TABLE `ticket_categories`
 -- AUTO_INCREMENT for table `ticket_chat_rooms`
 --
 ALTER TABLE `ticket_chat_rooms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -502,7 +474,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `words`
 --
 ALTER TABLE `words`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
