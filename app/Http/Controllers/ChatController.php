@@ -12,7 +12,12 @@ class ChatController extends Controller
 {
   public function sellerChat($ticketId) {
 
-    $ticket = Service::loadModel('Ticket')->select('id','title','created_by')->find($ticketId);
+    $ticket = Service::loadModel('Ticket')
+    ->select('id','title','created_by')
+    ->where([
+      ['id','=',$ticketId],
+      ['closing_option','=',0]
+    ])->first();
 
     if(empty($ticket)) {
       Snackbar::message('ไม่พบรายการนี้');
@@ -20,7 +25,7 @@ class ChatController extends Controller
     }
 
     if(Auth::user()->id == $ticket->created_by) {
-      Snackbar::message('ขออภัยคุณไมาสามารถคุยกับผู้ขายรายนี้ได้ คุณกับผู้ขายคือบุคคลเดียวกัน');
+      Snackbar::message('ขออภัยคุณไม่สามารถคุยกับผู้ขายรายนี้ได้ คุณกับผู้ขายคือบุคคลเดียวกัน');
       return Redirect::to('/');
     }
 

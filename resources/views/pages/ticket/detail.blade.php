@@ -178,7 +178,7 @@
       </a>
 
       <h5 class="f5"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;<strong>สอบถามรายละเอียดกับผู้ขาย</strong></h5>
-        <textarea id="chat_message" class="form-control w-100 mt3"></textarea>
+        <textarea id="chat_message" class="modal-textarea show form-control w-100 mt3"></textarea>
         <button type="button" id="chat_submit_message_btn" class="btn btn-primary btn-block br0 mt3">ส่งข้อความ</button>
       </form>
 
@@ -187,7 +187,7 @@
 
   <script type="text/javascript">
 
-    class TicketChat {
+    class TicketChatRoom {
 
       constructor(user,ticket) {
         this.user = user;
@@ -225,14 +225,19 @@
         });
 
         $('#chat_submit_message_btn').on('click',function(){
-          // check message
-          console.log('xds');
+
+          let message = $('#chat_message').val().trim();
+
+          if(message === '') {
+            $('#chat_message').addClass('error');
+            return false;
+          }
+
           $(this).attr('disabled',true);
 
           // GET message
-          message = $('#chat_message').val();
 
-          _this.io.socket.emit('send-message', {
+          _this.io.socket.emit('ticket-chat-room-message-send', {
             message: message,
             user: _this.user,
             ticket: _this.ticket,
@@ -244,8 +249,8 @@
     }
 
     $(document).ready(function () {
-      const ticketChat = new TicketChat({{Auth::user()->id}},{{$ticketId}});
-      ticketChat.init();
+      const ticketChatRoom = new TicketChatRoom({{Auth::user()->id}},{{$ticketId}});
+      ticketChatRoom.init();
     });
 
   </script>

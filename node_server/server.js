@@ -222,6 +222,29 @@ io.on('connection', function(socket){
 
   });
 
+  // check user is online every 2 mins
+  setInterval(function(){
+    
+    db.query("SELECT `id` FROM `users` WHERE `online` = 1 AND `last_active` <= '"+dateTime.now(true,1800000)+"' ORDER BY last_active ASC LIMIT 100", function(err, rows){
+      // if(rows.length > 0) {
+        for (var i = 0; i < rows.length; i++) {
+          if(userOnline(rows[i].id)) {
+            // Clear
+            clients.splice(clients.indexOf(rows[i].id), 1);
+            // Emit
+            // io.in('u_'+rows[i].id).emit('offline', {});
+          }
+
+          io.in('check-online').emit('check-user-online', {
+            user: rows[i].id,
+            online: false
+          });
+          db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+rows[i].id);
+        }
+      // }
+    });
+
+  },120000);
 
 
   // ||||||||||||||||||||||| CHAT |||||||||||||||||||||||
@@ -283,6 +306,39 @@ io.on('connection', function(socket){
 
   });
 
+  socket.on('ticket-chat-room-message-send', function(data){
+    
+    console.log(data);
+
+    db.query('SELECT `id`,`title`,`created_at` FROM `tickets` WHERE `id` = "'+data.ticket+'" AND `closing_option` = 0 LIMIT 1', function(err, rows){
+
+      if((rows.length === 1) && (data.user != rows[0].created_at)) {
+        
+        db.query('SELECT ticket_chat_rooms.chat_room_id FROM `ticket_chat_rooms` LEFT JOIN user_in_chat_room ON user_in_chat_room.chat_room_id = ticket_chat_rooms.chat_room_id WHERE ticket_chat_rooms.ticket_id = '+data.ticket+' AND user_in_chat_room.user_id = '+data.user+' AND user_in_chat_room.role = "b" LIMIT 1',function(err, rooms){
+
+          let roomId;
+          if(rooms.length == 1) {
+            roomId = rooms[0].chat_room_id;
+          }else {
+            // create new room
+            // createRoom(data.ticket,rows[0].created_at)
+
+            // after creating get room id as well
+            // roomId = ???
+          }
+
+          ticketChatRoomSend(roomId,data.user,data.message);
+
+        });
+
+      }else {
+        // send error message
+      }
+
+    })
+
+  })
+
   // socket.on('message-read', function(data){
   //   updateUserReadMessage(data.room,data.user);
   // })
@@ -297,47 +353,59 @@ io.on('connection', function(socket){
 
   socket.on('set-all-message-read', function(data){
     setAllMessageRead(data.user);
-  })
-
-  // setInterval(function(){
-  //   console.log('fetch');
-
-  //   // FETCH Notifications
-
-  //   if(true) {
-  //     io.emit('send-notification', {});
-  //     // io.in(data.chanel).emit('send-notification', res);
-  //   }
-  // },30000);
-
-  setInterval(function(){
-    console.log('check user not active');
-    db.query("SELECT `id` FROM `users` WHERE `online` = 1 AND `last_active` <= '"+dateTime.now(true,1800000)+"' ORDER BY last_active ASC LIMIT 100", function(err, rows){
-      // if(rows.length > 0) {
-        for (var i = 0; i < rows.length; i++) {
-          if(userOnline(rows[i].id)) {
-            // Clear
-            clients.splice(clients.indexOf(rows[i].id), 1);
-            // Emit
-            // io.in('u_'+rows[i].id).emit('offline', {});
-          }
-
-          io.in('check-online').emit('check-user-online', {
-            user: rows[i].id,
-            online: false
-          });
-          db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+rows[i].id);
-        }
-      // }
-    });
-
-  },120000);
-
-  // setInterval(function(){
-  //   console.log('checking...');
-  // },1000);
+  })  
 
 });
+
+function ticketChatRoomSend(roomId,user,message) {
+  db.query('SELECT `room_key` FROM `chat_rooms` WHERE `id` = '+roomId,function(err, rows){
+
+    if(rows.length !== 1) {
+      // send error message
+      io.in(data.chanel).emit('ticket-chat-room-after-sending', {
+        error: true,
+        errorMessage: ''
+      });
+    }
+
+    let saved = chatMessageSave({
+      message: message,
+      room: roomId,
+      user: user,
+      key: rows[0].room_key
+    });
+
+    if(saved) {
+      // send success message
+      // io.in(data.chanel).emit('ticket-chat-room-after-sending', res);
+    }
+
+    // send error message
+
+  });
+}
+
+function chatMessageSave(data) {
+    if((!data.room) || (!data.user) || (!data.key)) {
+      return false;
+    }
+    console.log('message saved');
+    // clearTimeout(notifyMessageHandle[data.room]);
+
+    // // save message
+    // db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', CURRENT_TIMESTAMP);");
+
+    // io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
+    //   user: data.user,
+    //   message: data.message
+    // });
+
+    // notifyMessageHandle[data.room] = setTimeout(function(){
+    //   notifyMessage(data.room,data.user);
+    // },3500);
+
+    return true;
+}
 
 server.listen(env.SOCKET_PORT, env.SOCKET_HOST, () => {
   console.log('App listening on port -> '+env.SOCKET_PORT)

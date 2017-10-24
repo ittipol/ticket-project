@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <textarea id="closing_reason" class="form-control w-100 mt3" name="closing_reason"></textarea>
+      <textarea id="closing_reason" class="modal-textarea form-control w-100 mt3" name="closing_reason"></textarea>
       <small>โปรดระบุเหตุผล</small>
       <button type="submit" class="btn btn-primary btn-block br0 mt3">ตกลง</button>
     {{Form::close()}}
