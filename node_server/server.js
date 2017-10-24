@@ -1,6 +1,7 @@
 var env = require('./env');
 var constVar = require('./const');
 var dateTime = require('./func/date_time');
+var token = require('./func/token');
 //
 var app = require('express')();
 var server = require('http').Server(app);
@@ -282,6 +283,13 @@ io.on('connection', function(socket){
       notifyMessage(data.room,data.user);
     },3500);
 
+    // chatMessageSave({
+    //   message: data.message,
+    //   room: data.room,
+    //   user: data.user,
+    //   key: data.key
+    // });
+
   });
 
   socket.on('chat-load-more', function(data){
@@ -307,41 +315,39 @@ io.on('connection', function(socket){
   });
 
   socket.on('ticket-chat-room-message-send', function(data){
-    
-    console.log(data);
 
-    db.query('SELECT `id`,`title`,`created_at` FROM `tickets` WHERE `id` = "'+data.ticket+'" AND `closing_option` = 0 LIMIT 1', function(err, rows){
+    db.query('SELECT `id`,`title`,`created_by` FROM `tickets` WHERE `id` = "'+data.ticket+'" AND `closing_option` = 0 LIMIT 1', function(err, rows){
 
       if((rows.length === 1) && (data.user != rows[0].created_at)) {
         
         db.query('SELECT ticket_chat_rooms.chat_room_id FROM `ticket_chat_rooms` LEFT JOIN user_in_chat_room ON user_in_chat_room.chat_room_id = ticket_chat_rooms.chat_room_id WHERE ticket_chat_rooms.ticket_id = '+data.ticket+' AND user_in_chat_room.user_id = '+data.user+' AND user_in_chat_room.role = "b" LIMIT 1',function(err, rooms){
 
-          let roomId;
           if(rooms.length == 1) {
-            roomId = rooms[0].chat_room_id;
+            // send
+            ticketChatRoomSend({
+              message: data.message,
+              room: rooms[0].chat_room_id,
+              user: data.user,
+              chanel: data.chanel
+            });
+
           }else {
-            // create new room
-            // createRoom(data.ticket,rows[0].created_at)
-
-            // after creating get room id as well
-            // roomId = ???
+            // create room and send
+            createRoom(rows[0].created_by,data);
           }
-
-          ticketChatRoomSend(roomId,data.user,data.message);
 
         });
 
       }else {
-        // send error message
+        io.in(data.chanel).emit('ticket-chat-room-after-sending', {
+          error: true,
+          errorMessage: 'ไม่พบรายการนี้'
+        });
       }
 
     })
 
   })
-
-  // socket.on('message-read', function(data){
-  //   updateUserReadMessage(data.room,data.user);
-  // })
 
   socket.on('count-message-notification', function(data){
     countMessageNotication(data.user);
@@ -357,55 +363,105 @@ io.on('connection', function(socket){
 
 });
 
-function ticketChatRoomSend(roomId,user,message) {
-  db.query('SELECT `room_key` FROM `chat_rooms` WHERE `id` = '+roomId,function(err, rows){
-
-    if(rows.length !== 1) {
-      // send error message
-      io.in(data.chanel).emit('ticket-chat-room-after-sending', {
-        error: true,
-        errorMessage: ''
+function createRoom(onwer,data) {
+  // create new room
+  db.query('INSERT INTO `chat_rooms` (`id`, `room_key`, `created_at`, `updated_at`) VALUES (NULL, "'+token.generateToken(16)+'", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)', function(err, res){
+    
+    if(!err) {
+      db.query('INSERT INTO `ticket_chat_rooms` (`id`, `chat_room_id`, `ticket_id`, `created_at`) VALUES (NULL, '+res.insertId+', '+data.ticket+', CURRENT_TIMESTAMP)');
+      db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read`, `message_read_date`) VALUES ('+res.insertId+', '+onwer+', "s", 0, 0, NULL)');
+      db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read`, `message_read_date`) VALUES ('+res.insertId+', '+data.user+', "b", 0, 0, NULL)');
+      // send message
+      ticketChatRoomSend({
+        message: data.message,
+        room: res.insertId,
+        user: data.user,
+        chanel: data.chanel
       });
+
+      return res.insertId;
+    }else {
+      return 0;
     }
-
-    let saved = chatMessageSave({
-      message: message,
-      room: roomId,
-      user: user,
-      key: rows[0].room_key
-    });
-
-    if(saved) {
-      // send success message
-      // io.in(data.chanel).emit('ticket-chat-room-after-sending', res);
-    }
-
-    // send error message
 
   });
+  
 }
 
-function chatMessageSave(data) {
-    if((!data.room) || (!data.user) || (!data.key)) {
-      return false;
-    }
-    console.log('message saved');
-    // clearTimeout(notifyMessageHandle[data.room]);
+function ticketChatRoomSend(data) {
 
-    // // save message
-    // db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', CURRENT_TIMESTAMP);");
+  if(data.room === 0) {
+    io.in(data.chanel).emit('ticket-chat-room-after-sending', {
+      error: true,
+      errorMessage: 'ไม่สามารถส่งข้อความได้'
+    });
+  }else {
+    db.query('SELECT `room_key` FROM `chat_rooms` WHERE `id` = '+data.room, function(err, rows){
 
-    // io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
-    //   user: data.user,
-    //   message: data.message
-    // });
+      if(rows.length !== 1) {
+        // send error message
+        io.in(data.chanel).emit('ticket-chat-room-after-sending', {
+          error: true,
+          errorMessage: 'ไม่สามารถส่งข้อความได้'
+        });
+      }
 
-    // notifyMessageHandle[data.room] = setTimeout(function(){
-    //   notifyMessage(data.room,data.user);
-    // },3500);
+      db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', CURRENT_TIMESTAMP)", function(err, res){
+        
 
-    return true;
+        if(!err) {
+
+          clearTimeout(notifyMessageHandle[data.room]);
+
+          io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
+            user: data.user,
+            message: data.message
+          });
+
+          notifyMessageHandle[data.room] = setTimeout(function(){
+            notifyMessage(data.room,data.user);
+          },3500);
+
+          io.in(data.chanel).emit('ticket-chat-room-after-sending', {
+            error: false,
+            room: data.room
+          });
+
+        }else{
+          io.in(data.chanel).emit('ticket-chat-room-after-sending', {
+            error: true,
+            errorMessage: 'ไม่สามารถส่งข้อความได้'
+          });
+        }
+
+      });
+
+    });
+  }
+
 }
+
+// function chatMessageSave(data) {
+//   if((!data.room) || (!data.user) || (!data.key)) {
+//     return false;
+//   }
+  
+//   clearTimeout(notifyMessageHandle[data.room]);
+
+//   // save message
+//   db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', CURRENT_TIMESTAMP)");
+
+//   io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
+//     user: data.user,
+//     message: data.message
+//   });
+
+//   notifyMessageHandle[data.room] = setTimeout(function(){
+//     notifyMessage(data.room,data.user);
+//   },3500);
+
+//   return true;
+// }
 
 server.listen(env.SOCKET_PORT, env.SOCKET_HOST, () => {
   console.log('App listening on port -> '+env.SOCKET_PORT)

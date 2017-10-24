@@ -1,4 +1,4 @@
-class Token {
+module.exports = class Token {
 
 	constructor() {}
 
@@ -10,8 +10,7 @@ class Token {
 	  let code = '';
 	  let len = codeAlphabet.length;
 
-	  for (let i = 0; i <= tokenLen; i++) {
-	  	// code += codeAlphabet[Math.floor(Math.random() * (len - 0) + 0)];
+	  for (let i = 0; i < tokenLen; i++) {
 	  	code += codeAlphabet[Math.floor(Math.random() * (len - 1))];
 	  };
 

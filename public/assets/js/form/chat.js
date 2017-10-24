@@ -68,6 +68,12 @@ class Chat {
 
 	  });
 
+	  $('.chat-section').on('scroll',function(){
+	  	if($(this).scrollTop() < _this.loadPostition) {
+	  		_this.more();
+	  	}
+	  });
+
 	  $(window).resize(function(){
 	  	_this.layout();
 	  	_this.calPosition(window.innerHeight);
@@ -113,12 +119,6 @@ class Chat {
 	  		_this.toButtom();
 	  	}
 
-	  });
-
-	  $('.chat-section').on('scroll',function(){
-	  	if($(this).scrollTop() < _this.loadPostition) {
-	  		_this.more();
-	  	}
 	  });
 
 	  this.io.socket.on('chat-load-more', function(res){

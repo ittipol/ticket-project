@@ -129,7 +129,7 @@ class ChatController extends Controller
 
   }
 
-  private function createRoom($ticketId,$by) {
+  private function createRoom($ticketId,$onwer) {
     // create new room
     $room = Service::loadModel('ChatRoom');
     $room->room_key = Token::generate(16);
@@ -144,7 +144,7 @@ class ChatController extends Controller
     Service::loadModel('UserInChatRoom')
     ->fill([
       'chat_room_id' => $room->id,
-      'user_id' => $by,
+      'user_id' => $onwer,
       'role' => 's',
     ])->save();
 
