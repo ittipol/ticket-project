@@ -120,8 +120,8 @@
             <div class="f6"><i class="fa fa-pencil"></i>&nbsp;&nbsp;{{$value['created_at']}}</div>
           </div>
 
+          @if($value['closing_option'] == 0)
           <ul class="nav nav-tabs">
-
             <li class="nav-item">
               <a href="/ticket/edit/{{$value['id']}}"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;แก้ไข</a>
             </li>
@@ -129,6 +129,11 @@
               <a href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" data-t-closing-modal="1"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;ปิดประกาศ</a>
             </li>
           </ul>
+          @else
+          <div class="tc pa2">
+            ปิดประกาศนี้แล้ว
+          </div>
+          @endif
 
         </div>
 
@@ -160,10 +165,6 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    // $('.grid').masonry({
-    //   itemSelector: '.grid-item',
-    //   percentPosition: true
-    // });
 
     setTimeout(function(){
       $('.grid').masonry({
