@@ -17,6 +17,7 @@
 @media only screen and (max-width : 480px) {
 	.register-page {
 		width: 100%;
+		border: 0;
 		padding: 3.4375rem 0.9375rem;
 	}
 }

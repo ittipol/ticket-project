@@ -24,14 +24,23 @@
       width: 100%;
     }*/
 
+    .i-gallery {
+      opacity: 0;
+      transition: opacity .25s ease-out ;
+    }
+
     .grid-item { width: 47.8%; margin: 0.5%; }
 
-    /*@media (max-width: 1366px) {
-      .grid-item { width: 46%; margin: 1%; }
-    }*/
+    @media (max-width: 1366px) {
+      .grid-item { width: 47.6%; margin: 0.5%; }
+    }
+
+    @media (max-width: 1024px) {
+      .grid-item { width: 47.2%; margin: 0.5%; }
+    }
 
     @media (max-width: 480px) {
-      .grid-item { width: 46.5%; margin: 0.5%; }
+      .grid-item { width: 46.8%; margin: 0.5%; }
     }
 </style>
 
@@ -329,5 +338,14 @@
 
     // execute above function
     initPhotoSwipeFromDOM('.i-gallery');
+
+    setTimeout(function(){
+      $('.i-gallery').masonry({
+        itemSelector: '.grid-item',
+        percentPosition: true
+      });
+
+      $('.i-gallery').css('opacity','1');
+    },200);
   });
 </script>

@@ -26,6 +26,7 @@
 	line-height: 40px;
 	background-color: #fff;
 	padding: 0 1rem;
+	text-align: center;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -281,6 +282,10 @@
 		left: -350px;
 	}
 
+	.chat-title > .online-status-indicator {
+		display: block;
+	}
+
 	.chat-section {
 		left: 0;
 		width: 100% !important;
@@ -294,16 +299,13 @@
 @media (max-width: 480px) {
 
 	.chat-title {
-		padding-left: 34px;
+		padding-left: 40px;
+		text-align: left;
 	}
 
 	.chat-title > a {
 		border-left: 1px solid #aaa;
 		padding-left: 0.625rem;
-	}
-
-	.chat-title > .online-status-indicator {
-		display: block;
 	}
 
 	.message-section .message-box {

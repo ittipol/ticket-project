@@ -49,7 +49,7 @@ class TicketController extends Controller
         }else{
 
           $keywords[] = array('title','like','%'.$word.'%');
-          $keywords[] = array('description','like','%'.$word.'%');
+          // $keywords[] = array('description','like','%'.$word.'%');
           $keywords[] = array('place_location','like','%'.$word.'%');
 
           $_word = Service::loadModel('Word')->select('id')->where('word','like',$word);
@@ -104,39 +104,6 @@ class TicketController extends Controller
 
     if($request->has('start_date') || $request->has('end_date')) {
       $searching = true;
-
-      // $date = array();
-      // if($request->has('start_date')) {
-      //   $date['s'] = $request->start_date;
-      // }
-
-      // if($request->has('end_date')) {
-      //   $date['e'] = $request->end_date;
-      // }
-
-      // $model->where(function ($query) use ($date) {
-
-      //   if(!empty($date['s']) && !empty($date['e'])) {
-      //     $query
-      //     ->where([
-      //       ['tickets.date_1','>=',$date['s']],
-      //       ['tickets.date_1','<=',$date['e']]
-      //     ])
-      //     ->orWhere([
-      //       ['tickets.date_2','>=',$date['s']],
-      //       ['tickets.date_2','<=',$date['e']]
-      //     ]);
-      //   }elseif(!empty($date['s'])) {
-      //     $query
-      //     ->where('tickets.date_1','>=',$date['s'])
-      //     ->orWhere('tickets.date_2','>=',$date['s']);
-      //   }elseif(!empty($date['e'])) {
-      //     $query
-      //     ->where('tickets.date_1','<=',$date['e'])
-      //     ->orWhere('tickets.date_2','<=',$date['e']);
-      //   }
-
-      // });
 
       $model->where(function ($query) use ($request) {
 

@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container margin-top-30 margin-bottom-30">
-  <h5 class="text-center">สร้างบัญชีส่วนตัวฟรีเพื่อใช้ TicketShare อย่างเต็มรูปแบบ!</h5>
+  <h5 class="text-center">สร้างบัญชีส่วนตัวฟรีเพื่อใช้ TicketSnap อย่างเต็มรูปแบบ!</h5>
   <p class="text-center">ด้วยบัญชีส่วนตัวคุณสามารถประกาศขายและแชร์รายการที่คุณสนใจกับเพื่อนแลครอบครัวได้ทันที</p> 
 </div>
 

@@ -247,7 +247,12 @@ label.image-label a:hover {
 	overflow: hidden;
 }
 
-.avatar.avatar-md {
+/*.avatar.avatar-md {
+	width: 200px;
+	height: 200px;
+}*/
+
+.avatar.avatar-display {
 	width: 200px;
 	height: 200px;
 }
@@ -256,7 +261,19 @@ label.image-label a:hover {
 	height: 100%;
 }
 
+@media (max-width: 768px) {
+	.avatar.avatar-display {
+		width: 140px;
+		height: 140px;
+	}
+}
 
+@media (max-width: 480px) {
+	.avatar.avatar-display {
+		width: 180px;
+		height: 180px;
+	}
+}
 
 
 .c-input input[type="checkbox"],

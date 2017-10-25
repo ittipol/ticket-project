@@ -72,7 +72,6 @@
 	width: 100%;
 	color: #37454d;
 	background-color: #fff;
-	/*border: 1px solid #ccc;*/
 	box-shadow: 0 1px 4px rgba(41,51,57,.5); 
 	border-radius: 8px;
 	overflow: hidden;
@@ -93,7 +92,6 @@
 	margin-bottom: 1rem;
 	font-size: 14px;
 	font-weight: bold;
-	/*margin-left: 10px;*/
 }
 
 .additional-data-section .additional-item:last-child {
@@ -217,11 +215,11 @@
 }
 
 .ticket-detail-section {
-	color: #333;
+	color: #222;
 	line-height: 28px;
-	background-color: #eaeaea;
+	background-color: #fff;
 	border-top: 1px solid #aaa;
-	padding: 0.625rem;
+	padding: 0.375rem;
 }
 
 .quick-chat-section i {
@@ -289,11 +287,18 @@
 
 .ticket-add-image-cover .jumbotron {
 	border-bottom: 1px solid #aaa;
-	background-color: #B0BEC5;
+	/*background-color: #B0BEC5;*/
+	/*background-color: #23272f;*/
+	background-color: rgb(18,34,47);
+	background-image: url(/assets/images/common/stars.png);
+	background-position: center;
+	background-size: 100%;
+	background-repeat: no-repeat;
 }
 
 .ticket-add-image-cover .jumbotron h1 {
 	line-height: 38px;
+	color: #ececec;
 }
 
 @media (max-width: 768px) {
@@ -301,7 +306,9 @@
 		top: 100%;
 		width: 100%;
 		height: 100% !important;
-		transition: top .3s ease-out;
+		background-color: #e8e8e8;
+		border-top: 4px solid #2979FF;
+		transition: top .24s ease-in-out;
 		z-index: 50;
 	}
 
@@ -345,5 +352,9 @@
 }
 
 @media (max-width: 480px) {
+
+	.ticket-add-image-cover .jumbotron h1 {
+		font-size: 1.5rem;
+	}
 
 }

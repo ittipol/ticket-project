@@ -27,7 +27,7 @@
 
     <div class="col-md-8">
 
-      <p class="ticket-detail-section pa2 pt2-ns pa0-ns mb-3">{!!$data['description']!!}</p>
+      <p class="ticket-detail-section pt2-ns mb-3">{!!$data['description']!!}</p>
 
       @include('shared.ig')
 
@@ -44,7 +44,7 @@
       </div>
       @endif
 
-      @if(Auth::guest() || (Auth::check() && (Auth::user()->id != $data['created_by'])))
+      @if((Auth::check() && (Auth::user()->id != $data['created_by'])))
       <div class="quick-chat-section px-2 py-3">
         <h5>
           <i class="fa fa-comments" aria-hidden="true"></i>&nbsp;<small>สอบถามผู้ขาย</small>
@@ -168,7 +168,7 @@
 
 @if(Auth::check() && (Auth::user()->id == $data['created_by']))
   @include('shared.ticket-closing-modal')
-@else
+@elseif(Auth::check())
   @include('shared.ticket-chat-room')
 @endif
 
@@ -179,18 +179,9 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
-
-    setTimeout(function(){
-      $('.i-gallery').masonry({
-        itemSelector: '.grid-item',
-        percentPosition: true
-      });
-    },200);
-
     const _userOnline = new UserOnline();
     _userOnline.init();
     _userOnline.check({{$data['created_by']}});
-
   });
 </script>
 

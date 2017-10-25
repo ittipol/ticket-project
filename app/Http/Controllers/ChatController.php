@@ -16,7 +16,8 @@ class ChatController extends Controller
     ->select('id','title','created_by')
     ->where([
       ['id','=',$ticketId],
-      ['closing_option','=',0]
+      ['closing_option','=',0],
+      ['date_2','>=',date('Y-m-d')]
     ])->first();
 
     if(empty($ticket)) {
@@ -118,8 +119,17 @@ class ChatController extends Controller
     $ticket = Service::loadModel('TicketChatRoom')
     ->select('tickets.id','tickets.title')
     ->join('tickets', 'ticket_chat_rooms.ticket_id', '=', 'tickets.id')
-    ->where('chat_room_id','=',$roomId)
+    ->where([
+      ['ticket_chat_rooms.chat_room_id','=',$roomId],
+      ['tickets.closing_option','=',0],
+      ['tickets.date_2','>=',date('Y-m-d')]
+    ])
     ->first();
+
+    if(empty($ticket)) {
+      Snackbar::message('ไม่พบรายการนี้');
+      return Redirect::to('/');
+    }
 
     $this->setData('chat',json_encode($chat));
     $this->setData('ticket',$ticket);

@@ -44,7 +44,7 @@
 
 <div class="chat-section">
 
-  <div class="chat-title text-center">
+  <div class="chat-title">
     @foreach($users as $user)
       <div class="online_status_indicator_{{$user['id']}} online-status-indicator @if($user['online']) is-online @endif"></div>
     @endforeach

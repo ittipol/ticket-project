@@ -3,8 +3,8 @@
 
 <style type="text/css">
   body {
-    background-color: #607D8B;
-    /*background-color: #ddd;*/
+    /*background-color: #607D8B;*/
+    background-color: #CFD8DC;
   }
 
   .data-list {

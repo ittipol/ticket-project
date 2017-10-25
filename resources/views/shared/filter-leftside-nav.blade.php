@@ -8,7 +8,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 
-  <div class="p-3 mb5">
+  <div class="p-3 mb4">
 
     {{Form::open(['id' => 'ticket_filter_form', 'method' => 'get', 'enctype' => 'multipart/form-data'])}}
 
@@ -38,7 +38,7 @@
       )) }}
     </div>
 
-    <div class="mt-4 mb-3">
+    <div class="mt-4">
 
       <!-- <div>
         <label class="control control--checkbox mb-2">
@@ -67,7 +67,7 @@
 
     </div>
 
-    <div class="mb-3">
+    <div class="mt-4">
       <h4 class="my-2">ช่วงเวลาการใช้งานของบัตร</h4>
       <div class="input-group">
         <span class="input-group-addon">
@@ -133,6 +133,6 @@
 
   </div>
 
-  <div class="clearfix margin-top-200"></div>
+  <!-- <div class="clearfix margin-top-200"></div> -->
 
 </div>

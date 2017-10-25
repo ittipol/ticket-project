@@ -39,13 +39,14 @@
 	overflow: hidden;
 	text-align: center;
 	position: relative;
-	background-color: #3F51B5;
-	/*background-image: url(/assets/images/content_add2.jpg);*/
-	/*background-size: cover;*/
-	/*background-position: fixed;*/
+	/*background-color: #3F51B5;*/
+	background-color: #CFD8DC;
+	/*background-color: rgb(18,34,47);
+	background-image: url(/assets/images/common/stars.png);
+	background-position: top center;*/
 }
 
-.parallax-bg:before {
+/*.parallax-bg:before {
 	content: "";
 	left: 0;
 	bottom: 0;
@@ -55,10 +56,10 @@
 	text-align: center;
 	position: absolute;
 	background: rgba(0,0,0,0.5);
-}
+}*/
 
 .information-grid i {
-	color: #1A237E;
+	color: #546E7A;
 }
 
 @media (max-width: 480px) {

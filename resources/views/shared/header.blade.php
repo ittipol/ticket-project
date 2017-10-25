@@ -82,7 +82,7 @@
 
       <li class="btn-hover">
         <a href="/ticket/new">
-          ขายบัตร
+          <i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;ขายบัตร
         </a>
       </li>
   </ul>

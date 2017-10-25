@@ -15,7 +15,7 @@
       
       {{Form::open(['url' => 'ticket','method' => 'get', 'enctype' => 'multipart/form-data'])}}
         <div class="input-group w-60-l w-100-ns mx-auto">
-          <input type="text" class="form-control" placeholder="ค้นหาบัตร">
+          <input type="text" class="form-control" placeholder="ค้นหาบัตร" autocomplete="off">
           <span class="input-group-btn">
             <button class="btn btn-primary" type="submit">
               <i class="fa fa-search"></i>
@@ -32,8 +32,8 @@
 <div class="parallax-bg">
   <div class="container margin-top-60 margin-bottom-60">
     <div class="content-section tl">
-      <h1 class="mb-3">เริ่มต้นขายบัตรของคุณ</h1>
-      <p class="margin-bottom-20">บัตรคอนเสิร์ต ตั๋ว วอชเชอร์ และอื่นๆที่ไม่ได้ใช้แล้วสามารถนำมาขายได้ที่นี่</p>
+      <h1 class="dark-gray mb-3">เริ่มต้นขายบัตรของคุณ</h1>
+      <p class="dark-gray margin-bottom-20">บัตรคอนเสิร์ต ตั๋ว วอชเชอร์ และอื่นๆที่ไม่ได้ใช้แล้วสามารถนำมาขายได้ที่นี่</p>
       <a class="btn btn-lg btn-primary" href="/ticket/new">
         ขายบัตรของคุณตอนนี้
       </a>
@@ -44,8 +44,8 @@
 <div class="parallax-bg">
   <div class="container margin-top-60 margin-bottom-60">
     <div class="content-section tr">
-      <h1 class="mb-3">เลือกซื้อและค้นหาบัตร</h1>
-      <p class="margin-bottom-20">เลือกซื้อบัตรตามที่คุณต้องการ นอกจากนี้มีการแบ่งหมวดหมู่ออกเป็น 15 หมวดหมู่เพื่อง่ายต่อการเข้าถึงและค้นหา</p>
+      <h1 class="dark-gray mb-3">เลือกซื้อและค้นหาบัตร</h1>
+      <p class="dark-gray margin-bottom-20">เลือกซื้อบัตรตามที่คุณต้องการ นอกจากนี้มีการแบ่งหมวดหมู่ออกเป็น 15 หมวดหมู่เพื่อง่ายต่อการเข้าถึงและค้นหา</p>
       <a class="btn btn-lg btn-primary" href="/ticket/new">
         แสดงรายการขายบัตร
       </a>
