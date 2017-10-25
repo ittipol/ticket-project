@@ -62,21 +62,22 @@ class User {
 
 		this.io.socket.on('message-notification-list', function(res){
 
-			// loop data and patch message notification
-			// patchMessageNotification
-// console.log('message notification list update');
 			for (var i = 0; i < res.length; i++) {
-				// console.log(res[i])
+
+				if($('#message_'+res[i].room).length) {
+					$('#message_'+res[i].room).remove();
+				}
+
 				$('#message_notification_list').append(_this.messageNotificationListHtml(res[i]));
 			}
 
 		})
 
 		this.io.socket.on('message-notification', function(res){
-			console.log('message+list....');
 
-			// remove by id
-			// $('message_'+res.room).remove();
+			if($('#message_'+res.room).length) {
+				$('#message_'+res.room).remove();
+			}
 
 			// create new and place top of list
 			$('#message_notification_list').prepend(_this.messageNotificationListHtml(res));
@@ -106,36 +107,24 @@ class User {
 
 	messageNotificationListHtml(data) {
 
-		// return `
-		// 	<a href="/chat/r/${data.room}" id="" class="message-notification-list-item clearfix">
-		// 	  <div class="message-notification-icon fl">
-		// 	    <img class="avatar" src="/avatar/${data.user}?d=1">
-		// 	  </div>
-		// 	  <div class="message-notification-content fl">
-		// 	    <div><small><strong>${data.name}</strong></small></div>
-		// 	    <div>${data.message}</div>
-		// 	  </div>
-		// 	</a>
-  //   `;
+		if(data.isSender) {
+			var senderLable = 'คุณได้ส่งข้อความถึง '+data.name+' ('+data.date+')';
+		}else{
+			var senderLable = data.name+' ได้ส่งข้อความถึงคุณ'+' ('+data.date+')';
+		}
 
-  			if(data.isSender) {
-  				var senderLable = 'คุณได้ส่งข้อความถึง '+data.name+' ('+data.date+')';
-  			}else{
-  				var senderLable = data.name+' ได้ส่งข้อความถึงคุณ'+' ('+data.date+')';
-  			}
-
-  			return `
-  				<a href="/chat/r/${data.room}" id="message_${data.room}" class="message-notification-list-item">
-  				  <div class="message-notification-icon">
-  				    <img class="avatar" src="/avatar/${data.user}?d=1">
-  				  </div>
-  				  <div class="message-notification-content">
-  				    <div><i class="fa fa-comment" aria-hidden="true"></i>&nbsp;${data.message}</div>
-  				    <div class="bb b--moon-gray pb-2"><small>${senderLable}</small></div>
-  				  	<div><small>${data.ticket}</small></div>
-  				  </div>
-  				</a>
-  	    `;
+		return `
+			<a href="/chat/r/${data.room}" id="message_${data.room}" class="message-notification-list-item">
+			  <div class="message-notification-icon">
+			    <img class="avatar" src="/avatar/${data.user}?d=1">
+			  </div>
+			  <div class="message-notification-content">
+			    <div><i class="fa fa-comment" aria-hidden="true"></i>&nbsp;${data.message}</div>
+			    <div class="bb b--moon-gray pb-2"><small>${senderLable}</small></div>
+			  	<div><small>${data.ticket}</small></div>
+			  </div>
+			</a>
+    `;
 
     // return html;
 	}

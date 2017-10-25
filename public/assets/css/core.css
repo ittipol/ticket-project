@@ -88,54 +88,6 @@ form .state-error + em {
 	line-height: 20px;
 }
 
-/*.image-cover {
-	width: 100%;
-	padding: 0;
-	margin-right: auto;
-	position: relative;
-	min-height: 300px;
-	height: 100%;
-	max-height: 300px;
-	overflow: hidden;
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-}
-
-.image-cover:before {
-	content: "";
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	z-index: 9;
-	height: 100%;
-	text-align: center;
-	position: absolute;
-	background: rgba(0,0,0,0.5);
-}
-
-.image-cover > .image-cover-content {
-	position: relative;
-	z-index: 10;
-}
-
-.image-cover .jumbotron {
-	color: #fff;
-	background-color: transparent;
-}
-
-.image-cover .jumbotron h1 {
-	text-align: center;
-	border-bottom: 2px solid mediumpurple;
-	padding-bottom: 0.5rem;
-}*/
-
-/*#uploader input[type="file"] {
-	opacity: 0;
-  position: absolute;
-  z-index: -1;
-}*/
-
 .upload-image {
 	min-height: 180px;
 }
@@ -705,4 +657,69 @@ label.image-label a:hover {
     80%  {margin-left:-50px;opacity:1;}
     90% {height:35px;width:50px;margin-left:50px;opacity:0;}
     100% {opacity:0;}
+}
+
+
+
+
+.control {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.control input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.control__indicator {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  /*background: #e6e6e6;*/
+  background: #ccc;
+}
+.control--radio .control__indicator {
+  border-radius: 50%;
+}
+/*.control:hover input ~ .control__indicator,
+.control input:focus ~ .control__indicator {
+  background: #ccc;
+}*/
+.control input:checked ~ .control__indicator {
+  background: #2aa1c0;
+}
+/*.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+  background: #0e647d;
+}*/
+.control input:disabled ~ .control__indicator {
+  background: #e6e6e6;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.control__indicator:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.control input:checked ~ .control__indicator:after {
+  display: block;
+}
+.control--checkbox .control__indicator:after {
+  left: 8px;
+  top: 3px;
+  width: 5px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.control--checkbox input:disabled ~ .control__indicator:after {
+  border-color: #7b7b7b;
 }

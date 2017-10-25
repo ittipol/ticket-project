@@ -11,35 +11,27 @@ use Auth;
 
 class TicketController extends Controller
 {
-  public function listView() {
+  public function listView(Request $request) {
 
     $model = Service::loadModel('Ticket')->query();
 
     $currentPage = 1;
-    if(request()->has('page')) {
-      $currentPage = request()->page;
+    if($request->has('page')) {
+      $currentPage = $request->page;
     }
     //set page
     Paginator::currentPageResolver(function() use ($currentPage) {
         return $currentPage;
     });
 
-    $priceRange = array(
-      'range_1' => 0,
-      'range_2' => 50000
-    );
-
-    // dd(request()->all());
+    // dd($request->all());
 
     $searching = false;
 
-    // $model = $model->query();
-
-    if(request()->has('q')) {
-
+    if($request->has('q')) {
       $searching = true;
 
-      $_q = preg_replace('/\s[+\'\'\\\\\/:;()*\-^&!<>\[\]\|]\s/', ' ', trim(request()->q));
+      $_q = preg_replace('/\s[+\'\'\\\\\/:;()*\-^&!<>\[\]\|]\s/', ' ', trim($request->q));
       $_q = preg_replace('/\s{1,}/', ' ', $_q);
 
       $keywords = array();
@@ -87,79 +79,133 @@ class TicketController extends Controller
       }
     }
 
-    if(request()->has('price')) {
+    if($request->has('category')) {
       $searching = true;
 
-      $_price = explode(',', request()->price);
-
-      $priceRange = array(
-        'range_1' => $_price[0],
-        'range_2' => $_price[1]
-      );
-
-      $model->whereBetween('tickets.price', $_price);
-    }
-
-    if(request()->has('category')) {
-      $searching = true;
       $model
       ->join('ticket_to_categories', 'ticket_to_categories.ticket_id', '=', 'tickets.id')
-      ->whereIn('ticket_to_categories.ticket_category_id',request()->get('category'));
+      ->whereIn('ticket_to_categories.ticket_category_id',$request->get('category'));
     }
 
-    if(request()->has('startDate') || request()->has('endDate')) {
-
+    if($request->has('price_start') || $request->has('price_end')) {
       $searching = true;
 
-      $date = array();
+      $model->where(function ($query) use ($request) {
+        if($request->price_start) {
+          $query->where('tickets.price','>=',$request->price_start);
+        }
 
-      if(request()->has('startDate')) {
-        $date['s'] = request()->startDate;
-      }
+        if($request->price_end) {
+          $query->where('tickets.price','<=',$request->price_end);
+        }
+      });
 
-      if(request()->has('endDate')) {
-        $date['e'] = request()->endDate;
-      }
+    }
 
-      $model->where(function ($query) use ($date) {
+    if($request->has('start_date') || $request->has('end_date')) {
+      $searching = true;
 
-        if(!empty($date['s']) && !empty($date['e'])) {
+      // $date = array();
+      // if($request->has('start_date')) {
+      //   $date['s'] = $request->start_date;
+      // }
+
+      // if($request->has('end_date')) {
+      //   $date['e'] = $request->end_date;
+      // }
+
+      // $model->where(function ($query) use ($date) {
+
+      //   if(!empty($date['s']) && !empty($date['e'])) {
+      //     $query
+      //     ->where([
+      //       ['tickets.date_1','>=',$date['s']],
+      //       ['tickets.date_1','<=',$date['e']]
+      //     ])
+      //     ->orWhere([
+      //       ['tickets.date_2','>=',$date['s']],
+      //       ['tickets.date_2','<=',$date['e']]
+      //     ]);
+      //   }elseif(!empty($date['s'])) {
+      //     $query
+      //     ->where('tickets.date_1','>=',$date['s'])
+      //     ->orWhere('tickets.date_2','>=',$date['s']);
+      //   }elseif(!empty($date['e'])) {
+      //     $query
+      //     ->where('tickets.date_1','<=',$date['e'])
+      //     ->orWhere('tickets.date_2','<=',$date['e']);
+      //   }
+
+      // });
+
+      $model->where(function ($query) use ($request) {
+
+        if(!empty($request->start_date) && !empty($request->end_date)) {
           $query
           ->where([
-            ['tickets.date_1','>=',$date['s']],
-            ['tickets.date_1','<=',$date['e']]
+            ['tickets.date_1','>=',$request->start_date],
+            ['tickets.date_1','<=',$request->end_date]
           ])
           ->orWhere([
-            ['tickets.date_2','>=',$date['s']],
-            ['tickets.date_2','<=',$date['e']]
+            ['tickets.date_2','>=',$request->start_date],
+            ['tickets.date_2','<=',$request->end_date]
           ]);
-        }elseif(!empty($date['s'])) {
+        }elseif(!empty($request->start_date)) {
           $query
-          ->where('tickets.date_1','>=',$date['s'])
-          ->orWhere('tickets.date_2','>=',$date['s']);
-        }elseif(!empty($date['e'])) {
+          ->where('tickets.date_1','>=',$request->start_date)
+          ->orWhere('tickets.date_2','>=',$request->start_date);
+        }elseif(!empty($request->end_date)) {
           $query
-          ->where('tickets.date_1','<=',$date['e'])
-          ->orWhere('tickets.date_2','<=',$date['e']);
+          ->where('tickets.date_1','<=',$request->end_date)
+          ->orWhere('tickets.date_2','<=',$request->end_date);
         }
 
       });
       
     }
 
-    $data = $model
-    ->where(function($q) {
+    $model->where(function($q) {
       $q->where([
         ['closing_option','=',0],
-        // ['date_2','>=',date('Y-m-d')]
+        ['date_2','>=',date('Y-m-d')]
       ]);
-    })
-    ->orderBy('tickets.created_at','desc')
-    ->paginate(24);
+    });
 
-    $this->setData('data',$data);
+    if($request->has('sort')) {
+
+      switch ($request->sort) {
+        // case 'post_n':
+        //   $model->orderBy('tickets.created_at','desc');
+        //   break;
+        
+        case 'post_o':
+          $model->orderBy('tickets.created_at','asc');
+          break;
+
+        case 'price_h':
+          $model->orderBy('tickets.price','desc');
+          break;
+
+        case 'price_l':
+          $model->orderBy('tickets.price','asc');
+          break;
+
+        case 'card_date':
+          // $model->orderBy('tickets.date_1','asc');
+          $model->orderBy('tickets.date_2','asc');
+          break;
+
+        default:
+          $model->orderBy('tickets.created_at','desc');
+          break;
+      }
+
+    }
+
+    // $data = $model->paginate(24);
+
+    $this->setData('data',$model->paginate(24));
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
-    $this->setData('priceRange',$priceRange);
     $this->setData('search',$searching);
 
     $this->setMeta('title','รายการขาย');

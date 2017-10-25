@@ -177,7 +177,6 @@
 <script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
 <script type="text/javascript" src="/assets/js/user_online.js"></script>
-<script type="text/javascript" src="/assets/js/bootstrap-slider.min.js"></script>
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
 
 <script type="text/javascript">
@@ -195,22 +194,6 @@
 
       let _this = this;
 
-      $('#price_range_slider').slider();
-
-      $('#price_range').on('click', function() {
-
-        let val = $('#price_range_slider').val();
-        val = val.split(',');
-
-        $('#price_range_min').text(val[0]);
-        $('#price_range_max').text(val[1]);
-      });
-
-      $('#price_range_slider').on('slide', function(e) {
-        $('#price_range_min').text(e.value[0]);
-        $('#price_range_max').text(e.value[1]);
-      });
-
       $('#fiter_panel_toggle').on('click', function() {
         $('#fiter_panel_toggle').attr('disabled',true);
         $('body').css('overflow-y','hidden');
@@ -227,8 +210,6 @@
         
         if(($('#start_date').val() !== '') && ($('#end_date').val() !== '')) {        
           if(DateTime.dateToTimestamp($('#start_date').val()) >= DateTime.dateToTimestamp($('#end_date').val())) {
-            // $('#start_date').removeAttr('name');
-            // $('#end_date').removeAttr('name');
 
             const snackbar = new Snackbar();
             snackbar.setTitle('ไม่อนุญาตให้กรอกวันที่เริ่มต้นมากกว่าหรือเท่ากับวันที่สิ้นสุด');
@@ -236,17 +217,49 @@
 
             return false;
           }
-        }else{
-          if($('#start_date').val() === '') {
-            $('#start_date').removeAttr('name');
-          }
-
-          if($('#end_date').val() === '') {
-            $('#end_date').removeAttr('name');
-          }
         }
 
-        if($('#q').val() == '') {
+        let priceStart = $('#price_start').val().trim();
+        let priceEnd = $('#price_end').val().trim();
+
+
+        if((priceStart !== '') && (!/^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/g.test(priceStart))) {
+          const snackbar = new Snackbar();
+          snackbar.setTitle('จำนวนราคาไม่ถูกต้อง');
+          snackbar.display();
+
+          return false;
+        }else if((priceEnd !== '') && (!/^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/g.test(priceEnd))) {
+          const snackbar = new Snackbar();
+          snackbar.setTitle('จำนวนราคาไม่ถูกต้อง');
+          snackbar.display();
+
+          return false;
+        }else if(((priceStart !== '') && (priceEnd !== '')) && (parseInt(priceStart) >= parseInt(priceEnd))) {
+          const snackbar = new Snackbar();
+          snackbar.setTitle('จำนวนราคาเริ่มต้นหรือสิ้นสุดไม่ถูกต้อง');
+          snackbar.display();
+
+          return false;
+        }
+
+        if(priceStart === '') {
+          $('#price_start').removeAttr('name');
+        }
+
+        if(priceEnd === '') {
+          $('#price_end').removeAttr('name');
+        }
+
+        if($('#start_date').val() === '') {
+          $('#start_date').removeAttr('name');
+        }
+
+        if($('#end_date').val() === '') {
+          $('#end_date').removeAttr('name');
+        }
+
+        if($('#q').val().trim() === '') {
           $('#q').removeAttr('name');
         }
 
