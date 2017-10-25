@@ -9,7 +9,7 @@
 
   .data-list {
     opacity: 0;
-    transition: opacity .25s ease-out ;
+    transition: opacity .3s ease-out ;
   }
 
   .grid-item { width: 23%; margin: 1%; }
@@ -297,7 +297,7 @@
       });
 
       $('.data-list').css('opacity','1');
-    },200);
+    },300);
 
     const _ticketFilter = new TicketFilter();
     _ticketFilter.init();

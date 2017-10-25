@@ -26,7 +26,7 @@
 
     .i-gallery {
       opacity: 0;
-      transition: opacity .25s ease-out ;
+      transition: opacity .3s ease-out ;
     }
 
     .grid-item { width: 47.8%; margin: 0.5%; }
@@ -346,6 +346,6 @@
       });
 
       $('.i-gallery').css('opacity','1');
-    },200);
+    },300);
   });
 </script>
