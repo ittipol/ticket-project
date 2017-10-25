@@ -80,20 +80,20 @@ class HandleImageFile
           $width = 960;
 
           if(($ratio > 1) && ($ratio < 1.6)) {
-            $width = $originalWidth/2;
+            $width = $originalWidth / 2;
           } 
 
-          $height = round($originalHeight*($width/$originalWidth));
+          $height = $originalHeight * ($width / $originalWidth);
 
         }elseif($originalWidth < $originalHeight) {
 
           $height = 960;
 
           if(($ratio > 1) && ($ratio < 1.6)) {
-            $height = $originalHeight/2;
+            $height = $originalHeight / 2;
           } 
 
-          $width = round($originalWidth*($height/$originalHeight));
+          $width = $originalWidth * ($height / $originalHeight);
 
         }else {
           // ratio = 1
@@ -113,7 +113,7 @@ class HandleImageFile
         // bottom_y = top_y + 400
 
         $height = 400;
-        $width = round($originalWidth*($height/$originalHeight));
+        $width = $originalWidth * ($height / $originalHeight);
       }
     }
 
