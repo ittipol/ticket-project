@@ -169,12 +169,6 @@ class Ticket extends Model
         'fields' => array('id','model','model_id','filename','image_type_id')
       ));
 
-      // foreach ($_images as $image) {
-      //   $images[] = array_merge($image->buildModelData(),array(
-      //     '_preview_url' => $cache->getCacheImageUrl($image,'md_scale')
-      //   ));
-      // }
-
       foreach ($_images as $image) {
         $images[] = $image->buildSlide();
       }
@@ -202,10 +196,11 @@ class Ticket extends Model
       'original_price' => $originalPrice,
       'save' => $save,
       'date_type' => $this->date_type,
+      'closing_option' => $this->closing_option,
       'dateTypeLabel' => $this->getDateTypeById($this->date_type),
       'date_1' => Date::covertDateToSting($this->date_1),
       'date_2' => Date::covertDateToSting($this->date_2),
-      'contact' => $this->contact,
+      'contact' => nl2br($this->contact),
       'created_by' => $this->created_by,
       'created_at' => Date::calPassedDate($this->created_at->format('Y-m-d H:i:s')),
       'images' => $images,

@@ -258,7 +258,7 @@ class Chat {
 		});
 
 		$('.chat-section').css({
-			'height': (wH-navbarH)+'px',
+			'height': (wH-navbarH-50)+'px',
 			'width': (wW-sidebarW)+'px'
 		});
 

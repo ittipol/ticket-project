@@ -6,8 +6,18 @@
 <div class="container">
   <div class="row">
 
+    <div class="col-12">
+      @if($data['closing_option'] != 0)
+        <div class="alert alert-info tc">
+          ผู้ขายปิดประกาศนี้แล้ว
+        </div>
+      @endif
+    </div>
+
     <div class="col-md-8">
+
       <h3>{{$data['title']}}</h3>
+
       <div class="text-left">
         <small><strong>แชร์</strong></small>
         <a class="btn btn-facebook btn-share" href="https://www.facebook.com/sharer/sharer.php?u={{Request::fullUrl()}}" target="_blank">
@@ -22,8 +32,8 @@
       </div>  
     </div>
 
-    <div class="col-md-4">
-    </div>
+    <!-- <div class="col-md-4">
+    </div> -->
 
     <div class="col-md-8">
 
@@ -130,7 +140,7 @@
       </div>
 
       <div class="contact-section pa2 pa0-ns mt-3 mt-2-ns bt">
-        <div class="clearfix pa0 pa3-ns">
+        <div class="clearfix pa0 ph2-ns pv3-ns">
           <h5 class="mt-1 pb-2">
             <i class="fa fa-address-book" aria-hidden="true"></i>
             &nbsp;ช่องทางสำหรับติดต่อผู้ขาย
@@ -158,7 +168,7 @@
       </div>
 
       @endif
-      
+
     </div>
 
   </div>

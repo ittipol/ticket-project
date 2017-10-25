@@ -171,7 +171,7 @@ class TicketController extends Controller
 
     // $data = $model->paginate(24);
 
-    $this->setData('data',$model->paginate(24));
+    $this->setData('data',$model->paginate(36));
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('search',$searching);
 
@@ -183,8 +183,8 @@ class TicketController extends Controller
   public function detail($ticketId) {
 
     $model = Service::loadModel('Ticket')->where([
-      ['id','=',request()->ticketId],
-      ['closing_option','=',0]
+      ['id','=',request()->ticketId]
+      // ['closing_option','=',0]
     ])->first();
 
     if(empty($model)) {

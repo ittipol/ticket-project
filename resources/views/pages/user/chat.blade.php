@@ -48,7 +48,9 @@
     @foreach($users as $user)
       <div class="online_status_indicator_{{$user['id']}} online-status-indicator @if($user['online']) is-online @endif"></div>
     @endforeach
-    <a href="/ticket/view/{{$ticket->id}}"><i class="fa fa-ticket"></i>&nbsp;&nbsp;{{$ticket->title}}</a>
+    <a href="/ticket/view/{{$ticket->id}}">
+      <i class="fa fa-ticket"></i>&nbsp;&nbsp;@if($ticket->closing_option != 0)[ผู้ขายปิดประกาศนี้แล้ว]&nbsp;&nbsp;@endif{{$ticket->title}}
+    </a>
   </div>
 
   <div class="typing-indicator">

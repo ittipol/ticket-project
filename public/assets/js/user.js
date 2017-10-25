@@ -61,25 +61,20 @@ class User {
 		});
 
 		this.io.socket.on('message-notification-list', function(res){
-
 			for (var i = 0; i < res.length; i++) {
-
 				if($('#message_'+res[i].room).length) {
 					$('#message_'+res[i].room).remove();
 				}
 
 				$('#message_notification_list').append(_this.messageNotificationListHtml(res[i]));
 			}
-
 		})
 
 		this.io.socket.on('message-notification', function(res){
-
 			if($('#message_'+res.room).length) {
 				$('#message_'+res.room).remove();
 			}
-
-			// create new and place top of list
+			// create new and place to top of list
 			$('#message_notification_list').prepend(_this.messageNotificationListHtml(res));
 		})
 
@@ -112,6 +107,13 @@ class User {
 		}else{
 			var senderLable = data.name+' ได้ส่งข้อความถึงคุณ'+' ('+data.date+')';
 		}
+console.log(data.closing_option);
+		let ticket = '';
+		if(data.closing_option != 0) {
+			ticket = '[ผู้ขายปิดประกาศนี้แล้ว] '+data.ticket;
+		}else {
+			ticket = data.ticket;
+		}
 
 		return `
 			<a href="/chat/r/${data.room}" id="message_${data.room}" class="message-notification-list-item">
@@ -121,7 +123,7 @@ class User {
 			  <div class="message-notification-content">
 			    <div><i class="fa fa-comment" aria-hidden="true"></i>&nbsp;${data.message}</div>
 			    <div class="bb b--moon-gray pb-2"><small>${senderLable}</small></div>
-			  	<div><small>${data.ticket}</small></div>
+			  	<div><small>${ticket}</small></div>
 			  </div>
 			</a>
     `;

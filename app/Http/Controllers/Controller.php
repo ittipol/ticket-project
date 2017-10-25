@@ -15,7 +15,7 @@ class Controller extends BaseController
   protected $pageName = null; 
   protected $meta = array(
     'title' => 'Ticket',
-    'description' => '',
+    'description' => 'แหล่ง ซื้อ ขาย บัตรคอนเสิร์ต บัตรการแสดง บัตรกีฬา',
     'image' => '',
     'keywords' => '',
   );

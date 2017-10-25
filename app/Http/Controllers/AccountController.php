@@ -99,7 +99,7 @@ class AccountController extends Controller
               ['created_by','=',Auth::user()->id]
             ])
             ->orderBy('created_at','asc')
-            ->paginate(24);
+            ->paginate(36);
 
     $this->setData('data',$data);
 

@@ -13,11 +13,11 @@ class ChatController extends Controller
   public function sellerChat($ticketId) {
 
     $ticket = Service::loadModel('Ticket')
-    ->select('id','title','created_by')
+    ->select('id','title','closing_option','created_by')
     ->where([
-      ['id','=',$ticketId],
-      ['closing_option','=',0],
-      ['date_2','>=',date('Y-m-d')]
+      ['id','=',$ticketId]
+      // ['closing_option','=',0],
+      // ['date_2','>=',date('Y-m-d')]
     ])->first();
 
     if(empty($ticket)) {
@@ -117,12 +117,12 @@ class ChatController extends Controller
     }
 
     $ticket = Service::loadModel('TicketChatRoom')
-    ->select('tickets.id','tickets.title')
+    ->select('tickets.id','tickets.title','tickets.closing_option')
     ->join('tickets', 'ticket_chat_rooms.ticket_id', '=', 'tickets.id')
     ->where([
-      ['ticket_chat_rooms.chat_room_id','=',$roomId],
-      ['tickets.closing_option','=',0],
-      ['tickets.date_2','>=',date('Y-m-d')]
+      ['ticket_chat_rooms.chat_room_id','=',$roomId]
+      // ['tickets.closing_option','=',0],
+      // ['tickets.date_2','>=',date('Y-m-d')]
     ])
     ->first();
 

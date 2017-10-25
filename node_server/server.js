@@ -25,6 +25,15 @@ function setAllMessageRead(userId) {
   db.query("UPDATE `user_in_chat_room` SET `notify` = 0 WHERE `user_id` = "+userId);
 }
 
+// Update specifically message
+function updateUserReadMessage(roomId,userId) {
+  db.query("SELECT `id` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, messages){
+    if(messages.length === 1) {
+      db.query("UPDATE `user_in_chat_room` SET `notify` = 0, `message_read` = "+messages[0].id+", `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+userId); 
+    }
+  });
+}
+
 // Notify message to users
 function notifyMessage(roomId,userId) {
   // GET Last Message
@@ -40,7 +49,7 @@ function notifyMessage(roomId,userId) {
             // Notify if user online
             if(userOnline(rows[i].user_id)) {
               countMessageNotication(rows[i].user_id);
-              messageNotication(roomId, rows[i].user_id)
+              messageNotication(roomId, rows[i].user_id);
               displayNewMessage(roomId, rows[i].user_id, messages[0].message);
             }
           }
@@ -67,8 +76,8 @@ function countMessageNotication(userId) {
 }
 
 function messageNotication(roomId,userId) {
-  db.query("SELECT cm.message, cm.user_id, u.name, t.title, cm.created_at FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id LEFT JOIN `ticket_chat_rooms` AS tcr ON cm.chat_room_id = tcr.chat_room_id LEFT JOIN `tickets` AS t ON tcr.ticket_id = t.id WHERE cm.chat_room_id = "+roomId+" ORDER BY cm.created_at DESC LIMIT 1", function(err, messages){
-    console.log(messages.length);
+  db.query("SELECT cm.message, cm.user_id, u.name, t.title, t.closing_option, cm.created_at FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id LEFT JOIN `ticket_chat_rooms` AS tcr ON cm.chat_room_id = tcr.chat_room_id LEFT JOIN `tickets` AS t ON tcr.ticket_id = t.id WHERE cm.chat_room_id = "+roomId+" ORDER BY cm.created_at DESC LIMIT 1", function(err, messages){
+  
     if(messages.length == 1) {
 
       let isSender = false;
@@ -82,6 +91,7 @@ function messageNotication(roomId,userId) {
         message: messages[0].message,
         name: messages[0].name,
         ticket: messages[0].title,
+        closing_option: messages[0].closing_option,
         isSender: isSender,
         date: dateTime.passingDate(messages[0].created_at,dateTime.now())
       });
@@ -105,7 +115,7 @@ function messageNoticationList(userId) {
       let _roomId = rows[i].chat_room_id;
       // let _i = i+1;
 
-      db.query("SELECT cm.message, cm.user_id, u.name, t.title, cm.created_at FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id LEFT JOIN `ticket_chat_rooms` AS tcr ON cm.chat_room_id = tcr.chat_room_id LEFT JOIN `tickets` AS t ON tcr.ticket_id = t.id WHERE cm.chat_room_id = "+rows[i].chat_room_id+" ORDER BY cm.created_at DESC LIMIT 1", function(err, messages){
+      db.query("SELECT cm.message, cm.user_id, u.name, t.title, t.closing_option, cm.created_at FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id LEFT JOIN `ticket_chat_rooms` AS tcr ON cm.chat_room_id = tcr.chat_room_id LEFT JOIN `tickets` AS t ON tcr.ticket_id = t.id WHERE cm.chat_room_id = "+rows[i].chat_room_id+" ORDER BY cm.created_at DESC LIMIT 1", function(err, messages){
         if(messages.length == 1) {
 
           let isSender = false;
@@ -119,12 +129,12 @@ function messageNoticationList(userId) {
             message: messages[0].message,
             name: messages[0].name,
             ticket: messages[0].title,
+            closing_option: messages[0].closing_option,
             isSender: isSender,
             date: dateTime.passingDate(messages[0].created_at,_now)
           });
 
           if(++count === rows.length) {
-            console.log('message-notification-list!!!');
             io.in('u_'+userId).emit('message-notification-list', data);
           }
 
@@ -138,7 +148,7 @@ io.on('connection', function(socket){
 
   socket.on('join', function(chanel,type){
     socket.join(chanel);
-    console.log('chanel joined: '+chanel);
+    // console.log('chanel joined: '+chanel);
   });
 
   socket.on('leave', function(chanel,type){
@@ -146,7 +156,7 @@ io.on('connection', function(socket){
   });
   
   socket.on('online', function(data){
-    console.log('user active');
+
     db.query("UPDATE `users` SET `last_active` = CURRENT_TIME() WHERE `users`.`id` = "+data.userId);
 
     if(userHandle[data.userId] !== undefined) {
@@ -238,6 +248,9 @@ io.on('connection', function(socket){
   },120000);
 
 
+  // check every 10 mins if notice was expire
+
+
   // ||||||||||||||||||||||| CHAT |||||||||||||||||||||||
   socket.on('chat-join', function(data){
   	socket.join('cr_'+data.room+'.'+data.key); 
@@ -260,7 +273,7 @@ io.on('connection', function(socket){
     }
 
     clearTimeout(notifyMessageHandle[data.room]);
-
+    
   	// save message
   	db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', CURRENT_TIMESTAMP);");
 
@@ -272,13 +285,6 @@ io.on('connection', function(socket){
     notifyMessageHandle[data.room] = setTimeout(function(){
       notifyMessage(data.room,data.user);
     },3500);
-
-    // chatMessageSave({
-    //   message: data.message,
-    //   room: data.room,
-    //   user: data.user,
-    //   key: data.key
-    // });
 
   });
 
@@ -337,6 +343,10 @@ io.on('connection', function(socket){
 
     })
 
+  })
+
+  socket.on('message-read', function(data){
+    updateUserReadMessage(data.room,data.user);
   })
 
   socket.on('count-message-notification', function(data){
