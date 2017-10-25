@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Pagination\Paginator;
 use App\library\service;
 use App\library\snackbar;
+use App\library\stringHelper;
 use Illuminate\Http\Request;
 use Redirect;
 use Auth;
@@ -208,10 +209,20 @@ class TicketController extends Controller
 
     $this->setData('_text',$data['title']);
 
+    $image = $model->getRelatedData('Image',array(
+      'first' => true,
+      'fields' => array('id','model','model_id','filename','description','image_type_id')
+    ));
+
+    $metaImage = ''; 
+    if(empty($image)) {
+      $metaImage = $image->getImageUrl();
+    }
+
     // SET META
     $this->setMeta('title',$model->title);
-    $this->setMeta('description','');
-    $this->setMeta('image',null);
+    $this->setMeta('description',StringHelper::truncString($model->description,220,true,true));
+    $this->setMeta('image',$metaImage);
     $this->setMeta('keywords',implode(',',$keywords));
 
     return $this->view('pages.ticket.detail');
@@ -237,28 +248,6 @@ class TicketController extends Controller
     $model = Service::loadModel('Ticket');
 
     // create slug
-
-    // switch (request()->get('date_type')) {
-    //   case 1:
-        
-    //     if(!empty(request()->get('date_1'))) {
-    //       $model->date_1 = request()->get('date_1').' 00:00:00';
-    //     }
-
-    //     $model->date_2 = request()->get('date_2').' 23:59:59';
-
-    //     break;
-      
-    //   case 2:
-    //     $model->date_1 = request()->get('date_2').' 00:00:00';
-    //     $model->date_2 = request()->get('date_2').' 23:59:59';
-    //     break;
-
-    //   case 3:
-    //     $model->date_1 = request()->get('date_2').' 00:00:00';
-    //     $model->date_2 = request()->get('date_2').' 23:59:59';
-    //     break;
-    // }
 
     $model->title = request()->get('title');
     $model->description = request()->get('description');

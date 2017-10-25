@@ -2,9 +2,9 @@
 
 namespace App\library;
 
-class stringHelper
+class StringHelper
 {
-  public function truncString($string,$len,$stripTag = true,$cleanText = false){
+  public static function truncString($string,$len,$stripTag = true,$cleanText = false){
 
     $string = iconv(mb_detect_encoding($string, mb_detect_order(), true), "UTF-8", $string);
     mb_internal_encoding('UTF-8');
@@ -41,7 +41,7 @@ class stringHelper
 
   }
 
-  public function generateModelNameCamelCase($modelName) {
+  public static function generateModelNameCamelCase($modelName) {
 
     $parts = explode('_', $modelName);
 

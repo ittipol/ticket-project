@@ -15,9 +15,9 @@ class Controller extends BaseController
   protected $pageName = null; 
   protected $meta = array(
     'title' => 'Ticket',
-    'description' => 'แหล่ง ซื้อ ขาย บัตรคอนเสิร์ต บัตรการแสดง บัตรกีฬา',
+    'description' => 'แหล่ง ซื้อ ขาย บัตรคอนเสิร์ต บัตรการแสดง บัตรกีฬา ตั๋งเครื่องบิน ตั๋วหนัง วอชเชอร์',
     'image' => '',
-    'keywords' => '',
+    'keywords' => 'ซื้อ,ขาย,บัตรคอนเสิร์ต,ตั๋ว,วอชเชอร์',
   );
 
   protected $botDisallowed = false;
