@@ -6,7 +6,7 @@ use Illuminate\Pagination\Paginator;
 use App\library\service;
 use App\library\snackbar;
 use App\library\stringHelper;
-use Request;
+use Illuminate\Http\Request;
 use Redirect;
 use Auth;
 
