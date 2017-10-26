@@ -42,6 +42,10 @@
     @media (max-width: 480px) {
       .grid-item { width: 46.8%; margin: 0.5%; }
     }
+
+    @media (max-width: 375px) {
+      .grid-item { width: 94%; margin: 2% 0.5%; }
+    }
 </style>
 
   @if(!empty($data['images']))

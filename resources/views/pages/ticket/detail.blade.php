@@ -1,9 +1,7 @@
 @extends('shared.main')
 @section('content')
 
-<div class="clearfix margin-top-100"></div>
-
-<div class="container">
+<div class="container mv4 mv6-ns">
   <div class="row">
 
     <div class="col-12">

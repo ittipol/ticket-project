@@ -40,6 +40,8 @@
 
 </div>
 
+<div class="clearfix margin-top-200"></div>
+
 <script type="text/javascript" src="/assets/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/js/form/upload_image.js"></script>
 <script type="text/javascript" src="/assets/js/form/profile-validation.js"></script>

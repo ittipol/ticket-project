@@ -11,9 +11,10 @@
 }
 
 .left-sidenav > button.close {
-	position: absolute;
+	position: fixed;
 	top: 15px;
 	right: 20px;
+	z-index: 99;
 	display: none;
 }
 
@@ -303,17 +304,17 @@
 
 @media (max-width: 768px) {
 	.left-sidenav {
-		top: 100%;
+		top: 120%;
 		width: 100%;
 		height: 100% !important;
 		background-color: #e8e8e8;
 		border-top: 4px solid #2979FF;
 		transition: top .24s ease-in-out;
-		z-index: 50;
 	}
 
 	.left-sidenav.show {
 		top: 0;
+		z-index: 50;
 	}
 
 	.fiter-panel-toggle {

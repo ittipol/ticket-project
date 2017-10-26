@@ -25,7 +25,7 @@
 
 <div class="container">
 
-  @if(!empty($data))
+  @if($data->currentPage() <= $data->lastPage())
 
   <div class="pt-5">
     <h5>รายการของคุณ</h5>

@@ -31,7 +31,7 @@ class UserController extends Controller
       $user->user_key = Token::generate(32);
       $user->save();
 
-      Snackbar::message('คุณเข้าสู่ระบบแล้ว');
+      Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
       return Redirect::intended('/');
     }
 
@@ -123,7 +123,7 @@ class UserController extends Controller
 
     Auth::login($user,true);
 
-    Snackbar::message('คุณเข้าสู่ระบบแล้ว');
+    Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
 
     return Redirect::intended('/');
 
