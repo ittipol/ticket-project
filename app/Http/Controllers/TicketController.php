@@ -6,7 +6,7 @@ use Illuminate\Pagination\Paginator;
 use App\library\service;
 use App\library\snackbar;
 use App\library\stringHelper;
-use Illuminate\Http\Request;
+use Request;
 use Redirect;
 use Auth;
 
@@ -216,7 +216,7 @@ class TicketController extends Controller
 
     $metaImage = ''; 
     if(empty($image)) {
-      $metaImage = $image->getImageUrl();
+      $metaImage = url('').'/'.$image->getImageUrl();
     }
 
     // SET META
