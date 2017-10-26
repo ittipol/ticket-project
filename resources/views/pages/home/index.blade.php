@@ -57,16 +57,16 @@
   <div class="row">
     <div class="col-md-4 tc">
       <i class="fa fa-ticket db fs-100 mb-3" aria-hidden="true"></i>
-      <h5>ลงขายบัตรของคุณเพียงไม่กี่ขั้นตอน</h5>
+      <h5>ลงขายบัตรของคุณ</h5>
       <p>ลงขายบัตรบนเว็บไซต์ของเราโดยคุณเป็นผู้ตั้งราคา และข้อมูลอื่นๆที่คุณต้องการ</p>
     </div>
     <div class="col-md-4 tc">
-      <i class="fa fa-users db fs-100 mb-3" aria-hidden="true"></i>
-      <h5>เลือกซื้อบัตรแลสอบถามผู้ขายก่อนการซื้อ</h5>
+      <i class="fa fa-comments db fs-100 mb-3" aria-hidden="true"></i>
+      <h5>เลือกซื้อบัตรและสอบถามผู้ขายก่อนการซื้อ</h5>
       <p>เรามีระบบที่ให้คุยได้พูดคุยกับผู้ขายได้ทันที เพื่อให้เกิความแน่ใจในการซื้อ</p>
     </div>
     <div class="col-md-4 tc">
-      <i class="fa fa-comments db fs-100 mb-3" aria-hidden="true"></i>
+      <i class="fa fa-users db fs-100 mb-3" aria-hidden="true"></i>
       <h5>ผู้ซื้อทั่วประเทศ</h5>
       <p>มีผู้ซื้อทั่วประเทศกำลังค้นหาและต้องการบัตรจากคุณอยู่</p>
     </div>
