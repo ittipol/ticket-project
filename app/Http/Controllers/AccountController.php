@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileEditRequest;
 use Illuminate\Pagination\Paginator;
 use App\library\service;
-use App\library\Snackbar;
+use App\library\snackbar;
 use Auth;
 use Redirect;
 
