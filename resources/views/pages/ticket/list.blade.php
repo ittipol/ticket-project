@@ -55,6 +55,7 @@
         </div>
 
         <h5 class="mx-2 mt-3 mb-1">
+          <small class="f7 db">{{$value['category']}}</small>
           <a class="title" href="/ticket/view/{{$value['id']}}">
             {{$value['title']}}
           </a>

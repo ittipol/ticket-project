@@ -103,14 +103,17 @@ class Ticket extends Model
     $originalPrice = null;
     $save = null;
     if(!empty($this->original_price)) {
-
       $originalPrice = $currency->format($this->original_price);
 
       if($this->original_price > $this->price) {
         $save = $format->percent(100 - (($this->price * 100) / $this->original_price)) . '%';
       }
-
     }
+
+    $category = $this->getRelatedData('TicketToCategory',array(
+      'first' => true,
+      'fields' => array('ticket_category_id')
+    ));
 
     return array(
       'id' => $this->id,
@@ -127,6 +130,7 @@ class Ticket extends Model
       'date_2' => Date::covertDateToSting($this->date_2),
       'created_by' => $this->created_by,
       'created_at' => Date::calPassedDate($this->created_at->format('Y-m-d H:i:s')),
+      'category' => $category->ticketCategory->name,
       'user' => $user,
       'image' => $image,
       'imageTotal' => $imageTotal,
@@ -179,14 +183,17 @@ class Ticket extends Model
     $originalPrice = null;
     $save = null;
     if(!empty($this->original_price)) {
-
       $originalPrice = $currency->format($this->original_price);
 
       if($this->original_price > $this->price) {
         $save = $format->percent(100 - (($this->price * 100) / $this->original_price)) . '%';
       }
-
     }
+
+    $category = $this->getRelatedData('TicketToCategory',array(
+      'first' => true,
+      'fields' => array('ticket_category_id')
+    ));
 
     return array(
       'id' => $this->id,
@@ -204,6 +211,7 @@ class Ticket extends Model
       'contact' => nl2br($this->contact),
       'created_by' => $this->created_by,
       'created_at' => Date::calPassedDate($this->created_at->format('Y-m-d H:i:s')),
+      'category' => $category->ticketCategory->name,
       'images' => $images,
       'imageTotal' => $imageTotal,
       'tags' => $tags

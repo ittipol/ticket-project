@@ -172,6 +172,10 @@ class TicketController extends Controller
 
     // $data = $model->paginate(24);
 
+    foreach ($model->paginate(36) as $key => $value) {
+      $value->buildDataList();
+    }
+
     $this->setData('data',$model->paginate(36));
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('search',$searching);

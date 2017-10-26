@@ -82,6 +82,11 @@
       </div>
 
       <div class="additional-data-section mt-2 mb-4">
+
+        <div class="additional-item">
+          <i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;{{$data['category']}}
+        </div>
+
         @if($data['date_type'] == 1)
           
           @if(!empty($data['date_1']))
