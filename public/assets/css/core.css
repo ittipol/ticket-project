@@ -542,6 +542,8 @@ label.image-label a:hover {
     left: 50%;
     height:50px;
     width:40px;
+    margin-top: -20px;
+    margin-left: -20px;
     z-index: 9;
     display: none;
 }
