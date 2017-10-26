@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2017 at 06:07 PM
+-- Generation Time: Oct 26, 2017 at 04:22 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -128,6 +128,14 @@ CREATE TABLE `social_providers` (
   `alias` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `social_providers`
+--
+
+INSERT INTO `social_providers` (`id`, `name`, `alias`) VALUES
+(1, 'facebook', 'fb'),
+(2, 'twitter', '');
+
 -- --------------------------------------------------------
 
 --
@@ -166,15 +174,15 @@ CREATE TABLE `temporary_files` (
 
 CREATE TABLE `tickets` (
   `id` int(11) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` text NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+  `description` text CHARACTER SET utf8mb4 NOT NULL,
   `place_location` varchar(255) DEFAULT NULL,
   `price` decimal(15,2) NOT NULL,
   `original_price` decimal(15,2) DEFAULT NULL,
   `date_type` int(11) NOT NULL,
   `date_1` date DEFAULT NULL,
   `date_2` date NOT NULL,
-  `contact` text NOT NULL,
+  `contact` text CHARACTER SET utf8mb4 NOT NULL,
   `purpose` varchar(1) NOT NULL,
   `closing_option` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `closing_reason` text,
@@ -414,17 +422,17 @@ ALTER TABLE `words`
 -- AUTO_INCREMENT for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `chat_rooms`
 --
 ALTER TABLE `chat_rooms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `image_types`
 --
@@ -449,12 +457,12 @@ ALTER TABLE `social_providers`
 -- AUTO_INCREMENT for table `temporary_files`
 --
 ALTER TABLE `temporary_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `ticket_categories`
 --
@@ -464,7 +472,7 @@ ALTER TABLE `ticket_categories`
 -- AUTO_INCREMENT for table `ticket_chat_rooms`
 --
 ALTER TABLE `ticket_chat_rooms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `users`
 --

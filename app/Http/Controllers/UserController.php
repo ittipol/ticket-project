@@ -31,7 +31,7 @@ class UserController extends Controller
       $user->user_key = Token::generate(32);
       $user->save();
 
-      Snackbar::message('เข้าสู่ระบบแล้ว');
+      Snackbar::message('คุณเข้าสู่ระบบแล้ว');
       return Redirect::intended('/');
     }
 
@@ -41,7 +41,7 @@ class UserController extends Controller
       $message = 'กรุณาป้อนอีเมล และ รหัสผ่าน';
     }
 
-    Snackbar::message($message);
+    // Snackbar::message($message);
 
     return Redirect::back()->withErrors([$message]);
   }
@@ -70,7 +70,7 @@ class UserController extends Controller
       session()->flash('register-success',true);
     }
 
-    Snackbar::message('บัญชีของคุณถูกสร้างแล้ว');
+    Snackbar::message('บัญชีของคุณถูกสร้างแล้ว คุณสามารถใช้บัญชีนี้เพื่อเข้าสู่ระบบ');
 
     return Redirect::to('login');
 
@@ -123,7 +123,7 @@ class UserController extends Controller
 
     Auth::login($user,true);
 
-    Snackbar::message('เข้าสู่ระบบแล้ว');
+    Snackbar::message('คุณเข้าสู่ระบบแล้ว');
 
     return Redirect::intended('/');
 

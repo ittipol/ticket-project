@@ -25,9 +25,6 @@ class Datepicker {
 	  // this.bind();
 	}
 
-	// bind() {
-	// }
-
 	setReadable() {
 
 		let _this = this;
@@ -71,7 +68,7 @@ class Datepicker {
 	covertToReadable() {
 		if($(this.input).val() !== '') {
 		  let date = $(this.input).val().split('-');
-		  $(this.el).text(parseInt(date[2])+' '+DateTime.getMonthName(parseInt(date[1]))+' '+(parseInt(date[0])));
+		  $(this.el).text(parseInt(date[2])+' '+DateTime.getMonthName(parseInt(date[1]))+' '+(parseInt(date[0])+543));
 		}
 	}
 

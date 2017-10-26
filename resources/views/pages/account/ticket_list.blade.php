@@ -80,7 +80,7 @@
 
             <div class="w-100 w-50-ns fn fl-ns">
 
-              <div class="additional-data-section mt-2 mb-4 ph2 ph0-ns">
+              <div class="additional-data-section mt-2 mb-4 ph2">
 
                 @if($value['date_type'] == 1)
                   
