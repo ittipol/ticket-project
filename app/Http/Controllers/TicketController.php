@@ -215,7 +215,7 @@ class TicketController extends Controller
     ));
 
     $metaImage = ''; 
-    if(empty($image)) {
+    if(!empty($image)) {
       $metaImage = url('').'/'.$image->getImageUrl();
     }
 

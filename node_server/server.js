@@ -156,7 +156,7 @@ io.on('connection', function(socket){
   });
   
   socket.on('online', function(data){
-    console.log('user active');
+
     db.query("UPDATE `users` SET `last_active` = CURRENT_TIME() WHERE `users`.`id` = "+data.userId);
 
     if(userHandle[data.userId] !== undefined) {
