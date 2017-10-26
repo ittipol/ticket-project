@@ -40,14 +40,6 @@
 
     <div class="mt-4">
 
-      <!-- <div>
-        <label class="control control--checkbox mb-2">
-          <strong>ราคา</strong>
-          <input type="checkbox" id="filter_price" value="1" >
-          <div class="control__indicator"></div>
-        </label>
-      </div> -->
-
       <h4 class="my-2">ราคา</h4>
 
       <div class="price-filter-box clearfix">
