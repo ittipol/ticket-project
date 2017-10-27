@@ -24,11 +24,11 @@ class TicketForm {
     })
 
     $('#date_type_select').on('change',function(){
-      
-      // let type = $(this).val();
 
       $('#date_input_1').val('');
       $('#date_input_2').val('');
+
+      $('.date-readable').text('');
 
       _this.dateInputField($(this).val());
 
