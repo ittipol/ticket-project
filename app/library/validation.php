@@ -2,7 +2,7 @@
 
 namespace App\library;
 
-class validation 
+class Validation 
 {
   protected $operators = [
       '=', '<', '>', '<=', '>=', '<>', '!=',
@@ -13,42 +13,42 @@ class validation
       'not similar to',
   ];
 
-  public function isCurrency($number) {
+  public static function isCurrency($number) {
     if(preg_match('/^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/', $number)) {
       return true;
     }
     return false;
   }
 
-  public function isPhoneNumber($phoneNumber) {
+  public static function isPhoneNumber($phoneNumber) {
     if(preg_match('/^[0-9+][0-9\-]{3,}[0-9]$/', $phoneNumber)) {
       return true;
     }
     return false;
   }
 
-  public function isNumber($number) {
+  public static function isNumber($number) {
     if(preg_match('/^[0-9]+$/', $number)) {
       return true;
     }
     return false;
   }
 
-  public function isDecimal($number) {
+  public static function isDecimal($number) {
     if(preg_match('/^[0-9]+(?:\.?[0-9]+)?$/', $number)) {
       return true;
     }
     return false;
   }
 
-  public function isZipcode($zipcode) {
+  public static function isZipcode($zipcode) {
     if(preg_match('/^[0-9]{5}$/', $zipcode)) {
       return true;
     }
     return false;
   }
 
-  public function isSqlOperators($operators) {
+  public static function isSqlOperators($operators) {
     if(in_array($operators, $this->operators)) {
       return true;
     } 

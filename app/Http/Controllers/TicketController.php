@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Pagination\Paginator;
 use App\library\service;
 use App\library\snackbar;
+use App\library\validation;
 use App\library\stringHelper;
 use Illuminate\Http\Request;
 use Redirect;
@@ -92,11 +93,11 @@ class TicketController extends Controller
       $searching = true;
 
       $model->where(function ($query) use ($request) {
-        if($request->price_start) {
+        if($request->has('price_start') && Validation::isCurrency($request->price_start)) {
           $query->where('tickets.price','>=',$request->price_start);
         }
 
-        if($request->price_end) {
+        if($request->has('price_end') && Validation::isCurrency($request->price_end)) {
           $query->where('tickets.price','<=',$request->price_end);
         }
       });
@@ -108,7 +109,7 @@ class TicketController extends Controller
 
       $model->where(function ($query) use ($request) {
 
-        if(!empty($request->start_date) && !empty($request->end_date)) {
+        if($request->has('start_date') && $request->has('end_date')) {
           $query
           ->where([
             ['tickets.date_1','>=',$request->start_date],
@@ -118,11 +119,11 @@ class TicketController extends Controller
             ['tickets.date_2','>=',$request->start_date],
             ['tickets.date_2','<=',$request->end_date]
           ]);
-        }elseif(!empty($request->start_date)) {
+        }elseif($request->has('start_date')) {
           $query
           ->where('tickets.date_1','>=',$request->start_date)
           ->orWhere('tickets.date_2','>=',$request->start_date);
-        }elseif(!empty($request->end_date)) {
+        }elseif($request->has('end_date')) {
           $query
           ->where('tickets.date_1','<=',$request->end_date)
           ->orWhere('tickets.date_2','<=',$request->end_date);
