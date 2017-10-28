@@ -28,6 +28,27 @@ class TicketController extends Controller
 
     // dd($request->all());
 
+    // SELECT COUNT(`word_id`) AS total FROM `taggings` GROUP BY `word_id` HAVING total > 36
+
+    $_taggings = Service::loadModel('Tagging')
+    ->join('tickets','tickets.id','=','taggings.model_id')
+    ->where([
+      ['taggings.model','=','Ticket'],
+      ['tickets.closing_option','=',0],
+      ['tickets.date_2','>=',date('Y-m-d')]
+    ])
+    ->selectRaw('word_id')
+    ->groupBy('taggings.word_id')
+    ->havingRaw('count(word_id) > 36')
+    ->get();
+
+    $taggings = array();
+    foreach ($_taggings as $tagging) {
+      $taggings[] = array(
+        'word' => $tagging->word->word
+      );
+    }
+
     $searching = false;
 
     if($request->has('q')) {
@@ -172,6 +193,7 @@ class TicketController extends Controller
     }
 
     $this->setData('data',$model->paginate(36));
+    $this->setData('taggings',$taggings);
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('search',$searching);
 
