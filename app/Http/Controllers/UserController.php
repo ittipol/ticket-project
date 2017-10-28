@@ -32,7 +32,7 @@ class UserController extends Controller
       $user->save();
 
       Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
-      return Redirect::intended('/');
+      return Redirect::intended('/ticket');
     }
 
     $message = 'อีเมล หรือ รหัสผ่านไม่ถูก';
@@ -125,7 +125,7 @@ class UserController extends Controller
 
     Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
 
-    return Redirect::intended('/');
+    return Redirect::intended('/ticket');
 
   }
 

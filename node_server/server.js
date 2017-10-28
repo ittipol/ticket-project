@@ -268,7 +268,11 @@ io.on('connection', function(socket){
 
   socket.on('send-message', function(data){
 
-    if((!data.room) || (!data.user) || (!data.key)) {
+    if((!data.room) || (!data.user) || (!data.key) || (!userOnline(data.user))) {
+      io.in(data.chanel).emit('chat-error', {
+        error: true,
+        message: 'คณไม่สามารถแชทได้'
+      });
       return false;
     }
 

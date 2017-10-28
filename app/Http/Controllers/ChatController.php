@@ -10,6 +10,10 @@ use Redirect;
 
 class ChatController extends Controller
 {
+  public function __construct() {
+    $this->botDisallowed();
+  }
+
   public function sellerChat($ticketId) {
 
     $ticket = Service::loadModel('Ticket')

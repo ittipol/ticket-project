@@ -34,7 +34,7 @@
 
       <div class="tags bg-near-white pa3 bb b--silver">
 
-        <div class="mb3">แท็กแนะนำ</div>
+        <div class="mb3">แนะนำ</div>
 
         @foreach($taggings as $tag)
           <div class="md-chip">

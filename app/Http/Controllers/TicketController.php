@@ -39,7 +39,7 @@ class TicketController extends Controller
     ])
     ->selectRaw('word_id')
     ->groupBy('taggings.word_id')
-    ->havingRaw('count(word_id) > 36')
+    ->havingRaw('count(word_id) > 12')
     ->take(10)
     ->get();
 

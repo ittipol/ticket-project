@@ -148,6 +148,14 @@ class Chat {
 
 	  });
 
+  	this.io.socket.on('chat-error', function(res){
+  		if(res.error) {
+  			const snackbar = new Snackbar();
+  			snackbar.setTitle(res.message);
+  			snackbar.display();
+  		}
+    });
+
 	}
 
 	toButtom() {
