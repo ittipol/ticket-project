@@ -19,7 +19,13 @@
     </div>
 
     <label class="margin-bottom-5">
-      <input type="checkbox" name="remember_me">&nbsp;จดจำการเข้าสู่ระบบ
+      <div>
+        <label class="control control--checkbox mb-2">
+          จดจำการเข้าสู่ระบบ
+          <input type="checkbox" name="remember_me" >
+          <div class="control__indicator"></div>
+        </label>
+      </div>
     </label>
 
     {{Form::submit('เข้าสู่ระบบ', array('class' => 'btn btn-primary btn-block'))}}

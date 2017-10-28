@@ -46,7 +46,7 @@
     <div class="content-section tr">
       <h1 class="dark-gray mb-3">เลือกซื้อและค้นหาบัตร</h1>
       <p class="dark-gray margin-bottom-20">เลือกซื้อบัตรตามที่คุณต้องการ นอกจากนี้มีการแบ่งหมวดหมู่ออกเป็น 15 หมวดหมู่เพื่อง่ายต่อการเข้าถึงและค้นหา</p>
-      <a class="btn btn-lg btn-primary" href="/ticket/new">
+      <a class="btn btn-lg btn-primary" href="/ticket">
         แสดงรายการขายบัตร
       </a>
     </div>

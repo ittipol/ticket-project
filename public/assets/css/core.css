@@ -701,7 +701,8 @@ label.image-label a:hover {
   height: 20px;
   width: 20px;
   /*background: #e6e6e6;*/
-  background: #ccc;
+  background: #d2d2d2;
+  border: 1px solid #bbb;
 }
 .control--radio .control__indicator {
   border-radius: 50%;
@@ -731,8 +732,8 @@ label.image-label a:hover {
   display: block;
 }
 .control--checkbox .control__indicator:after {
-  left: 8px;
-  top: 3px;
+  top: 2px;
+  left: 7px;
   width: 5px;
   height: 12px;
   border: solid #fff;
