@@ -75,6 +75,9 @@ class ChatController extends Controller
     $this->setData('ticket',$ticket);
     $this->setData('users',$users);
 
+    // SET META
+    $this->setMeta('title','แชท » '.$ticket->title.' — TicketEasys');
+
     return $this->view('pages.user.chat');
   }
 
@@ -138,6 +141,9 @@ class ChatController extends Controller
     $this->setData('chat',json_encode($chat));
     $this->setData('ticket',$ticket);
     $this->setData('users',$users);
+
+    // SET META
+    $this->setMeta('title','แชท » '.$ticket->title.' — TicketEasys');
 
     return $this->view('pages.user.chat');
 
