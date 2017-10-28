@@ -1,17 +1,15 @@
 .infomation-wrapper {
 	width: 100%;
 	padding: 3.125rem 0;
-	background-color: #605aa2;
+	/*background-color: #605aa2;*/
 
-	/*background: #6a3093;
-	background: -webkit-linear-gradient(to right, #a044ff, #6a3093);
-	background: linear-gradient(to right, #a044ff, #6a3093);*/
+	/*background: linear-gradient(to bottom, #241d33 0%, #171930 51%, #091119 100%);*/
 
-	background: #834d9b;  /* fallback for old browsers */
-	background: -webkit-linear-gradient(to right, #d04ed6, #834d9b);  /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to right, #d04ed6, #834d9b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	/*background-color: rgb(81,89,126);*/
 
-	background: linear-gradient(to bottom, #241d33 0%, #171930 51%, #091119 100%)
+	background: #141E30;
+	background: linear-gradient(to right, #243B55, #141E30);
+
 }
 
 .content-section {
@@ -21,29 +19,37 @@
 }
 
 .content-section h1 {
-	font-size: 3.4375rem;
+	font-size: 3.25rem;
 }
 
 .content-section button,
 .content-section a {
 	border: 0;
 	cursor: pointer;
-	/*background-color: #23074d;*/
-	background-color: #1E88E5;
+	background-color: #0575E6;
+	border-radius: 28px;
+}
+
+.content-section button:hover,
+.content-section a:hover {
+	background-color: #0575E6;
+}
+
+.content-section button:focus,
+.content-section a:focus {
+	color: #fff;
+	background-color: #0575E6;
 }
 
 .parallax-bg {
 	z-index: 1;
 	height: auto;
-	padding: 30px 0;
+	padding: 50px 0;
 	overflow: hidden;
 	text-align: center;
 	position: relative;
-	/*background-color: #3F51B5;*/
-	background-color: #CFD8DC;
-	/*background-color: rgb(18,34,47);
-	background-image: url(/assets/images/common/stars.png);
-	background-position: top center;*/
+	/*background-color: #021B79;*/
+	background-color: #1A237E;
 }
 
 /*.parallax-bg:before {
@@ -58,8 +64,19 @@
 	background: rgba(0,0,0,0.5);
 }*/
 
+.parallax-bg button,
+.parallax-bg a {
+	/*background-color: rgb(255,116,180);*/
+	background-color: rgb(9,137,205);
+	box-shadow: 0 0 10px 2px rgba(9,137,205,.85);
+}
+
+.information-grid {
+	background-color: #0072ff;
+}
+
 .information-grid i {
-	color: #546E7A;
+	color: #fff;
 }
 
 @media (max-width: 480px) {
