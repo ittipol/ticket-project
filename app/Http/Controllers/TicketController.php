@@ -40,6 +40,7 @@ class TicketController extends Controller
     ->selectRaw('word_id')
     ->groupBy('taggings.word_id')
     ->havingRaw('count(word_id) > 36')
+    ->take(10)
     ->get();
 
     $taggings = array();
