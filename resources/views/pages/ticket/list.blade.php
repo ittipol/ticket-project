@@ -150,7 +150,7 @@
           @else
 
             <div class="ticket-posting-detail p-2 text-center">
-              <div class="f6"><i class="fa fa-pencil"></i>&nbsp;&nbsp;รายการของคุณ</div>
+              <div class="f6"><i class="fa fa-user"></i>&nbsp;&nbsp;รายการของคุณ</div>
             </div>
 
             <ul class="nav nav-tabs">
