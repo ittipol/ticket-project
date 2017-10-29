@@ -39,7 +39,7 @@
     <div class="col-md-4 pt3 pt0-ns tc">
       <i class="fa fa-comments db fs-100 mb-3" aria-hidden="true"></i>
       <h5 class="white">เลือกซื้อบัตรและสอบถามผู้ขาย</h5>
-      <p class="white">ระบบที่ให้คุยได้พูดคุยกับผู้ขายได้ทันทีก่อนการซื้อ เพื่อให้เกิดความแน่ใจในการซื้อของคุณ</p>
+      <p class="white">ให้คุณได้พูดคุยกับผู้ขายได้ทันทีก่อนการซื้อ เพื่อให้เกิดความมั่นใจในการซื้อของคุณ</p>
     </div>
     <div class="col-md-4 pt3 pt0-ns tc">
       <i class="fa fa-users db fs-100 mb-3" aria-hidden="true"></i>

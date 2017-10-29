@@ -13,6 +13,10 @@ class StaticFileController extends Controller
 {
   private $noImagePath = 'images/common/no-img.png';
 
+  public function __construct() {
+    $this->botDisallowed();
+  }
+
   public function serveImages($filename){
 
     $cache = new Cache;

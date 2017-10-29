@@ -7,8 +7,12 @@
 
 	/*background-color: rgb(81,89,126);*/
 
-	background: #141E30;
-	background: linear-gradient(to right, #243B55, #141E30);
+	/*background: #141E30;
+	background: linear-gradient(to right, #243B55, #141E30);*/
+
+	background: #667db6;
+	background: linear-gradient(to right, #243B55, #141E30, #141E30, #243B55);
+
 
 }
 
@@ -27,7 +31,7 @@
 	border: 0;
 	cursor: pointer;
 	background-color: #0575E6;
-	border-radius: 28px;
+	/*border-radius: 28px;*/
 }
 
 .content-section button:hover,
@@ -50,6 +54,7 @@
 	position: relative;
 	/*background-color: #021B79;*/
 	background-color: #1A237E;
+	background-color: rgb(40,55,112);
 }
 
 /*.parallax-bg:before {
@@ -66,9 +71,19 @@
 
 .parallax-bg button,
 .parallax-bg a {
-	/*background-color: rgb(255,116,180);*/
-	background-color: rgb(9,137,205);
-	box-shadow: 0 0 10px 2px rgba(9,137,205,.85);
+	border-radius: 28px;
+	background-color: rgb(227,75,163);
+	/*box-shadow: 0 0 10px 2px rgba(227,75,163,.85);*/
+}
+
+.parallax-bg button:hover,
+.parallax-bg a:hover {
+	background-color: rgb(227,75,163);
+}
+
+.parallax-bg button:focus,
+.parallax-bg a:focus {
+	background-color: rgb(227,75,163);
 }
 
 .information-grid {
