@@ -24,7 +24,13 @@ class HandleImageFile
   }
 
   private function generateFileName() {
-    $this->filename = time().Token::generateNumber(15).$this->image->getSize().'.'.$this->image->getClientOriginalExtension();
+    $ext = $this->image->getClientOriginalExtension();
+
+    if(empty($ext)) {
+      $ext = 'jpg';
+    }
+
+    $this->filename = time().Token::generateNumber(15).$this->image->getSize().'.'.$ext;
   }
 
   public function getFileName() {
@@ -50,71 +56,97 @@ class HandleImageFile
     return false;
   }
 
-  public function generateImageSize($imageType,$originalWidth = null,$originalHeight = null){
+  public function generateImageSize($imageType,$width = null,$height = null){
 
     $accepteType = array('photo','avatar');
 
-    if(empty($originalWidth)) {
-      $originalWidth = $this->width; 
+    if(empty($width)) {
+      $width = $this->width; 
     }
 
-    if(empty($originalHeight)) {
-      $originalHeight = $this->height; 
+    if(empty($height)) {
+      $height = $this->height; 
     }
 
     if(!in_array($imageType, $accepteType)) {
-      return array($originalWidth,$originalHeight);
+      return array($width,$height);
     }
 
-    $ratio = abs($originalWidth/$originalHeight);
+    // $ratio = abs($originalWidth/$originalHeight);
 
-    $width = $originalWidth;
-    $height = $originalHeight;
+    // $width = $originalWidth;
+    // $height = $originalHeight;
 
-    if($imageType == 'photo') {
+    // if($imageType == 'photo') {
 
-      if(($originalWidth > 960) || ($originalHeight > 960)) {
+    //   if(($originalWidth > 960) || ($originalHeight > 960)) {
 
-        if($originalWidth > $originalHeight) {
+    //     if($originalWidth > $originalHeight) {
 
-          $width = 960;
+    //       $width = 960;
 
-          if(($ratio > 1) && ($ratio < 1.6)) {
-            $width = $originalWidth / 2;
-          } 
+    //       if(($ratio > 1) && ($ratio < 1.6)) {
+    //         $width = $originalWidth / 2;
+    //       } 
 
-          $height = $originalHeight * ($width / $originalWidth);
+    //       $height = $originalHeight * ($width / $originalWidth);
 
-        }elseif($originalWidth < $originalHeight) {
+    //     }elseif($originalWidth < $originalHeight) {
 
-          $height = 960;
+    //       $height = 960;
 
-          if(($ratio > 1) && ($ratio < 1.6)) {
-            $height = $originalHeight / 2;
-          } 
+    //       if(($ratio > 1) && ($ratio < 1.6)) {
+    //         $height = $originalHeight / 2;
+    //       } 
 
-          $width = $originalWidth * ($height / $originalHeight);
+    //       $width = $originalWidth * ($height / $originalHeight);
 
-        }else {
-          // ratio = 1
-          $width = 960;
-          $height = 960;
-        }  
+    //     }else {
+    //       // ratio = 1
+    //       $width = 960;
+    //       $height = 960;
+    //     }  
 
-      }
+    //   }
 
-    }elseif($imageType == 'avatar') {
+    // }elseif($imageType == 'avatar') {
       
-      if($height > 400) {
-        // or automatic crop
-        // top_x (imageWidth - cropsizewidth) / 2
-        // top_y (imageHeight - cropsizeheight) / 2
-        // bottom_x = top_x + 400;
-        // bottom_y = top_y + 400
+    //   if($height > 400) {
+    //     // or automatic crop
+    //     // top_x (imageWidth - cropsizewidth) / 2
+    //     // top_y (imageHeight - cropsizeheight) / 2
+    //     // bottom_x = top_x + 400;
+    //     // bottom_y = top_y + 400
 
-        $height = 400;
-        $width = $originalWidth * ($height / $originalHeight);
-      }
+    //     $height = 400;
+    //     $width = $originalWidth * ($height / $originalHeight);
+    //   }
+    // }
+
+    switch ($imageType) {
+      case 'photo':
+        $maxSize = 960;
+        break;
+
+      case 'avatar':
+        $maxSize = 400;
+        break;
+
+      default:
+        return array($width,$height);
+        break;
+
+    }
+
+    if (($width > $height) && ($width > $maxSize)) {
+      $height *= $maxSize / $width;
+      $width = $maxSize;
+    }else if(($height > $width) && ($height > $maxSize)) {
+      $width *= $maxSize / $height;
+      $height = $maxSize;
+    }else if($width > $maxSize){
+      $width = $maxSize;
+      $height = $width;
     }
 
     return array($width,$height);

@@ -10,6 +10,10 @@ use Input;
 
 class ImageController extends Controller
 {
+  public function __construct() {
+    $this->botDisallowed();
+  }
+
   public function upload() {
 
     if(!isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
@@ -39,13 +43,13 @@ class ImageController extends Controller
       ))->save();
     }
     
-    list($width,$height) = $image->generateImageSize(Input::get('imageType'));
+    // list($width,$height) = $image->generateImageSize(Input::get('imageType'));
 
     $temporaryPath = $tempFile->createTemporyFolder(Input::get('model').'_'.Input::get('token').'_'.Input::get('imageType'));
 
     $imageTool = new ImageTool($image->getRealPath());
-    $imageTool->png2jpg($width,$height);
-    $imageTool->resize($width,$height);
+    // $imageTool->png2jpg($width,$height);
+    // $imageTool->resize($width,$height);
     $moved = $imageTool->save($temporaryPath.$image->getFileName());
 
     if(!$moved) {

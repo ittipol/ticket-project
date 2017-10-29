@@ -62,6 +62,15 @@ class UploadImage {
 
 		$(_this.panel).on('change', '.image-input', function(){
 			_this.preview(this);
+
+			// let file = this.files[0];
+			// let img = new Image();
+   //    img.onload = function () {
+   //    	console.log('sdsd');
+   //        alert("width : "+this.width + " and height : " + this.height);
+   //    };
+   //    img.src = window.URL.createObjectURL(file);
+
 		});
 
 		$(_this.panel).on('click', '.image-remove-btn', function(){
@@ -80,10 +89,11 @@ class UploadImage {
 			  alert("Your browser does not support new File API! Please upgrade.");
 				return false;
 			}else{
-			  let fileSize = input.files[0].size;
-			  let mimeType = input.files[0].type;
 
-			  if(!this.checkImageType(mimeType) || !this.checkImageSize(fileSize)) {
+				let _this = this;
+				let file = input.files[0];
+
+			  if(!this.checkImageType(file.type) || !this.checkImageSize(file.size)) {
 		
 			  	parent.css('borderColor','red');
 		  		parent.find('.error-message').css('display','block').text('ไม่รองรับไฟล์นี้');
@@ -95,20 +105,66 @@ class UploadImage {
 			  	let reader = new FileReader();
 
 			  	reader.onload = function (e) {
-			  		parent.find('div.preview-image').css('display','none').css('background-image', 'url(' + e.target.result + ')');
-			  	}
+			  		// parent.find('div.preview-image').css('display','none').css('background-image', 'url(' + e.target.result + ')');
+			  	
+			  		let image = new Image();
+            image.onload = function (imageEvent) {
 
-			  	reader.readAsDataURL(input.files[0]);
+            		let dimension = _this.resizeImage(_this.type,image.width,image.height);
+
+                // Resize the image
+                let canvas = document.createElement('canvas');
+                //     max_size = 400,
+                //     width = image.width,
+                //     height = image.height;
+                // if (width > height) {
+                //     if (width > max_size) {
+                //         height *= max_size / width;
+                //         width = max_size;
+                //     }
+                // } else {
+                //     if (height > max_size) {
+                //         width *= max_size / height;
+                //         height = max_size;
+                //     }
+                // }
+                canvas.width = dimension.width;
+                canvas.height = dimension.height;
+                canvas.getContext('2d').drawImage(image, 0, 0, dimension.width, dimension.height);
+                let dataUrl = canvas.toDataURL('image/jpeg');
+                let resizedImage = _this.dataURLToBlob(dataUrl);
+                // $.event.trigger({
+                //     type: "imageResized",
+                //     blob: resizedImage,
+                //     url: dataUrl
+                // });
+					
+								parent.find('div.preview-image').css('display','none').css('background-image', 'url(' + dataUrl + ')');
+
+								let formData = new FormData(); 
+								formData.append('model', _this.model);
+								formData.append('token', _this.code);
+								formData.append('imageType', _this.type);
+								formData.append('image', resizedImage);
+
+								_this.uploadImage(parent,input,formData);
+
+            }
+            image.src = e.target.result;
+
+			  	}
+			  	reader.readAsDataURL(file);
 
 		  		parent.find('.error-message').css('display','none').text('');
 
-		  		let formData = new FormData(); 
-		  		formData.append('model', this.model);
-		  		formData.append('token', this.code);
-		  		formData.append('imageType', this.type);
-		  		formData.append('image', input.files[0]);
+		  		// not resizing
+		  		// let formData = new FormData(); 
+		  		// formData.append('model', this.model);
+		  		// formData.append('token', this.code);
+		  		// formData.append('imageType', this.type);
+		  		// formData.append('image', file);
 
-		  		this.uploadImage(parent,input,formData);
+		  		// this.uploadImage(parent,input,formData);
 
 			  }
 			}
@@ -346,6 +402,68 @@ class UploadImage {
 		$(this.panel).append(html);
 
 		return ++index;
+
+	}
+
+	dataURLToBlob(dataURL) {
+    let BASE64_MARKER = ';base64,';
+    if (dataURL.indexOf(BASE64_MARKER) == -1) {
+        let parts = dataURL.split(',');
+        let contentType = parts[0].split(':')[1];
+        let raw = parts[1];
+
+        return new Blob([raw], {type: contentType});
+    }
+
+    let parts = dataURL.split(BASE64_MARKER);
+    let contentType = parts[0].split(':')[1];
+    let raw = window.atob(parts[1]);
+    let rawLength = raw.length;
+
+    let uInt8Array = new Uint8Array(rawLength);
+
+    for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+    }
+
+    return new Blob([uInt8Array], {type: contentType});
+	}
+
+	resizeImage(type,width,height) {
+
+		let maxSize;
+
+		switch(type) {
+
+			case 'photo':
+				maxSize = 960;
+			break;
+
+			case 'avatar':
+				maxSize = 400;
+			break;
+
+			default:
+				return false;
+			break
+
+		}
+
+		if ((width > height) && (width > maxSize)) {
+	    height *= maxSize / width;
+	    width = maxSize;
+		}else if((height > width) && (height > maxSize)) {
+	    width *= maxSize / height;
+	    height = maxSize;
+		}else if(width > maxSize){
+			width = maxSize;
+			height = width;
+		}
+
+		return {
+			width: width,
+			height: height
+		};
 
 	}
 

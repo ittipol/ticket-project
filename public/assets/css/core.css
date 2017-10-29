@@ -116,8 +116,8 @@ label.image-label {
 }
 
 .upload-image-circle label.image-label > .image-remove-btn {
-	top: 12px;
-	right: 36px;
+	top: 24px;
+  right: 20px;
 }
 
 .image-panel.banner > label.image-label {
