@@ -136,6 +136,9 @@
 
         <div class="form-group">
           <label class="form-control-label required">ช่องทางการติดต่อผู้ขาย (หมายเลขโทรศัพท์ อีเมล Line ID หรืออื่นๆ)</label>
+          <div class="alert alert-info" role="alert">
+            <strong>เพื่อความเป็นส่วนตัว</strong> ไม่แนะนำให้กรอกหมายเลขโทรศัพท์หรือการติดต่ออื่นๆของคุณลงในประกาศโดยตรง คุณสามารถใช้การแชทของเว็บไซต์ในการติดต่อกับผู้ที่ต้องการซื้อบัตรของคุณ 
+          </div>
           {{Form::textarea('contact', null, array('class' => 'form-control'))}}
         </div>
 

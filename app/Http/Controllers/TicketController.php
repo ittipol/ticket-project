@@ -108,7 +108,7 @@ class TicketController extends Controller
 
       $model
       ->join('ticket_to_categories', 'ticket_to_categories.ticket_id', '=', 'tickets.id')
-      ->whereIn('ticket_to_categories.ticket_category_id',$request->get('category'));
+      ->whereIn('ticket_to_categories.ticket_category_id',$request->category);
     }
 
     if($request->has('price_start') || $request->has('price_end')) {
