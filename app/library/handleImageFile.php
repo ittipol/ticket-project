@@ -133,7 +133,7 @@ class HandleImageFile
         break;
 
       default:
-        return array($width,$height);
+        return false;
         break;
 
     }

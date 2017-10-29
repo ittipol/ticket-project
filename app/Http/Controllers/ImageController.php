@@ -43,7 +43,17 @@ class ImageController extends Controller
       ))->save();
     }
     
+    $dimension = $image->generateImageSize(Input::get('imageType');
+
+    if(empty($dimension)) {
+      return response()->json(array(
+        'uploaded' => false
+      ));
+    }
+
     // list($width,$height) = $image->generateImageSize(Input::get('imageType'));
+    $width = $dimension[0];
+    $height = $dimension[1];
 
     $temporaryPath = $tempFile->createTemporyFolder(Input::get('model').'_'.Input::get('token').'_'.Input::get('imageType'));
 
