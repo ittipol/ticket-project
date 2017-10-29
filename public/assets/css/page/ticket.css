@@ -282,17 +282,14 @@
 }
 
 .ticket-posting-detail {
-	color: #222;
+	color: #333;
 	background-color: #ddd;
 }
 
 .ticket-add-image-cover {
 	position: relative;
-	border-bottom: 1px solid #aaa;
-	/*background-color: #B0BEC5;*/
-	/*background-color: #23272f;*/
+	/*border-bottom: 1px solid #aaa;*/
 	background-color: rgb(18,34,47);
-	/*background-image: url(/assets/images/common/stars.png);*/
 	background-image: url(/assets/images/common/banner/banner22.jpg);
 	background-position: center;
 	background-size: cover;

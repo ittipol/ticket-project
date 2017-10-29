@@ -117,7 +117,7 @@
           </div>
 
           <div class="ticket-posting-detail p-2 text-center">
-            <div class="f6"><i class="fa fa-pencil"></i>&nbsp;&nbsp;{{$value['created_at']}}</div>
+            <div class="f6"><i class="fa fa-sticky-note"></i>&nbsp;&nbsp;{{$value['created_at']}}</div>
           </div>
 
           @if($value['closing_option'] == 0)

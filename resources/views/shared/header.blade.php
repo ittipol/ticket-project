@@ -11,7 +11,7 @@
           <ul class="gn-menu">
             <li class="gn-search-item">
               {{Form::open(['url' => 'ticket','method' => 'get', 'enctype' => 'multipart/form-data'])}}
-              <input placeholder="ค้นหา..." type="search" name="q" class="gn-search">
+              <input placeholder="ค้นหาบัตร" type="search" name="q" autocomplete="off" class="gn-search">
               {{Form::close()}}
               <a class="gn-icon fa-search"><span>ค้นหาบัตร</span></a>
             </li>
