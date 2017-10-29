@@ -43,7 +43,7 @@ class ImageController extends Controller
       ))->save();
     }
     
-    $dimension = $image->generateImageSize(Input::get('imageType');
+    $dimension = $image->generateImageSize(Input::get('imageType'));
 
     if(empty($dimension)) {
       return response()->json(array(
