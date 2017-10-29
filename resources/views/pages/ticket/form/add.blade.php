@@ -1,12 +1,10 @@
 @extends('shared.main')
 @section('content')
 
-<div class="ticket-add-image-cover">
-  <div class="image-cover-content">
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1>บัตรคอนเสิร์ต ตั๋ว วอชเชอร์ และอื่นๆที่ไม่ได้ใช้แล้วสามารถนำมาขายได้ที่นี่</h1>
-      </div>
+<div class="ticket-add-image-cover tc">
+  <div class="jumbotron jumbotron-fluid mb0">
+    <div class="container">
+      <h1>บัตรคอนเสิร์ต ตั๋ว วอชเชอร์ และอื่นๆที่ไม่ได้ใช้แล้วสามารถนำมาขายได้ที่นี่</h1>
     </div>
   </div>
 </div>
@@ -15,7 +13,7 @@
 
   <div class="margin-top-40 margin-bottom-20">
     <h4>ขายบัตร</h4>
-    <p>กรอกข้อมูลรายการของคุณให้ได้มากที่สุดเพื่อให้สินค้าของคุณมีรายละเอียดมากพอในการขาย</p>
+    <p>กรอกข้อมูลรายการขายของคุณให้ได้มากที่สุดเพื่อให้สินค้าของคุณมีรายละเอียดมากพอในการขาย</p>
   </div>
   {{Form::open(['id' => 'add_ticket_form', 'method' => 'post', 'enctype' => 'multipart/form-data'])}}
 

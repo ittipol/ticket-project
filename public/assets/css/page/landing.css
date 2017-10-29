@@ -1,19 +1,26 @@
 .infomation-wrapper {
+	position: relative;
 	width: 100%;
 	padding: 3.125rem 0;
-	/*background-color: #605aa2;*/
+	/*background: #667db6;
+	background: linear-gradient(to right, #243B55, #141E30, #141E30, #243B55);*/
 
-	/*background: linear-gradient(to bottom, #241d33 0%, #171930 51%, #091119 100%);*/
+	background-image: url(/assets/images/common/banner/3.jpg);
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
 
-	/*background-color: rgb(81,89,126);*/
-
-	/*background: #141E30;
-	background: linear-gradient(to right, #243B55, #141E30);*/
-
-	background: #667db6;
-	background: linear-gradient(to right, #243B55, #141E30, #141E30, #243B55);
-
-
+.infomation-wrapper:before {
+	content: "";
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: 5;
+	height: 100%;
+	text-align: center;
+	position: absolute;
+	background: rgba(0,0,0,0.5);
 }
 
 .content-section {
@@ -45,6 +52,14 @@
 	background-color: #0575E6;
 }
 
+.main-content-group {
+	position: relative;
+	background-image: url(/assets/images/common/banner/7.jpg);
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
 .parallax-bg {
 	z-index: 1;
 	height: auto;
@@ -52,9 +67,8 @@
 	overflow: hidden;
 	text-align: center;
 	position: relative;
-	/*background-color: #021B79;*/
-	background-color: #1A237E;
-	background-color: rgb(40,55,112);
+	/*background-color: rgb(40,55,112);*/
+	background: rgba(0,0,0,0.5);
 }
 
 /*.parallax-bg:before {
@@ -62,7 +76,7 @@
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	z-index: 9;
+	z-index: 5;
 	height: 100%;
 	text-align: center;
 	position: absolute;
@@ -73,7 +87,7 @@
 .parallax-bg a {
 	border-radius: 28px;
 	background-color: rgb(227,75,163);
-	/*box-shadow: 0 0 10px 2px rgba(227,75,163,.85);*/
+	box-shadow: 0 0 10px 2px rgba(227,75,163,.85);
 }
 
 .parallax-bg button:hover,

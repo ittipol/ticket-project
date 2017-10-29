@@ -286,18 +286,38 @@
 	background-color: #ddd;
 }
 
-.ticket-add-image-cover .jumbotron {
+.ticket-add-image-cover {
+	position: relative;
 	border-bottom: 1px solid #aaa;
 	/*background-color: #B0BEC5;*/
 	/*background-color: #23272f;*/
 	background-color: rgb(18,34,47);
-	background-image: url(/assets/images/common/stars.png);
+	/*background-image: url(/assets/images/common/stars.png);*/
+	background-image: url(/assets/images/common/banner/banner22.jpg);
 	background-position: center;
-	background-size: 100%;
+	background-size: cover;
 	background-repeat: no-repeat;
 }
 
-.ticket-add-image-cover .jumbotron h1 {
+.ticket-add-image-cover:before {
+	content: "";
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: 5;
+	height: 100%;
+	text-align: center;
+	position: absolute;
+	background: rgba(0,0,0,0.5);
+}
+
+.ticket-add-image-cover > .jumbotron {
+	position: relative;
+	background-color: transparent;
+	z-index: 9;
+}
+
+.ticket-add-image-cover > .jumbotron h1 {
 	line-height: 38px;
 	color: #ececec;
 }
