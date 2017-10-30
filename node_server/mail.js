@@ -2,12 +2,12 @@ var mailer = require("nodemailer");
 
 console.log('hhhhhhhhhhhhhhhhhhhhhh....');
 var smtp = {
-  host: 'localhost', //set to your host name or ip
-  port: 25, //25, 465, 587 depend on your 
+  host: '127.0.0.1', //set to your host name or ip
+  port: 587, //25, 465, 587 depend on your 
   secure: true, // use SSL
   auth: {
-    user: 'admin', //user account
-    pass: 'as2w3e4r' //user password
+    user: 'admin@charityth.com', //user account
+    pass: '1111' //user password
   }
 };
 
@@ -16,7 +16,7 @@ console.log(smtp);
 var smtpTransport = mailer.createTransport(smtp);
 
 var mail = {
-   from: 'admin@charityth.com',
+   // from: 'admin@charityth.com',
    to: 'k.m.ittipol@gmail.com',
    subject: 'Sending Email using Node.js',
    text: 'That was easy!'
