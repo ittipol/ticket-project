@@ -2,16 +2,16 @@ var mailer = require("nodemailer");
 
 console.log('hhhhhhhhhhhhhhhhhhhhhh....');
 var smtp = {
-  host: 'charityth.com', //set to your host name or ip
+  host: '103.13.228.35', //set to your host name or ip
   port: 25, //25, 465, 587 depend on your 
-  secure: true, // use SSL
+  secure: false, // use SSL
   auth: {
     user: 'admin', //user account
     pass: 'as2w3e4r' //user password
   }
 };
 
-  console.log(smtp);
+console.log(smtp);
 
 var smtpTransport = mailer.createTransport(smtp);
 
@@ -38,35 +38,42 @@ smtpTransport.sendMail(mail, function(error, response){
 });
 
 
-// console.log('222 sending....');
-// var smtp = {
-//   host: 'mail.charityth.com', //set to your host name or ip
-//   port: 25, //25, 465, 587 depend on your 
-//   secure: true, // use SSL
-//   auth: {
-//     user: 'admin@charityth.com', //user account
-//     pass: 'qqww1q2w' //user password
-//   }
-// };
-// var smtpTransport = mailer.createTransport(smtp);
 
-// var mail = {
-//    from: 'admin@charityth.com',
-//    to: 'k.m.ittipol@gmail.com',
-//    subject: 'Sending Email using Node.js',
-//    text: 'That was easy!'
-// }
+var mailer = require("nodemailer");
 
-// smtpTransport.sendMail(mail, function(error, response){
+console.log('hhhhhhhhhhhhhhhhhhhhhh....');
+var smtp = {
+  host: '103.13.228.35', //set to your host name or ip
+  port: 25, //25, 465, 587 depend on your 
+  secure: true, // use SSL
+  auth: {
+    user: 'admin', //user account
+    pass: 'as2w3e4r' //user password
+  }
+};
 
-//   console.log(error);
+console.log(smtp);
 
-//    smtpTransport.close();
-//    if(error){
-//       //error handler
-//       console.log('send error...');
-//    }else{
-//       //success handler 
-//       console.log('send email success');
-//    }
-// });
+var smtpTransport = mailer.createTransport(smtp);
+
+var mail = {
+   from: 'admin@charityth.com',
+   to: 'k.m.ittipol@gmail.com',
+   subject: 'hello Node.js',
+   text: 'That was easy!'
+}
+
+smtpTransport.sendMail(mail, function(error, response){
+
+  console.log('xxxxxxxxxxxxxxxxxxxxx....');
+  console.log(error);
+
+   // smtpTransport.close();
+   // if(error){
+   //    //error handler
+   //    console.log('send error...');
+   // }else{
+   //    //success handler 
+   //    console.log('send email success');
+   // }
+});
