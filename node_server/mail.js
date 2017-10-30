@@ -2,7 +2,7 @@ var mailer = require("nodemailer");
 
 console.log('hhhhhhhhhhhhhhhhhhhhhh....');
 var smtp = {
-  host: '127.0.0.1', //set to your host name or ip
+  host: 'localhost', //set to your host name or ip
   port: 25, //25, 465, 587 depend on your 
   secure: true, // use SSL
   auth: {
