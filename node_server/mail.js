@@ -1,49 +1,18 @@
 var mailer = require("nodemailer");
 
-console.log('sending....');
+console.log('hhhhhhhhhhhhhhhhhhhhhh....');
 var smtp = {
-  host: 'mail.charityth.com', //set to your host name or ip
-  port: 587, //25, 465, 587 depend on your 
-  secure: true, // use SSL
-  auth: {
-    user: 'admin@charityth.com', //user account
-    pass: 'qqww1q2w' //user password
-  }
-};
-var smtpTransport = mailer.createTransport(smtp);
-
-var mail = {
-   from: 'admin@charityth.com',
-   to: 'k.m.ittipol@gmail.com',
-   subject: 'Sending Email using Node.js',
-   text: 'That was easy!'
-}
-
-smtpTransport.sendMail(mail, function(error, response){
-
-  console.log(error);
-
-   smtpTransport.close();
-   if(error){
-      //error handler
-      console.log('send error...');
-   }else{
-      //success handler 
-      console.log('send email success');
-   }
-});
-
-
-console.log('222 sending....');
-var smtp = {
-  host: 'mail.charityth.com', //set to your host name or ip
+  host: 'charityth.com', //set to your host name or ip
   port: 25, //25, 465, 587 depend on your 
   secure: true, // use SSL
   auth: {
-    user: 'admin@charityth.com', //user account
-    pass: 'qqww1q2w' //user password
+    user: 'admin', //user account
+    pass: 'as2w3e4r' //user password
   }
 };
+
+  console.log(smtp);
+
 var smtpTransport = mailer.createTransport(smtp);
 
 var mail = {
@@ -55,14 +24,49 @@ var mail = {
 
 smtpTransport.sendMail(mail, function(error, response){
 
+  console.log('xxxxxxxxxxxxxxxxxxxxx....');
   console.log(error);
 
-   smtpTransport.close();
-   if(error){
-      //error handler
-      console.log('send error...');
-   }else{
-      //success handler 
-      console.log('send email success');
-   }
+   // smtpTransport.close();
+   // if(error){
+   //    //error handler
+   //    console.log('send error...');
+   // }else{
+   //    //success handler 
+   //    console.log('send email success');
+   // }
 });
+
+
+// console.log('222 sending....');
+// var smtp = {
+//   host: 'mail.charityth.com', //set to your host name or ip
+//   port: 25, //25, 465, 587 depend on your 
+//   secure: true, // use SSL
+//   auth: {
+//     user: 'admin@charityth.com', //user account
+//     pass: 'qqww1q2w' //user password
+//   }
+// };
+// var smtpTransport = mailer.createTransport(smtp);
+
+// var mail = {
+//    from: 'admin@charityth.com',
+//    to: 'k.m.ittipol@gmail.com',
+//    subject: 'Sending Email using Node.js',
+//    text: 'That was easy!'
+// }
+
+// smtpTransport.sendMail(mail, function(error, response){
+
+//   console.log(error);
+
+//    smtpTransport.close();
+//    if(error){
+//       //error handler
+//       console.log('send error...');
+//    }else{
+//       //success handler 
+//       console.log('send email success');
+//    }
+// });

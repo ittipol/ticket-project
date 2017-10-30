@@ -2,6 +2,7 @@ var env = require('./env');
 var constVar = require('./const');
 var dateTime = require('./func/date_time');
 var token = require('./func/token');
+var striptags = require('striptags');
 //
 var app = require('express')();
 var server = require('http').Server(app);
@@ -277,13 +278,14 @@ io.on('connection', function(socket){
     }
 
     clearTimeout(notifyMessageHandle[data.room]);
-    
-  	// save message
-  	db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', CURRENT_TIMESTAMP);");
+  	
+    let message = striptags(data.message.trim());
+    // save message
+  	db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+message+"', CURRENT_TIMESTAMP);");
 
     io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
       user: data.user,
-      message: data.message
+      message: message
     });
 
     notifyMessageHandle[data.room] = setTimeout(function(){

@@ -7,20 +7,13 @@
   $jsFiles = array(
     'assets/js/socket.io.js',
     'assets/js/jquery-3.2.1.min.js',
-    // 'assets/js/bootstrap-slider.min.js',
-    // 'assets/js/jquery-ui.min.js',
-    // 'assets/js/jquery.validate.min.js',
     'assets/js/bootstrap.min.js',
     'assets/js/modernizr.custom.js',
-    // 'assets/js/masonry.pkgd.min.js',
     'assets/lib/moment/moment.js',
     // 'assets/lib/moment/moment-timezone.js',
 
     'assets/lib/header/js/classie.js',
     'assets/lib/header/js/gnmenu.js',
-
-    // 'assets/lib/notification/js/classie.js',
-    // 'assets/lib/notification/js/notificationFx.js',
 
     'assets/js/token.js',
     'assets/js/io.js',
