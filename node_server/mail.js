@@ -4,7 +4,7 @@ console.log('hhhhhhhhhhhhhhhhhhhhhh....');
 var smtp = {
   host: '127.0.0.1', //set to your host name or ip
   port: 25, //25, 465, 587 depend on your 
-  secure: false, // use SSL
+  secure: true, // use SSL
   auth: {
     user: 'admin', //user account
     pass: 'as2w3e4r' //user password
