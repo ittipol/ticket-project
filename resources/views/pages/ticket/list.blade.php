@@ -59,72 +59,69 @@
 
       <div class="c-grid__col">
         <div class="c-card c-card--to-edge">
-          
-          <div class="c-card__media Media__image Media__image--16-9">
-            <a href="/ticket/view/{{$value['id']}}">
-              <div class="c-card__flag">{{$value['category']}}</div>
-              <img src="{{$value['image']['_preview_url']}}">
-            </a>
-          </div>
-          <div class="c-card__header">
-            <div class="c-card__avatar"><img src="/avatar/{{$value['created_by']}}?d=1"></div>
-            <div class="c-card__title">
-              <div class="title">{{$value['user']['name']}}</div>
-              <div class="subtitle"><small>{{$value['created_at']}}</small></div>
-            </div>
-            <div class="c-card__date">
-              <a href="/chat/s/{{$value['id']}}" class="btn seller-chat-btn">
-                <div class="online_status_indicator_{{$value['created_by']}} online-status-indicator @if($value['user']['online']) is-online @endif"></div>
-                <i class="fa fa-comments" aria-hidden="true"></i>
+
+          <div class="c-card__flag"><i class="fa fa-ticket" aria-hidden="true"></i> {{$value['category']}}</div>
+
+          <div class="c-card--inner">
+
+            <div class="c-card__media Media__image Media__image--16-9">
+              <a href="/ticket/view/{{$value['id']}}">
+                <img src="{{$value['image']['_preview_url']}}">
               </a>
             </div>
-            <!-- <div class="c-card__icons"><a href=""><i class="fa fa-ellipsis-v"></i></a></div> -->
-          </div>
-          <div class="c-card__primary-title">
-            <!-- <div class="c-card__media Media__image--one-right"><img src="https://images.unsplash.com/photo-1436397543931-01c4a5162bdb?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;s=d23f7ecaedb63c82a12679b03e5b0058" alt=""></div> -->
-            <h2 class="title"><a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a></h2>
+            <div class="c-card__header">
+              <div class="c-card__avatar"><img src="/avatar/{{$value['created_by']}}?d=1"></div>
+              <div class="c-card__title">
+                <div class="title">{{$value['user']['name']}}</div>
+                <div class="subtitle"><small>{{$value['created_at']}}</small></div>
+              </div>
+              <div class="c-card__date">
+                <a href="/chat/s/{{$value['id']}}" class="btn seller-chat-btn">
+                  <div class="online_status_indicator_{{$value['created_by']}} online-status-indicator @if($value['user']['online']) is-online @endif"></div>
+                  <i class="fa fa-comments" aria-hidden="true"></i>
+                </a>
+              </div>
+              <!-- <div class="c-card__icons"><a href=""><i class="fa fa-ellipsis-v"></i></a></div> -->
+            </div>
+            <div class="c-card__primary-title">
+              <!-- <div class="c-card__media Media__image--one-right"><img src="></div> -->
+              <h2 class="title"><a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a></h2>
 
-            @if($value['date_type'] == 1)
-              
-              @if(!empty($value['date_1']))
-              <div class="subtitle">
-                ใช้ได้ตั้งแต่ <strong>{{$value['date_1']}}</strong> - <strong>{{$value['date_2']}}</strong>
-              </div>
-              @else
-              <div class="subtitle">
-                ใช้ได้ถึงวันที่ <strong>{{$value['date_2']}}</strong>
-              </div>
+              @if($value['date_type'] == 1)
+                
+                @if(!empty($value['date_1']))
+                <div class="subtitle">
+                  ใช้ได้ตั้งแต่ <strong>{{$value['date_1']}}</strong> - <strong>{{$value['date_2']}}</strong>
+                </div>
+                @else
+                <div class="subtitle">
+                  ใช้ได้ถึงวันที่ <strong>{{$value['date_2']}}</strong>
+                </div>
+                @endif
+                
+              @elseif($value['date_type'] == 2)
+                <div class="subtitle">
+                  วันที่แสดง <strong>{{$value['date_2']}}</strong>
+                </div>
+              @elseif($value['date_type'] == 3)
+                <div class="subtitle">
+                  วันที่เดินทาง <strong>{{$value['date_2']}}</strong>
+                </div>
               @endif
-              
-            @elseif($value['date_type'] == 2)
-              <div class="subtitle">
-                วันที่แสดง <strong>{{$value['date_2']}}</strong>
-              </div>
-            @elseif($value['date_type'] == 3)
-              <div class="subtitle">
-                วันที่เดินทาง <strong>{{$value['date_2']}}</strong>
-              </div>
-            @endif
+            </div>
+
+            <div class="price-section c-card__price px-2 pt-0 pb-2">
+              <span class="price">{{$value['price']}}</span>
+              @if(!empty($value['original_price']))
+              <span class="original-price">{{$value['original_price']}}</span>
+              @endif
+              @if(!empty($value['save']))
+                <span class="price-saving-flag">-{{$value['save']}}</span>
+              @endif
+            </div>
 
           </div>
-
-          <div class="price-section px-2 pt-0 pb-2">
-            <span class="price">{{$value['price']}}</span>
-            @if(!empty($value['original_price']))
-            <span class="original-price">{{$value['original_price']}}</span>
-            @endif
-            @if(!empty($value['save']))
-              <span class="price-saving-flag">-{{$value['save']}}</span>
-            @endif
-          </div>
-
-          <!-- <div class="c-card__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae quis ullam voluptatibus odit officia vero accusamus maxime voluptas quia ab saepe, tenetur culpa expedita aliquid sit ex dolores asperiores sed.</div> -->
-          <!-- <div class="c-card__actions">
-            <a href="#">เพิ่มเติม</a>
-            <a class="c-btn c-btn__primary" href="#"><i class="fa fa-check"></i> Fai offerta</a>
-          </div> -->
         </div>
-        
       </div>
 
       @endforeach

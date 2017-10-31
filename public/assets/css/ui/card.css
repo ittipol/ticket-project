@@ -98,6 +98,11 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   position: relative;
 }
+
+.c-card--inner {
+  overflow: hidden;
+}
+
 .c-card--to-edge {
   margin: 0 0 4px;
   border-radius: 0;
@@ -117,7 +122,9 @@
   padding: 12px;
   overflow: hidden;
   position: relative;
+  background-color: rgba(255,255,255,.85);
   border-bottom: 1px solid #ccc;
+  z-index: 5;
 }
 .c-card__avatar {
   width: 36px;
@@ -140,14 +147,26 @@
 }*/
 .c-card__flag {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 12px;
+  left: 0;
   color: #fff;
   font-size: .875rem;
+  /*background-color: #2196F3;*/
   background-color: #0074D9;
   padding: 0.25rem 0.75rem;
   z-index: 9;
 }
+/*.c-card__flag:after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  border: 4px solid;
+  border-top-color: #0D47A1;
+  border-right-color: #0D47A1;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}*/
 .c-card__date {
   color: #888;
   font-size: 0.75rem;
@@ -161,12 +180,14 @@
   color: #777;
 }
 .c-card__media {
-  position: relative;
-  overflow: hidden;
+  min-height: 140px;
   background-color: #aaa;
 }
 .c-card__primary-title {
   overflow: hidden;
+  position: relative;
+  z-index: 5;
+  background-color: rgba(255,255,255,.85);
 }
 .c-card__primary-title .title {
   margin: 0;
@@ -190,11 +211,11 @@
   padding: 12px;
   color: #555;
 }
-/*.c-card .price-section {
-  position: absolute;
-  bottom: 8px;
-  left: 14px;
-}*/
+.c-card__price {
+  position: relative;
+  z-index: 5;
+  background-color: rgba(255,255,255,.85);
+}
 .c-card__actions {
   padding: 6px;
   font-size: 1rem;
@@ -213,7 +234,8 @@
 
 .Media__image {
   position: relative;
-  overflow: hidden;
+  /*overflow: hidden;*/
+  z-index: 2;
 }
 .Media__image--one-right, .Media__image--two-right {
   float: right;
