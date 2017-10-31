@@ -180,7 +180,6 @@
   color: #777;
 }
 .c-card__media {
-  min-height: 140px;
   background-color: #aaa;
 }
 .c-card__primary-title {
@@ -264,6 +263,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  min-height: 100%;
 }
 
 .c-btn, a.c-btn {
