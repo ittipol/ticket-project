@@ -5,9 +5,7 @@ class TicketForm {
   }
 
   init() {
-
     this.dateInputField($('#date_type_select').val());
-
     this.bind();
   }
 

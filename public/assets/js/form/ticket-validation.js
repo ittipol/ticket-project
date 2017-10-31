@@ -11,7 +11,7 @@ var Validation = function () {
 
           $.validator.addMethod("greaterThan", function(value, element, params) {
             
-            if($(params).val() === '') {
+            if(($(params).val() === '') || ($(element).val() === '')) {
               return true;
             }
 
