@@ -7,7 +7,7 @@
     background-color: #ddd;
   }
 
-  .data-list {
+  /*.data-list {
     opacity: 0;
     transition: opacity .3s ease-out ;
   }
@@ -20,7 +20,7 @@
 
   @media (max-width: 480px) {
     .grid-item { width: 92%; margin: 4%; }
-  }
+  }*/
 </style>
 
 <div class="container">
@@ -31,114 +31,70 @@
     <h5>รายการของคุณ</h5>
   </div>
 
-  <div class="grid data-list">
+  <div class="row">
 
     @foreach($data as $_value)
       <?php 
         $value = $_value->buildDataList();
       ?>
 
-      <div class="grid-item">
-        <div class="data-list-item">
+      <div class="col-12 col-md-4 mb3">
+        <div class="c-card c-card--to-edge">
+          
+          <div class="c-card__media Media__image Media__image--16-9">
+            <a href="/ticket/view/{{$value['id']}}">
+              <div class="c-card__flag">{{$value['category']}}</div>
+              <img src="{{$value['image']['_preview_url']}}">
+            </a>
+          </div>
+          <!-- <div class="c-card__header">
+      
+          </div> -->
+          <div class="c-card__primary-title">
+            <!-- <div class="c-card__media Media__image--one-right"><img src="https://images.unsplash.com/photo-1436397543931-01c4a5162bdb?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;s=d23f7ecaedb63c82a12679b03e5b0058" alt=""></div> -->
+            <h2 class="title"><a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a></h2>
 
-          <div>
-            @if(!empty($value['image']))
-              <a href="/ticket/view/{{$value['id']}}" class="data-image">
-                <img src="{{$value['image']['_preview_url']}}">
+            @if($value['date_type'] == 1)
+              
+              @if(!empty($value['date_1']))
+              <div class="subtitle">
+                ใช้ได้ตั้งแต่ <strong>{{$value['date_1']}}</strong> - <strong>{{$value['date_2']}}</strong>
+              </div>
+              @else
+              <div class="subtitle">
+                ใช้ได้ถึงวันที่ <strong>{{$value['date_2']}}</strong>
+              </div>
+              @endif
+              
+            @elseif($value['date_type'] == 2)
+              <div class="subtitle">
+                วันที่แสดง <strong>{{$value['date_2']}}</strong>
+              </div>
+            @elseif($value['date_type'] == 3)
+              <div class="subtitle">
+                วันที่เดินทาง <strong>{{$value['date_2']}}</strong>
+              </div>
+            @endif
+            
+          </div>
 
-                @if($value['imageTotal'] > 1)
-                <div class="image-more">
-                  {{$value['imageTotal']-1}}+<img src="/assets/images/common/photos.png">
-                </div>
-                @endif
-              </a>
+          <div class="price-section px-2 pt-0 pb-2">
+            <span class="price">{{$value['price']}}</span>
+            @if(!empty($value['original_price']))
+            <span class="original-price">{{$value['original_price']}}</span>
+            @endif
+            @if(!empty($value['save']))
+              <span class="price-saving-flag">-{{$value['save']}}</span>
             @endif
           </div>
 
-          <h5 class="mx-2 mt-3 mb-1">
-            <a class="title" href="/ticket/view/{{$value['id']}}">
-              {{$value['title']}}
-            </a>
-          </h5>
-
-          <div class="main-data-section clearfix">
-
-            <div class="w-100 w-50-ns fn fl-ns">
-
-              @if(!empty($value['save']))
-                <div class="price-saving-flag dib mt-3">-{{$value['save']}}</div>
-              @endif
-
-              <div class="price-section px-2 pt-0 pb-2">
-                <span class="price">{{$value['price']}}</span>
-                @if(!empty($value['original_price']))
-                <span class="original-price">{{$value['original_price']}}</span>
-                @endif
-              </div>
-
-            </div>
-
-            <div class="w-100 w-50-ns fn fl-ns">
-
-              <div class="additional-data-section mt-2 mb-4 ph2">
-
-                @if($value['date_type'] == 1)
-                  
-                  @if(!empty($value['date_1']))
-                  <div class="additional-item">
-                    <i class="fa fa-calendar"></i>&nbsp;ใช้ได้ตั้งแต่ {{$value['date_1']}} ถึง {{$value['date_2']}}
-                  </div>
-                  @else
-                  <div class="additional-item">
-                    <i class="fa fa-calendar"></i>&nbsp;ใช้ได้ถึงวันที่ {{$value['date_2']}}
-                  </div>
-                  @endif
-                  
-                @elseif($value['date_type'] == 2)
-                  <div class="additional-item">
-                    <i class="fa fa-calendar"></i>&nbsp;วันที่แสดง {{$value['date_2']}}
-                  </div>
-                @elseif($value['date_type'] == 3)
-                  <div class="additional-item">
-                    <i class="fa fa-calendar"></i>&nbsp;วันที่เดินทาง {{$value['date_2']}}
-                  </div>
-                @endif
-
-                @if(!empty($value['place_location']))
-                  <div class="additional-item">
-                    <i class="fa fa-map-marker"></i>&nbsp;สถานที่ {{$value['place_location']}}
-                  </div>
-                @endif
-
-              </div>
-
-            </div>
-
+          <div class="c-card__actions pb2 tc clearfix">
+            <a class="c-btn c-btn__primary w-50 fl ma0 br0 db" href="/ticket/edit/{{$value['id']}}"><i class="fa fa-pencil"></i> แก้ไข</a>
+            <a class="c-btn  w-50 fl ma0 br0 db" href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" data-t-closing-modal="1"><i class="fa fa-times"></i> ปิดประกาศ</a>
           </div>
-
-          <div class="ticket-posting-detail p-2 text-center">
-            <div class="f6"><i class="fa fa-sticky-note"></i>&nbsp;&nbsp;{{$value['created_at']}}</div>
-          </div>
-
-          @if($value['closing_option'] == 0)
-          <ul class="nav nav-tabs">
-            <li class="nav-item">
-              <a href="/ticket/edit/{{$value['id']}}"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;แก้ไข</a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" data-t-closing-modal="1"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;ปิดประกาศ</a>
-            </li>
-          </ul>
-          @else
-          <div class="tc pa2">
-            ปิดประกาศนี้แล้ว
-          </div>
-          @endif
-
         </div>
-
+        
       </div>
-
     @endforeach
   </div>
 
@@ -161,19 +117,19 @@
 
 @include('shared.ticket-closing-modal')
 
-<script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
+<!-- <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script> -->
 
 <script type="text/javascript">
   $(document).ready(function(){
 
-    setTimeout(function(){
-      $('.grid').masonry({
-        itemSelector: '.grid-item',
-        percentPosition: true
-      });
+    // setTimeout(function(){
+    //   $('.grid').masonry({
+    //     itemSelector: '.grid-item',
+    //     percentPosition: true
+    //   });
 
-      $('.data-list').css('opacity','1');
-    },300);
+    //   $('.data-list').css('opacity','1');
+    // },300);
 
   });
 </script>

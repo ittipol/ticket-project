@@ -12,9 +12,7 @@
     transition: opacity .3s ease-out ;
   }*/
 
-  .grid-item { width: 23%; margin: 1%; }
-
-  /*.grid-item { width: 18%; margin: 1%; }*/
+  /*.grid-item { width: 23%; margin: 1%; }
 
   @media (max-width: 1366px) {
     .grid-item { width: 47%; margin: 1.5%; }
@@ -22,12 +20,12 @@
 
   @media (max-width: 480px) {
     .grid-item { width: 92%; margin: 4%; }
-  }
+  }*/
 </style>
 
 @include('shared.filter-leftside-nav')
 
-<div class="container-fliud margin-bottom-100">
+<div class="container-fliud mb5 mb7-ns">
 
   @if(!empty($taggings))
     <div class="main-panel">
@@ -108,7 +106,6 @@
               </div>
             @endif
 
-            <!-- <div class="subtitle">{{$value['category']}}</div> -->
           </div>
 
           <div class="price-section px-2 pt-0 pb-2">
@@ -164,7 +161,7 @@
 @include('shared.ticket-closing-modal')
 
 <script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
+<!-- <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script> -->
 <script type="text/javascript" src="/assets/js/user_online.js"></script>
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
 

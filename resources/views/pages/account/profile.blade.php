@@ -75,7 +75,6 @@
                       </div>
                     @endif
 
-                    <!-- <div class="subtitle">{{$value['category']}}</div> -->
                   </div>
 
                   <div class="price-section px-2 pt-0 pb-2">

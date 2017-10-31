@@ -30,9 +30,6 @@
       </div>  
     </div>
 
-    <!-- <div class="col-md-4">
-    </div> -->
-
     <div class="col-md-8">
 
       <p class="ticket-detail-section pt2-ns mb-3">{!!$data['description']!!}</p>

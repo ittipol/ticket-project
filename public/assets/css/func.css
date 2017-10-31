@@ -1521,7 +1521,7 @@ code, .code { font-family: Consolas, monaco, monospace; }
 .pb0 { padding-bottom: 0; }
 .pb1 { padding-bottom: .25rem; }
 .pb2 { padding-bottom: .5rem; }
-.pb3 { padding-bottom: 1rem; }
+.pb3 { padding-bottom: 1rem !important; }
 .pb4 { padding-bottom: 2rem; }
 .pb5 { padding-bottom: 4rem; }
 .pb6 { padding-bottom: 8rem; }
@@ -1550,7 +1550,7 @@ code, .code { font-family: Consolas, monaco, monospace; }
 .ph5 { padding-left: 4rem; padding-right: 4rem; }
 .ph6 { padding-left: 8rem; padding-right: 8rem; }
 .ph7 { padding-left: 16rem; padding-right: 16rem; }
-.ma0 { margin: 0; }
+.ma0 { margin: 0 !important; }
 .ma1 { margin: .25rem; }
 .ma2 { margin: .5rem; }
 .ma3 { margin: 1rem; }
