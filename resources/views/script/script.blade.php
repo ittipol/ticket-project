@@ -79,6 +79,7 @@
     'assets/css/ui/snackbar.css',
     'assets/css/ui/chat.css',
     'assets/css/ui/dropdown-menu.css',
+    'assets/css/ui/card.css',
     'assets/css/page/landing.css',
     'assets/css/page/login.css',
     'assets/css/page/register.css',

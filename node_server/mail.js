@@ -1,13 +1,13 @@
 var mailer = require("nodemailer");
 
-console.log('hhhhhhhhhhhhhhhhhhhhhh....');
+// console.log('hhhhhhhhhhhhhhhhhhhhhh....');
 var smtp = {
-  host: '127.0.0.1', //set to your host name or ip
-  port: 587, //25, 465, 587 depend on your 
+  host: '103.13.228.35', //set to your host name or ip
+  port: 465, //25, 465, 587 depend on your 
   secure: true, // use SSL
   auth: {
-    user: 'admin@charityth.com', //user account
-    pass: '1111' //user password
+    user: 'admin', //user account
+    pass: 'as2w3e4r' //user password
   }
 };
 

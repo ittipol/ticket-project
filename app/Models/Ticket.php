@@ -7,6 +7,7 @@ use App\library\url;
 use App\library\date;
 use App\library\currency;
 use App\library\format;
+use App\library\stringHelper;
 
 class Ticket extends Model
 {
@@ -91,15 +92,13 @@ class Ticket extends Model
       ));
 
     }
-
-    // Get user
+    // User
     $_user = User::select('name','online')->find($this->created_by);
-
     $uesr = null;
     if(!empty($_user)) {
       $user = $_user->getAttributes();
     }
-
+    // Price
     $originalPrice = null;
     $save = null;
     if(!empty($this->original_price)) {
@@ -109,7 +108,7 @@ class Ticket extends Model
         $save = $format->percent(100 - (($this->price * 100) / $this->original_price)) . '%';
       }
     }
-
+    // Ticket Category
     $category = $this->getRelatedData('TicketToCategory',array(
       'first' => true,
       'fields' => array('ticket_category_id')
@@ -117,7 +116,8 @@ class Ticket extends Model
 
     return array(
       'id' => $this->id,
-      'title' => $this->title,
+      // 'title' => $this->title,
+      'title' => StringHelper::truncString($this->title,80,true,true),
       'description' => $this->description,
       'place_location' => $this->place_location,
       'price' => $currency->format($this->price),
@@ -217,6 +217,15 @@ class Ticket extends Model
       'tags' => $tags
     );
 
+  }
+
+  public function getShortDesc() {
+
+    if(empty($this->description)) {
+      require null;
+    }
+
+    return StringHelper::truncString($this->description,220,true,true);
   }
 
 }

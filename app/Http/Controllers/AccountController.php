@@ -23,16 +23,16 @@ class AccountController extends Controller
       ['created_by','=',Auth::user()->id]
     ])
     ->orderBy('created_at','desc')
-    ->take(3)
+    ->take(4)
     ->get();
 
-    $list = array();
-    foreach ($data as $value) {
-      $list[] = $value->buildDataList();
-    }
+    // $list = array();
+    // foreach ($data as $value) {
+    //   $list[] = $value->buildDataList();
+    // }
 
-    $this->setData('list',$list);
-
+    // $this->setData('list',$list);
+    $this->setData('data',$data);
     $this->setMeta('title','โปรไฟล์');
 
     return $this->view('pages.account.profile');

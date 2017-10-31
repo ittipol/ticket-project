@@ -59,7 +59,7 @@ class Date
     $date = explode('-', $date);
     $time = explode(':', $time);
 
-    return (int)$date[2].' '.Date::getMonthName($date[1]).' '.($date[0]+543). ' เวลา '.(int)$time[0].':'.$time[1];
+    return (int)$date[2].' '.Date::getMonthName($date[1]).' '.($date[0]+543). ' '.(int)$time[0].':'.$time[1];
   }
 
   public static function explodeDateTime($dateTime) {

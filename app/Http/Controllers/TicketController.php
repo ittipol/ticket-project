@@ -165,9 +165,9 @@ class TicketController extends Controller
     if($request->has('sort')) {
 
       switch ($request->sort) {
-        // case 'post_n':
-        //   $model->orderBy('tickets.created_at','desc');
-        //   break;
+        case 'post_n':
+          $model->orderBy('tickets.created_at','desc');
+          break;
         
         case 'post_o':
           $model->orderBy('tickets.created_at','asc');
@@ -191,6 +191,8 @@ class TicketController extends Controller
           break;
       }
 
+    }else {
+      $model->orderBy('tickets.created_at','desc');
     }
 
     $this->setData('data',$model->paginate(36));
@@ -243,7 +245,7 @@ class TicketController extends Controller
 
     // SET META
     $this->setMeta('title',$model->title);
-    $this->setMeta('description',StringHelper::truncString($model->description,220,true,true));
+    $this->setMeta('description',$model->getShortDesc());
     $this->setMeta('image',$metaImage);
     $this->setMeta('keywords',implode(',',$keywords));
 
