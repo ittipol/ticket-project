@@ -280,6 +280,7 @@
 .c-btn:hover, .c-btn:focus, a.c-btn:hover, a.c-btn:focus {
   background-color: #ccc;
   border-color: #bbb;
+  text-decoration: none;
 }
 
 .c-btn__primary, a.c-btn__primary {

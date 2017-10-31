@@ -41,29 +41,6 @@
 	margin-left: 290px;
 }
 
-/*#price_range .slider-selection {
-  background: #90CAF9;
-}
-
-#price_range .slider-handle {
-  background-color: #1976D2 !important;
-  background-image: none;
-}
-
-#price_range.slider-horizontal {
-  width: 90%;
-}
-
-#price_range.slider-horizontal .slider-track {
-  background-color: #000 !important;
-}
-
-#price_range_slider {
-  opacity: 0;
-  position: absolute;
-  z-index: -1;
-}*/
-
 .data-list {
 	position: relative;
 }
@@ -156,13 +133,16 @@
 	font-size: 1.25rem;
 }
 
-
 .price-saving-flag {
 	color: #fff;
 	background-color: #D50000;
 	padding: 0 0.75rem;
 	/*padding: 0 1.5625rem;
 	font-size: 1.375rem;*/
+}
+
+.price-saving-flag.flag-lg {
+	padding: 0.3125rem 0.625rem;
 }
 
 .seller-section {
