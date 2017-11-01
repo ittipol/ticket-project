@@ -14,8 +14,8 @@ class Controller extends BaseController
   protected $data = array();
   protected $pageName = null; 
   protected $meta = array(
-    'title' => 'Ticket',
-    'description' => 'แหล่ง ซื้อ ขาย บัตรคอนเสิร์ต บัตรการแสดง บัตรกีฬา ตั๋งเครื่องบิน ตั๋วหนัง วอชเชอร์',
+    'title' => 'แหล่ง ซื้อ ขาย บัตร ตั๋ว วอชเชอร์ ได้ด้วยตัวคุณเอง',
+    'description' => 'เว็บไซต์ที่ให้คุณซื้อและขายบัตรงานแสดงต่าง ๆ ได้ด้วยตัวคุณเอง โดยคุณเป็นผู้ตั้งราคา',
     'image' => '',
     'keywords' => 'ซื้อ,ขาย,บัตรคอนเสิร์ต,ตั๋ว,วอชเชอร์',
   );

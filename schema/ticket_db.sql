@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2017 at 04:22 AM
+-- Generation Time: Nov 01, 2017 at 03:53 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -30,7 +30,7 @@ CREATE TABLE `chat_messages` (
   `id` int(11) UNSIGNED NOT NULL,
   `chat_room_id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
-  `message` text NOT NULL,
+  `message` text CHARACTER SET utf8mb4 NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -210,9 +210,9 @@ CREATE TABLE `ticket_categories` (
 --
 
 INSERT INTO `ticket_categories` (`id`, `parent_id`, `name`, `description`, `active`) VALUES
-(1, NULL, 'ดนตรี', NULL, 1),
-(2, NULL, 'การแสดง', NULL, 1),
-(3, NULL, 'กีฬา', NULL, 1),
+(1, NULL, 'บัตรคอนเสิร์ต', NULL, 1),
+(2, NULL, 'บัตรการแสดง', NULL, 1),
+(3, NULL, 'บัตรกีฬา', NULL, 1),
 (4, NULL, 'ตั๋วเครื่องบิน', NULL, 1),
 (5, NULL, 'แพ็คเกจท่องเที่ยว', NULL, 1),
 (6, NULL, 'ที่พัก', NULL, 1),
@@ -422,17 +422,17 @@ ALTER TABLE `words`
 -- AUTO_INCREMENT for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `chat_rooms`
 --
 ALTER TABLE `chat_rooms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `image_types`
 --
@@ -457,12 +457,12 @@ ALTER TABLE `social_providers`
 -- AUTO_INCREMENT for table `temporary_files`
 --
 ALTER TABLE `temporary_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 --
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `ticket_categories`
 --
@@ -472,12 +472,12 @@ ALTER TABLE `ticket_categories`
 -- AUTO_INCREMENT for table `ticket_chat_rooms`
 --
 ALTER TABLE `ticket_chat_rooms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `words`
 --
