@@ -4,18 +4,12 @@ var dateTime = require('./func/date_time');
 var token = require('./func/token');
 var striptags = require('striptags');
 //
-
 var fs = require('fs');
-
-var options = {
+var app = require('express')();
+var server = require('https').Server({
   key: fs.readFileSync(env.SSL_KEY),
   cert: fs.readFileSync(env.SSL_CERT),
-  // requestCert: false,
-  // rejectUnauthorized: false
-};
-
-var app = require('express')();
-var server = require('https').Server(options,app);
+},app);
 var io = require('socket.io')(server);
 var db = require('./db');
 
