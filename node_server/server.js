@@ -10,8 +10,8 @@ var fs = require('fs');
 var options = {
   key: fs.readFileSync(env.SSL_KEY),
   cert: fs.readFileSync(env.SSL_CERT),
-  requestCert: false,
-  rejectUnauthorized: false
+  // requestCert: false,
+  // rejectUnauthorized: false
 };
 
 var app = require('express')();
