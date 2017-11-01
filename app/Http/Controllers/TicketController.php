@@ -309,7 +309,7 @@ class TicketController extends Controller
     }
     // Lookup
 
-    Snackbar::message('เพิ่มรายการแล้ว');
+    Snackbar::message('รายการของคุณได้ถูกเพิ่มแล้ว');
     return Redirect::to('ticket/view/'.$model->id);
     
   }
@@ -420,7 +420,7 @@ class TicketController extends Controller
     }
     // Lookup
 
-    Snackbar::message('แก้ไขรายการแล้ว');
+    Snackbar::message('รายการได้ถูกแก้ไขแล้ว');
     return Redirect::to('ticket/view/'.$model->id);
   }
 
