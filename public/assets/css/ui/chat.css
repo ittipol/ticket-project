@@ -35,7 +35,7 @@
 
 .chat-title > .online-status-indicator {
 	top: 13px;
-	left: 13px;
+	left: 18px;
 	display: none;
 }
 
@@ -303,7 +303,7 @@
 @media (max-width: 480px) {
 
 	.chat-title {
-		padding-left: 40px;
+		padding-left: 50px;
 		text-align: left;
 	}
 
