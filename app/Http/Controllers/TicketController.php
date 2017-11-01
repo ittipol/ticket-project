@@ -260,7 +260,7 @@ class TicketController extends Controller
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('dateType',$model->getDateType());
 
-    $this->setMeta('title','ขายบัตร — TicketSnap');
+    $this->setMeta('title','ขายบัตร — TicketEasys');
 
     return $this->view('pages.ticket.form.add');
   }
@@ -368,7 +368,7 @@ class TicketController extends Controller
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('dateType',$model->getDateType());
 
-    $this->setMeta('title','แก้ไขรายการ — TicketSnap');
+    $this->setMeta('title','แก้ไขรายการ — TicketEasys');
 
     return $this->view('pages.ticket.form.edit');
   }

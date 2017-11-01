@@ -15,7 +15,7 @@ use Redirect;
 class UserController extends Controller
 {
   public function login() {
-    $this->setMeta('title','เข้าสู่ระบบ — TicketSnap');
+    $this->setMeta('title','เข้าสู่ระบบ — TicketEasys');
     return $this->view('pages.user.login');
   }
 

@@ -4,7 +4,7 @@
       <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
       <nav class="gn-menu-wrapper">
         <div class="brand-s text-center">
-          <h5 class="py-3 m-0">TicketSnap</h5>
+          <h5 class="py-3 m-0">TicketEasys</h5>
         </div>
 
         <div class="gn-scroller">
@@ -40,7 +40,7 @@
       </nav>
     </li>
 
-    <li class="brand-l"><a href="/">TicketSnap</a></li>
+    <li class="brand-l"><a href="/">TicketEasys</a></li>
 
     @if(Auth::check())
 

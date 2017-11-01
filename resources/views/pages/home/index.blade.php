@@ -4,11 +4,11 @@
 <div class="infomation-wrapper">
   <div class="container">
     <div class="content-section tc margin-bottom-80">
-      <h1>ขายบัตรของคุณกับ TicketSnap!</h1>
+      <h1>ขายบัตรของคุณกับ TicketEasys!</h1>
       <!-- <h3 class="margin-bottom-20">ในที่สุดคุณก็สามารถขายตั๋วที่ไม่ได้ใช้ได้แล้ว</h3> -->
       <h3 class="margin-bottom-20">ซื้อ-ขาย บัตร ตั๋ว วอชเชอร์ และอื่นๆที่ไม่ได้ใช้แล้ว</h3>
       <p class="margin-bottom-5">มีผู้คนอีกมากมายที่คุณไม่คาดคิดกำลังต้องบัตรงานแสดงจากคุณ</p>
-      <p class="margin-bottom-5">TicketSnap เป็นเว็บไซต์ที่ให้คุณซื้อและขายบัตรงานแสดงต่าง ๆ ได้ด้วยตัวคุณเอง</p>
+      <p class="margin-bottom-5">TicketEasys เป็นเว็บไซต์ที่ให้คุณซื้อและขายบัตรงานแสดงต่าง ๆ ได้ด้วยตัวคุณเอง</p>
     </div>
 
     <div class="content-section tc margin-bottom-80">
@@ -77,6 +77,10 @@
   </div>
 </div>
 
-<footer></footer>
+<footer>
+  <div class="container">
+    TicketEasy
+  </div>
+</footer>
 
 @stop

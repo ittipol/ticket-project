@@ -4,14 +4,27 @@ var dateTime = require('./func/date_time');
 var token = require('./func/token');
 var striptags = require('striptags');
 //
+
+var fs = require('fs');
+
+var options = {
+  key: fs.readFileSync(env.SSL_KEY),
+  cert: fs.readFileSync(env.SSL_CERT)
+};
+
 var app = require('express')();
-var server = require('http').Server(app);
+var server = require('https').Server(options,app);
 var io = require('socket.io')(server);
 var db = require('./db');
+
 // 
 var userHandle = [];
 var clients = [];
 var notifyMessageHandle = [];
+
+
+
+console.log(options);
 
 function userOnline(userId) {
   if(clients.indexOf(userId) !== -1){
@@ -446,28 +459,6 @@ function ticketChatRoomSend(data) {
   }
 
 }
-
-// function chatMessageSave(data) {
-//   if((!data.room) || (!data.user) || (!data.key)) {
-//     return false;
-//   }
-  
-//   clearTimeout(notifyMessageHandle[data.room]);
-
-//   // save message
-//   db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', CURRENT_TIMESTAMP)");
-
-//   io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
-//     user: data.user,
-//     message: data.message
-//   });
-
-//   notifyMessageHandle[data.room] = setTimeout(function(){
-//     notifyMessage(data.room,data.user);
-//   },3500);
-
-//   return true;
-// }
 
 server.listen(env.SOCKET_PORT, env.SOCKET_HOST, () => {
   console.log('App listening on port -> '+env.SOCKET_PORT)
