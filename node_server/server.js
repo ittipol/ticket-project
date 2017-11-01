@@ -5,15 +5,15 @@ var token = require('./func/token');
 var striptags = require('striptags');
 //
 
-// var fs = require('fs');
+var fs = require('fs');
 
-// var options = {
-//   key: fs.readFileSync(env.SSL_KEY),
-//   cert: fs.readFileSync(env.SSL_CERT)
-// };
+var options = {
+  key: fs.readFileSync(env.SSL_KEY),
+  cert: fs.readFileSync(env.SSL_CERT)
+};
 
 var app = require('express')();
-var server = require('http').Server(app);
+var server = require('https').Server(options,app);
 var io = require('socket.io')(server);
 var db = require('./db');
 
