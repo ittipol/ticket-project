@@ -122,7 +122,7 @@
   padding: 12px;
   overflow: hidden;
   position: relative;
-  background-color: rgba(255,255,255,.9);
+  background-color: rgba(255,255,255,.87);
   border-bottom: 1px solid #ccc;
   z-index: 5;
 }
@@ -180,13 +180,14 @@
   color: #777;
 }
 .c-card__media {
-  background-color: #aaa;
+  background-color: #888;
+  /*background-color: #82B1FF;*/
 }
 .c-card__primary-title {
   overflow: hidden;
   position: relative;
   z-index: 5;
-  background-color: rgba(255,255,255,.9);
+  background-color: rgba(255,255,255,.87);
 }
 .c-card__primary-title .title {
   margin: 0;
@@ -212,7 +213,7 @@
 }
 .c-card__price {
   position: relative;
-  background-color: rgba(255,255,255,.9);
+  background-color: rgba(255,255,255,.87);
   z-index: 5;
 }
 .c-card__actions {
@@ -264,6 +265,21 @@
   left: 0;
   width: 100%;
   min-height: 100%;
+}
+
+.c-card-no-image {
+  width: 60px;
+  height: 60px;
+  margin: -120px auto 0;
+  background-color: rgba(0,0,0,.5); 
+  border-radius: 50%;
+  text-align: center;
+}
+.c-card-no-image img {
+  width: 40px;
+  min-height: 40px;
+  margin-top: 10px;
+  position: relative;
 }
 
 .c-btn, a.c-btn {
