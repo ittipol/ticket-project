@@ -200,7 +200,7 @@ class TicketController extends Controller
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('search',$searching);
 
-    $this->setMeta('title','รายการขาย');
+    // $this->setMeta('title','รายการขาย');
 
     return $this->view('pages.ticket.list');
   }
@@ -368,7 +368,9 @@ class TicketController extends Controller
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('dateType',$model->getDateType());
 
-    $this->setMeta('title','แก้ไขรายการ — TicketEasys');
+    $this->setMeta('title','แก้ไขรายการ » '.$model->title.' — TicketEasys');
+
+    $this->botDisallowed();
 
     return $this->view('pages.ticket.form.edit');
   }
@@ -446,7 +448,7 @@ class TicketController extends Controller
       'closing_reason' => request()->closing_reason
     ]);
 
-    Snackbar::message('ปิดประกาศแล้ว');
+    Snackbar::message('ประกาศของคุณถูกปิดแล้ว');
     return Redirect::to('/account/ticket');
     
   }

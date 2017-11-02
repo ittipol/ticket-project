@@ -26,14 +26,8 @@ class AccountController extends Controller
     ->take(4)
     ->get();
 
-    // $list = array();
-    // foreach ($data as $value) {
-    //   $list[] = $value->buildDataList();
-    // }
-
-    // $this->setData('list',$list);
     $this->setData('data',$data);
-    $this->setMeta('title','โปรไฟล์');
+    $this->setMeta('title','โปรไฟล์ — TicketEasys');
 
     return $this->view('pages.account.profile');
   }
@@ -43,7 +37,7 @@ class AccountController extends Controller
     $this->setData('data',$user);
     $this->setData('profileImage',json_encode($user->getProfileImage()));
 
-    $this->setMeta('title','แก้ไขโปรไฟล์');
+    $this->setMeta('title','แก้ไขโปรไฟล์ — TicketEasys');
 
     return $this->view('pages.account.form.profile_edit');
   }
@@ -104,7 +98,7 @@ class AccountController extends Controller
     $this->setData('data',$data);
 
     // SET META
-    $this->setMeta('title','รายการขายของคุณ');
+    $this->setMeta('title','รายการขายของฉัน — TicketEasys');
     
     return $this->view('pages.account.ticket_list');
 

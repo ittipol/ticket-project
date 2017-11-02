@@ -24,7 +24,7 @@
             <i class="fa fa-pencil"></i>&nbsp;แก้ไขโปรไฟล์
           </a>
           <a href="/account/ticket" class="btn btn-outline-primary db mx-auto w-100-ns">
-            <i class="fa fa-list"></i>&nbsp;รายการของคุณ
+            <i class="fa fa-list"></i>&nbsp;รายการของฉัน
           </a>
         </div>
       </div>
@@ -33,7 +33,7 @@
 
           @if(!empty($data))
 
-          <h5>รายการล่าสุดของคุณ</h5>
+          <h5>รายการล่าสุดของฉัน</h5>
           <div class="row">
             @foreach($data as $_value)
        

@@ -79,7 +79,16 @@
 
 <footer>
   <div class="container">
-    TicketEasy
+    <div class="row">
+      <div class="col-6">TicketEasys</div>
+      <div class="col-6">
+        <div class="tr">
+          <a class="btn btn-facebook btn-share" href="https://www.facebook.com/Ticketeasys-919999211490459/">
+            <i class="fa fa-facebook"></i>
+          </a>
+        </div>  
+      </div>
+    </div>
   </div>
 </footer>
 

@@ -144,9 +144,14 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label required">ช่องทางการติดต่อผู้ขาย (หมายเลขโทรศัพท์ อีเมล Line ID หรืออื่นๆ)</label>
+          <label class="form-control-label required">ช่องทางการติดต่อผู้ขาย</label>
           <div class="alert alert-info" role="alert">
-            <strong>เพื่อความเป็นส่วนตัว</strong> ไม่แนะนำให้กรอกหมายเลขโทรศัพท์หรือการติดต่ออื่นๆของคุณลงในประกาศโดยตรง คุณสามารถใช้การแชทของเว็บไซต์ในการติดต่อกับผู้ที่ต้องการซื้อบัตรของคุณ 
+            <ul class="ma0">
+              <li>หมายเลขโทรศัพท์ อีเมล Line ID</li> 
+              <li>ใช้ระบบแชทของเว็บไซต์ในการติดต่อ (คุณสามารถระบุเวลาที่คุณจะออนไลน์เพื่อให้ผู้ซื้อทราบเวลาที่สามารถติดต่อคุณได้ทันที)</li> 
+            </ul>
+            <br>
+            <strong>เพื่อความเป็นส่วนตัว</strong> ไม่แนะนำให้กรอกหมายเลขโทรศัพท์หรือการติดต่อที่เป็นส่วนตัวลงในประกาศ คุณสามารถใช้ระบบแชทของเว็บไซต์ในการติดต่อกับผู้ที่ต้องการซื้อบัตรของคุณ 
           </div>
           {{Form::textarea('contact', null, array('class' => 'form-control'))}}
         </div>
@@ -158,7 +163,7 @@
         <div class="form-group">
           <label class="form-control-label">รูปภาพ</label>
           <div class="alert alert-info">
-            <ul class="m-0">
+            <ul class="ma0">
               <li>ไฟล์ใหญ่ได้ไม่เกิน 5 MB</li> 
               <li>รูปแบบไฟล์ JPG, PNG เท่านั้น</li> 
             </ul>
