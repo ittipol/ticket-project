@@ -222,31 +222,27 @@ class TicketController extends Controller
 
     $data = $model->buildDataDetail();
 
-    $keywords = array();
-    foreach ($data['tags'] as $tag) {
-      $keywords[] = $tag['word'];
-    }
-
     $this->setData('data',$data);
     $this->setData('seller',$seller->buildDataDetail());
     $this->setData('ticketId',$ticketId);
-
+    // modal
     $this->setData('_text',$data['title']);
-
-    $image = $model->getRelatedData('Image',array(
-      'first' => true,
-      'fields' => array('id','model','model_id','filename','description','image_type_id')
-    ));
-
-    $metaImage = ''; 
-    if(!empty($image)) {
-      $metaImage = url('').$image->getImageUrl();
-    }
 
     // SET META
     $this->setMeta('title',$model->title);
     $this->setMeta('description',$model->getShortDesc());
-    $this->setMeta('image',$metaImage);
+
+    if(!empty($data['images'])) {
+      $this->setMeta('image',url('').$data['images'][0]['_url']);
+    }
+
+    $keywords = array();
+    if(!empty($data['tags'])) {
+      foreach ($data['tags'] as $tag) {
+        $keywords[] = $tag['word'];
+      }
+    }
+
     $this->setMeta('keywords',implode(',',$keywords));
 
     return $this->view('pages.ticket.detail');
