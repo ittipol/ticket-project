@@ -1,0 +1,135 @@
+.c-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 50;
+  transition: opacity 200ms;
+}
+/*.c-modal:target {
+  pointer-events: all;
+  opacity: 1;
+}*/
+.c-modal.show {
+  pointer-events: all;
+  opacity: 1;
+}
+.c-modal .c-modal-inner {
+  position: absolute;
+  display: block;
+  padding: 48px;
+  line-height: 1.8;
+  width: 45%;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+  background: white;
+  color: #34495E;
+  z-index: 8;
+}
+.c-modal .c-modal-inner.hide {
+	z-index: 4;
+}
+.c-modal .c-modal-inner h2 {
+  margin-top: 0;
+}
+.c-modal .c-modal-inner code {
+  font-weight: bold;
+}
+.c-modal a.close {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #34495E;
+  opacity: 0.5;
+  -webkit-transition: opacity 200ms;
+  transition: opacity 200ms;
+  z-index: 5;
+}
+.c-modal a.close:hover {
+  opacity: 0.4;
+}
+.c-modal a.modal-close {
+	position: absolute;
+	top: 5px;
+	right: 16px;
+	font-size: 1.625rem;
+	cursor: pointer;
+}
+.c-modal a.modal-close:hover {
+	text-decoration: none;
+}
+
+.c-modal .modal-textarea {
+	border: 0;
+	height: 0;
+	padding: 0;
+	transition: height .3s ease-out;
+}
+
+.c-modal .modal-textarea.show {
+	height: 220px;
+	padding: 8px 12px;
+	border: 1px solid #34495E;
+}
+
+.c-modal .modal-textarea.show.error {
+	border-color: red;
+}
+
+.c-modal .modal-textarea + small {
+	color: red;
+	display: none;
+}
+
+.c-modal .modal-textarea.show.error + small {
+	display: block;
+}
+
+@media (max-width: 1366px) {
+	.c-modal .c-modal-inner {
+		width: 60%;
+	}
+}
+
+@media (max-width: 1024px) {
+	.c-modal .c-modal-inner {
+		width: 70%;
+	}
+}
+
+@media (max-width: 768px) {
+	.c-modal .c-modal-inner {
+		width: 100%;
+	}
+}
+
+@media (max-width: 480px) {
+	.c-modal .c-modal-inner {
+		padding: 30px;
+	}
+}
+
+@media (max-width: 320px) {
+	.c-modal .c-modal-inner {
+		padding: 20px;
+	}
+
+	.c-modal .ticket-title {
+		height: 22px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	.c-modal .modal-textarea.show {
+		height: 200px;
+	}
+}

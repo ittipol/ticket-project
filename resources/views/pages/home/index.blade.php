@@ -80,7 +80,9 @@
 <footer>
   <div class="container">
     <div class="row">
-      <div class="col-6">TicketEasys</div>
+      <div class="col-6">
+        <img class="c-logo" src="/assets/images/logo/logo_s.jpg">
+      </div>
       <div class="col-6">
         <div class="tr">
           <a class="btn btn-facebook btn-share" href="https://www.facebook.com/Ticketeasys-919999211490459/">

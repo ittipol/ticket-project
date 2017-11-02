@@ -125,3 +125,7 @@ footer {
 	height: 60px;
 	line-height: 60px;
 }
+
+footer .c-logo {
+	width: 120px;
+}

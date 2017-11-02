@@ -80,6 +80,7 @@
     'assets/css/ui/chat.css',
     'assets/css/ui/dropdown-menu.css',
     'assets/css/ui/card.css',
+    'assets/css/ui/modal.css',
     'assets/css/page/landing.css',
     'assets/css/page/login.css',
     'assets/css/page/register.css',

@@ -10,6 +10,19 @@ header .brand-s {
 	border-bottom: 1px solid #c6d0da;
 }
 
+.c-logo {
+  width: 150px;
+}
+
+.gn-menu-main > li.brand-l > a {
+  padding: 0;
+  width: 140px;
+}
+
+.gn-menu-main > li.brand-l .c-logo {
+  width: 110px;
+}
+
 .gn-menu-main {
 	z-index: 45;
 	border-bottom: 1px solid #ccc;
