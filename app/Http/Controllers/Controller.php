@@ -16,7 +16,7 @@ class Controller extends BaseController
   protected $meta = array(
     'title' => 'แหล่ง ซื้อ ขาย บัตร ตั๋ว วอชเชอร์ ได้ด้วยตัวคุณเอง — TicketEasys',
     'description' => 'เว็บไซต์ที่ให้คุณซื้อและขายบัตรงานแสดงต่าง ๆ ได้ด้วยตัวคุณเอง โดยคุณเป็นผู้ตั้งราคา',
-    'image' => '',
+    'image' => 'https://ticketeasys.com/assets/images/logo/logo.jpg',
     'keywords' => 'ซื้อ,ขาย,บัตรคอนเสิร์ต,ตั๋ว,วอชเชอร์',
   );
 
