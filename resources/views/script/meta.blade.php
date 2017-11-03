@@ -7,6 +7,7 @@
 <meta name="robots" content="noindex,nofollow">
 @endif
 
+@if(!empty($_meta))
 <meta name="description" content="{{$_meta['description']}}">
 <meta name="keywords" content="{{$_meta['keywords']}}">
 
@@ -24,3 +25,4 @@
 <meta name="twitter:image" content="{{$_meta['image']}}" />
 
 <title>{{$_meta['title']}}</title>
+@endif
