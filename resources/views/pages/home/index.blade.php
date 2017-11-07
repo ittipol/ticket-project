@@ -81,7 +81,7 @@
   <div class="container">
     <div class="row">
       <div class="col-6">
-        <img class="c-logo" src="/assets/images/logo/logo_s.jpg">
+        <img class="c-logo" src="/assets/images/logo/logo_x.jpg">
       </div>
       <div class="col-6">
         <div class="tr">
