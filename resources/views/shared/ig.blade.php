@@ -3,8 +3,8 @@
       /*width: 100%;
       float: left;*/
 
-      /*background-color: #a8babe;*/
-      background-color: #8b8da0;
+      background-color: #a8babe;
+      /*background-color: #8b8da0;*/
 
     }
     /*.i-gallery img {
