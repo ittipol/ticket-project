@@ -3,7 +3,8 @@
       /*width: 100%;
       float: left;*/
 
-      background-color: #a8babe;
+      /*background-color: #a8babe;*/
+      background-color: #5b899b;
       /*background-color: #8b8da0;*/
 
     }
@@ -358,6 +359,6 @@
 
     setTimeout(function(){
       $('.i-gallery').css('opacity','1');
-    },300);
+    },150);
   });
 </script>
