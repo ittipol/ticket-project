@@ -3,24 +3,8 @@
 
 <style type="text/css">
   body {
-    /*background-color: #607D8B;*/
     background-color: #CFD8DC;
   }
-
-  /*.data-list {
-    opacity: 0;
-    transition: opacity .3s ease-out ;
-  }*/
-
-  /*.grid-item { width: 23%; margin: 1%; }
-
-  @media (max-width: 1366px) {
-    .grid-item { width: 47%; margin: 1.5%; }
-  }
-
-  @media (max-width: 480px) {
-    .grid-item { width: 92%; margin: 4%; }
-  }*/
 </style>
 
 @include('shared.filter-leftside-nav')
@@ -75,7 +59,7 @@
                 @endif
               </a>
             </div>
-            <div class="c-card__header">
+            <!-- <div class="c-card__header">
               <div class="c-card__avatar"><img src="/avatar/{{$value['created_by']}}?d=1"></div>
               <div class="c-card__title">
                 <div class="title">{{$value['user']['name']}}</div>
@@ -87,8 +71,7 @@
                   <i class="fa fa-comments" aria-hidden="true"></i>
                 </a>
               </div>
-              <!-- <div class="c-card__icons"><a href=""><i class="fa fa-ellipsis-v"></i></a></div> -->
-            </div>
+            </div> -->
             <div class="c-card__primary-title">
               <!-- <div class="c-card__media Media__image--one-right"><img src="></div> -->
               <h2 class="title"><a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a></h2>
@@ -159,12 +142,9 @@
 
 </div>
 
-<!-- <div class="clearfix margin-top-200"></div> -->
-
 @include('shared.ticket-closing-modal')
 
 <script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
-<!-- <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script> -->
 <script type="text/javascript" src="/assets/js/user_online.js"></script>
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
 
@@ -210,7 +190,6 @@
 
         let priceStart = $('#price_start').val().trim();
         let priceEnd = $('#price_end').val().trim();
-
 
         if((priceStart !== '') && (!/^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/g.test(priceStart))) {
           const snackbar = new Snackbar();
@@ -276,15 +255,6 @@
   }
 
   $(document).ready(function(){
-
-    // setTimeout(function(){
-    //   $('.grid').masonry({
-    //     itemSelector: '.grid-item',
-    //     percentPosition: true
-    //   });
-
-    //   $('.data-list').css('opacity','1');
-    // },300);
 
     const _ticketFilter = new TicketFilter();
     _ticketFilter.init();
