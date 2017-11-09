@@ -87,6 +87,11 @@
     width: 25%;
   }
 }
+@media (min-width: 1600px) {
+  .c-grid__col {
+    width: 33.33%;
+  }
+}
 
 .c-card {
   width: 100%;

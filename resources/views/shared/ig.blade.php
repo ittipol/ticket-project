@@ -29,22 +29,26 @@
       transition: opacity .3s ease-out ;
     }
 
-    .grid-item { width: 47.8%; margin: 0.5%; }
+    .ticket-image-item { width: 47.8%; margin: 0.5%; }
 
     @media (max-width: 1366px) {
-      .grid-item { width: 47.6%; margin: 0.5%; }
+      .ticket-image-item { width: 47.6%; margin: 0.5%; }
     }
 
     @media (max-width: 1024px) {
-      .grid-item { width: 47.2%; margin: 0.5%; }
+      .ticket-image-item { width: 47.2%; margin: 0.5%; }
     }
 
     @media (max-width: 480px) {
-      .grid-item { width: 46.8%; margin: 0.5%; }
+      .ticket-image-item { width: 46.8%; margin: 0.5%; }
     }
 
     @media (max-width: 375px) {
-      .grid-item { width: 94%; margin: 2% 0.5%; }
+      .ticket-image-item { width: 94%; margin: 2% 0.5%; }
+    }
+
+    .ticket-image-item img {
+        height: 100%;
     }
 </style>
 
@@ -52,7 +56,7 @@
   <div class="i-gallery mb3 pa2" itemscope>
 
     @foreach($data['images'] as $image)
-    <figure class="grid-item" itemprop="associatedMedia" itemscope>
+    <figure class="ticket-image-item dib" itemprop="associatedMedia" itemscope>
       <a href="{{$image['_url']}}" itemprop="contentUrl" data-size="{{$image['size']}}">
         <img src="{{$image['_preview_url']}}" itemprop="thumbnail" />
       </a>
@@ -343,12 +347,14 @@
     // execute above function
     initPhotoSwipeFromDOM('.i-gallery');
 
-    setTimeout(function(){
-      $('.i-gallery').masonry({
-        itemSelector: '.grid-item',
-        percentPosition: true
-      });
+    // setTimeout(function(){
+    //   $('.i-gallery').masonry({
+    //     itemSelector: '.ticket-image-item',
+    //     percentPosition: true
+    //   });
+    // },400);
 
+    setTimeout(function(){
       $('.i-gallery').css('opacity','1');
     },300);
   });
