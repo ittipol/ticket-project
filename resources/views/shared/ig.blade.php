@@ -2,9 +2,10 @@
     .i-gallery {
       /*width: 100%;
       float: left;*/
-      background: #606c88;
-      background: -webkit-linear-gradient(to right, #3f4c6b, #606c88);
-      background: linear-gradient(to right, #3f4c6b, #606c88)
+
+      /*background-color: #a8babe;*/
+      background-color: #8b8da0;
+
     }
     /*.i-gallery img {
       width: 100%;
@@ -29,26 +30,27 @@
       transition: opacity .3s ease-out ;
     }
 
-    .ticket-image-item { width: 47.8%; margin: 0.5%; }
+    .ticket-image-item { width: 48.6%; margin: 1% 0.5%; }
 
     @media (max-width: 1366px) {
-      .ticket-image-item { width: 47.6%; margin: 0.5%; }
+      .ticket-image-item { width: 48.6%; margin: 1% 0.5%; }
     }
 
     @media (max-width: 1024px) {
-      .ticket-image-item { width: 47.2%; margin: 0.5%; }
+      .ticket-image-item { width: 48.4%; margin: 1% 0.5%; }
     }
 
     @media (max-width: 480px) {
-      .ticket-image-item { width: 46.8%; margin: 0.5%; }
+      .ticket-image-item { width: 48.4%; margin: 1% 0.5%; }
     }
 
     @media (max-width: 375px) {
-      .ticket-image-item { width: 94%; margin: 2% 0.5%; }
+      .ticket-image-item { width: 99%; margin: 2% 0.5%; }
     }
 
     .ticket-image-item img {
-        height: 100%;
+      width: 100%;
+      vertical-align: top;
     }
 </style>
 
