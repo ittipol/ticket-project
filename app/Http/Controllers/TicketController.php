@@ -14,7 +14,7 @@ use Auth;
 class TicketController extends Controller
 {
   public function listView(Request $request) {
-
+    
     $model = Service::loadModel('Ticket')->query();
 
     $currentPage = 1;

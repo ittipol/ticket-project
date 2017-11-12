@@ -123,7 +123,7 @@
             </div>
           </div>
           <div class="online-name fl">
-            <div>{{$seller['name']}}</div>
+            <!-- <div>{{$seller['name']}}</div> -->
             <div class="online_status_indicator_{{$data['created_by']}} online-status-indicator @if($seller['online']) is-online @endif"></div>
             @if($seller['online'])
               <small class="dark-gray ml-4">ออนไลน์อยู่</small>
@@ -174,7 +174,7 @@
   @include('shared.ticket-chat-room')
 @endif
 
-<script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
+<!-- <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script> -->
 <script type="text/javascript" src="/assets/js/user_online.js"></script>
 <script type="text/javascript" src="/assets/lib/ig/photoswipe.min.js"></script>
 <script type="text/javascript" src="/assets/lib/ig/photoswipe-ui-default.min.js"></script>
