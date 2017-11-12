@@ -4,41 +4,40 @@ namespace App\library;
 
 class Url
 {
-  private $urls = array();
+  private static $urls = array();
 
-  public function url($url,$check=true) {
-
+  public static function url($url,$check=true) {
     $url = url($url);
 
     if($check) {
-      $url = $this->addSlash($url);
+      $url = Url::addSlash($url);
     }
-
+    
     return $url;
   }
 
-  public function addSlash($str) {
+  public static function addSlash($str) {
     if(substr($str, -1) != '/') {
       $str .= '/';
     }
     return $str;
   }
 
-  public function getUrls() {
-    return $this->urls;
+  public static function getUrls() {
+    return Url::$urls;
   }
 
-  public function setUrl($url,$index) {
+  public static function setUrl($url,$index) {
 
     preg_match_all('/{[\w0-9]+}/', $url, $matches);
 
-    $this->urls[$index] = array(
+    Url::$urls[$index] = array(
       'url' => url($url),
       'pattern' => $matches[0]
     );
   }
 
-  public function setAndParseUrl($url,$data) {
+  public static function setAndParseUrl($url,$data) {
 
     preg_match_all('/{[\w0-9]+}/', $url, $matches);
 
@@ -61,14 +60,14 @@ class Url
 
   }
 
-  public function clearUrls() {
-    $this->urls = array();
+  public static function clearUrls() {
+    Url::$urls = array();
   }
 
-  public function parseUrl($data) {
+  public static function parseUrl($data) {
     $urls = array();
 
-    foreach ($this->urls as $index => $url) {
+    foreach (Url::$urls as $index => $url) {
 
       foreach ($url['pattern'] as $pattern) {
     
@@ -87,10 +86,10 @@ class Url
     return $urls;
   }
 
-  public function redirect($url,$ssl=false) {
+  public static function redirect($url,$ssl=false) {
 
     if((substr($url, 0,7) == 'http://') || (substr($url, 0,8) == 'https://')) {
-      return $this->url('redirect?url='.$url);
+      return Url::url('redirect?url='.$url);
     }
 
     if($ssl) {
@@ -99,7 +98,7 @@ class Url
       $url = 'http://'.$url;
     }
 
-    return $this->url('redirect?url='.$url);
+    return Url::url('redirect?url='.$url);
   }
 
   public function download() {

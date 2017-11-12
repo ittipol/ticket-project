@@ -64,7 +64,13 @@ class Service
     return $lists;
   }
 
-  public static function updateFacebookScrap($url){
+  public static function updateFacebookScrap($url = null){
+    if(empty($url)) {
+      return false;
+    }
+
+    $url = Url::url('/').$url;
+
     $ch = curl_init("http://developers.facebook.com/tools/debug/og/object?q=".$url);
     curl_setopt($ch, CURLOPT_HEADER, 0);
 

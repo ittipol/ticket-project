@@ -12,12 +12,7 @@
 */
 
 Route::get('/teste', function(){
-      $ch = curl_init("103.13.228.35:400");
-      curl_setopt($ch, CURLOPT_HEADER, 0);
-
-      curl_exec($ch);
-      curl_close($ch);
-  dd($ch); 
+  dd(App\library\url::url('/'));
 }); 
 
 Route::get('/', 'TicketController@listView');

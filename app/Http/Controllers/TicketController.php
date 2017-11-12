@@ -14,7 +14,7 @@ use Auth;
 class TicketController extends Controller
 {
   public function listView(Request $request) {
-    
+
     $model = Service::loadModel('Ticket')->query();
 
     $currentPage = 1;
@@ -305,6 +305,9 @@ class TicketController extends Controller
     }
     // Lookup
 
+    // re-scrap
+    Service::updateFacebookScrap('ticket/view/'.$model->id);
+
     Snackbar::message('รายการของคุณได้ถูกเพิ่มแล้ว');
     return Redirect::to('ticket/view/'.$model->id);
     
@@ -416,7 +419,11 @@ class TicketController extends Controller
       $placeLocationModel = Service::loadModel('PlaceLocation');
       $placeLocationModel->__saveRelatedData($model,request()->get('place_location'));
     }
+
     // Lookup
+
+    // re-scrap
+    Service::updateFacebookScrap('ticket/view/'.$model->id);
 
     Snackbar::message('รายการได้ถูกแก้ไขแล้ว');
     return Redirect::to('ticket/view/'.$model->id);
