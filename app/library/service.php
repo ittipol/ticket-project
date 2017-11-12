@@ -18,7 +18,7 @@ class Service
     return new $class;
   }
 
-  public static function ipAddress() {
+  public static function getIp() {
     // $ipaddress = null;
     // if (getenv('HTTP_CLIENT_IP'))
     //     $ipaddress = getenv('HTTP_CLIENT_IP');
@@ -45,14 +45,14 @@ class Service
       return false;
     }
 
-    // $userLogModel = new UserLog;
-    // $userLogModel->model = $modelName;
-    // $userLogModel->model_id = $id;
-    // $userLogModel->action = $action;
-    // $userLogModel->ip_address = Request::ip();
-    // $userLogModel->user_id = Auth::user()->id;
+    $userLogModel = new UserLog;
+    $userLogModel->model = $modelName;
+    $userLogModel->model_id = $id;
+    $userLogModel->action = $action;
+    $userLogModel->ip_address = Service::getIp();
+    $userLogModel->user_id = Auth::user()->id;
 
-    // return $userLogModel->save();
+    return $userLogModel->save();
   }
 
   public static function getList($records,$field) {
@@ -60,7 +60,6 @@ class Service
     foreach ($records as $record) {
       $lists[] = $record->{$field};
     }
-
     return $lists;
   }
 
@@ -69,11 +68,8 @@ class Service
       return false;
     }
 
-    $url = Url::url('/').$url;
-
-    $ch = curl_init("http://developers.facebook.com/tools/debug/og/object?q=".$url);
+    $ch = curl_init("http://developers.facebook.com/tools/debug/og/object?q=".Url::url('/').$url);
     curl_setopt($ch, CURLOPT_HEADER, 0);
-
     curl_exec($ch);
     curl_close($ch);
   }

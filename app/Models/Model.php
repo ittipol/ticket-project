@@ -39,7 +39,7 @@ class Model extends BaseModel
         // $model->state = 'create';
 
         // if((Schema::hasColumn($model->getTable(), 'ip_address')) && (empty($model->ip_address))) {
-        //   $model->ip_address = Service::ipAddress();
+        //   $model->ip_address = Service::getIp();
         // }
 
         if(Schema::hasColumn($model->getTable(), 'created_by') && empty($model->created_by)) {

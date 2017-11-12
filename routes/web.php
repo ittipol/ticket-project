@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/teste', function(){
-  dd(App\library\url::url('/'));
-}); 
+// Route::get('/teste', function(){
+//   dd(App\library\url::url('/'));
+// }); 
 
 Route::get('/', 'TicketController@listView');
 // Route::get('home', 'HomeController@index');

@@ -308,6 +308,9 @@ class TicketController extends Controller
     // re-scrap
     Service::updateFacebookScrap('ticket/view/'.$model->id);
 
+    // User log
+    Service::addUserLog('Ticket',$model->id,'add');
+
     Snackbar::message('รายการของคุณได้ถูกเพิ่มแล้ว');
     return Redirect::to('ticket/view/'.$model->id);
     
@@ -425,6 +428,9 @@ class TicketController extends Controller
     // re-scrap
     Service::updateFacebookScrap('ticket/view/'.$model->id);
 
+    // User log
+    Service::addUserLog('Ticket',$model->id,'edit');
+
     Snackbar::message('รายการได้ถูกแก้ไขแล้ว');
     return Redirect::to('ticket/view/'.$model->id);
   }
@@ -450,6 +456,9 @@ class TicketController extends Controller
       'closing_option' => request()->closing_option,
       'closing_reason' => request()->closing_reason
     ]);
+
+    // User log
+    Service::addUserLog('Ticket',request()->ticketId,'close');
 
     Snackbar::message('ประกาศของคุณถูกปิดแล้ว');
     return Redirect::to('/account/ticket');
