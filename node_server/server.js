@@ -23,28 +23,28 @@ var clients = [];
 var notifyMessageHandle = [];
 
 function checkUserOnline(userId) {
-  if(clients.indexOf(userId) !== -1){
-    return true;
-  }
-  return false;
+  // if(clients.indexOf(userId) !== -1){
+  //   return true;
+  // }
+  // return false;
 
-  // redisClient.get(userId, function(err, data) {
-  //   if(err || data === null) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // });
+  redisClient.get(userId, function(err, data) {
+    if(err || data === null) {
+      return false;
+    } else {
+      return true;
+    }
+  });
 }
 
 function addUserOnline(userId) {
-  clients.push(userId);
-  // redisClient.set(data.userId, 1);
+  // clients.push(userId);
+  redisClient.set(data.userId, 1);
 }
 
 function clearUserOnline(userId) {
-  clients.splice(clients.indexOf(userId), 1);
-  // redisClient.del(userId);
+  // clients.splice(clients.indexOf(userId), 1);
+  redisClient.del(userId);
 }
 
 // Update read all message
