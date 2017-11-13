@@ -143,6 +143,15 @@ class UserController extends Controller
       $user->online = 0;
       $user->save();
 
+      // $redisClient = new Redis();
+      // try{
+      //   if($redis->connect('127.0.0.1', 6379)){
+          
+      //   }
+      // }catch( Exception $e ){
+      //   // Error
+      // }
+
       Auth::logout();
       session()->flush();
 

@@ -29,10 +29,8 @@ function checkUserOnline(userId) {
   // return false;
   redisClient.get(userId, function(err, data) {
     if(err || data === null) {
-      console.log('has not');
       return false;
     } else {
-      console.log('has user');
       return true;
     }
   });
@@ -446,7 +444,6 @@ function ticketChatRoomSend(data) {
 
       db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', CURRENT_TIMESTAMP)", function(err, res){
         
-
         if(!err) {
 
           clearTimeout(notifyMessageHandle[data.room]);
