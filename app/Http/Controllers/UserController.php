@@ -34,7 +34,7 @@ class UserController extends Controller
 
       // User log
       Service::addUserLog('User',Auth::user()->id,'login');
-
+      // Redis
       $this->addUserOnline(Auth::user()->id);
 
       Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');

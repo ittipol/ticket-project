@@ -11,17 +11,17 @@
 |
 */
 
-Route::get('/teste', function(){
-  // dd(App\library\url::url('/'));
+// Route::get('/teste', function(){
+//   // dd(App\library\url::url('/'));
 
-  $id = Redis::get('user-online:2');
-  Redis::del('user-online:2');
+//   $id = Redis::get('user-online:2');
+//   Redis::del('user-online:2');
 
-  Redis::set('999--val',1);
-  Redis::expire('test--val', 7200);
+//   Redis::set('999--val',1);
+//   Redis::expire('test--val', 7200);
 
-  dd('del: '.$id);
-}); 
+//   dd('del: '.$id);
+// }); 
 
 Route::get('/', 'TicketController@listView');
 // Route::get('home', 'HomeController@index');
