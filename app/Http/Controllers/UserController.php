@@ -35,8 +35,7 @@ class UserController extends Controller
       // User log
       Service::addUserLog('User',Auth::user()->id,'login');
 
-      // Redis::set('user-online:'.Auth::user()->id,1);
-      // Redis::expire('user-online:'.Auth::user()->id, 7200);
+      $this->addUserOnline(Auth::user()->id);
 
       Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
       return Redirect::intended('/ticket');
@@ -133,8 +132,7 @@ class UserController extends Controller
     // User log
     Service::addUserLog('User',Auth::user()->id,'login (Facebook)');
 
-    // Redis::set('user-online:'.Auth::user()->id,1);
-    // Redis::expire('user-online:'.Auth::user()->id, 7200);
+    $this->addUserOnline(Auth::user()->id);
 
     Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
 
@@ -150,15 +148,20 @@ class UserController extends Controller
       $user->online = 0;
       $user->save();
 
-      // Redis::del('user-online:'.$uid);
-
       Auth::logout();
       session()->flush();
+
+      Redis::del('user-online:'.$uid);
 
       Service::addUserLog('User',$uid,'logout',$uid);
     }
 
     return redirect('/');
+  }
+
+  private function addUserOnline($userId) {
+    Redis::set('user-online:'.$userId,1);
+    Redis::expire('user-online:'.$userId, 7200);
   }
 
 }

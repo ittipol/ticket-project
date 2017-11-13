@@ -17,13 +17,10 @@ Route::get('/teste', function(){
   $id = Redis::get('user-online:2');
   Redis::del('user-online:2');
 
-  Redis::set('test--val','xxx test');
+  Redis::set('999--val',1);
   Redis::expire('test--val', 7200);
 
   dd('del: '.$id);
-
-  // $redis = new Redis();
-  // dd($redis->connect('127.0.0.1', 6379));
 }); 
 
 Route::get('/', 'TicketController@listView');
