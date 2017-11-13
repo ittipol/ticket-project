@@ -29,8 +29,10 @@ function checkUserOnline(userId) {
   // return false;
   redisClient.get(userId, function(err, data) {
     if(err || data === null) {
+      console.log('has not');
       return false;
     } else {
+      console.log('has user');
       return true;
     }
   });
@@ -261,6 +263,7 @@ io.on('connection', function(socket){
       // if(rows.length > 0) {
         for (var i = 0; i < rows.length; i++) {
           if(checkUserOnline(rows[i].id)) {
+            console.log('clear');
             // Clear
             // clients.splice(clients.indexOf(rows[i].id), 1);
             clearUserOnline(rows[i].id);
