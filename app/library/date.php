@@ -16,7 +16,6 @@ class Date
     }
 
     return $today;
-
   }
 
   public static function now($time = true, $timestamp = false) {
@@ -31,10 +30,9 @@ class Date
     }
 
     return $now;
-
   }
 
-  public static function covertDateToSting($date) {
+  public static function covertDateToSting($date = null) {
 
     if(empty($date)) {
       return null;
@@ -44,7 +42,12 @@ class Date
     return (int)$date[2].' '.Date::getMonthName($date[1]).' '.($date[0]+543);
   }
 
-  public static function covertTimeToSting($dateTime) {
+  public static function covertTimeToSting($dateTime = null) {
+
+    if(empty($dateTime)) {
+      return null;
+    }
+
     list($date,$time) = explode(' ', $dateTime);
 
     $time = explode(':', $time);
@@ -52,7 +55,11 @@ class Date
     return (int)$time[0].':'.$time[1];
   }
 
-  public static function covertDateTimeToSting($dateTime,$includeSec = false) {
+  public static function covertDateTimeToSting($dateTime = null,$includeSec = false) {
+
+    if(empty($dateTime)) {
+      return null;
+    }
 
     list($date,$time) = explode(' ', $dateTime);
 
@@ -62,7 +69,12 @@ class Date
     return (int)$date[2].' '.Date::getMonthName($date[1]).' '.($date[0]+543). ' '.(int)$time[0].':'.$time[1];
   }
 
-  public static function explodeDateTime($dateTime) {
+  public static function explodeDateTime($dateTime = null) {
+
+    if(empty($dateTime)) {
+      return null;
+    }
+
     list($date,$time) = explode(' ', $dateTime);
 
     $date = explode('-', $date);
@@ -91,7 +103,6 @@ class Date
     );
 
     return !empty($dayName[$day-1]) ? $dayName[$day-1] : null;
-
   }
 
   public static function getMonthName($month) {   
@@ -112,7 +123,6 @@ class Date
     );
 
     return !empty($monthName[$month-1]) ? $monthName[$month-1] : null;
-
   }
 
   public static function appendTimeForDateStartAndDateEnd($dateStart,$dateEnd) {
@@ -152,7 +162,6 @@ class Date
     }
 
     return $data;
-
   }
 
   public static function calPassedDate($dateTime) {
@@ -212,7 +221,6 @@ class Date
       'start' => $start,
       'end' => $end
     );
-
   }
 
 }

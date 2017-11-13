@@ -40,17 +40,24 @@ class Service
 
   }
 
-  public static function addUserLog($modelName,$id,$action) {
-    if(!Auth::check()) {
+  public static function addUserLog($modelName,$modelId,$action,$userId = null) {
+
+    if(empty($userId) && Auth::check()) {
+      $userId = Auth::user()->id;
+    }elseif(empty($userId)) {
       return false;
     }
 
+    // if(!Auth::check()) {
+    //   return false;
+    // }
+
     $userLogModel = new UserLog;
     $userLogModel->model = $modelName;
-    $userLogModel->model_id = $id;
+    $userLogModel->model_id = $modelId;
     $userLogModel->action = $action;
     $userLogModel->ip_address = Service::getIp();
-    $userLogModel->user_id = Auth::user()->id;
+    $userLogModel->user_id = $userId;
 
     return $userLogModel->save();
   }

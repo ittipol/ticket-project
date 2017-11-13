@@ -31,6 +31,9 @@ class UserController extends Controller
       $user->user_key = Token::generate(32);
       $user->save();
 
+      // User log
+      Service::addUserLog('User',Auth::user()->id,'login');
+
       Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
       return Redirect::intended('/ticket');
     }
@@ -123,15 +126,18 @@ class UserController extends Controller
 
     Auth::login($user,true);
 
+    // User log
+    Service::addUserLog('User',Auth::user()->id,'login (Facebook)');
+
     Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
 
     return Redirect::intended('/ticket');
-
   }
 
   public function logout() {
-    
+
     if(Auth::check()) {
+      $uid = Auth::user()->id;
 
       $user = User::find(Auth::user()->id);
       $user->online = 0;
@@ -139,6 +145,8 @@ class UserController extends Controller
 
       Auth::logout();
       session()->flush();
+
+      Service::addUserLog('User',$uid,'logout',$uid);
     }
 
     return redirect('/');
