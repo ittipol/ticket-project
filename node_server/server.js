@@ -1,9 +1,10 @@
 var env = require('./env');
-var constVar = require('./const');
+var _const = require('./const');
 var dateTime = require('./func/date_time');
 var token = require('./func/token');
 var striptags = require('striptags');
 //
+var db = require('./db');
 var fs = require('fs');
 var app = require('express')();
 var server = require('https').Server({
@@ -11,7 +12,10 @@ var server = require('https').Server({
   cert: fs.readFileSync(env.SSL_CERT),
 },app);
 var io = require('socket.io')(server);
-var db = require('./db');
+
+// redis
+const redis = require('redis');
+const redisClient = redis.createClient();
 
 // 
 var userHandle = [];
@@ -23,6 +27,19 @@ function userOnline(userId) {
     return true;
   }
   return false;
+
+  // redisClient.get(userId, function(err, data) {
+  //   if(err || data === null) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // });
+}
+
+function clearUserOnline(userId) {
+  clients.splice(clients.indexOf(userId), 1);
+  // redisClient.del(userId);
 }
 
 // Update read all message
@@ -172,8 +189,9 @@ io.on('connection', function(socket){
     socket.userId = data.userId;
 
     if(clients.indexOf(data.userId) === -1){
-      // Push to clients
+      // set online clients
       clients.push(data.userId);
+      // redisClient.set(data.userId, 1);
       // Emit to client
       io.in('check-online').emit('check-user-online', {
         user: data.userId,
@@ -194,8 +212,9 @@ io.on('connection', function(socket){
     userHandle[socket.userId] = setTimeout(function(){
 
       if(userOnline(socket.userId)){
-        // Clear
-        clients.splice(clients.indexOf(socket.userId), 1);
+        // Clear online user
+        // clients.splice(clients.indexOf(socket.userId), 1);
+        clearUserOnline(socket.userId);
         // Emit
         io.in('u_'+socket.userId).emit('offline', {});
         // Check if other page is open
@@ -237,7 +256,8 @@ io.on('connection', function(socket){
         for (var i = 0; i < rows.length; i++) {
           if(userOnline(rows[i].id)) {
             // Clear
-            clients.splice(clients.indexOf(rows[i].id), 1);
+            // clients.splice(clients.indexOf(rows[i].id), 1);
+            clearUserOnline(rows[i].id);
             // Emit
             // io.in('u_'+rows[i].id).emit('offline', {});
           }
@@ -253,8 +273,6 @@ io.on('connection', function(socket){
 
   },120000);
 
-
-  // check every 10 mins if notice was expire
 
 
   // ||||||||||||||||||||||| CHAT |||||||||||||||||||||||
@@ -300,9 +318,9 @@ io.on('connection', function(socket){
   });
 
   socket.on('chat-load-more', function(data){
-    let skip = (constVar.MESSAGE_TAKE * data.page) - constVar.MESSAGE_TAKE;
+    let skip = (_const.MESSAGE_TAKE * data.page) - _const.MESSAGE_TAKE;
 
-    db.query("SELECT message, user_id, created_at FROM `chat_messages` WHERE `chat_room_id` = "+data.room+" AND `created_at` < '"+data.time+"' ORDER BY `created_at` DESC LIMIT "+skip+","+constVar.MESSAGE_TAKE, function(err, rows){
+    db.query("SELECT message, user_id, created_at FROM `chat_messages` WHERE `chat_room_id` = "+data.room+" AND `created_at` < '"+data.time+"' ORDER BY `created_at` DESC LIMIT "+skip+","+_const.MESSAGE_TAKE, function(err, rows){
       
       let res = {
         next: false
