@@ -27,7 +27,6 @@ function checkUserOnline(userId) {
   //   return true;
   // }
   // return false;
-  console.log('check-user-online');
   redisClient.get(userId, function(err, data) {
     if(err || data === null) {
       return false;
@@ -39,7 +38,6 @@ function checkUserOnline(userId) {
 
 function addUserOnline(userId) {
   // clients.push(userId);
-  console.log('add-user-online');
   redisClient.set(userId, 1);
 }
 
@@ -258,7 +256,7 @@ io.on('connection', function(socket){
 
   // check user is online every 2 mins
   setInterval(function(){
-    
+    console.log('user online checking...');
     db.query("SELECT `id` FROM `users` WHERE `online` = 1 AND `last_active` <= '"+dateTime.now(true,1800000)+"' ORDER BY last_active ASC LIMIT 100", function(err, rows){
       // if(rows.length > 0) {
         for (var i = 0; i < rows.length; i++) {
