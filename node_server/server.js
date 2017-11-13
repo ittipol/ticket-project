@@ -40,6 +40,7 @@ function checkUserOnline(userId) {
 function addUserOnline(userId) {
   // clients.push(userId);
   redisClient.set('user-online:'+userId, 1);
+  // redisClient.expireat('user-online:'+userId, time);
 }
 
 function clearUserOnline(userId) {
