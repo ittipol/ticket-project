@@ -31,6 +31,7 @@ function checkUserOnline(userId) {
     if(err || data === null) {
       return false;
     } else {
+      console.log('has user');
       return true;
     }
   });
@@ -258,24 +259,23 @@ io.on('connection', function(socket){
   setInterval(function(){
     console.log('user online checking...');
     db.query("SELECT `id` FROM `users` WHERE `online` = 1 AND `last_active` <= '"+dateTime.now(true,1800000)+"' ORDER BY last_active ASC LIMIT 100", function(err, rows){
-      // if(rows.length > 0) {
-        for (var i = 0; i < rows.length; i++) {
-          if(checkUserOnline(rows[i].id)) {
-            console.log('clear');
-            // Clear
-            // clients.splice(clients.indexOf(rows[i].id), 1);
-            clearUserOnline(rows[i].id);
-            // Emit
-            // io.in('u_'+rows[i].id).emit('offline', {});
-          }
-
-          io.in('check-online').emit('check-user-online', {
-            user: rows[i].id,
-            online: false
-          });
-          db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+rows[i].id);
+      for (var i = 0; i < rows.length; i++) {
+        console.log(rows[i].id);
+        if(checkUserOnline(rows[i].id)) {
+          console.log('clear user...');
+          // Clear
+          // clients.splice(clients.indexOf(rows[i].id), 1);
+          clearUserOnline(rows[i].id);
+          // Emit
+          // io.in('u_'+rows[i].id).emit('offline', {});
         }
-      // }
+
+        io.in('check-online').emit('check-user-online', {
+          user: rows[i].id,
+          online: false
+        });
+        db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+rows[i].id);
+      }
     });
 
   },120000);

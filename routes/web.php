@@ -14,8 +14,10 @@
 Route::get('/teste', function(){
   // dd(App\library\url::url('/'));
 
-  $redis = new Redis();
-  dd($redis->connect('127.0.0.1', 6379));
+  // use Redis;
+
+  // $redis = new Redis();
+  // dd($redis->connect('127.0.0.1', 6379));
 }); 
 
 Route::get('/', 'TicketController@listView');
