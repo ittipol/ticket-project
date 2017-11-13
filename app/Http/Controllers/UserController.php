@@ -11,6 +11,7 @@ use App\library\snackbar;
 use Auth;
 use Hash;
 use Redirect;
+use Redis;
 
 class UserController extends Controller
 {
@@ -33,6 +34,9 @@ class UserController extends Controller
 
       // User log
       Service::addUserLog('User',Auth::user()->id,'login');
+
+      // Redis::set('user-online:'.Auth::user()->id,1);
+      // Redis::expire('user-online:'.Auth::user()->id, 7200);
 
       Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
       return Redirect::intended('/ticket');
@@ -129,6 +133,9 @@ class UserController extends Controller
     // User log
     Service::addUserLog('User',Auth::user()->id,'login (Facebook)');
 
+    // Redis::set('user-online:'.Auth::user()->id,1);
+    // Redis::expire('user-online:'.Auth::user()->id, 7200);
+
     Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
 
     return Redirect::intended('/ticket');
@@ -143,14 +150,7 @@ class UserController extends Controller
       $user->online = 0;
       $user->save();
 
-      // $redisClient = new Redis();
-      // try{
-      //   if($redis->connect('127.0.0.1', 6379)){
-          
-      //   }
-      // }catch( Exception $e ){
-      //   // Error
-      // }
+      // Redis::del('user-online:'.$uid);
 
       Auth::logout();
       session()->flush();

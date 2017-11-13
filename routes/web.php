@@ -14,9 +14,13 @@
 Route::get('/teste', function(){
   // dd(App\library\url::url('/'));
 
-  $id = Redis::get('xxx');
+  $id = Redis::get('user-online:2');
+  Redis::del('user-online:2');
 
-  dd($id);
+  Redis::set('test--val','xxx test');
+  Redis::expire('test--val', 7200);
+
+  dd('del: '.$id);
 
   // $redis = new Redis();
   // dd($redis->connect('127.0.0.1', 6379));
