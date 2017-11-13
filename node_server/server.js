@@ -257,14 +257,14 @@ io.on('connection', function(socket){
 
   });
 
-  // check user is online every 2 mins
+  // check user is online every 3 mins
   setInterval(function(){
-    console.log('user online checking...');
+
     db.query("SELECT `id` FROM `users` WHERE `online` = 1 AND `last_active` <= '"+dateTime.now(true,1800000)+"' ORDER BY last_active ASC LIMIT 100", function(err, rows){
       for (var i = 0; i < rows.length; i++) {
-        console.log(rows[i].id);
         if(checkUserOnline(rows[i].id)) {
           console.log('clear user...');
+          console.log(rows[i].id);
           // Clear
           // clients.splice(clients.indexOf(rows[i].id), 1);
           clearUserOnline(rows[i].id);
@@ -280,7 +280,7 @@ io.on('connection', function(socket){
       }
     });
 
-  },120000);
+  },180000);
 
 
 
