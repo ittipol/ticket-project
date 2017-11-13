@@ -14,7 +14,7 @@
 Route::get('/teste', function(){
   // dd(App\library\url::url('/'));
 
-  $id = Illuminate\Support\Facades\Redis::get('xxx');
+  $id = Redis::get('xxx');
 
   dd($id);
 
