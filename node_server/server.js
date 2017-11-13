@@ -22,7 +22,7 @@ var userHandle = [];
 var clients = [];
 var notifyMessageHandle = [];
 
-function userOnline(userId) {
+function checkUserOnline(userId) {
   if(clients.indexOf(userId) !== -1){
     return true;
   }
@@ -35,6 +35,11 @@ function userOnline(userId) {
   //     return true;
   //   }
   // });
+}
+
+function addUserOnline(userId) {
+  clients.push(userId);
+  // redisClient.set(data.userId, 1);
 }
 
 function clearUserOnline(userId) {
@@ -70,7 +75,7 @@ function notifyMessage(roomId,userId) {
             // Update notify = 1
             db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+rows[i].user_id);
             // Notify if user online
-            if(userOnline(rows[i].user_id)) {
+            if(checkUserOnline(rows[i].user_id)) {
               countMessageNotication(rows[i].user_id);
               messageNotication(roomId, rows[i].user_id);
               displayNewMessage(roomId, rows[i].user_id, messages[0].message);
@@ -190,8 +195,8 @@ io.on('connection', function(socket){
 
     if(clients.indexOf(data.userId) === -1){
       // set online clients
-      clients.push(data.userId);
-      // redisClient.set(data.userId, 1);
+      // clients.push(data.userId);
+      addUserOnline(data.userId);
       // Emit to client
       io.in('check-online').emit('check-user-online', {
         user: data.userId,
@@ -211,7 +216,7 @@ io.on('connection', function(socket){
 
     userHandle[socket.userId] = setTimeout(function(){
 
-      if(userOnline(socket.userId)){
+      if(checkUserOnline(socket.userId)){
         // Clear online user
         // clients.splice(clients.indexOf(socket.userId), 1);
         clearUserOnline(socket.userId);
@@ -232,7 +237,7 @@ io.on('connection', function(socket){
 
   socket.on('check-user-online', function(data) {
     
-    if(userOnline(data.userId)) {
+    if(checkUserOnline(data.userId)) {
       io.in('check-online').emit('check-user-online', {
         user: data.userId,
         online: true
@@ -254,7 +259,7 @@ io.on('connection', function(socket){
     db.query("SELECT `id` FROM `users` WHERE `online` = 1 AND `last_active` <= '"+dateTime.now(true,1800000)+"' ORDER BY last_active ASC LIMIT 100", function(err, rows){
       // if(rows.length > 0) {
         for (var i = 0; i < rows.length; i++) {
-          if(userOnline(rows[i].id)) {
+          if(checkUserOnline(rows[i].id)) {
             // Clear
             // clients.splice(clients.indexOf(rows[i].id), 1);
             clearUserOnline(rows[i].id);
@@ -292,7 +297,7 @@ io.on('connection', function(socket){
 
   socket.on('send-message', function(data){
 
-    if((!data.room) || (!data.user) || (!data.key) || (!userOnline(data.user))) {
+    if((!data.room) || (!data.user) || (!data.key) || (!checkUserOnline(data.user))) {
       io.in(data.chanel).emit('chat-error', {
         error: true,
         message: 'คณไม่สามารถแชทได้'
