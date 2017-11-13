@@ -27,7 +27,7 @@ function checkUserOnline(userId) {
   //   return true;
   // }
   // return false;
-  redisClient.get(userId, function(err, data) {
+  redisClient.get('user:online:'+userId, function(err, data) {
     if(err || data === null) {
       return false;
     } else {
@@ -39,13 +39,13 @@ function checkUserOnline(userId) {
 
 function addUserOnline(userId) {
   // clients.push(userId);
-  redisClient.set(userId, 1);
+  redisClient.set('user:online:'+userId, 1);
 }
 
 function clearUserOnline(userId) {
   // clients.splice(clients.indexOf(userId), 1);
   console.log('clear-user-online');
-  redisClient.del(userId);
+  redisClient.del('user:online:'+userId);
 }
 
 // Update read all message
