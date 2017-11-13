@@ -14,7 +14,7 @@
 Route::get('/teste', function(){
   // dd(App\library\url::url('/'));
 
-  $redisClient = new Redis();
+  $redis = new Redis();
   dd($redis->connect('127.0.0.1', 6379));
 }); 
 
