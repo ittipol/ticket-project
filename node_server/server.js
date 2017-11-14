@@ -314,28 +314,36 @@ io.on('connection', function(socket){
 
   });
 
-  // check user is online every 4 mins
+  // check user is online every 5 mins
   setInterval(function(){
-
     db.query("SELECT `id` FROM `users` WHERE (`last_active` >= '"+dateTime.now(true,2760000)+"' AND `last_active` <= '"+dateTime.now(true,1800000)+"') ORDER BY last_active ASC LIMIT 100", function(err, rows){
       for (var i = 0; i < rows.length; i++) {
-        console.log('clear user...');
-        console.log(rows[i].id);
+        // temp
+        let _userid = rows[i].id;
 
-        // Clear
-        clearUserOnline(rows[i].id);
-        // Emit
-        // io.in('u_'+rows[i].id).emit('offline', {});
+        redisClient.getAsync('user-online:'+_userid).then(function(_res){
 
-        io.in('check-online').emit('check-user-online', {
-          user: rows[i].id,
-          online: false
+          if(_res === null) {
+            return false;
+          }
+
+          console.log('clear user...');
+          console.log(_userid);
+          // Clear
+          clearUserOnline(_userid);
+          // Emit
+          // io.in('u_'+_userid).emit('offline', {});
+
+          io.in('check-online').emit('check-user-online', {
+            user: _userid,
+            online: false
+          });
+
+          // db.query("UPDATE `users` SET `online` = '0' WHERE `id` = "+_userid);
         });
-        // db.query("UPDATE `users` SET `online` = '0' WHERE `id` = "+rows[i].id);
       }
     });
-
-  },240000);
+  },300000);
 
 
 
