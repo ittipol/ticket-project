@@ -197,6 +197,7 @@ io.on('connection', function(socket){
 
     if(!checkUserOnline(data.userId)) {
       // set user online
+      console.log('add user...');
       addUserOnline(data.userId);
       // Emit to client
       io.in('check-online').emit('check-user-online', {
