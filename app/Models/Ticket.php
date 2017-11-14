@@ -215,11 +215,9 @@ class Ticket extends Model
   }
 
   public function getShortDesc() {
-
     if(empty($this->description)) {
       require null;
     }
-
     return StringHelper::truncString($this->description,220,true,true);
   }
 

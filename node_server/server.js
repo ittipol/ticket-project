@@ -215,7 +215,7 @@ io.on('connection', function(socket){
         return false;
       }
 
-      console.log('add online user');
+      console.log('online user# '+data.userId);
       addUserOnline(data.userId);
       
       io.in('check-online').emit('check-user-online', {

@@ -160,7 +160,8 @@ class User extends Model implements AuthenticatableContract,AuthorizableContract
 
     return array(
       'name' => $user->name,
-      'online' => Redis::get('user-online:'.$id)
+      // 'online' => Redis::get('user-online:'.$id)
+      'online' => 1
     );
 
   }

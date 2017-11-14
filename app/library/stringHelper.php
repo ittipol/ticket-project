@@ -30,15 +30,16 @@ class StringHelper
     $string = mb_substr($string, 0, $len);
     $lastChar = mb_substr($string, $len-1, 1);
 
-    if(ord($lastChar) != 32) {
+    if(ord($lastChar) !== 32) {
       $pos = mb_strpos($_string,' ',$len);
       if(!empty($pos)) {
         $string = mb_substr($_string, 0, $pos).'...';
+      }else {
+        $string .= '...';
       }
     }
 
     return $string;
-
   }
 
   public static function generateModelNameCamelCase($modelName) {
