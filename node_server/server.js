@@ -16,30 +16,26 @@ const io = require('socket.io')(server);
 const redis = require('redis');
 const redisClient = redis.createClient();
 
+const Promise = require('bluebird');
+Promise.promisifyAll(redis);
+
 // 
 var userHandle = [];
-// var clients = [];
 var notifyMessageHandle = [];
 
-function checkUserOnline(userId) {
-  redisClient.get('user-online:'+userId, function(err, data) {
-
-    console.log('check online');
-    console.log(data);
-    console.log(err);
-
-    if(err || data === null) {
-      console.log('false');
-      return false;
-    } else {
-      console.log('true');
-      return true;
-    }
-  });
-}
+// function checkUserOnline(userId) {
+//   redisClient.get('user-online:'+userId, function(err, data) {
+//     if(err || data === null) {
+//       console.log('false');
+//       return false;
+//     } else {
+//       console.log('true');
+//       return true;
+//     }
+//   });
+// }
 
 function addUserOnline(userId) {
-  console.log('user online: '+userId);
   redisClient.set('user-online:'+userId, 1);
   // expire at 1 hrs = 3600 secs
   // redisClient.expireat('user-online:'+userId, 3600);
@@ -73,15 +69,33 @@ function notifyMessage(roomId,userId) {
       db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `user_id` != "+userId+" AND `chat_room_id` = "+roomId+" AND `notify` = 0 AND `message_read` < "+messages[0].id, function(err, rows){
         //
         for (var i = 0; i < rows.length; i++) {
+
           if(rows[i].user_id != userId) {
+
+            let _userid = rows[i].user_id;
+
             // Update notify = 1
-            db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+rows[i].user_id);
-            // Notify if user online
-            if(checkUserOnline(rows[i].user_id)) {
-              countMessageNotication(rows[i].user_id);
-              messageNotication(roomId, rows[i].user_id);
-              displayNewMessage(roomId, rows[i].user_id, messages[0].message);
-            }
+            db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+_userid);
+            
+            // if(checkUserOnline(_userid)) {
+            //   countMessageNotication(_userid);
+            //   messageNotication(roomId, _userid);
+            //   displayNewMessage(roomId, _userid, messages[0].message);
+            // }
+
+            // Notify to online user
+            redisClient.getAsync('user-online:'+_userid).then(function(res){
+
+              if(res === null) {
+                return false;
+              }
+
+              countMessageNotication(_userid);
+              messageNotication(roomId, _userid);
+              displayNewMessage(roomId, _userid, messages[0].message);
+
+            });
+
           }
         }
       });
@@ -195,19 +209,34 @@ io.on('connection', function(socket){
     //
     socket.userId = data.userId;
 
-    if(!checkUserOnline(data.userId)) {
-      // set user online
-      console.log('add user...');
+    redisClient.getAsync('user-online:'+data.userId).then(function(res){
+
+      if(res !== null) {
+        return false;
+      }
+
+      console.log('add online user');
       addUserOnline(data.userId);
-      // Emit to client
+      
       io.in('check-online').emit('check-user-online', {
         user: data.userId,
         online: true
       });
-      // Update online = 1
-      // db.query("UPDATE `users` SET `online` = '1' WHERE `id` = "+data.userId);
-    }
-    console.log('-----------------------------');
+
+    });
+
+    // if(!checkUserOnline(data.userId)) {
+    //   // set user online
+    //   console.log('add user...');
+    //   addUserOnline(data.userId);
+    //   // Emit to client
+    //   io.in('check-online').emit('check-user-online', {
+    //     user: data.userId,
+    //     online: true
+    //   });
+    //   // Update online = 1
+    //   // db.query("UPDATE `users` SET `online` = '1' WHERE `id` = "+data.userId);
+    // }
     
   });
 
@@ -219,36 +248,69 @@ io.on('connection', function(socket){
 
     userHandle[socket.userId] = setTimeout(function(){
 
-      if(checkUserOnline(socket.userId)){
-        // Clear user online 
+      redisClient.getAsync('user-online:'+socket.userId).then(function(res){
+
+        if(res === null) {
+          return false;
+        }
+        // Clear
         clearUserOnline(socket.userId);
-        // Emit
+        // 
         io.in('u_'+socket.userId).emit('offline', {});
-        // Check if other page is open
+        // Check if other page is opening
         io.in('check-online').emit('check-user-online', {
           user: socket.userId,
           online: false
         });
-        // Update online = 0
-        // db.query("UPDATE `users` SET `online` = '0' WHERE `id` = "+socket.userId);
-      }
+
+      });
+
+      // if(checkUserOnline(socket.userId)){
+      //   // Clear user online 
+      //   clearUserOnline(socket.userId);
+      //   // Emit
+      //   io.in('u_'+socket.userId).emit('offline', {});
+      //   // Check if other page is open
+      //   io.in('check-online').emit('check-user-online', {
+      //     user: socket.userId,
+      //     online: false
+      //   });
+      //   // Update online = 0
+      //   // db.query("UPDATE `users` SET `online` = '0' WHERE `id` = "+socket.userId);
+      // }
     },3000);
 
   });
 
   socket.on('check-user-online', function(data) {
+
+    redisClient.getAsync('user-online:'+data.userId).then(function(res){
+
+      if(res === null) {
+        io.in('check-online').emit('check-user-online', {
+          user: data.userId,
+          online: false
+        });
+      }else {
+        io.in('check-online').emit('check-user-online', {
+          user: data.userId,
+          online: true
+        });
+      }
+
+    });
     
-    if(checkUserOnline(data.userId)) {
-      io.in('check-online').emit('check-user-online', {
-        user: data.userId,
-        online: true
-      });
-    }else{
-      io.in('check-online').emit('check-user-online', {
-        user: data.userId,
-        online: false
-      });
-    }
+    // if(checkUserOnline(data.userId)) {
+    //   io.in('check-online').emit('check-user-online', {
+    //     user: data.userId,
+    //     online: true
+    //   });
+    // }else{
+    //   io.in('check-online').emit('check-user-online', {
+    //     user: data.userId,
+    //     online: false
+    //   });
+    // }
 
   });
 
@@ -294,28 +356,40 @@ io.on('connection', function(socket){
 
   socket.on('send-message', function(data){
 
-    if((!data.room) || (!data.user) || (!data.key) || (!checkUserOnline(data.user))) {
+    if(!data.room || !data.user || !data.key) {
       io.in(data.chanel).emit('chat-error', {
         error: true,
-        message: 'คณไม่สามารถแชทได้'
+        message: 'มีบางอย่างผิดพลาด ไม่สามารถแชทได้'
       });
       return false;
     }
 
-    clearTimeout(notifyMessageHandle[data.room]);
-  	
-    let message = striptags(data.message.trim());
-    // save message
-  	db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+message+"', CURRENT_TIMESTAMP);");
+    redisClient.getAsync('user-online:'+data.user).then(function(res){
 
-    io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
-      user: data.user,
-      message: message
+      if(res === null) {
+        io.in(data.chanel).emit('chat-error', {
+          error: true,
+          message: 'มีบางอย่างผิดพลาด ไม่สามารถแชทได้'
+        });
+        return false;
+      }
+
+      clearTimeout(notifyMessageHandle[data.room]);
+      
+      let message = striptags(data.message.trim());
+      //
+      db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+message+"', CURRENT_TIMESTAMP);");
+
+      io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
+        user: data.user,
+        message: message
+      });
+
+      notifyMessageHandle[data.room] = setTimeout(function(){
+        notifyMessage(data.room,data.user);
+      },3500);
+
     });
-
-    notifyMessageHandle[data.room] = setTimeout(function(){
-      notifyMessage(data.room,data.user);
-    },3500);
 
   });
 
