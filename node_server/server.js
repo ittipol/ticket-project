@@ -26,7 +26,6 @@ function checkUserOnline(userId) {
     if(err || data === null) {
       return false;
     } else {
-      console.log('has user');
       return true;
     }
   });

@@ -281,7 +281,7 @@
                 // shareEl: false,
                 shareButtons: [
                   {id:'facebook', label:'Share on Facebook', url:'https://www.facebook.com/sharer/sharer.php?u={{Request::fullUrl()}}'},
-                  {id:'twitter', label:'Tweet', url:'https://twitter.com/intent/tweet?text={{$_text}}&url={{Request::fullUrl()}}'},
+                  {id:'twitter', label:'Tweet', url:'https://twitter.com/intent/tweet?text={{$data['title']}}&url={{Request::fullUrl()}}'},
                   {id:'google-plus', label:'Google Plus', url:'https://plus.google.com/share?url={{Request::fullUrl()}}'},
                 ],
 
