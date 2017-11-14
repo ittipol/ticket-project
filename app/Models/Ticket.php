@@ -92,12 +92,6 @@ class Ticket extends Model
       ));
 
     }
-    // User
-    $_user = User::select('name','online')->find($this->created_by);
-    $uesr = null;
-    if(!empty($_user)) {
-      $user = $_user->getAttributes();
-    }
     // Price
     $originalPrice = null;
     $save = null;
@@ -131,10 +125,10 @@ class Ticket extends Model
       'created_by' => $this->created_by,
       'created_at' => Date::calPassedDate($this->created_at->format('Y-m-d H:i:s')),
       'category' => $category->ticketCategory->name,
-      'user' => $user,
+      'user' => User::buildProfileForTicketList($this->created_by),
       'image' => $image,
       'imageTotal' => $imageTotal,
-      'tags' => $tags 
+      'tags' => $tags
     );
   }
 
@@ -214,7 +208,8 @@ class Ticket extends Model
       'category' => $category->ticketCategory->name,
       'images' => $images,
       'imageTotal' => $imageTotal,
-      'tags' => $tags
+      'tags' => $tags,
+      // 'seller' => User::buildProfileForTicketDetail($this->created_by)
     );
 
   }

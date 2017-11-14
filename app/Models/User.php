@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use App\library\date;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use App\library\date;
+use Redis;
 
 class User extends Model implements AuthenticatableContract,AuthorizableContract,CanResetPasswordContract
 {
@@ -116,18 +117,18 @@ class User extends Model implements AuthenticatableContract,AuthorizableContract
   }
 
   public function getAvartarPath() {
-  return storage_path($this->path.$this->id.'/avatar/');
+    return storage_path($this->path.$this->id.'/avatar/');
   }
 
   public function getAvartarImage($avatar = '') {
    if(empty($avatar)) {
      $avatar = $this->avatar;
    }
-
    return $this->getAvartarPath().$avatar;
   }
 
   public function getProfileImage() {
+
    $image = Image::select('id','model','model_id','filename','image_type_id')->find($this->avatar);
 
    if(empty($image)) {
@@ -140,34 +141,46 @@ class User extends Model implements AuthenticatableContract,AuthorizableContract
    );
   }
 
-  public function buildDataDetail() {
+  // public function buildDataDetail() {
+  //   return array(
+  //     'id' => $this->id,
+  //     'name' => $this->name,
+  //     'avatar' => $this->avatar,
+  //     'online' => $this->online,
+  //     'last_active' => Date::calPassedDate($this->last_active)
+  //   );
+  // }
+
+  public static function buildProfileForTicketList($id) {
+    $user = User::select('name')->find($id);
+
+    if(empty($user)) {
+      return null;
+    }
+
     return array(
-      'id' => $this->id,
-      'name' => $this->name,
-      'avatar' => $this->avatar,
-      'online' => $this->online,
-      'last_active' => Date::calPassedDate($this->last_active)
+      'name' => $user->name,
+      // 'online' => Redis::get('user-online:'.$id)
+      'online' => 1
     );
+
   }
 
-   // public function getProfileImageUrl($size = null) {
+  public static function buildProfileForTicketDetail($id) {
+    $user = User::select('name','avatar','last_active')->find($id);
 
-   //   if(empty($size)) {
-   //     $size = 'xsm';
-   //   }
+    if(empty($user)) {
+      return null;
+    }
 
-   //   $image = Image::select('id','model','model_id','filename','image_type_id')->find($this->avatar);
+    return array(
+      'name' => $user->name,
+      // 'avatar' => $user->avatar,
+      'last_active' => Date::calPassedDate($user->last_active),
+      // 'online' => Redis::get('user-online:'.$id)
+      'online' => 1
+    );
 
-   //   if(empty($image)) {
-   //     return null;
-   //   }
+  }
 
-   //   if(empty($size)) {
-   //     return $image->getImageUrl();
-   //   }
-
-   //   $cache = new Cache;
-
-   //   return $cache->getCacheImageUrl($image,$size);
-   // }
 }

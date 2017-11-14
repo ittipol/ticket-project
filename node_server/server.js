@@ -1,32 +1,27 @@
-var env = require('./env');
-var _const = require('./const');
-var dateTime = require('./func/date_time');
-var token = require('./func/token');
-var striptags = require('striptags');
+const env = require('./env');
+const _const = require('./const');
+const dateTime = require('./func/date_time');
+const token = require('./func/token');
+const striptags = require('striptags');
 //
-var db = require('./db');
-var fs = require('fs');
-var app = require('express')();
-var server = require('https').Server({
+const db = require('./db');
+const fs = require('fs');
+const app = require('express')();
+const server = require('https').Server({
   key: fs.readFileSync(env.SSL_KEY),
   cert: fs.readFileSync(env.SSL_CERT),
 },app);
-var io = require('socket.io')(server);
-
+const io = require('socket.io')(server);
 // redis
 const redis = require('redis');
 const redisClient = redis.createClient();
 
 // 
 var userHandle = [];
-var clients = [];
+// var clients = [];
 var notifyMessageHandle = [];
 
 function checkUserOnline(userId) {
-  // if(clients.indexOf(userId) !== -1){
-  //   return true;
-  // }
-  // return false;
   redisClient.get('user-online:'+userId, function(err, data) {
     if(err || data === null) {
       return false;
@@ -38,15 +33,12 @@ function checkUserOnline(userId) {
 }
 
 function addUserOnline(userId) {
-  // clients.push(userId);
   redisClient.set('user-online:'+userId, 1);
-  // expire at 2 hrs = 7200 secs
-  redisClient.expireat('user-online:'+userId, 7200);
+  // expire at 1 hrs = 3600 secs
+  // redisClient.expireat('user-online:'+userId, 3600);
 }
 
 function clearUserOnline(userId) {
-  // clients.splice(clients.indexOf(userId), 1);
-  console.log('clear-user-online');
   redisClient.del('user-online:'+userId);
 }
 
@@ -188,26 +180,24 @@ io.on('connection', function(socket){
   
   socket.on('online', function(data){
 
-    db.query("UPDATE `users` SET `last_active` = CURRENT_TIME() WHERE `users`.`id` = "+data.userId);
+    db.query("UPDATE `users` SET `last_active` = CURRENT_TIME() WHERE `id` = "+data.userId);
 
     if(userHandle[data.userId] !== undefined) {
       clearTimeout(userHandle[data.userId]);
     }
-
+    //
     socket.userId = data.userId;
 
-    // if(clients.indexOf(data.userId) === -1){
     if(!checkUserOnline(data.userId)) {
-      // set online clients
-      // clients.push(data.userId);
+      // set user online
       addUserOnline(data.userId);
       // Emit to client
       io.in('check-online').emit('check-user-online', {
         user: data.userId,
         online: true
       });
-      // Update user is online to database
-      db.query("UPDATE `users` SET `online` = '1' WHERE `users`.`id` = "+data.userId);
+      // Update online = 1
+      // db.query("UPDATE `users` SET `online` = '1' WHERE `id` = "+data.userId);
     }
     
   });
@@ -221,8 +211,7 @@ io.on('connection', function(socket){
     userHandle[socket.userId] = setTimeout(function(){
 
       if(checkUserOnline(socket.userId)){
-        // Clear online user
-        // clients.splice(clients.indexOf(socket.userId), 1);
+        // Clear user online 
         clearUserOnline(socket.userId);
         // Emit
         io.in('u_'+socket.userId).emit('offline', {});
@@ -231,9 +220,8 @@ io.on('connection', function(socket){
           user: socket.userId,
           online: false
         });
-
-        // Update
-        db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+socket.userId+";");
+        // Update online = 0
+        // db.query("UPDATE `users` SET `online` = '0' WHERE `id` = "+socket.userId);
       }
     },3000);
 
@@ -246,41 +234,37 @@ io.on('connection', function(socket){
         user: data.userId,
         online: true
       });
-      // db.query("UPDATE `users` SET `online` = '1' WHERE `users`.`id` = "+data.userId+";");
     }else{
       io.in('check-online').emit('check-user-online', {
         user: data.userId,
         online: false
       });
-      // db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+data.userId+";");
     }
 
   });
 
-  // check user is online every 3 mins
+  // check user is online every 4 mins
   setInterval(function(){
 
-    db.query("SELECT `id` FROM `users` WHERE `online` = 1 AND `last_active` <= '"+dateTime.now(true,1800000)+"' ORDER BY last_active ASC LIMIT 100", function(err, rows){
+    db.query("SELECT `id` FROM `users` WHERE (`last_active` >= '"+dateTime.now(true,2760000)+"' AND `last_active` <= '"+dateTime.now(true,1800000)+"') ORDER BY last_active ASC LIMIT 100", function(err, rows){
       for (var i = 0; i < rows.length; i++) {
-        if(checkUserOnline(rows[i].id)) {
-          console.log('clear user...');
-          console.log(rows[i].id);
-          // Clear
-          // clients.splice(clients.indexOf(rows[i].id), 1);
-          clearUserOnline(rows[i].id);
-          // Emit
-          // io.in('u_'+rows[i].id).emit('offline', {});
-        }
+        console.log('clear user...');
+        console.log(rows[i].id);
+
+        // Clear
+        clearUserOnline(rows[i].id);
+        // Emit
+        // io.in('u_'+rows[i].id).emit('offline', {});
 
         io.in('check-online').emit('check-user-online', {
           user: rows[i].id,
           online: false
         });
-        db.query("UPDATE `users` SET `online` = '0' WHERE `users`.`id` = "+rows[i].id);
+        // db.query("UPDATE `users` SET `online` = '0' WHERE `id` = "+rows[i].id);
       }
     });
 
-  },180000);
+  },240000);
 
 
 

@@ -217,15 +217,11 @@ class TicketController extends Controller
       return Redirect::to('/ticket');
     }
 
-    // GET SELLER
-    $seller = Service::loadModel('User')->select('name','avatar','online','last_active')->find($model->created_by);
-
-    $data = $model->buildDataDetail();
-
-    $this->setData('data',$data);
-    $this->setData('seller',$seller->buildDataDetail());
+    $this->setData('data',$model->buildDataDetail());
+    $this->setData('seller',Service::loadModel('User')->buildProfileForTicketDetail($model->created_by));
     $this->setData('ticketId',$ticketId);
-    // modal
+
+    // Modal
     $this->setData('_text',$data['title']);
 
     // SET META
