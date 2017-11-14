@@ -7,10 +7,11 @@ const striptags = require('striptags');
 const db = require('./db');
 const fs = require('fs');
 const app = require('express')();
-const server = require('https').Server({
-  key: fs.readFileSync(env.SSL_KEY),
-  cert: fs.readFileSync(env.SSL_CERT),
-},app);
+// const server = require('https').Server({
+//   key: fs.readFileSync(env.SSL_KEY),
+//   cert: fs.readFileSync(env.SSL_CERT),
+// },app);
+const server = require('http').Server(app);
 const io = require('socket.io')(server);
 // redis
 const redis = require('redis');

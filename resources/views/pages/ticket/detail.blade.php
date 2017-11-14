@@ -134,7 +134,7 @@
         </div>
         <div class="pa2 pa2-ns">
           <a href="/chat/s/{{$ticketId}}" class="btn btn-primary btn-block br0">
-            <i class="fa fa-comments" aria-hidden="true"></i> คุยกับผู้ขาย
+            <i class="fa fa-comments" aria-hidden="true"></i>&nbsp;คุยกับผู้ขาย
           </a>
         </div>
       </div>
@@ -150,6 +150,16 @@
       </div>
 
       @else
+
+      <div class="contact-section pa2 pa0-ns mt-3 mt-2-ns bt">
+        <div class="clearfix pa0 ph2-ns pv3-ns">
+          <h5 class="mt-1 pb-2">
+            <i class="fa fa-address-book" aria-hidden="true"></i>
+            &nbsp;ช่องทางสำหรับติดต่อผู้ขาย
+          </h5>
+          {!!$data['contact']!!}
+        </div>
+      </div>
 
       <div class="action-section content-fixed-bottom ph2 pv3 pa0-ns mt-2">
         <div class="c-card__actions clearfix tc mb-2">
@@ -174,7 +184,6 @@
   @include('shared.ticket-chat-room')
 @endif
 
-<!-- <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script> -->
 <script type="text/javascript" src="/assets/js/user_online.js"></script>
 <script type="text/javascript" src="/assets/lib/ig/photoswipe.min.js"></script>
 <script type="text/javascript" src="/assets/lib/ig/photoswipe-ui-default.min.js"></script>

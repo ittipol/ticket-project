@@ -68,13 +68,16 @@ class TicketForm {
       return false;
     }
 
-    if($('#price_input').val() - $('#original_price_input').val() > 0) {
+    let price = $('#price_input').val().replace(/,/g,'');
+    let originalPrice = $('#original_price_input').val().replace(/,/g,'');
+
+    if(price - originalPrice > 0) {
       $('#percent_input').val(0);
       return false;
     }
 
     this.handle = setTimeout(function(){
-      let percent = 100 - (($('#price_input').val() * 100) / $('#original_price_input').val());
+      let percent = 100 - ((price * 100) / originalPrice);
       $('#percent_input').val(Math.round(percent,2));
     },300);
 

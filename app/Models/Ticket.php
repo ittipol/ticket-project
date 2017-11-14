@@ -111,7 +111,7 @@ class Ticket extends Model
     return array(
       'id' => $this->id,
       // 'title' => $this->title,
-      'title' => StringHelper::truncString($this->title,80,true,true),
+      'title' => StringHelper::truncString($this->title,90,true,true),
       'description' => $this->description,
       'place_location' => $this->place_location,
       'price' => $currency->format($this->price),

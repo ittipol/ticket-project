@@ -132,7 +132,7 @@
   padding: 12px;
   overflow: hidden;
   position: relative;
-  background-color: rgba(255,255,255,.87);
+  background-color: rgba(255,255,255,.77);
   border-bottom: 1px solid #ccc;
   z-index: 5;
 }
@@ -197,7 +197,7 @@
   overflow: hidden;
   position: relative;
   z-index: 5;
-  background-color: rgba(255,255,255,.87);
+  background-color: rgba(255,255,255,.77);
 }
 .c-card__primary-title .title {
   margin: 0;
@@ -223,7 +223,7 @@
 }
 .c-card__price {
   position: relative;
-  background-color: rgba(255,255,255,.87);
+  background-color: rgba(255,255,255,.77);
   z-index: 5;
 }
 .c-card__actions {

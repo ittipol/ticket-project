@@ -217,11 +217,13 @@ class TicketController extends Controller
       return Redirect::to('/ticket');
     }
 
-    $this->setData('data',$model->buildDataDetail());
+    $data = $model->buildDataDetail();
+
+    $this->setData('data',$data);
     $this->setData('seller',Service::loadModel('User')->buildProfileForTicketDetail($model->created_by));
     $this->setData('ticketId',$ticketId);
 
-    // Modal use for share with twitter
+    // Modal use for shared.ig with twitter title
     // $this->setData('_text',$data['title']);
 
     // SET META
@@ -229,7 +231,7 @@ class TicketController extends Controller
     $this->setMeta('description',$model->getShortDesc());
 
     if(!empty($data['images'])) {
-      $this->setMeta('image',url('').$data['images'][0]['_url']);
+      $this->setMeta('image',url('/').$data['images'][0]['_url']);
     }
 
     $keywords = array();
@@ -268,8 +270,12 @@ class TicketController extends Controller
     $model->title = request()->get('title');
     $model->description = request()->get('description');
     $model->place_location = request()->get('place_location');
-    $model->price = request()->get('price');
-    $model->original_price = request()->get('original_price');
+    $model->price = str_replace(',','',request()->get('price'));
+
+    if(request()->has('original_price')) {
+      $model->original_price = str_replace(',','',request()->get('original_price'));
+    }
+    
     $model->date_type = request()->get('date_type');
     $model->date_1 = request()->get('date_1');
     $model->date_2 = request()->get('date_2');
@@ -385,8 +391,12 @@ class TicketController extends Controller
     $model->title = request()->get('title');
     $model->description = request()->get('description');
     $model->place_location = request()->get('place_location');
-    $model->price = request()->get('price');
-    $model->original_price = request()->get('original_price');
+    $model->price = str_replace(',','',request()->get('price'));
+
+    if(request()->has('original_price')) {
+      $model->original_price = str_replace(',','',request()->get('original_price'));
+    }
+
     $model->date_type = request()->get('date_type');
     $model->date_1 = request()->get('date_1');
     $model->date_2 = request()->get('date_2');
