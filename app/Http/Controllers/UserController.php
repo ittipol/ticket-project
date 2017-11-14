@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Redis;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\library\service;
@@ -11,7 +12,6 @@ use App\library\snackbar;
 use Auth;
 use Hash;
 use Redirect;
-use Redis;
 
 class UserController extends Controller
 {
