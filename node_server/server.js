@@ -23,9 +23,16 @@ var notifyMessageHandle = [];
 
 function checkUserOnline(userId) {
   redisClient.get('user-online:'+userId, function(err, data) {
+
+    console.log('check online');
+    console.log(data);
+    console.log(err);
+
     if(err || data === null) {
+      console.log('false');
       return false;
     } else {
+      console.log('true');
       return true;
     }
   });
@@ -189,7 +196,6 @@ io.on('connection', function(socket){
     socket.userId = data.userId;
 
     if(!checkUserOnline(data.userId)) {
-      console.log('online');
       // set user online
       addUserOnline(data.userId);
       // Emit to client
