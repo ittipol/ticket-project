@@ -1,40 +1,33 @@
-const env = require('./env');
-const _const = require('./const');
-const dateTime = require('./func/date_time');
-const token = require('./func/token');
-const striptags = require('striptags');
+var env = require('./env');
+var _const = require('./const');
+var dateTime = require('./func/date_time');
+var token = require('./func/token');
+var striptags = require('striptags');
 //
-const db = require('./db');
-const fs = require('fs');
-const app = require('express')();
-// const server = require('https').Server({
-//   key: fs.readFileSync(env.SSL_KEY),
-//   cert: fs.readFileSync(env.SSL_CERT),
-// },app);
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+var db = require('./db');
+var fs = require('fs');
+var app = require('express')();
+// Server
+if(env.SSL) {
+  var server = require('https').Server({
+    key: fs.readFileSync(env.SSL_KEY),
+    cert: fs.readFileSync(env.SSL_CERT),
+  },app);
+}else{
+  var server = require('http').Server(app);
+}
+// socket.io
+var io = require('socket.io')(server);
 // redis
-const redis = require('redis');
-const redisClient = redis.createClient();
+var redis = require('redis');
+var redisClient = redis.createClient();
 
-const Promise = require('bluebird');
+var Promise = require('bluebird');
 Promise.promisifyAll(redis);
 
-// 
+// Var
 var userHandle = [];
 var notifyMessageHandle = [];
-
-// function checkUserOnline(userId) {
-//   redisClient.get('user-online:'+userId, function(err, data) {
-//     if(err || data === null) {
-//       console.log('false');
-//       return false;
-//     } else {
-//       console.log('true');
-//       return true;
-//     }
-//   });
-// }
 
 function addUserOnline(userId) {
   redisClient.set('user-online:'+userId, 1);
