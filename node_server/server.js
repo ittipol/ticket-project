@@ -206,6 +206,7 @@ io.on('connection', function(socket){
       // Update online = 1
       // db.query("UPDATE `users` SET `online` = '1' WHERE `id` = "+data.userId);
     }
+    console.log('-----------------------------');
     
   });
 
