@@ -221,8 +221,8 @@ class TicketController extends Controller
     $this->setData('seller',Service::loadModel('User')->buildProfileForTicketDetail($model->created_by));
     $this->setData('ticketId',$ticketId);
 
-    // Modal
-    $this->setData('_text',$data['title']);
+    // Modal use for share with twitter
+    // $this->setData('_text',$data['title']);
 
     // SET META
     $this->setMeta('title',$model->title);

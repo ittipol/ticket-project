@@ -32,6 +32,7 @@ function checkUserOnline(userId) {
 }
 
 function addUserOnline(userId) {
+  console.log('user online: '+userId);
   redisClient.set('user-online:'+userId, 1);
   // expire at 1 hrs = 3600 secs
   // redisClient.expireat('user-online:'+userId, 3600);
