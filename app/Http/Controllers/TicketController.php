@@ -305,10 +305,11 @@ class TicketController extends Controller
     if(!empty(request()->get('place_location'))) {
       Service::loadModel('PlaceLocation')->__saveRelatedData($model,request()->get('place_location'));
     }
+    
     // Lookup
 
     // re-scrap
-    Service::updateFacebookScrap('ticket/view/'.$model->id);
+    Service::facebookReScrap('ticket/view/'.$model->id);
 
     // User log
     Service::addUserLog('Ticket',$model->id,'add');
@@ -432,7 +433,7 @@ class TicketController extends Controller
     // Lookup
 
     // re-scrap
-    Service::updateFacebookScrap('ticket/view/'.$model->id);
+    Service::facebookReScrap('ticket/view/'.$model->id);
 
     // User log
     Service::addUserLog('Ticket',$model->id,'edit');

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+// use Facebook\Facebook;
 use Illuminate\Support\Facades\Redis;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\library\service;
-use Facebook\Facebook;
 use App\library\token;
 use App\library\snackbar;
 use Auth;
@@ -77,30 +77,35 @@ class UserController extends Controller
     Snackbar::message('บัญชีของคุณถูกสร้างแล้ว คุณสามารถใช้บัญชีนี้เพื่อเข้าสู่ระบบ');
 
     return Redirect::to('login');
-
   }
 
   public function socialCallback() {
 
-    if(empty(request()->code)) {
-      abort(404);
+    if(!request()->has('code')) {
+      abort(405);
     }
 
-    $fb = new \Facebook\Facebook([
-      'app_id' => env('FB_APP_ID'),
-      'app_secret' => env('FB_SECRET_ID'),
-      'default_graph_version' => env('GRAPH_VERSION'),
-    ]);
+    // $fb = new Facebook([
+    //   'app_id' => env('FB_APP_ID'),
+    //   'app_secret' => env('FB_SECRET_ID'),
+    //   'default_graph_version' => env('GRAPH_VERSION'),
+    // ]);
 
-    try {
-      // Returns a `Facebook\FacebookResponse` object
-      $response = $fb->get('/me?fields=id,name,email', request()->code);
-    } catch(Facebook\Exceptions\FacebookResponseException $e) {
-      echo 'Graph returned an error: ' . $e->getMessage();
-      exit;
-    } catch(Facebook\Exceptions\FacebookSDKException $e) {
-      echo 'Facebook SDK returned an error: ' . $e->getMessage();
-      exit;
+    // try {
+    //   // Returns a `Facebook\FacebookResponse` object
+    //   $response = $fb->get('/me?fields=id,name,email', request()->code);
+    // } catch(Facebook\Exceptions\FacebookResponseException $e) {
+    //   // echo 'Graph returned an error: ' . $e->getMessage();
+    //   abort(405);
+    // } catch(Facebook\Exceptions\FacebookSDKException $e) {
+    //   // echo 'Facebook SDK returned an error: ' . $e->getMessage();
+    //   abort(405);
+    // }
+
+    $response = Service::facebookGetUserProfile(request()->code);
+
+    if($response === false) {
+      abort(405);
     }
 
     $_user = $response->getGraphUser();

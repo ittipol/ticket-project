@@ -2,6 +2,7 @@
 
 namespace App\library;
 
+use Facebook\Facebook;
 use App\Models\UserLog;
 use Request;
 use Auth;
@@ -70,15 +71,77 @@ class Service
     return $lists;
   }
 
-  public static function updateFacebookScrap($url = null){
+  public static function facebookGetUserProfile($accessToken) {
+
+    $fb = new Facebook([
+      'app_id' => env('FB_APP_ID'),
+      'app_secret' => env('FB_SECRET_ID'),
+      'default_graph_version' => env('GRAPH_VERSION'),
+    ]);
+
+    try {
+      // Returns a `Facebook\FacebookResponse` object
+      return $fb->get('/me?fields=id,name,email', $accessToken);
+    } catch(Facebook\Exceptions\FacebookResponseException $e) {
+      // $message = 'Graph returned an error: ' . $e->getMessage();
+    } catch(Facebook\Exceptions\FacebookSDKException $e) {
+      // $message = 'Facebook SDK returned an error: ' . $e->getMessage();
+    }
+
+    return false;
+  }
+
+  public static function facebookReScrap($url = null, $absPath = false){
     if(empty($url)) {
       return false;
     }
 
-    $ch = curl_init("http://developers.facebook.com/tools/debug/og/object?q=".Url::url('/').$url);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_exec($ch);
-    curl_close($ch);
+    if(!$absPath) {
+      $url = Url::url('/').$url;
+    }
+
+    $fb = new Facebook([
+      'app_id' => env('FB_APP_ID'),
+      'app_secret' => env('FB_SECRET_ID'),
+      'default_graph_version' => env('GRAPH_VERSION'),
+    ]);
+
+    try {
+      $response = $fb->post(
+        '/',
+        array (
+          'scrape' => 'true',
+          'id' => $url
+        ),
+        env('FB_APP_ID').'|'.env('FB_SECRET_ID') // App Access Token {app-id}|{app-secret}
+      );
+    } catch(FacebookExceptionsFacebookResponseException $e) {
+      // $message = 'Graph returned an error: ' . $e->getMessage();
+      return false;
+    } catch(FacebookExceptionsFacebookSDKException $e) {
+      // $message = 'Facebook SDK returned an error: ' . $e->getMessage();
+      return false;
+    }
+    // $graphNode = $response->getGraphNode();
+
+    return true;
+
+    // $ch = curl_init("https://developers.facebook.com/tools/debug/og/object/?q=".$url);
+    // curl_setopt($ch, CURLOPT_HEADER, 0);
+    // curl_exec($ch);
+    // curl_close($ch);
   }
+
+  // private static function sendPost($url, $post) {
+  //   $r = curl_init();
+  //   curl_setopt($r, CURLOPT_URL, $url);
+  //   curl_setopt($r, CURLOPT_POST, 1);
+  //   curl_setopt($r, CURLOPT_POSTFIELDS, $post);
+  //   curl_setopt($r, CURLOPT_RETURNTRANSFER, 1);
+  //   curl_setopt($r, CURLOPT_CONNECTTIMEOUT, 5);
+  //   $data = curl_exec($r);
+  //   curl_close($r);
+  //   return $data;
+  // }
 
 }
