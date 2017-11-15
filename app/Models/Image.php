@@ -374,7 +374,7 @@ class Image extends Model
   public function getFormation() {
     $info = getimagesize($this->getImagePath());
 
-    if($info[0] < ($info[1]-80)) {
+    if($info[0] < ($info[1]-40)) {
       return 'portrait';
     }
 
