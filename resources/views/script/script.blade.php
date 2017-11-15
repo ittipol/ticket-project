@@ -7,6 +7,7 @@
   $jsFiles = array(
     'assets/js/socket.io.js',
     'assets/js/jquery-3.2.1.min.js',
+    'assets/lib/tether/js/tether.min.js',
     'assets/js/bootstrap.min.js',
     'assets/js/modernizr.custom.js',
     'assets/lib/moment/moment.js',
