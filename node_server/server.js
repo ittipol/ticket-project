@@ -1,3 +1,4 @@
+console.log('---------------------------------');
 var env = require('./env');
 var _const = require('./const');
 var dateTime = require('./func/date_time');
@@ -13,10 +14,10 @@ if(env.SSL) {
     key: fs.readFileSync(env.SSL_KEY),
     cert: fs.readFileSync(env.SSL_CERT),
   },app);
-  console.log('SSL:true');
+  console.log('SSL -> true');
 }else{
   var server = require('http').Server(app);
-  console.log('SSL:false');
+  console.log('SSL -> false');
 }
 // socket.io
 var io = require('socket.io')(server);
@@ -249,7 +250,7 @@ io.on('connection', function(socket){
         if(res === null) {
           return false;
         }
-        console.log('Disconnect user# '+data.userId);
+        console.log('Disconnect user# '+socket.userId);
         // Clear
         clearUserOnline(socket.userId);
         // 
