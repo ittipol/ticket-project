@@ -35,6 +35,7 @@
                 </ul>
               </li>
             @endif
+            <li><a href="/features" class="gn-icon fa-star">คุณสมบัติ</a></li>
           </ul>
         </div>
         

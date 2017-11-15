@@ -35,7 +35,7 @@ class UserController extends Controller
       // User log
       Service::addUserLog('User',Auth::user()->id,'login');
 
-      Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
+      Snackbar::message($this->welcomeMessage());
       return Redirect::intended('/ticket');
     }
 
@@ -135,7 +135,7 @@ class UserController extends Controller
     // User log
     Service::addUserLog('User',Auth::user()->id,'login (Facebook)');
 
-    Snackbar::message('คุณได้เข้าสู่ระบบแล้ว');
+    Snackbar::message($this->welcomeMessage());
 
     return Redirect::intended('/ticket');
   }
@@ -158,6 +158,27 @@ class UserController extends Controller
     }
 
     return redirect('/');
+  }
+
+  private function welcomeMessage() {
+
+    if(!empty(Auth::user()->last_active)) {
+
+      $time = strtotime(date('Y-m-d H:i:s')) - strtotime(Auth::user()->last_active);
+
+      if($time < (86400 * 5)) {
+        return 'ยินดีต้อนรับ คุณได้เข้าสู่ระบบแล้ว';
+      }elseif($time < (86400 * 10)) {
+        return 'ไม่ได้เจอนานเลย!!! ยินดีต้อนรับ';
+      }elseif($time < (86400 * 25)) {
+        return 'นานมากแล้วที่คุณไม่ได้เข้ามาใช้งาน ยินดีต้อนรับ';
+      }else {
+        return 'นึกว่าลืมกันซะแล้ว ยินดีต้อนรับ';
+      }
+    }
+
+    return 'ยินดีต้อนรับ ผู้ใช้ใหม่ <a href="/features">คุณสมบัติที่น่าสนใจ</a>';
+
   }
 
 }

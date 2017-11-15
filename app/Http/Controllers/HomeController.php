@@ -8,8 +8,8 @@ class HomeController extends Controller
 {
   public function index() {
 
-    // $this->setData('categories',Service::loadModel('TicketCategory')->get());
-    
+    $this->botDisallowed();
+
     return $this->view('pages.home.index');
   }
 }

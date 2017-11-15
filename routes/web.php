@@ -24,8 +24,9 @@
 // }); 
 
 Route::get('/', 'TicketController@listView');
-// Route::get('home', 'HomeController@index');
+Route::get('features', 'HomeController@index');
 // Route::get('about', 'HomeController@about');
+// Route::get('policy', 'HomeController@policy');
 
 Route::get('avatar/{userId?}/{filename?}', 'StaticFileController@userAvatar');
 Route::get('get_image/{filename}', 'StaticFileController@serveImages');

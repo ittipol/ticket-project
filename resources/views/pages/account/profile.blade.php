@@ -50,7 +50,13 @@
 
                     <div class="c-card__media Media__image Media__image--16-9">
                       <a href="/ticket/view/{{$value['id']}}">
-                        <img src="{{$value['image']['_preview_url']}}">
+                        @if(empty($value['image']))
+                          <div class="c-card-no-image">
+                            <img src="/assets/images/common/photos.png">
+                          </div>
+                        @else
+                          <img class="{{$value['image']['formation']}}-image" src="{{$value['image']['_preview_url']}}">
+                        @endif
                       </a>
                     </div>
                     <div class="c-card__primary-title">
