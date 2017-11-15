@@ -29,8 +29,8 @@ class Cache
     //   'fx' => 'getImageSizeByRatio',
     // ),
     'md_scale' => array(
-      'width' => 240,
-      'height' => 240,
+      'width' => 300,
+      'height' => 300,
       'fx' => 'getImageSizeByRatio',
     ),
     'list_pw_scale' => array(
