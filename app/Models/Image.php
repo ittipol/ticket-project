@@ -369,7 +369,16 @@ class Image extends Model
     }
 
     return $this->id;
+  }
 
+  public function getFormation() {
+    $info = getimagesize($this->getImagePath());
+
+    if($info[0] < $info[1]) {
+      return 'portrait';
+    }
+
+    return 'landscape';
   }
 
 }

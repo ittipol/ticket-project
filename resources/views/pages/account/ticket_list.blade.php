@@ -3,24 +3,8 @@
 
 <style type="text/css">
   body {
-    /*background-color: #445268;*/
     background-color: #ddd;
   }
-
-  /*.data-list {
-    opacity: 0;
-    transition: opacity .3s ease-out ;
-  }
-
-  .grid-item { width: 30%; margin: 1%; }
-
-  @media (max-width: 1366px) {
-    .grid-item { width: 47%; margin: 1.5%; }
-  }
-
-  @media (max-width: 480px) {
-    .grid-item { width: 92%; margin: 4%; }
-  }*/
 </style>
 
 <div class="container">
@@ -35,7 +19,7 @@
 
     @foreach($data as $_value)
       <?php 
-        $value = $_value->buildDataList();
+        $value = $_value->buildDataList(80);
       ?>
 
       <div class="col-12 col-md-4 mb3">
@@ -47,7 +31,13 @@
           
             <div class="c-card__media Media__image Media__image--16-9">
               <a href="/ticket/view/{{$value['id']}}">
-                <img src="{{$value['image']['_preview_url']}}">
+                @if(empty($value['image']))
+                  <div class="c-card-no-image">
+                    <img src="/assets/images/common/photos.png">
+                  </div>
+                @else
+                  <img class="{{$value['image']['formation']}}-image" src="{{$value['image']['_preview_url']}}">
+                @endif
               </a>
             </div>
             <div class="c-card__primary-title">
@@ -117,22 +107,5 @@
 <div class="clearfix margin-top-200"></div>
 
 @include('shared.ticket-closing-modal')
-
-<!-- <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script> -->
-
-<script type="text/javascript">
-  $(document).ready(function(){
-
-    // setTimeout(function(){
-    //   $('.grid').masonry({
-    //     itemSelector: '.grid-item',
-    //     percentPosition: true
-    //   });
-
-    //   $('.data-list').css('opacity','1');
-    // },300);
-
-  });
-</script>
 
 @stop

@@ -55,7 +55,7 @@
                     <img src="/assets/images/common/photos.png">
                   </div>
                 @else
-                  <img src="{{$value['image']['_preview_url']}}">
+                  <img class="{{$value['image']['formation']}}-image" src="{{$value['image']['_preview_url']}}">
                 @endif
               </a>
             </div>

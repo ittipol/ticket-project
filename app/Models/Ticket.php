@@ -52,7 +52,7 @@ class Ticket extends Model
     return $this->dateType[$id];
   }
 
-  public function buildDataList() {
+  public function buildDataList($titleLength = 90) {
 
     $cache = new cache;
     $url = new url;
@@ -88,7 +88,8 @@ class Ticket extends Model
       ));
 
       $image = array_merge($image->buildModelData(),array(
-        '_preview_url' => $cache->getCacheImageUrl($image,'list_pw_scale')
+        '_preview_url' => $cache->getCacheImageUrl($image,'list_pw_scale'),
+        'formation' => $image->getFormation()
       ));
 
     }
@@ -111,7 +112,7 @@ class Ticket extends Model
     return array(
       'id' => $this->id,
       // 'title' => $this->title,
-      'title' => StringHelper::truncString($this->title,90,true,true),
+      'title' => StringHelper::truncString($this->title,$titleLength,true,true),
       'description' => $this->description,
       'place_location' => $this->place_location,
       'price' => $currency->format($this->price),
