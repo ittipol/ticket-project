@@ -38,19 +38,27 @@ class TicketForm {
     switch(type) {
 
       case '1':
-          $('#date_1').css('display','block');
-          $('#date_2').removeClass('col-12').addClass('col-md-6');
-          $('#date_2 > label').removeClass('col-12').text('ใช้ได้ถึง');
+          $('#date_1').removeClass('col-12').addClass('col-md-6');
+          $('#date_1 > label').text('วันที่เริ่มใช้').removeClass('required');
+          $('#date_2 > label').text('ใช้ได้ถึง').addClass('required');
+          $('#date_input_1').removeClass('date-required');
+          $('#date_input_2').addClass('date-required');
+          $('#date_2').css('display','block')
           break;
       case '2':
-            $('#date_1').css('display','none');
-            $('#date_2').addClass('col-12').removeClass('col-md-6');
-            $('#date_2 > label').text('วันที่แสดง');
+            $('#date_2').css('display','none');
+            $('#date_1').addClass('col-12').removeClass('col-md-6');
+            $('#date_1 > label').text('วันที่แสดง').addClass('required');
+            $('#date_input_1').addClass('date-required');
+            $('#date_input_2').removeClass('date-required');
           break;
       case '3':
-          $('#date_1').css('display','none');
-          $('#date_2').addClass('col-12').removeClass('col-md-6');
-          $('#date_2 > label').text('วันที่เดินทาง');
+          $('#date_1').removeClass('col-12').addClass('col-md-6');
+          $('#date_1 > label').text('วันที่เดินทาง').addClass('required');
+          $('#date_2 > label').text('วันที่กลับ').removeClass('required');
+          $('#date_input_1').addClass('date-required');
+          $('#date_input_2').removeClass('date-required');
+          $('#date_2').css('display','block');
           break;
 
     }

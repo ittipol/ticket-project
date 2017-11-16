@@ -90,12 +90,20 @@
                 
               @elseif($value['date_type'] == 2)
                 <div class="subtitle">
-                  วันที่แสดง <strong>{{$value['date_2']}}</strong>
+                  วันที่แสดง <strong>{{$value['date_1']}}</strong>
                 </div>
               @elseif($value['date_type'] == 3)
+
+                @if(!empty($value['date_2']))
                 <div class="subtitle">
-                  วันที่เดินทาง <strong>{{$value['date_2']}}</strong>
+                  เริ่มเดินทาง <strong>{{$value['date_1']}}</strong> กลับ <strong>{{$value['date_2']}}</strong>
                 </div>
+                @else
+                <div class="subtitle">
+                  วันที่เดินทาง <strong>{{$value['date_1']}}</strong>
+                </div>
+                @endif
+                
               @endif
             </div>
 

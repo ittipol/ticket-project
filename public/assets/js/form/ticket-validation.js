@@ -9,6 +9,17 @@ var Validation = function () {
               return regexpr.test(value);
           }, '');
 
+          $.validator.addMethod("checkDateRequired", function(value, element, params) {
+        
+            console.log($(params).hasClass('date-required'));
+
+            if($(params).hasClass('date-required') && ($(params).val() == '')) {
+              return false;
+            }
+
+            return true;
+          }, '');
+
           $.validator.addMethod("greaterThan", function(value, element, params) {
             
             if(($(params).val() === '') || ($(element).val() === '')) {
@@ -20,7 +31,6 @@ var Validation = function () {
             }
 
             return false;
-
           }, '');
 
 	        $("#add_ticket_form").validate({  
@@ -46,12 +56,14 @@ var Validation = function () {
               },
               date_1:
               {
+                checkDateRequired: '#date_input_1',
                 date: true,
                 greaterThan: '#date_input_2'
               },
               date_2:
               {
-                required: true,
+                checkDateRequired: '#date_input_2',
+                // required: true,
                 date: true
               },
               price:
@@ -83,12 +95,14 @@ var Validation = function () {
               },
               date_1:
               {
+                checkDateRequired: 'ยังไม่ได้ป้อนวันที่',
                 date: 'วันที่ไม่ถูกต้อง',
                 greaterThan: 'ไม่อนุญาตให้กรอกวันที่เริ่มต้นมากกว่าหรือเท่ากับวันที่สิ้นสุด'
               },
               date_2:
               {
-                required: 'ยังไม่ได้ป้อนวันที่',
+                // required: 'ยังไม่ได้ป้อนวันที่',
+                checkDateRequired: 'ยังไม่ได้ป้อนวันที่',
                 date: 'วันที่ไม่ถูกต้อง'
               },
               price:

@@ -30,13 +30,29 @@ class TicketController extends Controller
 
     // SELECT COUNT(`word_id`) AS total FROM `taggings` GROUP BY `word_id` HAVING total > 36
 
+    $now = date('Y-m-d');
+
     $_taggings = Service::loadModel('Tagging')
     ->join('tickets','tickets.id','=','taggings.model_id')
     ->where([
       ['taggings.model','=','Ticket'],
       ['tickets.closing_option','=',0],
-      ['tickets.date_2','>=',date('Y-m-d')]
     ])
+    ->where(function($query) use ($now) {
+
+      $query
+      ->where(function($query) use ($now) {
+        $query
+        ->where('tickets.date_1','!=',null)
+        ->where('tickets.date_1','>=',$now);
+      })
+      ->orWhere(function($query) use ($now) {
+        $query
+        ->where('tickets.date_2','!=',null)
+        ->where('tickets.date_2','>=',$now);
+      });
+
+    })
     ->selectRaw('word_id')
     ->groupBy('taggings.word_id')
     ->havingRaw('count(word_id) > 12')
