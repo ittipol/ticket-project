@@ -132,7 +132,7 @@
   padding: 12px;
   overflow: hidden;
   position: relative;
-  background-color: rgba(255,255,255,.79);
+  background-color: rgba(255,255,255,.82);
   border-bottom: 1px solid #ccc;
   z-index: 5;
 }
@@ -197,7 +197,7 @@
   overflow: hidden;
   position: relative;
   z-index: 5;
-  background-color: rgba(255,255,255,.79);
+  background-color: rgba(255,255,255,.82);
 }
 .c-card__primary-title .title {
   margin: 0;
@@ -212,6 +212,9 @@
     /*height: 72px;*/
     height: 94px;
   }
+}
+.c-card__primary-title .title > small {
+  color: #000;
 }
 .c-card__primary-title .subtitle {
   /*padding: 0 12px 8px;
@@ -229,7 +232,7 @@
 }
 .c-card__price {
   position: relative;
-  background-color: rgba(255,255,255,.79);
+  background-color: rgba(255,255,255,.82);
   z-index: 5;
 }
 .c-card__actions {
