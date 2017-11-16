@@ -43,21 +43,6 @@ class TicketController extends Controller
       ->where('tickets.date_1','=',null)
       ->orWhere('tickets.date_1','>=',$now);
     })
-    // ->where(function($query) use ($now) {
-
-    //   $query
-    //   ->where(function($query) use ($now) {
-    //     $query
-    //     ->where('tickets.date_1','!=',null)
-    //     ->where('tickets.date_1','>=',$now);
-    //   })
-    //   ->orWhere(function($query) use ($now) {
-    //     $query
-    //     ->where('tickets.date_2','!=',null)
-    //     ->where('tickets.date_2','>=',$now);
-    //   });
-
-    // })
     ->selectRaw('word_id')
     ->groupBy('taggings.word_id')
     ->havingRaw('count(word_id) > 12')
@@ -174,11 +159,41 @@ class TicketController extends Controller
 
       });
     }else{
+      // $model->where(function($query) use ($now) {
+      //   $query
+      //   ->where('tickets.date_1','=',null)
+      //   ->orWhere('tickets.date_1','>=',$now);
+      // });
       $model->where(function($query) use ($now) {
+
         $query
-        ->where('tickets.date_1','=',null)
-        ->orWhere('tickets.date_1','>=',$now);
+        ->where(function($query) use ($now) {
+          $query
+          ->where('tickets.date_1','=',null)
+          ->orWhere('tickets.date_1','>=',$now);
+        })
+        ->orWhere(function($query) use ($now) {
+          $query
+          ->where('tickets.date_2','!=',null)
+          ->where('tickets.date_2','>=',$now);
+        });
+
       });
+      // $model->where(function($query) use ($now) {
+
+      //   $query
+      //   ->where(function($query) use ($now) {
+      //     $query
+      //     ->where('tickets.date_1','!=',null)
+      //     ->where('tickets.date_1','>=',$now);
+      //   })
+      //   ->orWhere(function($query) use ($now) {
+      //     $query
+      //     ->where('tickets.date_2','!=',null)
+      //     ->where('tickets.date_2','>=',$now);
+      //   });
+
+      // });
     }
 
     $model->where(function($q) {
