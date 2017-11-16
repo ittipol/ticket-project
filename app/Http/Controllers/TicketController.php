@@ -197,9 +197,7 @@ class TicketController extends Controller
     }
 
     $model->where(function($q) {
-      $q->where([
-        ['closing_option','=',0]
-      ]);
+      $q->where('closing_option','=',0);
     });
 
     if($request->has('sort')) {
