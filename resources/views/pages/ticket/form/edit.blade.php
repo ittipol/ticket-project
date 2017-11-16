@@ -100,6 +100,7 @@
                 <i class="fa fa-calendar"></i>
               </span>
               {{Form::text('date_1', null, array('id' => 'date_input_1', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
+              <a class="date-clear" data-date-clear="#date_1"><span aria-hidden="true">×</span></a>
             </div>
           </div>
 
@@ -110,6 +111,7 @@
                 <i class="fa fa-calendar"></i>
               </span>
               {{Form::text('date_2', null, array('id' => 'date_input_2', 'class' => 'form-control' ,'autocomplete' => 'off', 'readonly' => 'true'))}}
+              <a class="date-clear" data-date-clear="#date_2"><span aria-hidden="true">×</span></a>
             </div>
           </div>
         </div>

@@ -22,14 +22,19 @@ class TicketForm {
     })
 
     $('#date_type_select').on('change',function(){
-
       $('#date_input_1').val('');
       $('#date_input_2').val('');
 
       $('.date-readable').text('');
 
       _this.dateInputField($(this).val());
+    })
 
+    $('.date-clear').on('click',function(){
+      let dateElem = $(this).data('date-clear');
+
+      $(dateElem+' input[type="text"]').val('');
+      $(dateElem+' .date-readable').text('');
     })
 
   }
@@ -64,6 +69,7 @@ class TicketForm {
             $('#date_1 > label').text('วันที่แสดง').addClass('required');
             $('#date_input_1').addClass('date-required');
             $('#date_input_2').removeClass('date-required');
+            $('#date_1').css('display','block');
           break;
       case '3':
           $('#date_1').removeClass('col-12').addClass('col-md-6');
