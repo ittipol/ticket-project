@@ -47,16 +47,9 @@ class AccountController extends Controller
 
     $user->name = $request->name;
 
-    if(!$user->save()) {
-      Snackbar::message('ไม่สามารถบันทึกได้');
-      return Redirect::back();
-    }
-
     // images
     if(!empty(request()->get('Image'))) {
-
-      $imageModel = Service::loadModel('Image');
-      $imageModel->__saveRelatedData($user,request()->get('Image'));
+      Service::loadModel('Image')->__saveRelatedData($user,request()->get('Image'));
 
       $image = $user->getRelatedData('Image',array(
         'fields' => array('id'),
@@ -64,11 +57,15 @@ class AccountController extends Controller
         'order' => array('id','desc')
       ));
 
-      // remove old avatar
+      if(!empty($image)) {
+        // update new avatar to user
+        $user->avatar = $image->id;
+      }
+    }
 
-      $user->avatar = $image->id;
-      $user->save();
-
+    if(!$user->save()) {
+      Snackbar::message('ไม่สามารถบันทึกได้');
+      return Redirect::back();
     }
 
     Snackbar::message('โปรไฟล์ถูกบันทึกแล้ว');
