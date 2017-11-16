@@ -6,6 +6,10 @@ class StringHelper
 {
   public static function truncString($string,$len,$stripTag = true,$cleanText = false){
 
+    if($len < 0) {
+      return null;
+    }
+
     $string = iconv(mb_detect_encoding($string, mb_detect_order(), true), "UTF-8", $string);
     mb_internal_encoding('UTF-8');
 

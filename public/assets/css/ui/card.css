@@ -209,12 +209,18 @@
 }
 @media (min-width: 640px) {
   .c-card__primary-title .title {
-    height: 72px;
+    /*height: 72px;*/
+    height: 94px;
   }
 }
 .c-card__primary-title .subtitle {
-  padding: 0 12px 8px;
-  font-size: 0.875rem;
+  /*padding: 0 12px 8px;
+  font-size: 0.875rem;*/
+
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  border-top: 1px solid #bbb;
+  margin-top: 20px;
 }
 .c-card__text {
   font-size: 0.875rem;

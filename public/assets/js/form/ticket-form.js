@@ -37,13 +37,25 @@ class TicketForm {
   dateInputField(type) {
     switch(type) {
 
+      case '0':
+          $('#date_1').css('display','none');
+          $('#date_2').css('display','none');
+          break;
       case '1':
+          // $('#date_1').removeClass('col-12').addClass('col-md-6');
+          // $('#date_1 > label').text('วันที่เริ่มใช้').removeClass('required');
+          // $('#date_2 > label').text('ใช้ได้ถึง').addClass('required');
+          // $('#date_input_1').removeClass('date-required');
+          // $('#date_input_2').addClass('date-required');
+          // $('#date_2').css('display','block');
+
           $('#date_1').removeClass('col-12').addClass('col-md-6');
-          $('#date_1 > label').text('วันที่เริ่มใช้').removeClass('required');
-          $('#date_2 > label').text('ใช้ได้ถึง').addClass('required');
-          $('#date_input_1').removeClass('date-required');
-          $('#date_input_2').addClass('date-required');
-          $('#date_2').css('display','block')
+          $('#date_1 > label').text('วันที่เริ่มใช้').addClass('required');
+          $('#date_2 > label').text('ใช้ได้ถึง').removeClass('required');
+          $('#date_input_1').addClass('date-required');
+          $('#date_input_2').removeClass('date-required');
+          $('#date_1').css('display','block');
+          $('#date_2').css('display','block');
           break;
       case '2':
             $('#date_2').css('display','none');
@@ -58,6 +70,7 @@ class TicketForm {
           $('#date_2 > label').text('วันที่กลับ').removeClass('required');
           $('#date_input_1').addClass('date-required');
           $('#date_input_2').removeClass('date-required');
+          $('#date_1').css('display','block');
           $('#date_2').css('display','block');
           break;
 

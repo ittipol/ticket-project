@@ -5,7 +5,7 @@
       <nav class="gn-menu-wrapper">
         <div class="brand-s text-center">
           <!-- <h5 class="py-3 m-0">TicketEasys</h5> -->
-          <img class="c-logo" src="/assets/images/logo/logo_x.jpg">
+          <a href="/"><img class="c-logo" src="/assets/images/logo/logo_x.jpg"></a>
         </div>
 
         <div class="gn-scroller">

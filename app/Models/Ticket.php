@@ -31,6 +31,7 @@ class Ticket extends Model
     1 => 'ช่วงวันที่ใช้งานได้',
     2 => 'วันที่แสดง',
     3 => 'วันที่เดินทาง',
+    0 => 'ไม่ระบุ',
   );
 
   public $imageTypeAllowed = array(
@@ -111,9 +112,10 @@ class Ticket extends Model
 
     return array(
       'id' => $this->id,
-      // 'title' => $this->title,
-      'title' => StringHelper::truncString($this->title,$titleLength,true,true),
-      'description' => $this->description,
+      'title' => $this->title,
+      // 'description' => $this->description,
+      // 'title' => StringHelper::truncString($this->title,$titleLength,true,true),
+      'description' => StringHelper::truncString($this->description,120 - mb_strlen($this->title),true,true),
       'place_location' => $this->place_location,
       'price' => $currency->format($this->price),
       'original_price' => $originalPrice,

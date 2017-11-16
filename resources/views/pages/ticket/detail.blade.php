@@ -98,12 +98,22 @@
           
         @elseif($data['date_type'] == 2)
           <div class="additional-item">
-            <i class="fa fa-calendar"></i>&nbsp;วันที่แสดง {{$data['date_2']}}
+            <i class="fa fa-calendar"></i>&nbsp;วันที่แสดง {{$data['date_1']}}
           </div>
         @elseif($data['date_type'] == 3)
+        
+          @if(!empty($data['date_2']))
           <div class="additional-item">
-            <i class="fa fa-calendar"></i>&nbsp;วันที่เดินทาง {{$data['date_2']}}
+            <i class="fa fa-calendar"></i>&nbsp;วันที่เดินทาง <strong>{{$data['date_1']}}</strong>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;วันที่กลับ <strong>{{$data['date_2']}}</strong>
           </div>
+          @else
+          <div class="additional-item">
+            <i class="fa fa-calendar"></i>&nbsp;วันที่เดินทาง <strong>{{$data['date_1']}}</strong>
+          </div>
+          @endif
+
         @endif
 
         @if(!empty($data['place_location']))

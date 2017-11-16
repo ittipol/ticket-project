@@ -73,8 +73,12 @@
               </div>
             </div> -->
             <div class="c-card__primary-title">
-              <!-- <div class="c-card__media Media__image--one-right"><img src="></div> -->
-              <h2 class="title"><a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a></h2>
+              <h2 class="title">
+                <a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a>
+                @if(!empty($value['description']))
+                &nbsp;<small>—&nbsp;&nbsp;{{$value['description']}}</small>
+                @endif
+              </h2>
 
               @if($value['date_type'] == 1)
                 
@@ -96,7 +100,7 @@
 
                 @if(!empty($value['date_2']))
                 <div class="subtitle">
-                  เริ่มเดินทาง <strong>{{$value['date_1']}}</strong> กลับ <strong>{{$value['date_2']}}</strong>
+                  วันที่เดินทาง <strong>{{$value['date_1']}}</strong> วันที่กลับ <strong>{{$value['date_2']}}</strong>
                 </div>
                 @else
                 <div class="subtitle">

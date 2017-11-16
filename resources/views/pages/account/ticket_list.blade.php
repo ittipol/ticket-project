@@ -41,8 +41,13 @@
               </a>
             </div>
             <div class="c-card__primary-title">
-              <!-- <div class="c-card__media Media__image--one-right"><img src="https://images.unsplash.com/photo-1436397543931-01c4a5162bdb?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;s=d23f7ecaedb63c82a12679b03e5b0058" alt=""></div> -->
-              <h2 class="title"><a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a></h2>
+              <!-- <div class="c-card__media Media__image--one-right"><img src="" alt=""></div> -->
+              <h2 class="title">
+                <a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a>
+                @if(!empty($value['description']))
+                &nbsp;<small>—&nbsp;&nbsp;{{$value['description']}}</small>
+                @endif
+              </h2>
 
               @if($value['date_type'] == 1)
                 
@@ -64,7 +69,7 @@
                 
                 @if(!empty($value['date_2']))
                 <div class="subtitle">
-                  เริ่มเดินทาง <strong>{{$value['date_1']}}</strong> กลับ <strong>{{$value['date_2']}}</strong>
+                  วันที่เดินทาง <strong>{{$value['date_1']}}</strong> วันที่กลับ <strong>{{$value['date_2']}}</strong>
                 </div>
                 @else
                 <div class="subtitle">

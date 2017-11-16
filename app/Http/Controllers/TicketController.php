@@ -260,7 +260,6 @@ class TicketController extends Controller
     $this->setMeta('keywords',implode(',',$keywords));
 
     return $this->view('pages.ticket.detail');
-
   }
 
   public function add() {
