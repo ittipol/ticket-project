@@ -49,7 +49,11 @@
                 @endif
               </h2>
 
-              @if($value['date_type'] == 1)
+              @if($value['date_type'] == 0)
+                <div class="subtitle">
+                  วันที่ <strong>ไม่ระบุ</strong>
+                </div>
+              @elseif($value['date_type'] == 1)
                 
                 @if(!empty($value['date_1']))
                 <div class="subtitle">

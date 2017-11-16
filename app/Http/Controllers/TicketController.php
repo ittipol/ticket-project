@@ -39,20 +39,25 @@ class TicketController extends Controller
       ['tickets.closing_option','=',0],
     ])
     ->where(function($query) use ($now) {
-
       $query
-      ->where(function($query) use ($now) {
-        $query
-        ->where('tickets.date_1','!=',null)
-        ->where('tickets.date_1','>=',$now);
-      })
-      ->orWhere(function($query) use ($now) {
-        $query
-        ->where('tickets.date_2','!=',null)
-        ->where('tickets.date_2','>=',$now);
-      });
-
+      ->where('tickets.date_1','=',null)
+      ->orWhere('tickets.date_1','>=',$now);
     })
+    // ->where(function($query) use ($now) {
+
+    //   $query
+    //   ->where(function($query) use ($now) {
+    //     $query
+    //     ->where('tickets.date_1','!=',null)
+    //     ->where('tickets.date_1','>=',$now);
+    //   })
+    //   ->orWhere(function($query) use ($now) {
+    //     $query
+    //     ->where('tickets.date_2','!=',null)
+    //     ->where('tickets.date_2','>=',$now);
+    //   });
+
+    // })
     ->selectRaw('word_id')
     ->groupBy('taggings.word_id')
     ->havingRaw('count(word_id) > 12')
@@ -168,13 +173,17 @@ class TicketController extends Controller
         }
 
       });
-      
+    }else{
+      $model->where(function($query) use ($now) {
+        $query
+        ->where('tickets.date_1','=',null)
+        ->orWhere('tickets.date_1','>=',$now);
+      });
     }
 
     $model->where(function($q) {
       $q->where([
-        ['closing_option','=',0],
-        ['date_2','>=',date('Y-m-d')]
+        ['closing_option','=',0]
       ]);
     });
 
@@ -198,8 +207,8 @@ class TicketController extends Controller
           break;
 
         case 'card_date':
-          // $model->orderBy('tickets.date_1','asc');
-          $model->orderBy('tickets.date_2','asc');
+          $model->orderBy('tickets.date_1','asc');
+          // $model->orderBy('tickets.date_2','asc');
           break;
 
         default:
@@ -292,8 +301,12 @@ class TicketController extends Controller
     }
     
     $model->date_type = request()->get('date_type');
-    $model->date_1 = request()->get('date_1');
-    $model->date_2 = request()->get('date_2');
+
+    if(request()->get('date_type') > 0) {
+      $model->date_1 = request()->get('date_1');
+      $model->date_2 = request()->get('date_2');
+    }
+
     $model->contact = request()->get('contact');
     $model->purpose = 's';
    
@@ -414,8 +427,15 @@ class TicketController extends Controller
     }
 
     $model->date_type = request()->get('date_type');
-    $model->date_1 = request()->get('date_1');
-    $model->date_2 = request()->get('date_2');
+
+    if(request()->get('date_type') == 0) {
+      $model->date_1 = null;
+      $model->date_2 = null;
+    }else{
+      $model->date_1 = request()->get('date_1');
+      $model->date_2 = request()->get('date_2');
+    }
+    
     $model->contact = request()->get('contact');
     
     if(!$model->save()) {
