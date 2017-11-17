@@ -118,7 +118,7 @@
 
         @if(!empty($data['place_location']))
           <div class="additional-item">
-            <i class="fa fa-map-marker"></i>&nbsp;สถานที่ {{$data['place_location']}}
+            <i class="fa fa-map-marker"></i>&nbsp;สถานที่ใช้งาน {{$data['place_location']}}
           </div>
         @endif
       </div>

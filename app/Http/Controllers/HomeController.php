@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
   public function index() {
 
-    $this->botDisallowed();
+    // $this->botDisallowed();
 
     return $this->view('pages.home.index');
   }
