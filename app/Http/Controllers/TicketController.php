@@ -204,11 +204,11 @@ class TicketController extends Controller
 
       switch ($request->sort) {
         case 'post_n':
-          $model->orderBy('tickets.created_at','desc');
+          $model->orderBy('tickets.activated_date','desc');
           break;
         
         case 'post_o':
-          $model->orderBy('tickets.created_at','asc');
+          $model->orderBy('tickets.activated_date','asc');
           break;
 
         case 'price_h':
@@ -225,12 +225,12 @@ class TicketController extends Controller
           break;
 
         default:
-          $model->orderBy('tickets.created_at','desc');
+          $model->orderBy('tickets.activated_date','desc');
           break;
       }
 
     }else {
-      $model->orderBy('tickets.created_at','desc');
+      $model->orderBy('tickets.activated_date','desc');
     }
 
     $this->setData('data',$model->paginate(36));

@@ -21,7 +21,9 @@
 //   Redis::expire('test--val', 7200);
 
 //   dd('del: '.$id);
-// }); 
+// });
+
+Route::get('/teste', 'HomeController@_checkPost');
 
 Route::get('/', 'TicketController@listView');
 Route::get('features', 'HomeController@index');

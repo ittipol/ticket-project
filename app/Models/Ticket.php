@@ -35,6 +35,8 @@ class Ticket extends Model
     0 => 'ไม่ระบุ',
   );
 
+  private $pullingDays = 432000;
+
   public $imageTypeAllowed = array(
     'photo' => array(
       'limit' => 10
@@ -117,18 +119,10 @@ class Ticket extends Model
       $description = StringHelper::truncString($this->description,$descLen,true,true);
     }
 
-    $pullingPost = false;
-    $daysLeft = null;
+    $pullingPost = null;
     
     if($findDaysLeft) {
-
-      $timeDiff = strtotime(date('Y-m-d H:i:s')) - strtotime($this->activated_date);
-      if($timeDiff >= 864000) { // every 10 days
-        // Allow pulling post
-        $pullingPost = true;
-      }else {
-        $daysLeft = Date::findRemainingDays(864000 - $timeDiff);
-      }
+      $pullingPost = $this->getPullingPost();
     }
 
     return array(
@@ -153,10 +147,7 @@ class Ticket extends Model
       'image' => $image,
       // 'imageTotal' => $imageTotal,
       'tags' => $tags,
-      'pullingPost' => array(
-        'allow' => $pullingPost,
-        'daysLeft' => $daysLeft
-      )
+      'pullingPost' => $pullingPost
     );
   }
 
@@ -217,17 +208,6 @@ class Ticket extends Model
       'fields' => array('ticket_category_id')
     ));
 
-    $pullingPost = false;
-    $daysLeft = null;
-
-    $timeDiff = strtotime(date('Y-m-d H:i:s')) - strtotime($this->activated_date);
-    if($timeDiff >= 864000) { // every 10 days
-      // Allow pulling post
-      $pullingPost = true;
-    }else {
-      $daysLeft = Date::findRemainingDays(864000 - $timeDiff);
-    }
-
     return array(
       'id' => $this->id,
       'title' => $this->title,
@@ -249,12 +229,8 @@ class Ticket extends Model
       'imageTotal' => $imageTotal,
       'tags' => $tags,
       // 'seller' => User::buildProfileForTicketDetail($this->created_by),
-      'pullingPost' => array(
-        'allow' => $pullingPost,
-        'daysLeft' => $daysLeft
-      )
+      'pullingPost' => $this->getPullingPost()
     );
-
   }
 
   public function getShortDesc() {
@@ -265,14 +241,22 @@ class Ticket extends Model
   }
 
   public function getPullingPost() {
+    $pullingPost = false;
+    $daysLeft = null;
+
     $timeDiff = strtotime(date('Y-m-d H:i:s')) - strtotime($this->activated_date);
 
-    if($timeDiff >= 864000) { // every 10 days
+    if($timeDiff >= $this->pullingDays) { // every 10 days
       // Allow pulling post
-      return true;
+      $pullingPost = true;
+    }else {
+      $daysLeft = Date::findRemainingDays($this->pullingDays - $timeDiff);
     }
 
-    return false;
+    return array(
+      'allow' => $pullingPost,
+      'daysLeft' => $daysLeft
+    );
   }
 
 }

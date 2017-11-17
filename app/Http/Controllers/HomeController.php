@@ -18,10 +18,11 @@ class HomeController extends Controller
     $data = Service::loadModel('Ticket')->get();
 
     foreach ($data as $value) {
-      dd($value->created_at);
-      $value->activated_date = $value->created_at;
+      $value->activated_date = $value->created_at->format('Y-m-d H:i:s');
       $value->save();
     }
+
+    dd('done');
 
   }
 }
