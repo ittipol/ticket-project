@@ -63,6 +63,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::post('ticket/close', 'TicketController@close');
 
+  Route::get('ticket/pull/{ticketId}', 'TicketController@pullPost');
+
   Route::get('chat/s/{ticketId}', 'ChatController@sellerChat'); // s = seller
   // Route::get('chat/b/{ticketId}', 'ChatController@buyerChat'); // b = buyer
   Route::get('chat/r/{roomId}', 'ChatController@chatRoom'); // r = room

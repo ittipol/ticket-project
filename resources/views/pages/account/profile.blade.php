@@ -38,7 +38,7 @@
             @foreach($data as $_value)
        
               <?php 
-                $value = $_value->buildDataList();
+                $value = $_value->buildDataList(90,true);
               ?>
 
               <div class="col-12 col-md-6 mb3">

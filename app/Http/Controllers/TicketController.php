@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Pagination\Paginator;
 use App\library\service;
-use App\library\date;
 use App\library\snackbar;
 use App\library\validation;
 use App\library\stringHelper;
@@ -249,7 +248,7 @@ class TicketController extends Controller
     $now = strtotime(date('Y-m-d H:i:s'));
 
     $model = Service::loadModel('Ticket')->where([
-      ['id','=',request()->ticketId]
+      ['id','=',$ticketId]
       // ['closing_option','=',0]
     ])->first();
 
@@ -258,24 +257,13 @@ class TicketController extends Controller
       return Redirect::to('/ticket');
     }
 
-    // check pulling post
-    $timeDiff = strtotime(date('Y-m-d H:i:s')) - strtotime($model->activated_date);
 
-    $canPullPost = false;
-    if($timeDiff >= 864000) { // every 10 days
-      // Allow pulling post
-      $canPullPost = true;
-    }else {
-      // Get Day Left
-      $this->setData('daysLeft',Date::findRemainingDays(864000 - $timeDiff));
-    }
 
     $data = $model->buildDataDetail();
 
     $this->setData('data',$data);
-    $this->setData('seller',Service::loadModel('User')->buildProfileForTicketDetail($model->created_by));
     $this->setData('ticketId',$ticketId);
-    $this->setData('canPullPost',$canPullPost);
+    $this->setData('seller',Service::loadModel('User')->buildProfileForTicketDetail($model->created_by));
 
     // Modal use for shared.ig with twitter title
     // $this->setData('_text',$data['title']);
@@ -516,7 +504,7 @@ class TicketController extends Controller
       ['id','=',request()->ticketId],
       ['created_by','=',Auth::user()->id],
       ['closing_option','=',0]
-    ]);
+    ])->first();
 
     if(empty($model)) {
       Snackbar::message('ไม่สามารถปิดประกาศนี้ได้');
@@ -534,5 +522,41 @@ class TicketController extends Controller
     Snackbar::message('ประกาศของคุณถูกปิดแล้ว');
     return Redirect::to('/account/ticket');
     
+  }
+
+  public function pullPost($ticketId) {
+
+    if(empty($ticketId)) {
+      return Redirect::to('/');
+    }
+
+    $model = Service::loadModel('Ticket')->where([
+      ['id','=',$ticketId],
+      ['created_by','=',Auth::user()->id],
+      ['closing_option','=',0]
+    ])->first();
+
+    if(empty($model)) {
+      Snackbar::message('ไม่สามารถดึงประกาศนี้ได้');
+      return Redirect::to('/ticket');
+    }
+
+    $now = date('Y-m-d H:i:s');
+
+    // check pulling post
+    $timeDiff = strtotime($now) - strtotime($model->activated_date);
+
+    if($timeDiff < 864000) { // every 10 days
+      Snackbar::message('ยังไม่สามารถดึงประกาศได้ในตอนนี้');
+      return Redirect::to('/ticket/view/'.$ticketId);
+    }
+
+    // Update Activated Date
+    $model->activated_date = $now;
+    $model->save();
+
+    Snackbar::message('ประกาศของคุณถูกดึงไปยังหน้าแรกแล้ว');
+    return Redirect::to('/ticket/view/'.$ticketId);
+
   }
 }

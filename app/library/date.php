@@ -198,34 +198,32 @@ class Date
 
     }else{
 
-      $remaining = array();
-      $remaining[] = $days.' วัน';
+      // $remaining = array();
+      // $remaining[] = $days.' วัน';
 
-      $remainingSecs = $secs % 60;
-      $remainingMins = $mins % 60;
-      $remainingHours = $hours % 24;
+      // $remainingSecs = $secs % 60;
+      // $remainingMins = $mins % 60;
+      // $remainingHours = $hours % 24;
 
-      if($remainingHours != 0) {
-        $remaining[] = $remainingHours.' ชั่วโมง';
-      }
+      // if($remainingHours != 0) {
+      //   $remaining[] = $remainingHours.' ชั่วโมง';
+      // }
 
-      if($remainingMins != 0) {
-        $remaining[] = $remainingMins.' นาที';
-      }
+      // if($remainingMins != 0) {
+      //   $remaining[] = $remainingMins.' นาที';
+      // }
 
-      $remaining = implode(' ', $remaining);
+      // $remaining = implode(' ', $remaining);
+
+      $remaining = $days.' วัน';
     }
 
     return $remaining;
   }
 
-  public static function calPassedDate($dateTime, $timestamp = false) {
+  public static function calPassedDate($dateTime) {
 
-    if(!$timestamp) {
-      $dateTime = strtotime($dateTime);
-    }
-
-    $secs = time() - $dateTime;
+    $secs = time() - strtotime($dateTime);
     $mins = (int)floor($secs / 60);
     $hours = (int)floor($mins / 60);
     $days = (int)floor($hours / 24);

@@ -19,7 +19,7 @@
 
     @foreach($data as $_value)
       <?php 
-        $value = $_value->buildDataList(80);
+        $value = $_value->buildDataList(80,true);
       ?>
 
       <div class="col-12 col-md-4 mb3">
@@ -95,9 +95,19 @@
               @endif
             </div>
 
+            @if($value['pullingPost']['allow'])
+            <div class="c-card__actions clearfix tc">
+              <a class="c-btn c-btn__primary w-100 ma0 br0 db" href="/ticket/pull/{{$value['id']}}"><i class="fa fa-retweet"></i> ปรับตำแหน่งประกาศนี้ไปยังหน้าแรก</a>
+            </div>
+            @else
+            <div class="c-card__notice">
+              <small>จะสามารถปรับตำแหน่งประกาศได้ในอีก <strong>{{$value['pullingPost']['daysLeft']}}</strong></small>
+            </div>
+            @endif
+
             <div class="c-card__actions pb2 tc clearfix">
-              <a class="c-btn c-btn__primary w-50 fl ma0 br0 db" href="/ticket/edit/{{$value['id']}}"><i class="fa fa-pencil"></i> แก้ไข</a>
-              <a class="c-btn  w-50 fl ma0 br0 db" href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" data-t-closing-modal="1"><i class="fa fa-times"></i> ปิดประกาศ</a>
+              <a class="c-btn w-50 fl ma0 br0 db" href="/ticket/edit/{{$value['id']}}"><i class="fa fa-pencil"></i> แก้ไข</a>
+              <a class="c-btn w-50 fl ma0 br0 db" href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" data-t-closing-modal="1"><i class="fa fa-times"></i> ปิดประกาศ</a>
             </div>
           </div>
         

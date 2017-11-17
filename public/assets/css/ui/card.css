@@ -330,3 +330,12 @@
   background-color: #e43321;
   border-color: #cd2a19;
 }
+
+.c-card__notice {
+  position: relative;
+  text-align: center;
+  background-color: #fff;
+  height: 44px;
+  line-height: 44px;
+  z-index: 5;
+}
