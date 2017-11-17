@@ -84,7 +84,11 @@
           <i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;{{$data['category']}}
         </div>
 
-        @if($data['date_type'] == 1)
+        @if($data['date_type'] == 0)
+          <div class="additional-item">
+            <i class="fa fa-calendar"></i>&nbsp;วันที่ <strong>ไม่ระบุ</strong>
+          </div>
+        @elseif($data['date_type'] == 1)
           
           @if(!empty($data['date_1']))
           <div class="additional-item">
@@ -172,6 +176,19 @@
       </div>
 
       <div class="action-section content-fixed-bottom ph2 pv3 pa0-ns mt-2">
+
+        @if($canPullPost)
+        <div class="c-card__actions clearfix tc mb-2">
+          <a class="c-btn c-btn__primary w-100 ma0 br0 db" href="/ticket/edit/{{$data['id']}}"><i class="fa fa-retweet"></i> ดึงประกาศของคุณกลับไปยังหน้าแรก</a>
+        </div>
+        @else
+        <div class="mb-2">
+          คุณยังไม่สามารถดึงประกาศได้ในตอนนี้ จะสามารถดึงประกาศได้ในอีก <strong>{{$daysLeft}}</strong>
+        </div>
+        @endif
+
+        <small class="mb-3 db">คุณสามารถดึงประกาศของไปยังหน้าแรกได้ทุกๆ 10 วัน หลังจากการประกาศครั้งแรกหรือหลังจากการดึงประกาศ</small>
+
         <div class="c-card__actions clearfix tc mb-2">
           <a class="c-btn c-btn__primary w-50 fl ma0 br0 db" href="/ticket/edit/{{$data['id']}}"><i class="fa fa-pencil"></i> แก้ไข</a>
           <a class="c-btn  w-50 fl ma0 br0 db" href="javascript:void(0);" data-t-id="{{$data['id']}}" data-t-title="{{$data['title']}}" data-t-closing-modal="1"><i class="fa fa-times"></i> ปิดประกาศ</a>

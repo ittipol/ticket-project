@@ -132,41 +132,100 @@ class Date
     );
   }
 
-  public static function setPeriodData($attributes) {
+  // public static function setPeriodData($attributes) {
 
-    $data = array();
+  //   $data = array();
 
-    $data = array(
-      'start_year' => null,
-      'start_month' => null,
-      'start_day' => null,
-      'end_year' => null,
-      'end_month' => null,
-      'end_day' => null,
-      'current' => null,
-    );
+  //   $data = array(
+  //     'start_year' => null,
+  //     'start_month' => null,
+  //     'start_day' => null,
+  //     'end_year' => null,
+  //     'end_month' => null,
+  //     'end_day' => null,
+  //     'current' => null,
+  //   );
 
-    if(!empty($attributes['date_start'])) {
-      foreach ($attributes['date_start'] as $key => $value) {
-        $data['start_'.$key] = $value;
+  //   if(!empty($attributes['date_start'])) {
+  //     foreach ($attributes['date_start'] as $key => $value) {
+  //       $data['start_'.$key] = $value;
+  //     }
+  //   }
+
+  //   if(empty($attributes['current']) && !empty($attributes['date_end'])) {
+  //     foreach ($attributes['date_end'] as $key => $value) {
+  //       $data['end_'.$key] = $value;
+  //     }
+  //   }
+  //   elseif(!empty($attributes['current'])) {
+  //     $data['current'] = $attributes['current'];
+  //   }
+
+  //   return $data;
+  // }
+
+  public static function findRemainingDays($timeLeft) {
+
+    // if(empty($now)) {
+    //   $now = strtotime(date('Y-m-d H:i:s'));
+    // }
+
+    // $secs = strtotime($this->date_start) - time();
+    $secs = $timeLeft;
+    $mins = (int)floor($secs / 60);
+    $hours = (int)floor($mins / 60);
+    $days = (int)floor($hours / 24);
+
+    if($days == 0) {
+      $remainingSecs = $secs % 60;
+      $remainingMins = $mins % 60;
+      $remainingHours = $hours % 24;
+
+      $remaining = array();
+      if($remainingHours != 0) {
+        $remaining[] = $remainingHours.' ชั่วโมง';
       }
-    }
 
-    if(empty($attributes['current']) && !empty($attributes['date_end'])) {
-      foreach ($attributes['date_end'] as $key => $value) {
-        $data['end_'.$key] = $value;
+      if($remainingMins != 0) {
+        $remaining[] = $remainingMins.' นาที';
       }
-    }
-    elseif(!empty($attributes['current'])) {
-      $data['current'] = $attributes['current'];
+
+      // if($remainingSecs != 0) {
+      //   $remaining[] = $remainingSecs.' วินาที';
+      // }
+
+      $remaining = implode(' ', $remaining);
+
+    }else{
+
+      $remaining = array();
+      $remaining[] = $days.' วัน';
+
+      $remainingSecs = $secs % 60;
+      $remainingMins = $mins % 60;
+      $remainingHours = $hours % 24;
+
+      if($remainingHours != 0) {
+        $remaining[] = $remainingHours.' ชั่วโมง';
+      }
+
+      if($remainingMins != 0) {
+        $remaining[] = $remainingMins.' นาที';
+      }
+
+      $remaining = implode(' ', $remaining);
     }
 
-    return $data;
+    return $remaining;
   }
 
-  public static function calPassedDate($dateTime) {
+  public static function calPassedDate($dateTime, $timestamp = false) {
 
-    $secs = time() - strtotime($dateTime);
+    if(!$timestamp) {
+      $dateTime = strtotime($dateTime);
+    }
+
+    $secs = time() - $dateTime;
     $mins = (int)floor($secs / 60);
     $hours = (int)floor($mins / 60);
     $days = (int)floor($hours / 24);
@@ -200,27 +259,27 @@ class Date
     return ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0)));
   }
 
-  public static function findDateRange($start,$end,$date = array()) {
+  // public static function findDateRange($start,$end,$date = array()) {
 
-    $yearStart = $date['year'] - $end;
-    $yearEnd = $date['year'] - $start;
+  //   $yearStart = $date['year'] - $end;
+  //   $yearEnd = $date['year'] - $start;
 
-    if(!Date::isLeapYear($yearStart) && ((int)$date['month'] == 2) && ($date['day'] == 29)) {
-      $start = $yearStart.'-'.$date['month'].'-28 00:00:00';
-    }else{
-      $start = $yearStart.'-'.$date['month'].'-'.$date['day'].' 00:00:00';
-    }
+  //   if(!Date::isLeapYear($yearStart) && ((int)$date['month'] == 2) && ($date['day'] == 29)) {
+  //     $start = $yearStart.'-'.$date['month'].'-28 00:00:00';
+  //   }else{
+  //     $start = $yearStart.'-'.$date['month'].'-'.$date['day'].' 00:00:00';
+  //   }
 
-    if(!Date::isLeapYear($yearEnd) && ((int)$date['month'] == 2) && ($date['day'] == 29)) {
-      $end = $yearEnd.'-'.$date['month'].'-28 23:59:59';
-    }else{
-      $end = $yearEnd.'-'.$date['month'].'-'.$date['day'].' 23:59:59';
-    }
+  //   if(!Date::isLeapYear($yearEnd) && ((int)$date['month'] == 2) && ($date['day'] == 29)) {
+  //     $end = $yearEnd.'-'.$date['month'].'-28 23:59:59';
+  //   }else{
+  //     $end = $yearEnd.'-'.$date['month'].'-'.$date['day'].' 23:59:59';
+  //   }
 
-    return array(
-      'start' => $start,
-      'end' => $end
-    );
-  }
+  //   return array(
+  //     'start' => $start,
+  //     'end' => $end
+  //   );
+  // }
 
 }

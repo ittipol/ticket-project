@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Pagination\Paginator;
 use App\library\service;
+use App\library\date;
 use App\library\snackbar;
 use App\library\validation;
 use App\library\stringHelper;
@@ -245,6 +246,8 @@ class TicketController extends Controller
 
   public function detail($ticketId) {
 
+    $now = strtotime(date('Y-m-d H:i:s'));
+
     $model = Service::loadModel('Ticket')->where([
       ['id','=',request()->ticketId]
       // ['closing_option','=',0]
@@ -255,11 +258,24 @@ class TicketController extends Controller
       return Redirect::to('/ticket');
     }
 
+    // check pulling post
+    $timeDiff = strtotime(date('Y-m-d H:i:s')) - strtotime($model->activated_date);
+
+    $canPullPost = false;
+    if($timeDiff >= 864000) { // every 10 days
+      // Allow pulling post
+      $canPullPost = true;
+    }else {
+      // Get Day Left
+      $this->setData('daysLeft',Date::findRemainingDays(864000 - $timeDiff));
+    }
+
     $data = $model->buildDataDetail();
 
     $this->setData('data',$data);
     $this->setData('seller',Service::loadModel('User')->buildProfileForTicketDetail($model->created_by));
     $this->setData('ticketId',$ticketId);
+    $this->setData('canPullPost',$canPullPost);
 
     // Modal use for shared.ig with twitter title
     // $this->setData('_text',$data['title']);

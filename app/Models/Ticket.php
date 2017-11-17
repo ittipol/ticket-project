@@ -25,7 +25,8 @@ class Ticket extends Model
   'purpose',
   'closing_option',
   'closing_reason',
-  'created_by'];
+  'created_by',
+  'activated_date'];
 
   private $dateType = array(
     1 => 'ช่วงวันที่ใช้งานได้',
@@ -110,12 +111,18 @@ class Ticket extends Model
       'fields' => array('ticket_category_id')
     ));
 
+    $description = null;
+    $descLen = 120 - mb_strlen($this->title);
+    if($descLen > 10) {
+      $description = StringHelper::truncString($this->description,$descLen,true,true);
+    }
+
     return array(
       'id' => $this->id,
       'title' => $this->title,
       // 'description' => $this->description,
       // 'title' => StringHelper::truncString($this->title,$titleLength,true,true),
-      'description' => StringHelper::truncString($this->description,120 - mb_strlen($this->title),true,true),
+      'description' => $description,
       'place_location' => $this->place_location,
       'price' => $currency->format($this->price),
       'original_price' => $originalPrice,
@@ -130,7 +137,7 @@ class Ticket extends Model
       'category' => $category->ticketCategory->name,
       'user' => User::buildProfileForTicketList($this->created_by),
       'image' => $image,
-      'imageTotal' => $imageTotal,
+      // 'imageTotal' => $imageTotal,
       'tags' => $tags
     );
   }

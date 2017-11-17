@@ -6,7 +6,7 @@ class StringHelper
 {
   public static function truncString($string,$len,$stripTag = true,$cleanText = false){
 
-    if($len < 0) {
+    if($len <= 0) {
       return null;
     }
 
