@@ -44,6 +44,20 @@
       <div class="c-grid__col">
         <div class="c-card c-card--to-edge">
 
+          <!-- <div class="c-card__header">
+            <div class="c-card__avatar"><img src="/avatar/{{$value['created_by']}}?d=1"></div>
+            <div class="c-card__title">
+              <div class="title">{{$value['user']['name']}}</div>
+              <div class="subtitle"><small>{{$value['created_at']}}</small></div>
+            </div>
+            <div class="c-card__date">
+              <a href="/chat/s/{{$value['id']}}" class="btn seller-chat-btn">
+                <div class="online_status_indicator_{{$value['created_by']}} online-status-indicator @if($value['user']['online']) is-online @endif"></div>
+                <i class="fa fa-comments" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div> -->
+
           <div class="c-card__flag"><i class="fa fa-ticket" aria-hidden="true"></i> {{$value['category']}}</div>
 
           <div class="c-card--inner">
@@ -59,19 +73,7 @@
                 @endif
               </a>
             </div>
-            <!-- <div class="c-card__header">
-              <div class="c-card__avatar"><img src="/avatar/{{$value['created_by']}}?d=1"></div>
-              <div class="c-card__title">
-                <div class="title">{{$value['user']['name']}}</div>
-                <div class="subtitle"><small>{{$value['created_at']}}</small></div>
-              </div>
-              <div class="c-card__date">
-                <a href="/chat/s/{{$value['id']}}" class="btn seller-chat-btn">
-                  <div class="online_status_indicator_{{$value['created_by']}} online-status-indicator @if($value['user']['online']) is-online @endif"></div>
-                  <i class="fa fa-comments" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div> -->
+
             <div class="c-card__primary-title">
               <h2 class="title">
                 <a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a>

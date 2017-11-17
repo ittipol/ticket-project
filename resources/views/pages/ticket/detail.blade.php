@@ -175,25 +175,30 @@
         </div>
       </div>
 
-      <div class="action-section content-fixed-bottom ph2 pv3 pa0-ns mt-2">
+      <div class="action-section content-fixed-bottom ph2 pv3 pa0-ns mt-2 clearfix">
 
-        @if($data['pullingPost']['allow'])
-        <div class="c-card__actions clearfix tc mb-2">
-          <a class="c-btn c-btn__primary w-100 ma0 br0 db" href="/ticket/pull/{{$data['id']}}"><i class="fa fa-retweet"></i> ปรับตำแหน่งประกาศนี้ไปยังหน้าแรก</a>
-        </div>
-        @else
-        <div class="mb-2 pa0 pa2-ns">
-          ยังไม่สามารถปรับตำแหน่งประกาศได้ในตอนนี้ จะสามารถปรับตำแหน่งประกาศไปยังตำแน่งบนหน้าแรกได้ในอีก <strong>{{$data['pullingPost']['daysLeft']}}</strong>
-        </div>
-        @endif
+        <div class="w-100 w-50-ns w-100-l fn fl-ns fn-l">
 
-        <small class="dn db-ns mb-3">คุณสามารถปรับตำแหน่งประกาศไปยังตำแน่งบนหน้าแรกได้หลังจากการประกาศครั้งแรกหรือหลังจากการปรับตำแหน่งแล้วในทุกๆ 10 วัน</small>
+          @if($data['pullingPost']['allow'])
+          <div class="c-card__actions clearfix tc mb-2">
+            <a class="c-btn c-btn__primary w-100 ma0 br0 db" href="/ticket/pull/{{$data['id']}}"><i class="fa fa-retweet"></i> ปรับตำแหน่งประกาศนี้ไปยังหน้าแรก</a>
+          </div>
+          @else
+          <div class="mb-2 pa0 pa2-ns f6 f5-ns">
+            จะสามารถปรับตำแหน่งประกาศไปยังตำแน่งบนหน้าแรกได้ในอีก <strong>{{$data['pullingPost']['daysLeft']}}</strong>
+          </div>
+          @endif
 
-        <div class="c-card__actions clearfix tc mb-2">
-          <a class="c-btn w-50 fl ma0 br0 db" href="/ticket/edit/{{$data['id']}}"><i class="fa fa-pencil"></i> แก้ไข</a>
-          <a class="c-btn w-50 fl ma0 br0 db" href="javascript:void(0);" data-t-id="{{$data['id']}}" data-t-title="{{$data['title']}}" data-t-closing-modal="1"><i class="fa fa-times"></i> ปิดประกาศ</a>
+          <small class="dn db-ns mb-3">คุณสามารถปรับตำแหน่งประกาศไปยังตำแน่งบนหน้าแรกได้หลังจากการประกาศครั้งแรกหรือหลังจากการปรับตำแหน่งแล้วในทุกๆ 10 วัน</small>
         </div>
-        <small class="dn db-ns">ปิดประกาศของคุณเมื่อ <strong>ขายสินค้านี้แล้ว</strong> หรือหากต้องการ <strong>ยกเลิกรายการ</strong></small>
+
+        <div class="w-100 w-50-ns w-100-l fn fl-ns fn-l">
+          <div class="c-card__actions clearfix tc mb-2">
+            <a class="c-btn c-btn__secondary w-50 fl ma0 br0 db" href="/ticket/edit/{{$data['id']}}"><i class="fa fa-pencil"></i> แก้ไข</a>
+            <a class="c-btn w-50 fl ma0 br0 db" href="javascript:void(0);" data-t-id="{{$data['id']}}" data-t-title="{{$data['title']}}" data-t-closing-modal="1"><i class="fa fa-times"></i> ปิดประกาศ</a>
+          </div>
+          <small class="dn db-ns">ปิดประกาศของคุณเมื่อ <strong>ขายสินค้านี้แล้ว</strong> หรือหากต้องการ <strong>ยกเลิกรายการ</strong></small>
+        </div>
       
       </div>
 

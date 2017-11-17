@@ -331,6 +331,16 @@
   border-color: #cd2a19;
 }
 
+.c-btn__secondary, a.c-btn__secondary {
+  background-color: #4675c3;
+  border-color: #3062b7;
+  color: #fff;
+}
+.c-btn__secondary:hover, .c-btn__secondary:focus, a.c-btn__secondary:hover, a.c-btn__secondary:focus {
+  background-color: #1976D2;
+  border-color: #1565C0;
+}
+
 .c-card__notice {
   position: relative;
   text-align: center;

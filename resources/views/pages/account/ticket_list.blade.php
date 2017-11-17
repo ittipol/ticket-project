@@ -106,7 +106,7 @@
             @endif
 
             <div class="c-card__actions pb2 tc clearfix">
-              <a class="c-btn w-50 fl ma0 br0 db" href="/ticket/edit/{{$value['id']}}"><i class="fa fa-pencil"></i> แก้ไข</a>
+              <a class="c-btn c-btn__secondary w-50 fl ma0 br0 db" href="/ticket/edit/{{$value['id']}}"><i class="fa fa-pencil"></i> แก้ไข</a>
               <a class="c-btn w-50 fl ma0 br0 db" href="javascript:void(0);" data-t-id="{{$value['id']}}" data-t-title="{{$value['title']}}" data-t-closing-modal="1"><i class="fa fa-times"></i> ปิดประกาศ</a>
             </div>
           </div>
