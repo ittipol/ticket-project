@@ -51,6 +51,14 @@
   </div>
 </div>
 
+<div class="information-grid-2">
+  <div class="container pv4 tc">
+    <i class="fa fa-retweet db fs-100 mb-3" aria-hidden="true"></i>
+    <h4>เลื่อนประกาศขึ้นสู่ตำแหน่งบนได้ดัวยตัวคุณเอง</h4>
+    <p>สามารถเลื่อนประกาศของคุณขึ้นสู่ตำแหน่งบนอีกครั้งเหมือนเป็นประกาศที่เพิ่งลงใหม่ๆ โดยที่คุณสามารถจัดการได้ด้วยตัวเอง เพื่อช่วยเพิ่มโอกาสในการขาย เพราะยิ่งอยู่ตำแหน่งบน โอกาสที่ประกาศของคุณจะเห็นก่อนใครก็ยิ่งมีมากขึ้น</p>
+  </div>
+</div>
+
 <div class="main-content-group">
   <div class="parallax-bg">
     <div class="container pv3">

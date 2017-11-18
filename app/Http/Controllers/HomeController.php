@@ -13,16 +13,16 @@ class HomeController extends Controller
     return $this->view('pages.home.index');
   }
 
-  public function _checkPost() {
+  // public function _checkPost() {
 
-    $data = Service::loadModel('Ticket')->get();
+  //   $data = Service::loadModel('Ticket')->get();
 
-    foreach ($data as $value) {
-      $value->activated_date = $value->created_at->format('Y-m-d H:i:s');
-      $value->save();
-    }
+  //   foreach ($data as $value) {
+  //     $value->activated_date = $value->created_at->format('Y-m-d H:i:s');
+  //     $value->save();
+  //   }
 
-    dd('done');
+  //   dd('done');
 
-  }
+  // }
 }

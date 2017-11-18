@@ -10,8 +10,6 @@ var Validation = function () {
           }, '');
 
           $.validator.addMethod("checkDateRequired", function(value, element, params) {
-        
-            console.log($(params).hasClass('date-required'));
 
             if($(params).hasClass('date-required') && ($(params).val() == '')) {
               return false;
