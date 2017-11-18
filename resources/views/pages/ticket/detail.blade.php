@@ -181,15 +181,15 @@
 
           @if($data['pullingPost']['allow'])
           <div class="c-card__actions clearfix tc mb-2">
-            <a class="c-btn c-btn__primary w-100 ma0 br0 db" href="/ticket/pull/{{$data['id']}}"><i class="fa fa-retweet"></i> ปรับตำแหน่งประกาศนี้ไปยังหน้าแรก</a>
+            <a class="c-btn c-btn__primary w-100 ma0 br0 db" href="/ticket/pull/{{$data['id']}}"><i class="fa fa-retweet"></i> เลื่อนประกาศขึ้นสู่ตำแหน่งบน</a>
           </div>
           @else
           <div class="mb-2 pa0 pa2-ns f6 f5-ns">
-            จะสามารถปรับตำแหน่งประกาศไปยังตำแน่งบนหน้าแรกได้ในอีก <strong>{{$data['pullingPost']['daysLeft']}}</strong>
+            ยังไม่สามารถเลื่อนประกาศได้ในตอนนี้ จะสามารถเลื่อนประกาศขึ้นสู่ตำแหน่งบนได้ในอีก <strong>{{$data['pullingPost']['daysLeft']}}</strong>
           </div>
           @endif
 
-          <small class="dn db-ns mb-3">คุณสามารถปรับตำแหน่งประกาศไปยังตำแน่งบนหน้าแรกได้หลังจากการประกาศครั้งแรกหรือหลังจากการปรับตำแหน่งแล้วในทุกๆ 5 วัน</small>
+          <small class="dn db-ns mb-3">คุณสามารถเลื่อนประกาศขึ้นสู่ตำแหน่งบนได้ดัวยตัวคุณเองหลังจากการประกาศครั้งแรกหรือหลังจากการเลื่อนประกาศในทุก 7 วัน</small>
         </div>
 
         <div class="w-100 w-50-ns w-100-l fn fl-ns fn-l">

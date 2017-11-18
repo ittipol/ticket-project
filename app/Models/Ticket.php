@@ -35,7 +35,7 @@ class Ticket extends Model
     0 => 'ไม่ระบุ',
   );
 
-  private $pullingDays = 432000;
+  private $pullingDays = 604800; // 7 days
 
   public $imageTypeAllowed = array(
     'photo' => array(
@@ -246,7 +246,7 @@ class Ticket extends Model
 
     $timeDiff = strtotime(date('Y-m-d H:i:s')) - strtotime($this->activated_date);
 
-    if($timeDiff >= $this->pullingDays) { // every 10 days
+    if($timeDiff >= $this->pullingDays) {
       // Allow pulling post
       $pullingPost = true;
     }else {
