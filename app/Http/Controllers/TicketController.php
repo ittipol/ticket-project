@@ -238,8 +238,6 @@ class TicketController extends Controller
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('search',$searching);
 
-    // $this->setMeta('title','รายการขาย');
-
     return $this->view('pages.ticket.list');
   }
 

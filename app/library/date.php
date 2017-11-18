@@ -2,9 +2,13 @@
 
 namespace App\library;
 
+// use Carbon\Carbon;
+
 class Date
 {
   public static function today($time = true, $timestamp = false) {
+
+    // Carbon::today();
 
     $today = date('Y-m-d 00:00:00');
     if(!$time) {
@@ -19,6 +23,8 @@ class Date
   }
 
   public static function now($time = true, $timestamp = false) {
+
+    // Carbon::now();
 
     $now = date('Y-m-d H:i:s');
     if(!$time) {
