@@ -325,7 +325,9 @@ class TicketController extends Controller
     }
 
     $model->contact = request()->get('contact');
-    $model->purpose = 's';
+    $model->activated_date = date('Y-m-d H:i:s');
+    
+    $model->purpose = 's'; // sell
    
     if(!$model->save()) {
       return Redirect::back();
