@@ -104,7 +104,7 @@ class Ticket extends Model
       $originalPrice = $currency->format($this->original_price);
 
       if($this->original_price > $this->price) {
-        $save = $format->percent(100 - (($this->price * 110) / $this->original_price)) . '%';
+        $save = $format->percent(100 - (($this->price * 100) / $this->original_price)) . '%';
       }
     }
     // Ticket Category
