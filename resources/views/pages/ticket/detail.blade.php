@@ -180,7 +180,7 @@
         <div class="w-50-ns w-100-l fn fl-ns fn-l">
 
           @if($data['pullingPost']['allow'])
-          <div class="c-card__actions clearfix tc mb-2">
+          <div class="c-card__actions clearfix tc mb2 mb0-ns mb2-l mt0 mt2-ns mt0-l">
             <a class="c-btn c-btn__primary w-100 ma0 br0 db" href="/ticket/pull/{{$data['id']}}"><i class="fa fa-retweet"></i> เลื่อนประกาศขึ้นสู่ตำแหน่งบน</a>
           </div>
           @else
