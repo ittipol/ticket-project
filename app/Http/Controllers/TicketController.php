@@ -188,7 +188,7 @@ class TicketController extends Controller
       ->where(function($query) {
 
         $query
-        ->where('closing_option','=',0)
+        ->where('date_type','=',0)
         ->where('tickets.date_1','=',null)
         ->where('tickets.date_2','=',null);
 
@@ -196,16 +196,14 @@ class TicketController extends Controller
       ->orWhere(function($query) use ($now) {
 
         $query
-        ->where('closing_option','=',1)
-        // ->where('tickets.date_2','!=',null)
+        ->where('date_type','=',1)
         ->where('tickets.date_2','>=',$now);
 
       })
       ->orWhere(function($query) use ($now) {
 
         $query
-        ->whereIn('closing_option', [2,3])
-        // ->where('tickets.date_1','!=',null)
+        ->whereIn('date_type', [2,3])
         ->where('tickets.date_1','>=',$now);
 
       }); 
