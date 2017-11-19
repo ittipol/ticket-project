@@ -188,25 +188,38 @@ class TicketController extends Controller
       ->where(function($query) {
 
         $query
-        ->where(function($query) {
-          $query->where('tickets.date_1','=',null);
-        })
-        ->where(function($query) {
-          $query->where('tickets.date_2','=',null);
-        });
+        ->where('closing_option','=',0)
+        ->where('tickets.date_1','=',null)
+        ->where('tickets.date_2','=',null);
 
       })
       ->orWhere(function($query) use ($now) {
 
         $query
-        ->where(function($query) use ($now) {
-          $query->where('tickets.date_1','!=',null)->where('tickets.date_1','>=',$now);
-        })
-        ->orWhere(function($query) use ($now) {
-          $query->where('tickets.date_2','!=',null)->where('tickets.date_2','>=',$now);
-        });
+        ->where('closing_option','=',1)
+        // ->where('tickets.date_2','!=',null)
+        ->where('tickets.date_2','>=',$now);
 
-      });      
+      })
+      ->orWhere(function($query) use ($now) {
+
+        $query
+        ->whereIn('closing_option', [2,3])
+        // ->where('tickets.date_1','!=',null)
+        ->where('tickets.date_1','>=',$now);
+
+      }); 
+      // ->orWhere(function($query) use ($now) {
+
+      //   $query
+      //   ->where(function($query) use ($now) {
+      //     $query->where('tickets.date_1','!=',null)->where('tickets.date_1','>=',$now);
+      //   })
+      //   ->orWhere(function($query) use ($now) {
+      //     $query->where('tickets.date_2','!=',null)->where('tickets.date_2','>=',$now);
+      //   });
+
+      // });      
 
     });
 
