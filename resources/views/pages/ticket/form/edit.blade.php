@@ -4,6 +4,12 @@
 <div class="container">
 
   <div class="margin-top-40 margin-bottom-20">
+    <div class="c-card__actions ph0 pt0 pb3">
+      <a href="/ticket/view/{{$data['id']}}" class="c-btn ma0">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i> 
+        ไปยังหน้าแสดงรายละเอียดประกาศนี้
+      </a>
+    </div>
     <h4>แก้ไขรายการ</h4>
   </div>
 
@@ -157,8 +163,8 @@
           <label class="form-control-label">รูปภาพ</label>
           <div class="alert alert-info">
             <ul class="m-0">
-              <li>ไฟล์ใหญ่ได้ไม่เกิน 5 MB</li> 
-              <li>รูปแบบไฟล์ JPG, PNG เท่านั้น</li> 
+              <li>ขนาดไฟล์สูงสุดไม่เกิน 5 MB</li> 
+              <li>อัพโหลดไฟล์ได้ในรูปแบบ JPG หรือ PNG</li> 
             </ul>
           </div>
 

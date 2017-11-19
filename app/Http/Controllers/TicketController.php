@@ -159,11 +159,6 @@ class TicketController extends Controller
 
       });
     }else{
-      // $model->where(function($query) use ($now) {
-      //   $query
-      //   ->where('tickets.date_1','=',null)
-      //   ->orWhere('tickets.date_1','>=',$now);
-      // });
       $model->where(function($query) use ($now) {
 
         $query
@@ -248,7 +243,7 @@ class TicketController extends Controller
       $model->orderBy('tickets.activated_date','desc');
     }
 
-    $this->setData('data',$model->paginate(36));
+    $this->setData('data',$model->paginate(48));
     $this->setData('taggings',$taggings);
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('search',$searching);

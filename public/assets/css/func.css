@@ -1494,9 +1494,9 @@ code, .code { font-family: Consolas, monaco, monospace; }
      -l  = large
 
 */
-.pa0 { padding: 0; }
+.pa0 { padding: 0 !important; }
 .pa1 { padding: .25rem; }
-.pa2 { padding: .5rem; }
+.pa2 { padding: .5rem !important; }
 .pa3 { padding: 1rem; }
 .pa4 { padding: 2rem; }
 .pa5 { padding: 4rem; }
@@ -1518,34 +1518,34 @@ code, .code { font-family: Consolas, monaco, monospace; }
 .pr5 { padding-right: 4rem; }
 .pr6 { padding-right: 8rem; }
 .pr7 { padding-right: 16rem; }
-.pb0 { padding-bottom: 0; }
+.pb0 { padding-bottom: 0 !important; }
 .pb1 { padding-bottom: .25rem; }
 .pb2 { padding-bottom: .5rem; }
 .pb3 { padding-bottom: 1rem !important; }
 .pb4 { padding-bottom: 2rem; }
-.pb5 { padding-bottom: 4rem; }
+.pb5 { padding-bottom: 4rem !important; }
 .pb6 { padding-bottom: 8rem; }
 .pb7 { padding-bottom: 16rem; }
-.pt0 { padding-top: 0; }
+.pt0 { padding-top: 0 !important; }
 .pt1 { padding-top: .25rem; }
 .pt2 { padding-top: .5rem; }
-.pt3 { padding-top: 1rem; }
+.pt3 { padding-top: 1rem !important; }
 .pt4 { padding-top: 2rem; }
-.pt5 { padding-top: 4rem; }
+.pt5 { padding-top: 4rem !important; }
 .pt6 { padding-top: 8rem; }
 .pt7 { padding-top: 16rem; }
 .pv0 { padding-top: 0; padding-bottom: 0; }
 .pv1 { padding-top: .25rem; padding-bottom: .25rem; }
-.pv2 { padding-top: .5rem; padding-bottom: .5rem; }
+.pv2 { padding-top: .5rem !important; padding-bottom: .5rem !important; }
 .pv3 { padding-top: 1rem; padding-bottom: 1rem; }
 .pv4 { padding-top: 2rem; padding-bottom: 2rem; }
 .pv5 { padding-top: 4rem; padding-bottom: 4rem; }
 .pv6 { padding-top: 8rem; padding-bottom: 8rem; }
 .pv7 { padding-top: 16rem; padding-bottom: 16rem; }
-.ph0 { padding-left: 0; padding-right: 0; }
+.ph0 { padding-left: 0 !important; padding-right: 0 !important; }
 .ph1 { padding-left: .25rem; padding-right: .25rem; }
 .ph2 { padding-left: .5rem; padding-right: .5rem; }
-.ph3 { padding-left: 1rem; padding-right: 1rem; }
+.ph3 { padding-left: 1rem !important; padding-right: 1rem !important; }
 .ph4 { padding-left: 2rem; padding-right: 2rem; }
 .ph5 { padding-left: 4rem; padding-right: 4rem; }
 .ph6 { padding-left: 8rem; padding-right: 8rem; }
