@@ -184,7 +184,7 @@
             <a class="c-btn c-btn__primary w-100 ma0 br0 db" href="/ticket/pull/{{$data['id']}}"><i class="fa fa-retweet"></i> เลื่อนประกาศขึ้นสู่ตำแหน่งบน</a>
           </div>
           @else
-          <div class="mb-2 pa0 pa2-ns f6 f5-ns">
+          <div class="mb2 mb0-ns mb2-l pa0 pa2-ns f6 f5-ns">
             ยังไม่สามารถเลื่อนประกาศได้ในตอนนี้ จะสามารถเลื่อนประกาศขึ้นสู่ตำแหน่งบนได้ในอีก <strong>{{$data['pullingPost']['daysLeft']}}</strong>
           </div>
           @endif
@@ -193,7 +193,7 @@
         </div>
 
         <div class="w-50-ns w-100-l fn fl-ns fn-l">
-          <div class="c-card__actions clearfix tc mb-2">
+          <div class="c-card__actions clearfix tc mb2 mb0-ns mb2-l mt0 mt2-ns mt0-l">
             <a class="c-btn c-btn__secondary w-50 fl ma0 br0 db" href="/ticket/edit/{{$data['id']}}"><i class="fa fa-pencil"></i> แก้ไข</a>
             <a class="c-btn w-50 fl ma0 br0 db" href="javascript:void(0);" data-t-id="{{$data['id']}}" data-t-title="{{$data['title']}}" data-t-closing-modal="1"><i class="fa fa-times"></i> ปิดประกาศ</a>
           </div>
