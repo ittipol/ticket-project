@@ -89,7 +89,7 @@ class AccountController extends Controller
               ['closing_option','=',0],
               ['created_by','=',Auth::user()->id]
             ])
-            ->orderBy('created_at','asc')
+            ->orderBy('created_at','desc')
             ->paginate(36);
 
     $this->setData('data',$data);
