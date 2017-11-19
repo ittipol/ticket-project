@@ -556,7 +556,7 @@ class TicketController extends Controller
     // check pulling post
     $timeDiff = strtotime($now) - strtotime($model->activated_date);
 
-    if($timeDiff < $model->pullingDays) {
+    if($timeDiff < $model->getRePostDays()) {
       Snackbar::message('ยังไม่สามารถดึงประกาศได้ในตอนนี้');
       return Redirect::to('/ticket/view/'.$ticketId);
     }

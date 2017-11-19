@@ -35,7 +35,7 @@ class Ticket extends Model
     0 => 'ไม่ระบุ',
   );
 
-  private $pullingDays = 259200; // 3 days
+  private $rePostDays = 259200; // 3 days // 86400
 
   public $imageTypeAllowed = array(
     'photo' => array(
@@ -122,7 +122,7 @@ class Ticket extends Model
     $pullingPost = null;
     
     if($findDaysLeft) {
-      $pullingPost = $this->getPullingPost();
+      $pullingPost = $this->checkRePost();
     }
 
     return array(
@@ -229,7 +229,7 @@ class Ticket extends Model
       'imageTotal' => $imageTotal,
       'tags' => $tags,
       // 'seller' => User::buildProfileForTicketDetail($this->created_by),
-      'pullingPost' => $this->getPullingPost()
+      'pullingPost' => $this->checkRePost()
     );
   }
 
@@ -240,17 +240,21 @@ class Ticket extends Model
     return StringHelper::truncString($this->description,220,true,true);
   }
 
-  public function getPullingPost() {
+  public function getRePostDays() {
+    return $this->rePostDays;
+  }
+
+  public function checkRePost() {
     $pullingPost = false;
     $daysLeft = null;
 
     $timeDiff = strtotime(date('Y-m-d H:i:s')) - strtotime($this->activated_date);
 
-    if($timeDiff >= $this->pullingDays) {
+    if($timeDiff >= $this->rePostDays) {
       // Allow pulling post
       $pullingPost = true;
     }else {
-      $daysLeft = Date::findRemainingDays($this->pullingDays - $timeDiff);
+      $daysLeft = Date::findRemainingDays($this->rePostDays - $timeDiff);
     }
 
     return array(
