@@ -179,25 +179,28 @@ class TicketController extends Controller
         });
 
       });
-      // $model->where(function($query) use ($now) {
-
-      //   $query
-      //   ->where(function($query) use ($now) {
-      //     $query
-      //     ->where('tickets.date_1','!=',null)
-      //     ->where('tickets.date_1','>=',$now);
-      //   })
-      //   ->orWhere(function($query) use ($now) {
-      //     $query
-      //     ->where('tickets.date_2','!=',null)
-      //     ->where('tickets.date_2','>=',$now);
-      //   });
-
-      // });
     }
 
     $model->where(function($q) {
       $q->where('closing_option','=',0);
+    });
+
+    $now = date('Y-m-d H:i:s');
+
+    $model->where(function($query) use ($now) {
+
+      $query
+      ->where(function($query) use ($now) {
+        $query
+        ->where('tickets.date_1','=',null)
+        ->orWhere('tickets.date_1','>=',$now);
+      })
+      ->where(function($query) use ($now) {
+        $query
+        ->where('tickets.date_2','=',null)
+        ->orWhere('tickets.date_2','>=',$now);
+      });
+
     });
 
     if($request->has('sort')) {

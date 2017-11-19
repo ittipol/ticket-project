@@ -35,7 +35,7 @@ class Ticket extends Model
     0 => 'ไม่ระบุ',
   );
 
-  private $pullingDays = 432000; // 5 days
+  private $pullingDays = 259200; // 3 days
 
   public $imageTypeAllowed = array(
     'photo' => array(
