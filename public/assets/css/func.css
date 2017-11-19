@@ -749,7 +749,7 @@ img { max-width: 100%; }
 */
 .fl { float: left; _display: inline; }
 .fr { float: right; _display: inline; }
-.fn { float: none; }
+.fn { float: none; _display: block; }
 /*
 
    FONT FAMILY GROUPS
@@ -2217,7 +2217,7 @@ code, .code { font-family: Consolas, monaco, monospace; }
  .order-last-ns { -webkit-box-ordinal-group: 100000; -ms-flex-order: 99999; order: 99999; }
  .fl-ns { float: left; display: inline; }
  .fr-ns { float: right; display: inline; }
- .fn-ns { float: none; }
+ .fn-ns { float: none; display: block; }
  .i-ns { font-style: italic; }
  .fs-normal-ns { font-style: normal; }
  .normal-ns { font-weight: normal; }
@@ -2636,7 +2636,7 @@ code, .code { font-family: Consolas, monaco, monospace; }
  .order-last-m { -webkit-box-ordinal-group: 100000; -ms-flex-order: 99999; order: 99999; }
  .fl-m { float: left; display: inline; }
  .fr-m { float: right; display: inline; }
- .fn-m { float: none; }
+ .fn-m { float: none; display: block; }
  .i-m { font-style: italic; }
  .fs-normal-m { font-style: normal; }
  .normal-m { font-weight: normal; }
@@ -3055,7 +3055,7 @@ code, .code { font-family: Consolas, monaco, monospace; }
  .order-last-l { -webkit-box-ordinal-group: 100000; -ms-flex-order: 99999; order: 99999; }
  .fl-l { float: left; display: inline; }
  .fr-l { float: right; display: inline; }
- .fn-l { float: none; }
+ .fn-l { float: none; display: block; }
  .i-l { font-style: italic; }
  .fs-normal-l { font-style: normal; }
  .normal-l { font-weight: normal; }
@@ -3121,7 +3121,7 @@ code, .code { font-family: Consolas, monaco, monospace; }
  .w-75-l { width: 75%; }
  .w-80-l { width: 80%; }
  .w-90-l { width: 90%; }
- .w-100-l { width: 100%; }
+ .w-100-l { width: 100% !important; }
  .w-third-l { width: calc( 100% / 3 ); }
  .w-two-thirds-l { width: calc( 100% / 1.5 ); }
  .w-auto-l { width: auto; }

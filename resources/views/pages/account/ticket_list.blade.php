@@ -22,15 +22,14 @@
         $value = $_value->buildDataList(80,true);
       ?>
 
-      <div class="col-12 col-md-4 mb3">
+      <div class="col-12 col-md-6 col-lg-4 mb3">
         <div class="c-card c-card--to-edge">
 
           <div class="c-card__flag">{{$value['category']}}</div>
           
           <div class="c-card--inner">
           
-            <div class="c-card__media Media__image Media__image--16-9">
-              <a href="/ticket/view/{{$value['id']}}">
+            <a href="/ticket/view/{{$value['id']}}" class="c-card__media Media__image Media__image--16-9 db">
                 @if(empty($value['image']))
                   <div class="c-card-no-image">
                     <img src="/assets/images/common/photos.png">
@@ -38,8 +37,7 @@
                 @else
                   <img class="{{$value['image']['formation']}}-image" src="{{$value['image']['_preview_url']}}">
                 @endif
-              </a>
-            </div>
+            </a>
             <div class="c-card__primary-title">
               <!-- <div class="c-card__media Media__image--one-right"><img src="" alt=""></div> -->
               <h2 class="title">

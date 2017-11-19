@@ -129,8 +129,8 @@
 
       @if(Auth::guest() || (Auth::check() && (Auth::user()->id != $data['created_by'])))
 
-      <div class="seller-section content-fixed-bottom">
-        <div class="pt3 pb2 pv2-ns ph3 ph2-ns clearfix">
+      <div class="seller-section content-fixed-bottom clearfix">
+        <div class="w-40-ns w-100-l fn fl-ns fn-l pt3 pb2 pv2-ns ph3 ph2-ns clearfix">
           <div class="avatar-frame fl">       
             <div class="avatar">
               <img src="/avatar/{{$data['created_by']}}?d=1">
@@ -146,7 +146,7 @@
             @endif
           </div>
         </div>
-        <div class="pa2 pa2-ns">
+        <div class="w-60-ns w-100-l fn fl-ns fn-l pa2 pt3-ns pt2-l">
           <a href="/chat/s/{{$ticketId}}" class="btn btn-primary btn-block br0">
             <i class="fa fa-comments" aria-hidden="true"></i>&nbsp;คุยกับผู้ขาย
           </a>
@@ -177,7 +177,7 @@
 
       <div class="action-section content-fixed-bottom ph2 pv3 pa0-ns mt-2 clearfix">
 
-        <div class="w-100 w-50-ns w-100-l fn fl-ns fn-l">
+        <div class="w-50-ns w-100-l fn fl-ns fn-l">
 
           @if($data['pullingPost']['allow'])
           <div class="c-card__actions clearfix tc mb-2">
@@ -189,15 +189,15 @@
           </div>
           @endif
 
-          <small class="dn db-ns mb-3">หลังจากเมื่อคุณได้เลื่อนประกาศแล้ว จะสามารถเลื่อนประกาศในครั้งถัดไปได้เมื่อครบกำหนดทุก 3 วัน</small>
+          <small class="dn db-ns mb-3 pa0 pa2-ns pa0-l">หลังจากเมื่อคุณได้เลื่อนประกาศแล้ว จะสามารถเลื่อนประกาศในครั้งถัดไปได้เมื่อครบกำหนดทุก 3 วัน</small>
         </div>
 
-        <div class="w-100 w-50-ns w-100-l fn fl-ns fn-l">
+        <div class="w-50-ns w-100-l fn fl-ns fn-l">
           <div class="c-card__actions clearfix tc mb-2">
             <a class="c-btn c-btn__secondary w-50 fl ma0 br0 db" href="/ticket/edit/{{$data['id']}}"><i class="fa fa-pencil"></i> แก้ไข</a>
             <a class="c-btn w-50 fl ma0 br0 db" href="javascript:void(0);" data-t-id="{{$data['id']}}" data-t-title="{{$data['title']}}" data-t-closing-modal="1"><i class="fa fa-times"></i> ปิดประกาศ</a>
           </div>
-          <small class="dn db-ns">ปิดประกาศของคุณเมื่อ <strong>ขายสินค้านี้แล้ว</strong> หรือหากต้องการ <strong>ยกเลิกรายการ</strong></small>
+          <small class="dn db-ns pa0 pa2-ns pa0-l">ปิดประกาศของคุณเมื่อ <strong>ขายสินค้านี้แล้ว</strong> หรือหากต้องการ <strong>ยกเลิกรายการ</strong></small>
         </div>
       
       </div>

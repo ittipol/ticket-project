@@ -48,17 +48,15 @@
 
                   <div class="c-card--inner">
 
-                    <div class="c-card__media Media__image Media__image--16-9">
-                      <a href="/ticket/view/{{$value['id']}}">
-                        @if(empty($value['image']))
-                          <div class="c-card-no-image">
-                            <img src="/assets/images/common/photos.png">
-                          </div>
-                        @else
-                          <img class="{{$value['image']['formation']}}-image" src="{{$value['image']['_preview_url']}}">
-                        @endif
-                      </a>
-                    </div>
+                    <a href="/ticket/view/{{$value['id']}}" class="c-card__media Media__image Media__image--16-9 db">
+                      @if(empty($value['image']))
+                        <div class="c-card-no-image">
+                          <img src="/assets/images/common/photos.png">
+                        </div>
+                      @else
+                        <img class="{{$value['image']['formation']}}-image" src="{{$value['image']['_preview_url']}}">
+                      @endif
+                    </a>
                     <div class="c-card__primary-title">
                       <h2 class="title">
                         <a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a>
