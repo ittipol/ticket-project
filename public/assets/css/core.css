@@ -608,3 +608,54 @@ label.image-label a:hover {
 .control--checkbox input:disabled ~ .control__indicator:after {
   border-color: #7b7b7b;
 }
+
+
+
+
+
+.global-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 98;
+  visibility: hidden;
+  opacity: 0;
+  background-color: rgba(20,27,32,.5);
+  transition: opacity .2s ease-out;
+}
+.global-overlay.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.global-loading-indicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 99;
+  width: 40px;
+  height: 40px;
+  border: 0.25rem solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+  border-radius: 50%;
+  margin-top: -20px;
+  margin-left: -20px;
+  display: none;
+}
+.global-loading-indicator.show {
+  animation: spin 1s infinite linear;
+  display: block;
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}

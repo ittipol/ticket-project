@@ -37,10 +37,6 @@ class TicketForm {
       $(dateElem+' .date-readable').text('');
     })
 
-    $('#add_ticket_form').on('submit', function(){
-      $(this).find('input[type="submit"]').prop('disabled','disabled').addClass('disabled');
-    });
-
   }
 
   dateInputField(type) {

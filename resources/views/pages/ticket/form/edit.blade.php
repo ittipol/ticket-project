@@ -180,6 +180,9 @@
 
 <div class="clearfix margin-top-200"></div>
 
+<div class="global-overlay"></div>
+<div class="global-loading-indicator"></div>
+
 <script type="text/javascript" src="/assets/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
 

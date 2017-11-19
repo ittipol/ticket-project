@@ -114,7 +114,12 @@ var Validation = function () {
               }
             },    
 
-            // submitHandler: function(form) {},             
+            submitHandler: function(form) {
+              $(form).find('input[type="submit"]').prop('disabled','disabled').addClass('disabled');
+              $('.global-overlay').addClass('show');
+              $('.global-loading-indicator').addClass('show');
+              $(form).get(0).submit();
+            },             
 	            
 	            // Do not change code below
             errorPlacement: function(error, element)
