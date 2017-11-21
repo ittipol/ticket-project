@@ -8,7 +8,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 
-  <div class="p-3 mb4">
+  <div class="pa3 mb4">
 
     {{Form::open(['id' => 'ticket_filter_form', 'method' => 'get', 'enctype' => 'multipart/form-data'])}}
 
@@ -124,7 +124,5 @@
     {{Form::close()}}
 
   </div>
-
-  <!-- <div class="clearfix margin-top-200"></div> -->
 
 </div>
