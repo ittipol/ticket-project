@@ -131,10 +131,9 @@
 
       @endforeach
     </div>
-  </div>
 
-  <div class="main-panel">
     {{$data->links('shared.pagination', ['paginator' => $data])}}
+    
   </div>
 
   @elseif($search)
@@ -158,11 +157,9 @@
 
 </div>
 
-@include('shared.ticket-closing-modal')
-
 <script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="/assets/js/user_online.js"></script>
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
+<script type="text/javascript" src="/assets/js/user_online.js"></script>
 
 <script type="text/javascript">
 
