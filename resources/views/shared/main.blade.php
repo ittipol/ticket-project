@@ -1,6 +1,9 @@
 <!doctype html>
 <html>
 <head>
+  <!-- Meta data -->
+  @include('script.meta') 
+  <!-- ############ -->
   @if(env('APP_ENV') == 'production')
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109089944-1"></script>
@@ -28,8 +31,6 @@
   /></noscript>
   <!-- End Facebook Pixel Code -->
   @endif
-  <!-- Meta data -->
-  @include('script.meta') 
   <!-- CSS & JS -->
   @include('script.script')
 </head>
