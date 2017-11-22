@@ -1,6 +1,7 @@
 console.log('-----------------------------------');
 var env = require('./env');
 var _const = require('./const');
+var stringHelper = require('./func/string_helper');
 var dateTime = require('./func/date_time');
 var token = require('./func/token');
 var striptags = require('striptags');
@@ -169,7 +170,7 @@ function messageNoticationList(userId) {
             user: messages[0].user_id,
             message: messages[0].message,
             name: messages[0].name,
-            ticket: messages[0].title,
+            ticket: stringHelper.truncString(messages[0].title,50),
             closing_option: messages[0].closing_option,
             isSender: isSender,
             date: dateTime.passingDate(messages[0].created_at,_now)
