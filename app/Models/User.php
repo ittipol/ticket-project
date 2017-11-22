@@ -151,6 +151,22 @@ class User extends Model implements AuthenticatableContract,AuthorizableContract
   //   );
   // }
 
+  public static function buildProfile($id) {
+    $user = User::select('name')->find($id);
+
+    if(empty($user)) {
+      return null;
+    }
+
+    return array(
+      'id' => $id,
+      'name' => $user->name,
+      // 'avatar' => $user->avatar,
+      'online' => Redis::get('user-online:'.$id)
+    );
+
+  }
+
   public static function buildProfileForTicketList($id) {
     $user = User::select('name')->find($id);
 
@@ -161,7 +177,6 @@ class User extends Model implements AuthenticatableContract,AuthorizableContract
     return array(
       'name' => $user->name,
       'online' => Redis::get('user-online:'.$id)
-      // 'online' => 1 // debug
     );
 
   }

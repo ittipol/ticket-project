@@ -1,4 +1,4 @@
-console.log('---------------------------------');
+console.log('-----------------------------------');
 var env = require('./env');
 var _const = require('./const');
 var dateTime = require('./func/date_time');
@@ -199,7 +199,7 @@ io.on('connection', function(socket){
   
   socket.on('online', function(data){
 
-    db.query("UPDATE `users` SET `last_active` = CURRENT_TIME() WHERE `id` = "+data.userId);
+    db.query("UPDATE `users` SET `last_active` = '"+dateTime.now(true)+"' WHERE `id` = "+data.userId);
 
     if(userHandle[data.userId] !== undefined) {
       clearTimeout(userHandle[data.userId]);
@@ -284,7 +284,7 @@ io.on('connection', function(socket){
   socket.on('check-user-online', function(data) {
 
     redisClient.getAsync('user-online:'+data.userId).then(function(res){
-
+console.log('check...');
       if(res === null) {
         io.in('check-online').emit('check-user-online', {
           user: data.userId,
@@ -382,10 +382,10 @@ io.on('connection', function(socket){
       }
 
       clearTimeout(notifyMessageHandle[data.room]);
-      
+
       let message = striptags(data.message.trim());
       //
-      db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+message+"', CURRENT_TIMESTAMP);");
+      db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+message+"', '"+dateTime.now(true)+"');");
 
       io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
         user: data.user,
@@ -477,10 +477,13 @@ io.on('connection', function(socket){
 
 function createRoom(onwer,data) {
   // create new room
-  db.query('INSERT INTO `chat_rooms` (`id`, `room_key`, `created_at`, `updated_at`) VALUES (NULL, "'+token.generateToken(16)+'", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)', function(err, res){
+
+  let _now = dateTime.now(true);
+
+  db.query('INSERT INTO `chat_rooms` (`id`, `room_key`, `created_at`, `updated_at`) VALUES (NULL, "'+token.generateToken(16)+'", "'+_now+'", "'+_now+'")', function(err, res){
     
     if(!err) {
-      db.query('INSERT INTO `ticket_chat_rooms` (`id`, `chat_room_id`, `ticket_id`, `created_at`) VALUES (NULL, '+res.insertId+', '+data.ticket+', CURRENT_TIMESTAMP)');
+      db.query('INSERT INTO `ticket_chat_rooms` (`id`, `chat_room_id`, `ticket_id`, `created_at`) VALUES (NULL, '+res.insertId+', '+data.ticket+', "'+_now+'")');
       db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read`, `message_read_date`) VALUES ('+res.insertId+', '+onwer+', "s", 0, 0, NULL)');
       db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read`, `message_read_date`) VALUES ('+res.insertId+', '+data.user+', "b", 0, 0, NULL)');
       // send message
@@ -518,7 +521,7 @@ function ticketChatRoomSend(data) {
         });
       }
 
-      db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', CURRENT_TIMESTAMP)", function(err, res){
+      db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+data.message.trim()+"', '"+dateTime.now(true)+"')", function(err, res){
         
         if(!err) {
 

@@ -60,6 +60,8 @@ class ChatController extends Controller
       'time' => date('Y-m-d H:i:s')
     );
 
+    $userModel = Service::loadModel('User');
+
     // Get Other users in room
     $_users = Service::loadModel('UserInChatRoom')->where([
       ['chat_room_id','=',$room->id],
@@ -68,7 +70,7 @@ class ChatController extends Controller
 
     $users = array();
     foreach ($_users as $user) {
-      $users[] = Service::loadModel('User')->select('id','name','avatar','online')->find($user->user_id)->getAttributes();
+      $users[] = $userModel->buildProfile($user->user_id);
     }
 
     $this->setData('chat',json_encode($chat));
@@ -112,6 +114,8 @@ class ChatController extends Controller
       'time' => date('Y-m-d H:i:s')
     );
 
+    $userModel = Service::loadModel('User');
+
     // Get Other users in room
     $_users = Service::loadModel('UserInChatRoom')->where([
       ['chat_room_id','=',$roomId],
@@ -120,7 +124,7 @@ class ChatController extends Controller
 
     $users = array();
     foreach ($_users as $user) {
-      $users[] = Service::loadModel('User')->select('id','name','avatar','online')->find($user->user_id)->getAttributes();
+      $users[] = $userModel->buildProfile($user->user_id);
     }
 
     $ticket = Service::loadModel('TicketChatRoom')
@@ -146,7 +150,6 @@ class ChatController extends Controller
     $this->setMeta('title','แชท » '.$ticket->title.' — TicketEasys');
 
     return $this->view('pages.user.chat');
-
   }
 
   private function createRoom($ticketId,$onwer) {

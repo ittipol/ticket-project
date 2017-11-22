@@ -1,22 +1,38 @@
+var moment = require('moment-timezone');
+
+// console.log(moment().tz("Asia/Bangkok").format('YYYY-MM-DD HH:mm:ss'));
+// console.log(moment().tz("Asia/Bangkok").unix());
+
 module.exports = class DateTime {
 
   constructor(){}
 
   static now(format = false,subtract = 0) {
 
-    let ts = null;
-    if(subtract > 0) {
-      ts = new Date().getTime()-subtract;
-    }else{
-      ts = new Date().getTime();
-    }
+    // let ts = null;
+    // if(subtract > 0) {
+    //   ts = new Date().getTime()-subtract;
+    // }else{
+    //   ts = new Date().getTime();
+    // }
+
+    // if(format) {
+    //   let d = new Date(ts);
+    //   return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+    // }
+
+    // return parseInt(ts/1000);
 
     if(format) {
-      let d = new Date(ts);
-      return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+      return moment().tz("Asia/Bangkok").format('YYYY-MM-DD HH:mm:ss');
     }
 
-    return parseInt(ts/1000);
+    let ts = moment().tz("Asia/Bangkok").unix();
+    if(subtract > 0) {
+      ts -= subtract;
+    }
+
+    return ts;
   }
 
   static covertDateToSting(date) {
