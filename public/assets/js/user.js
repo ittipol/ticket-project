@@ -61,7 +61,6 @@ class User {
 		});
 
 		this.io.socket.on('message-notification-list', function(res){
-			console.log(res);
 			for (var i = 0; i < res.length; i++) {
 				if($('#message_'+res[i].room).length) {
 					$('#message_'+res[i].room).remove();

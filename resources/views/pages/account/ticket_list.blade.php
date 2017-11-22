@@ -34,7 +34,7 @@
                   <img src="/assets/images/common/photos.png">
                 </div>
               @else
-                <img class="{{$value['image']['formation']}}-image" style="background-image: url({{$value['image']['_preview_url']}})">
+                <div class="image__frame {{$value['image']['formation']}}-image" style="background-image: url({{$value['image']['_preview_url']}})"></div>
               @endif
             </a>
             
@@ -46,51 +46,7 @@
                 &nbsp;<small>—&nbsp;&nbsp;{{$value['description']}}</small>
                 @endif
               </h2>
-
-              @if($value['date_type'] == 0)
-                <div class="subtitle">
-                  วันที่ใช้งาน <strong>ไม่ระบุ</strong>
-                </div>
-              @elseif($value['date_type'] == 1)
-                
-                @if(!empty($value['date_1']))
-                <div class="subtitle">
-                  ใช้ได้ตั้งแต่ <strong>{{$value['date_1']}}</strong> - <strong>{{$value['date_2']}}</strong>
-                </div>
-                @else
-                <div class="subtitle">
-                  ใช้ได้ถึงวันที่ <strong>{{$value['date_2']}}</strong>
-                </div>
-                @endif
-                
-              @elseif($value['date_type'] == 2)
-                <div class="subtitle">
-                  วันที่แสดง <strong>{{$value['date_1']}}</strong>
-                </div>
-              @elseif($value['date_type'] == 3)
-                
-                @if(!empty($value['date_2']))
-                <div class="subtitle">
-                  วันที่เดินทาง <strong>{{$value['date_1']}}</strong> วันที่กลับ <strong>{{$value['date_2']}}</strong>
-                </div>
-                @else
-                <div class="subtitle">
-                  วันที่เดินทาง <strong>{{$value['date_1']}}</strong>
-                </div>
-                @endif
-
-              @endif
               
-            </div>
-
-            <div class="price-section c-card__price px-2 pt-0 pb-2">
-              <span class="price">{{$value['price']}}</span>
-              @if(!empty($value['original_price']))
-              <span class="original-price">{{$value['original_price']}}</span>
-              @endif
-              @if(!empty($value['save']))
-                <span class="price-saving-flag">-{{$value['save']}}</span>
-              @endif
             </div>
 
             @if($value['pullingPost']['allow'])

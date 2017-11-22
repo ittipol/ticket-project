@@ -53,7 +53,7 @@
                   <img src="/assets/images/common/photos.png">
                 </div>
               @else
-                <img class="{{$value['image']['formation']}}-image" style="background-image: url({{$value['image']['_preview_url']}})">
+                <div class="image__frame {{$value['image']['formation']}}-image" style="background-image: url({{$value['image']['_preview_url']}})"></div>
               @endif
             </a>
 
