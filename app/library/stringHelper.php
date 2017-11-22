@@ -4,13 +4,19 @@ namespace App\library;
 
 class StringHelper
 {
-  public static function truncString($string,$len,$stripTag = true,$cleanText = false){
+  public static function strLen($string, $encoding = 'UTF-8') {
+    // return strlen(StringHelper::utf8ToTis620($str));
+    // return strlen(utf8_decode($string));
+    return mb_strlen($string, $encoding);
+  }
+
+  public static function truncString($string, $len, $stripTag = true, $cleanText = false){
 
     if($len <= 0) {
       return null;
     }
-
-    $string = iconv(mb_detect_encoding($string, mb_detect_order(), true), "UTF-8", $string);
+// dd(mb_internal_encoding()); check encoding
+    $string = iconv(mb_detect_encoding($string, mb_detect_order(), true), 'UTF-8', $string);
     mb_internal_encoding('UTF-8');
 
     if(empty($string)) {
@@ -25,25 +31,23 @@ class StringHelper
       $string = preg_replace('/\s+/', ' ', $string);
     }
 
-    $_string = $string;
-
     if(mb_strlen($string) <= $len) {
       return $string;
     }
 
+    $_string = $string;
+
     $string = mb_substr($string, 0, $len);
-    $lastChar = mb_substr($string, $len-1, 1);
+    $lastChar = mb_substr($string, $len-1, 1); // Check last Char after sub staring
 
     if(ord($lastChar) !== 32) {
       $pos = mb_strpos($_string,' ',$len);
       if(!empty($pos)) {
-        $string = mb_substr($_string, 0, $pos).'...';
-      }else {
-        $string .= '...';
+        $string = mb_substr($_string, 0, $pos);
       }
     }
 
-    return $string;
+    return trim($string).'...';
   }
 
   public static function generateModelNameCamelCase($modelName) {
@@ -56,7 +60,6 @@ class StringHelper
     };
 
     return implode('', $modelName);
-
   }
 
   public static function generateUnderscoreName($modelName) {
@@ -89,7 +92,32 @@ class StringHelper
     }
 
     return implode('_', $parts);
-
   }
+
+  // public static function utf8ToTis620($string) {
+
+  //   $_string = '';
+  //   for ($i = 0; $i < strlen($string); $i++) {
+  //     if (ord($string[$i]) === 224) {
+  //       $unicode = ord($string[$i + 2]) & 0x3F;
+  //       $unicode |= (ord($string[$i + 1]) & 0x3F) << 6;
+  //       $unicode |= (ord($string[$i]) & 0x0F) << 12;
+  //       $_string .= chr($unicode - 0x0E00 + 0xA0);
+  //       $i += 2;
+  //     } else {
+  //       $_string .= $string[$i];
+  //     }
+  //   }
+  //   return $_string;
+  // }
+
+  // public static function substrUtf8($str, $start_p, $len_p, $stripTag = true, $cleanText = false) {
+  //     $str_post = "";
+  //     if (strlen(utf8ToTis620($str)) > $len_p) {
+  //         $str_post = "...";
+  //     }
+  //     return preg_replace('#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,' . $start_p . '}' .
+  //                     '((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,' . $len_p . '}).*#s', '$1', $str) . $str_post;
+  // }
   
 }

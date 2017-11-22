@@ -114,7 +114,7 @@ class Ticket extends Model
     ));
 
     $description = null;
-    $descLen = 120 - mb_strlen($this->title);
+    $descLen = 120 - StringHelper::strLen($this->title);
     if($descLen > 10) {
       $description = StringHelper::truncString($this->description,$descLen,true,true);
     }

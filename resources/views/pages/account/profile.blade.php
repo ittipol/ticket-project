@@ -37,9 +37,7 @@
           <div class="row">
             @foreach($data as $_value)
        
-              <?php 
-                $value = $_value->buildDataList(90,true);
-              ?>
+              <?php $value = $_value->buildDataList(90,true); ?>
 
               <div class="col-12 col-md-6 mb3">
                 <div class="c-card c-card--to-edge">
@@ -48,15 +46,16 @@
 
                   <div class="c-card--inner">
 
-                    <a href="/ticket/view/{{$value['id']}}" class="c-card__media Media__image Media__image--16-9 db">
+                    <a href="/ticket/view/{{$value['id']}}" class="c-card__media Media__image Media__image--16-9 Media__image--bg db">
                       @if(empty($value['image']))
-                        <div class="c-card-no-image">
+                        <div class="c-card__no-image">
                           <img src="/assets/images/common/photos.png">
                         </div>
                       @else
-                        <img class="{{$value['image']['formation']}}-image" src="{{$value['image']['_preview_url']}}">
+                        <img class="{{$value['image']['formation']}}-image" style="background-image: url({{$value['image']['_preview_url']}})">
                       @endif
                     </a>
+                    
                     <div class="c-card__primary-title">
                       <h2 class="title">
                         <a href="/ticket/view/{{$value['id']}}">{{$value['title']}}</a>
@@ -67,7 +66,7 @@
 
                       @if($value['date_type'] == 0)
                         <div class="subtitle">
-                          วันที่ <strong>ไม่ระบุ</strong>
+                          วันที่ใช้งาน <strong>ไม่ระบุ</strong>
                         </div>
                       @elseif($value['date_type'] == 1)
                         
