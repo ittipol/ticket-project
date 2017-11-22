@@ -61,6 +61,7 @@ class User {
 		});
 
 		this.io.socket.on('message-notification-list', function(res){
+			console.log(res);
 			for (var i = 0; i < res.length; i++) {
 				if($('#message_'+res[i].room).length) {
 					$('#message_'+res[i].room).remove();
@@ -107,7 +108,7 @@ class User {
 		}else{
 			var senderLable = data.name+' ได้ส่งข้อความถึงคุณ'+' ('+data.date+')';
 		}
-console.log(data.closing_option);
+
 		let ticket = '';
 		if(data.closing_option != 0) {
 			ticket = '[ผู้ขายปิดประกาศนี้แล้ว] '+data.ticket;

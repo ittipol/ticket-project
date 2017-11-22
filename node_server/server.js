@@ -147,6 +147,10 @@ function messageNoticationList(userId) {
 
   db.query("SELECT `chat_room_id` FROM `user_in_chat_room` WHERE `user_id` = "+userId+" ORDER BY message_read_date DESC LIMIT 15", function(err, rows){
     
+    console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+    console.log('message notify to: '+userId);
+    console.log('total notify: ' + rows.length);
+    
     let data = [];
     let count = 0;
     let _now = dateTime.now();
@@ -154,9 +158,9 @@ function messageNoticationList(userId) {
     for (var i = 0; i < rows.length; i++) {
 
       let _roomId = rows[i].chat_room_id;
-      // let _i = i+1;
-
+console.log('chat room: ' + _roomId);
       db.query("SELECT cm.message, cm.user_id, u.name, t.title, t.closing_option, cm.created_at FROM `chat_messages` AS cm LEFT JOIN `users` as u ON cm.user_id = u.id LEFT JOIN `ticket_chat_rooms` AS tcr ON cm.chat_room_id = tcr.chat_room_id LEFT JOIN `tickets` AS t ON tcr.ticket_id = t.id WHERE cm.chat_room_id = "+rows[i].chat_room_id+" ORDER BY cm.created_at DESC LIMIT 1", function(err, messages){
+        console.log('total message: ' + messages.length);
         if(messages.length == 1) {
 
           let isSender = false;

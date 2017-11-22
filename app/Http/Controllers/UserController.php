@@ -149,6 +149,11 @@ class UserController extends Controller
       // $user->online = 0;
       // $user->save();
 
+      // Update last_active
+      Auth::user()->update(
+        ['last_active' => date('Y-m-d H:i:s')]
+      );
+
       Auth::logout();
       session()->flush();
 
