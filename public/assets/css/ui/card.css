@@ -294,18 +294,18 @@
   top: -80px;
 }
 
-.Media__image--16-9.Media__image--bg {
+/*.Media__image--16-9.Media__image--bg {
   padding-top: 100%;
-}
+}*/
 .Media__image--bg img {
-  background-position: top center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: auto 100%;
 }
 .Media__image--bg img.portrait-image {
   top: 0;
   background-size: 100% auto;
-  background-position: top -30px center;  
+  background-position: top -40px center;  
 }
 
 .c-card__no-image {
