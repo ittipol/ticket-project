@@ -4,6 +4,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
 <url>
   <loc>https://ticketeasys.com/</loc>
@@ -24,6 +25,58 @@
 <url>
   <loc>https://ticketeasys.com/features</loc>
   <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/65</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/64</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/63</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/62</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/61</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/60</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/59</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/58</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/57</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/56</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/55</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/54</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket/view/52</loc>
+  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://ticketeasys.com/ticket/view/50</loc>
@@ -154,10 +207,6 @@
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://ticketeasys.com/ticket/view/15</loc>
-  <priority>0.80</priority>
-</url>
-<url>
   <loc>https://ticketeasys.com/ticket/view/14</loc>
   <priority>0.80</priority>
 </url>
@@ -170,35 +219,43 @@
   <priority>0.80</priority>
 </url>
 <url>
+  <loc>https://ticketeasys.com/ticket?page=1</loc>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ticketeasys.com/ticket?page=2</loc>
+  <priority>0.64</priority>
+</url>
+<url>
   <loc>https://ticketeasys.com/ticket/view/9</loc>
-  <priority>0.80</priority>
+  <priority>0.51</priority>
 </url>
 <url>
   <loc>https://ticketeasys.com/ticket/view/8</loc>
-  <priority>0.80</priority>
+  <priority>0.51</priority>
 </url>
 <url>
   <loc>https://ticketeasys.com/ticket/view/7</loc>
-  <priority>0.80</priority>
+  <priority>0.51</priority>
 </url>
 <url>
   <loc>https://ticketeasys.com/ticket/view/6</loc>
-  <priority>0.80</priority>
+  <priority>0.51</priority>
 </url>
 <url>
   <loc>https://ticketeasys.com/ticket/view/5</loc>
-  <priority>0.80</priority>
+  <priority>0.51</priority>
 </url>
 <url>
   <loc>https://ticketeasys.com/ticket/view/4</loc>
-  <priority>0.80</priority>
+  <priority>0.51</priority>
 </url>
 <url>
   <loc>https://ticketeasys.com/ticket/view/3</loc>
-  <priority>0.80</priority>
+  <priority>0.51</priority>
 </url>
 <url>
   <loc>https://ticketeasys.com/ticket/view/2</loc>
-  <priority>0.80</priority>
+  <priority>0.51</priority>
 </url>
 </urlset>
