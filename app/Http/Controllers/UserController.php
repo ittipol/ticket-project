@@ -145,7 +145,6 @@ class UserController extends Controller
     if(Auth::check()) {
       $uid = Auth::user()->id;
 
-      // $user = User::find(Auth::user()->id);
       // $user->online = 0;
       // $user->save();
 

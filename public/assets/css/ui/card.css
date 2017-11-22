@@ -296,9 +296,9 @@
   top: -80px;
 }
 
-.Media__image--16-9.Media__image--bg {
+/*.Media__image--16-9.Media__image--bg {
   padding-top: 100%;
-}
+}*/
 .Media__image--bg img,
 .Media__image--bg .image__frame {
   background-position: center;
@@ -321,7 +321,8 @@
   text-align: center;
 }
 .Media__image--bg .c-card__no-image {
-  margin-top: -58%;
+  /*margin-top: -58%;*/
+  margin-top: -36%;
 }
 .c-card__no-image img {
   width: 40px;
