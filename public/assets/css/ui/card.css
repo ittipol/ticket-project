@@ -294,13 +294,13 @@
   top: -80px;
 }
 
-/*.Media__image--16-9.Media__image--bg {
+.Media__image--16-9.Media__image--bg {
   padding-top: 100%;
-}*/
+}
 .Media__image--bg img {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto 100%;
+  background-size: cover;
 }
 .Media__image--bg img.portrait-image {
   top: 0;
