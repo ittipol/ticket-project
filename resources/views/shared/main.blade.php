@@ -31,6 +31,25 @@
   /></noscript>
   <!-- End Facebook Pixel Code -->
   @endif
+  <!--  -->
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "url": "https://ticketeasys.com/",
+    "name": "TicketEasys",
+    "description": "เว็บไซต์ที่ให้คุณซื้อและขายบัตรงานแสดงต่างๆ ได้ด้วยตัวคุณเอง โดยคุณเป็นผู้ตั้งราคา",
+    "logo": "https://ticketeasys.com/assets/images/logo/logo_frc.jpg",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://ticketeasys.com/ticket?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "sameAs": [
+      "https://www.facebook.com/Ticketeasys-919999211490459"
+    ]
+  }
+  </script>
   <!-- CSS & JS -->
   @include('script.script')
 </head>
