@@ -51,7 +51,7 @@ class UserController extends Controller
   }
 
   public function register() {
-    $this->setMeta('title','เข้าสู่ระบบ');
+    $this->setMeta('title','สร้างบัญชี — TicketEasys');
     return $this->view('pages.user.register');
   }
 
