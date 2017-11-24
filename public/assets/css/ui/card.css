@@ -293,7 +293,7 @@
 }
 .Media__image--16-9 img.portrait-image,
 .Media__image--16-9 .image__frame.portrait-image  {
-  top: -80px;
+  top: -50px;
 }
 
 /*.Media__image--16-9.Media__image--bg {

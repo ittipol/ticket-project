@@ -86,7 +86,7 @@
 
         @if($data['date_type'] == 0)
           <div class="additional-item">
-            <i class="fa fa-calendar"></i>&nbsp;วันที่ <strong>ไม่ระบุ</strong>
+            <i class="fa fa-calendar"></i>&nbsp;วันที่ใช้งาน <strong>ไม่ระบุ</strong>
           </div>
         @elseif($data['date_type'] == 1)
           
