@@ -53,7 +53,8 @@
 <?php
 
   $cssFiles = array(
-    // 'assets/css/bootstrap-reboot.min.css',
+    'assets/css/reset/normalize.css',
+    'assets/css/reset/main.css',
     'assets/css/bootstrap-grid.min.css',
     'assets/css/bootstrap.min.css',
     'assets/css/font-awesome.min.css',
@@ -61,7 +62,7 @@
     'assets/css/func.css',
     'assets/css/spacing.css',
 
-    'assets/lib/header/css/normalize.css',
+    // 'assets/lib/header/css/normalize.css',
     'assets/lib/header/css/component.css',
 
     'assets/lib/ig/photoswipe.css',
