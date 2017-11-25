@@ -107,6 +107,7 @@ class Ticket extends Model
         $save = $format->percent(100 - (($this->price * 100) / $this->original_price)) . '%';
       }
     }
+
     // Ticket Category
     $category = $this->getRelatedData('TicketToCategory',array(
       'first' => true,
