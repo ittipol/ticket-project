@@ -11,7 +11,7 @@
 
   @if($data->currentPage() <= $data->lastPage())
 
-  <div class="pt-5">
+  <div class="pt5 pb3">
     <h5>รายการของฉัน</h5>
   </div>
 

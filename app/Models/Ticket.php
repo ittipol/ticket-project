@@ -209,6 +209,21 @@ class Ticket extends Model
       'fields' => array('ticket_category_id')
     ));
 
+    $re = '/(?:#\S+)/';
+    preg_match_all($re, $this->description, $matches, PREG_SET_ORDER, 0);
+
+    foreach ($matches as $match) {
+      // $match[0] = strip_tags($match[0]);
+      $this->description = str_replace($match[0], '<a href="/hashtag/'.substr($match[0], 1).'">'.$match[0].'</a>', $this->description);
+    }
+
+    $re = '/(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))?/';
+    preg_match_all($re, $this->description, $matches, PREG_SET_ORDER, 0);
+
+    foreach ($matches as $match) {
+      $this->description = str_replace($match[0], '<a href="'.$match[0].'">'.$match[0].'</a>', $this->description);
+    }
+
     return array(
       'id' => $this->id,
       'title' => $this->title,

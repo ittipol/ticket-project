@@ -12,7 +12,7 @@
 
 <div class="container-fliud mb5 mb7-ns">
 
-  @if(!empty($taggings))
+  <!-- @if(!empty($taggings))
     <div class="main-panel">
 
       <div class="tags bg-near-white pa3 bb b--silver">
@@ -29,7 +29,7 @@
         @endforeach
       </div>
     </div>
-  @endif
+  @endif -->
 
   @if($data->currentPage() <= $data->lastPage())
   

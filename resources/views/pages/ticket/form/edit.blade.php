@@ -47,6 +47,9 @@
 
         <div class="form-group">
           <label class="form-control-label required">รายละเอียด</label>
+          <div class="alert alert-info" role="alert">
+            สามารถระบุ <strong>Hashtag</strong> เพื่อเป็นการจัดกลุ่ม หมวด หรือรวมเนื้อหาที่ใกล้เคียงกันให้กับประกาศของคุณ โดยพิมพ์เครื่องหมาย # ตามด้วยกลุ่มคำที่ต้องการ เช่น #เชียงใหม่ #japan
+          </div>
           {{Form::textarea('description', null, array('class' => 'form-control'))}}
         </div>
 
@@ -136,11 +139,11 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label class="form-control-label">แท็ก (ไม่ต้องใส่ # หน้าคำที่ป้อน)</label>
           <div id="_tags" class="tag"></div>
           <small>* แท็กจะมีผลโดยตรงต่อการค้นหา</small>
-        </div>
+        </div> -->
 
         <div class="form-group">
           <label class="form-control-label required">ช่องทางการติดต่อผู้ขาย (หมายเลขโทรศัพท์ อีเมล Line ID หรืออื่นๆ)</label>
@@ -209,9 +212,9 @@
     const ticketForm = new TicketForm();
     ticketForm.init();
 
-    const tagging = new Tagging();
-    tagging.init();
-    tagging.setTags({!!$taggings!!});
+    // const tagging = new Tagging();
+    // tagging.init();
+    // tagging.setTags({!!$taggings!!});
 
     const date1 = new Datepicker('#date_input_1');
     date1.init();

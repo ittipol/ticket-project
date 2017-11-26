@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Http\Request;
 use App\library\service;
 use App\library\snackbar;
 use App\library\validation;
 use App\library\stringHelper;
-use Illuminate\Http\Request;
 use Redirect;
 use Auth;
 
@@ -26,35 +26,33 @@ class TicketController extends Controller
         return $currentPage;
     });
 
-    // dd($request->all());
-
     // SELECT COUNT(`word_id`) AS total FROM `taggings` GROUP BY `word_id` HAVING total > 36
 
-    $now = date('Y-m-d');
+    $now = date('Y-m-d H:i:s');
 
-    $_taggings = Service::loadModel('Tagging')
-    ->join('tickets','tickets.id','=','taggings.model_id')
-    ->where([
-      ['taggings.model','=','Ticket'],
-      ['tickets.closing_option','=',0],
-    ])
-    ->where(function($query) use ($now) {
-      $query
-      ->where('tickets.date_1','=',null)
-      ->orWhere('tickets.date_1','>=',$now);
-    })
-    ->selectRaw('word_id')
-    ->groupBy('taggings.word_id')
-    ->havingRaw('count(word_id) > 12')
-    ->take(10)
-    ->get();
+    // $_taggings = Service::loadModel('Tagging')
+    // ->join('tickets','tickets.id','=','taggings.model_id')
+    // ->where([
+    //   ['taggings.model','=','Ticket'],
+    //   ['tickets.closing_option','=',0],
+    // ])
+    // ->where(function($query) use ($now) {
+    //   $query
+    //   ->where('tickets.date_1','=',null)
+    //   ->orWhere('tickets.date_1','>=',$now);
+    // })
+    // ->selectRaw('word_id')
+    // ->groupBy('taggings.word_id')
+    // ->havingRaw('count(word_id) > 12')
+    // ->take(10)
+    // ->get();
 
-    $taggings = array();
-    foreach ($_taggings as $tagging) {
-      $taggings[] = array(
-        'word' => $tagging->word->word
-      );
-    }
+    // $taggings = array();
+    // foreach ($_taggings as $tagging) {
+    //   $taggings[] = array(
+    //     'word' => $tagging->word->word
+    //   );
+    // }
 
     $searching = false;
 
@@ -159,67 +157,94 @@ class TicketController extends Controller
 
       });
     }else{
+      // $model->where(function($query) use ($now) {
+
+      //   $query
+      //   ->where(function($query) use ($now) {
+      //     $query
+      //     ->where('tickets.date_1','=',null)
+      //     ->orWhere('tickets.date_1','>=',$now);
+      //   })
+      //   ->orWhere(function($query) use ($now) {
+      //     $query
+      //     ->where('tickets.date_2','!=',null)
+      //     ->where('tickets.date_2','>=',$now);
+      //   });
+
+      // });
+
       $model->where(function($query) use ($now) {
 
         $query
-        ->where(function($query) use ($now) {
+        ->where(function($query) {
+
           $query
+          ->where('date_type','=',0)
           ->where('tickets.date_1','=',null)
-          ->orWhere('tickets.date_1','>=',$now);
+          ->where('tickets.date_2','=',null);
+
         })
         ->orWhere(function($query) use ($now) {
+
           $query
-          ->where('tickets.date_2','!=',null)
+          ->where('date_type','=',1)
           ->where('tickets.date_2','>=',$now);
-        });
+
+        })
+        ->orWhere(function($query) use ($now) {
+
+          $query
+          ->whereIn('date_type', [2,3])
+          ->where('tickets.date_1','>=',$now);
+
+        }); 
 
       });
+
     }
 
     $model->where(function($q) {
       $q->where('closing_option','=',0);
     });
 
-    $now = date('Y-m-d H:i:s');
+    // $model->where(function($query) use ($now) {
 
-    $model->where(function($query) use ($now) {
+    //   $query
+    //   ->where(function($query) {
 
-      $query
-      ->where(function($query) {
+    //     $query
+    //     ->where('date_type','=',0)
+    //     ->where('tickets.date_1','=',null)
+    //     ->where('tickets.date_2','=',null);
 
-        $query
-        ->where('date_type','=',0)
-        ->where('tickets.date_1','=',null)
-        ->where('tickets.date_2','=',null);
+    //   })
+    //   ->orWhere(function($query) use ($now) {
 
-      })
-      ->orWhere(function($query) use ($now) {
+    //     $query
+    //     ->where('date_type','=',1)
+    //     ->where('tickets.date_2','>=',$now);
 
-        $query
-        ->where('date_type','=',1)
-        ->where('tickets.date_2','>=',$now);
+    //   })
+    //   ->orWhere(function($query) use ($now) {
 
-      })
-      ->orWhere(function($query) use ($now) {
+    //     $query
+    //     ->whereIn('date_type', [2,3])
+    //     ->where('tickets.date_1','>=',$now);
 
-        $query
-        ->whereIn('date_type', [2,3])
-        ->where('tickets.date_1','>=',$now);
+    //   }); 
+    //   // ->orWhere(function($query) use ($now) {
 
-      }); 
-      // ->orWhere(function($query) use ($now) {
+    //   //   $query
+    //   //   ->where(function($query) use ($now) {
+    //   //     $query->where('tickets.date_1','!=',null)->where('tickets.date_1','>=',$now);
+    //   //   })
+    //   //   ->orWhere(function($query) use ($now) {
+    //   //     $query->where('tickets.date_2','!=',null)->where('tickets.date_2','>=',$now);
+    //   //   });
 
-      //   $query
-      //   ->where(function($query) use ($now) {
-      //     $query->where('tickets.date_1','!=',null)->where('tickets.date_1','>=',$now);
-      //   })
-      //   ->orWhere(function($query) use ($now) {
-      //     $query->where('tickets.date_2','!=',null)->where('tickets.date_2','>=',$now);
-      //   });
+    //   // });      
 
-      // });      
-
-    });
+    // });
 
     if($request->has('sort')) {
 
@@ -255,7 +280,7 @@ class TicketController extends Controller
     }
 
     $this->setData('data',$model->paginate(48));
-    $this->setData('taggings',$taggings);
+    // $this->setData('taggings',$taggings);
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('search',$searching);
 
@@ -328,7 +353,7 @@ class TicketController extends Controller
     // create slug
 
     $model->title = request()->get('title');
-    $model->description = request()->get('description');
+    $model->description = strip_tags(request()->get('description'));
     $model->place_location = request()->get('place_location');
     $model->price = str_replace(',','',request()->get('price'));
 
@@ -456,7 +481,7 @@ class TicketController extends Controller
     }
 
     $model->title = request()->get('title');
-    $model->description = request()->get('description');
+    $model->description = strip_tags(request()->get('description'));
     $model->place_location = request()->get('place_location');
     $model->price = str_replace(',','',request()->get('price'));
 
