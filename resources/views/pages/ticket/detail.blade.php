@@ -137,7 +137,7 @@
             </div>
           </div>
           <div class="online-name fl">
-            <div>&nbsp;<!-- {{$seller['name']}} --></div>
+            <div><i class="fa fa-pencil"></i> <small>{{$data['created_at']}}</small><!-- {{$seller['name']}} --></div>
             <div class="online_status_indicator_{{$data['created_by']}} online-status-indicator @if($seller['online']) is-online @endif"></div>
             @if($seller['online'])
               <small class="dark-gray ml-4">ออนไลน์อยู่</small>
@@ -146,18 +146,18 @@
             @endif
           </div>
         </div>
-        <div class="w-60-ns w-100-l fn fl-ns fn-l pa2 pt3-ns pt2-l">
+        <div class="w-60-ns w-100-l fn fl-ns fn-l pa2 pt3-ns pt2-l mb2 mb0-ns mb2-l mt0 mt2-ns mt0-l">
           <a href="/chat/s/{{$ticketId}}" class="btn btn-primary btn-block br0">
             <i class="fa fa-comments" aria-hidden="true"></i>&nbsp;คุยกับผู้ขาย
           </a>
         </div>
       </div>
 
-      <div class="contact-section pa2 pa0-ns mt-3 mt-2-ns bt">
-        <div class="clearfix pa0 ph2-ns pv3-ns">
-          <h5 class="mt-1 pb-2">
-            <i class="fa fa-address-book" aria-hidden="true"></i>
-            &nbsp;ช่องทางสำหรับติดต่อผู้ขาย
+      <div class="contact-section pa2 pa0-ns mt-3 mt-2-ns bt bn-ns b--light-silver">
+        <div class="clearfix pa0 ph2-ns">
+          <h5 class="mt1 pb2">
+            <i class="fa fa-address-card" aria-hidden="true"></i>
+            &nbsp;<strong>ช่องทางสำหรับติดต่อผู้ขาย</strong>
           </h5>
           {!!$data['contact']!!}
         </div>
@@ -165,39 +165,39 @@
 
       @else
 
-      <div class="contact-section pa2 pa0-ns mt-3 mt-2-ns bt">
-        <div class="clearfix pa0 ph2-ns pv3-ns">
-          <h5 class="mt-1 pb-2">
-            <i class="fa fa-address-book" aria-hidden="true"></i>
-            &nbsp;ช่องทางสำหรับติดต่อผู้ขาย
+      <div class="contact-section pa2 pa0-ns mt-3 mt-2-ns bt b--light-silver">
+        <div class="clearfix pa0 ph2-ns pv2-ns">
+          <h5 class="mt1 pb2">
+            <i class="fa fa-address-card" aria-hidden="true"></i>
+            &nbsp;<strong>ช่องทางสำหรับติดต่อผู้ขาย</strong>
           </h5>
           {!!$data['contact']!!}
         </div>
       </div>
 
-      <div class="action-section content-fixed-bottom ph2 pv3 pa0-ns mt-2 clearfix">
+      <div class="action-section content-fixed-bottom bt-l b--light-silver ph2 pv2 pa3-ns pt3-ns mt3-ns clearfix">
 
         <div class="w-50-ns w-100-l fn fl-ns fn-l">
 
           @if($data['pullingPost']['allow'])
-          <div class="c-card__actions clearfix tc mb2 mb0-ns mb2-l mt0 mt2-ns mt0-l">
-            <a class="c-btn c-btn__primary w-100 ma0 br0 db" href="/ticket/pull/{{$data['id']}}"><i class="fa fa-retweet"></i> เลื่อนประกาศขึ้นสู่ตำแหน่งบน</a>
+          <div class="c-card__actions clearfix tc pa0">
+            <a class="c-btn c-btn__primary w-100 mb3 mh0 mb0-ns br0 db" href="/ticket/pull/{{$data['id']}}"><i class="fa fa-retweet"></i> เลื่อนประกาศขึ้นสู่ตำแหน่งบน</a>
           </div>
           @else
-          <div class="mb2 mb0-ns mb2-l pa0 pa2-ns f6 f5-ns">
+          <div class="mb2 mb0-l f6 f5-ns">
             ยังไม่สามารถเลื่อนประกาศได้ในตอนนี้ จะสามารถเลื่อนประกาศขึ้นสู่ตำแหน่งบนได้ในอีก <strong>{{$data['pullingPost']['daysLeft']}}</strong>
           </div>
           @endif
 
-          <small class="dn db-ns mb-3 pa0 pa2-ns pa0-l">หลังจากเมื่อคุณได้เลื่อนตำแหน่งประกาศแล้ว จะสามารถเลื่อนประกาศในครั้งถัดไปได้เมื่อครบกำหนดทุก 3 วัน</small>
+          <small class="dn db-ns mb4 pa0 pt2-l">หลังจากเมื่อคุณได้เลื่อนตำแหน่งประกาศแล้ว จะสามารถเลื่อนประกาศในครั้งถัดไปได้เมื่อครบกำหนดทุก 3 วัน</small>
         </div>
 
         <div class="w-50-ns w-100-l fn fl-ns fn-l">
-          <div class="c-card__actions clearfix tc mb2 mb0-ns mb2-l mt0 mt2-ns mt0-l">
+          <div class="c-card__actions clearfix tc pa0">
             <a class="c-btn c-btn__secondary w-50 fl ma0 br0 db" href="/ticket/edit/{{$data['id']}}"><i class="fa fa-pencil"></i> แก้ไข</a>
             <a class="c-btn w-50 fl ma0 br0 db" href="javascript:void(0);" data-t-id="{{$data['id']}}" data-t-title="{{$data['title']}}" data-t-closing-modal="1"><i class="fa fa-times"></i> ปิดประกาศ</a>
           </div>
-          <small class="dn db-ns pa0 pa2-ns pa0-l">ปิดประกาศของคุณเมื่อ <strong>ขายสินค้านี้แล้ว</strong> หรือหากต้องการ <strong>ยกเลิกรายการ</strong></small>
+          <small class="dn db-ns pa0 pa2-ns pa0-l pt2-l">ปิดประกาศของคุณเมื่อ <strong>ขายสินค้านี้แล้ว</strong> หรือหากต้องการ <strong>ยกเลิกรายการ</strong></small>
         </div>
       
       </div>
