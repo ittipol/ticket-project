@@ -217,7 +217,7 @@ class Ticket extends Model
       $this->description = str_replace($match[0], '<a href="/hashtag/'.substr($match[0], 1).'">'.$match[0].'</a>', $this->description);
     }
 
-    $re = '/(?:(?:https?|ftp):\/\/|\b(?:[a-z,\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))?/';
+    $re = '/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/';
     preg_match_all($re, $this->description, $matches, PREG_SET_ORDER, 0);
 
     foreach ($matches as $match) {
