@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use App\library\service;
+use App\library\snackbar;
+use Redirect;
 
 class HashtagController extends Controller
 {
@@ -21,9 +23,18 @@ class HashtagController extends Controller
         return $currentPage;
     });
 
-    $now = date('Y-m-d H:i:s');
+
+    $hashtag = trim(strip_tags($hashTag));
+
+    if(empty($hashtag)) {
+      Snackbar::message('Hashtag ไม่ถูกต้อง');
+      return Redirect::to('/');
+    }
+
+    // if(substr($_q, 0, 1) !== '#') {$hashTag = '#'.trim($hashTag);}
 
     $hashTag = '#'.trim($hashTag);
+    $now = date('Y-m-d H:i:s');
 
     $model->where(function($query) use ($now) {
 
