@@ -217,10 +217,15 @@ class Ticket extends Model
       $this->description = str_replace($match[0], '<a href="/hashtag/'.substr($match[0], 1).'">'.$match[0].'</a>', $this->description);
     }
 
-    $re = '/(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))?/';
+    $re = '/(?:(?:https?|ftp):\/\/|\b(?:[a-z,\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))?/';
     preg_match_all($re, $this->description, $matches, PREG_SET_ORDER, 0);
 
     foreach ($matches as $match) {
+
+      if(strpos($match[0], ',')) {
+        continue;
+      }
+
       $this->description = str_replace($match[0], '<a href="'.$match[0].'">'.$match[0].'</a>', $this->description);
     }
 
