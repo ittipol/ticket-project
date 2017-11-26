@@ -59,11 +59,12 @@ class TicketController extends Controller
     if($request->has('q')) {
       $searching = true;
 
-      $_q = preg_replace('/\s[+\'\'\\\\\/:;()*\-^&!<>\[\]\|]\s/', ' ', trim($request->q));
+      $_q = strip_tags(trim($request->q));
+      $_q = preg_replace('/\s[+\'\'\\\\\/:;()*\-^&!<>\[\]\|]\s/', ' ', $_q);
       $_q = preg_replace('/\s{1,}/', ' ', $_q);
 
       $keywords = array();
-      $wordIds = array();
+      // $wordIds = array();
 
       foreach (explode(' ', $_q) as $word) {
 
@@ -72,12 +73,13 @@ class TicketController extends Controller
 
         $len = mb_strlen($word);
 
-        if($len < 2) {
+        if($len < 2) { // not search this word
           continue;
-        }else{
-
+        }elseif(substr($_q, 0, 1) === '#') { // search by hashtag
+          $keywords[] = array('description','like','%'.$word.'%');
+        }else { // default search
           $keywords[] = array('title','like','%'.$word.'%');
-          // $keywords[] = array('description','like','%'.$word.'%');
+          // $keywords[] = array('description','like','%#'.$word.'%'); // search only hashtag
           $keywords[] = array('place_location','like','%'.$word.'%');
 
           // $_word = Service::loadModel('Word')->select('id')->where('word','like',$word);
@@ -87,7 +89,7 @@ class TicketController extends Controller
         }
       }
 
-      $model->where(function ($query) use ($keywords,$wordIds) {
+      $model->where(function ($query) use ($keywords) {
         foreach ($keywords as $keyword) {
           $query->orWhere($keyword[0], $keyword[1], $keyword[2]);
         }
@@ -102,9 +104,9 @@ class TicketController extends Controller
         // }
       });
 
-      if(!empty($wordIds)) {
-        $model->join('taggings', 'taggings.model_id', '=', 'tickets.id');
-      }
+      // if(!empty($wordIds)) {
+      //   $model->join('taggings', 'taggings.model_id', '=', 'tickets.id');
+      // }
     }
 
     if($request->has('category')) {
@@ -279,7 +281,12 @@ class TicketController extends Controller
       $model->orderBy('tickets.activated_date','desc');
     }
 
-    $this->setData('data',$model->paginate(48));
+    if($searching && $request->has('q') && empty($keywords)) {
+      $this->setData('data',array());
+    }else{
+      $this->setData('data',$model->paginate(48));
+    }
+
     // $this->setData('taggings',$taggings);
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('search',$searching);

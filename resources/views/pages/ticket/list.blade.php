@@ -31,7 +31,7 @@
     </div>
   @endif -->
 
-  @if($data->currentPage() <= $data->lastPage())
+  @if(!empty($data) && ($data->currentPage() <= $data->lastPage()))
   
   <div class="main-panel">
 
