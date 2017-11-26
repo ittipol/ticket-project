@@ -80,10 +80,10 @@ class TicketController extends Controller
           // $keywords[] = array('description','like','%'.$word.'%');
           $keywords[] = array('place_location','like','%'.$word.'%');
 
-          $_word = Service::loadModel('Word')->select('id')->where('word','like',$word);
-          if($_word->exists()) {
-            $wordIds[] = $_word->first()->id;
-          }
+          // $_word = Service::loadModel('Word')->select('id')->where('word','like',$word);
+          // if($_word->exists()) {
+          //   $wordIds[] = $_word->first()->id;
+          // }
         }
       }
 
@@ -92,14 +92,14 @@ class TicketController extends Controller
           $query->orWhere($keyword[0], $keyword[1], $keyword[2]);
         }
   
-        if(!empty($wordIds)) {
-          $query
-          ->orWhere(function ($query) use ($wordIds) {
-            $query
-            ->where('taggings.model','=','Ticket')
-            ->whereIn('taggings.word_id',$wordIds);
-          });
-        }
+        // if(!empty($wordIds)) {
+        //   $query
+        //   ->orWhere(function ($query) use ($wordIds) {
+        //     $query
+        //     ->where('taggings.model','=','Ticket')
+        //     ->whereIn('taggings.word_id',$wordIds);
+        //   });
+        // }
       });
 
       if(!empty($wordIds)) {
@@ -352,7 +352,7 @@ class TicketController extends Controller
 
     // create slug
 
-    $model->title = request()->get('title');
+    $model->title = strip_tags(request()->get('title'));
     $model->description = strip_tags(request()->get('description'));
     $model->place_location = request()->get('place_location');
     $model->price = str_replace(',','',request()->get('price'));
@@ -383,9 +383,9 @@ class TicketController extends Controller
     }
 
     // Tagging
-    if(!empty(request()->get('Tagging'))) {
-      Service::loadModel('Tagging')->__saveRelatedData($model,request()->get('Tagging'));
-    }
+    // if(!empty(request()->get('Tagging'))) {
+    //   Service::loadModel('Tagging')->__saveRelatedData($model,request()->get('Tagging'));
+    // }
 
     // images
     if(!empty(request()->get('Image'))) {
@@ -480,7 +480,7 @@ class TicketController extends Controller
       return Redirect::to('/ticket');
     }
 
-    $model->title = request()->get('title');
+    $model->title = strip_tags(request()->get('title'));
     $model->description = strip_tags(request()->get('description'));
     $model->place_location = request()->get('place_location');
     $model->price = str_replace(',','',request()->get('price'));
@@ -511,10 +511,10 @@ class TicketController extends Controller
     }
 
     // Tagging
-    if(!empty(request()->get('Tagging'))) {
-      $taggingModel = Service::loadModel('Tagging');
-      $taggingModel->__saveRelatedData($model,request()->get('Tagging'));
-    }
+    // if(!empty(request()->get('Tagging'))) {
+    //   $taggingModel = Service::loadModel('Tagging');
+    //   $taggingModel->__saveRelatedData($model,request()->get('Tagging'));
+    // }
 
     // images
     if(!empty(request()->get('Image'))) {
