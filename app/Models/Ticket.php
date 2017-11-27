@@ -214,7 +214,12 @@ class Ticket extends Model
       'fields' => array('ticket_category_id')
     ));
 
-    $re = '/(?:#\S+)/';
+    $_category = null;
+    if(!empty($category)) {
+      $_category = $category->ticketCategory->name;
+    }
+
+    $re = '/(?:#\w+)/';
     preg_match_all($re, $this->description, $matches, PREG_SET_ORDER, 0);
 
     foreach ($matches as $match) {
@@ -250,7 +255,7 @@ class Ticket extends Model
       'contact' => nl2br($this->contact),
       'created_by' => $this->created_by,
       'created_at' => Date::calPassedDate($this->created_at->format('Y-m-d H:i:s')),
-      'category' => $category->ticketCategory->name,
+      'category' => $_category,
       'images' => $images,
       'imageTotal' => $imageTotal,
       'tags' => $tags,

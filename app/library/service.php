@@ -92,6 +92,18 @@ class Service
   }
 
   public static function facebookReScrap($url = null, $absPath = false){
+
+    // js
+    // $config = array(
+    //             "appId" => 'APP_ID',
+    //             "secret" => 'APP_SECRET');
+
+    //         $fb = new Facebook($config);
+    // $fb->api('/','POST',array(
+    //             'id'=>PAGE_URL,
+    //             'scrape'=>'true'
+    //         ));
+
     if(empty($url)) {
       return false;
     }

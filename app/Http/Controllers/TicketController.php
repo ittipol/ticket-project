@@ -407,7 +407,7 @@ class TicketController extends Controller
     // Lookup
 
     // re-scrap
-    Service::facebookReScrap('ticket/view/'.$model->id);
+    // Service::facebookReScrap('ticket/view/'.$model->id);
 
     // User log
     Service::addUserLog('Ticket',$model->id,'add');
@@ -538,7 +538,7 @@ class TicketController extends Controller
     // Lookup
 
     // re-scrap
-    Service::facebookReScrap('ticket/view/'.$model->id);
+    // Service::facebookReScrap('ticket/view/'.$model->id);
 
     // User log
     Service::addUserLog('Ticket',$model->id,'edit');
