@@ -219,9 +219,7 @@ class Ticket extends Model
       $_category = $category->ticketCategory->name;
     }
 
-    // $re = '/(?:#[^+\'\\\\\/,:;()*\-^&!<>\[\]|&#$฿%=\s]+)/';
-    
-    $re = '/(?:#[^=#,:;()*\-^&!<>|\'\"\\\\\/\[\]\s]+)/';
+    $re = '/(?:#[^=#,:;()*\-^&!%<>|$\'\"\\\\\/\[\]\s]+)/';
     preg_match_all($re, $this->description, $matches, PREG_SET_ORDER, 0);
 
     foreach ($matches as $match) {
