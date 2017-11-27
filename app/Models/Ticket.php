@@ -59,24 +59,20 @@ class Ticket extends Model
   public function buildDataList($titleLength = 90,$findDaysLeft = false) {
 
     $cache = new cache;
-    $url = new url;
-    // $date = new date;
-    $currency = new currency;
-    $format = new format;
 
     // GET TAGs
-    $taggings = $this->getRelatedData('Tagging',
-      array(
-        'fields' => array('word_id')
-      )
-    );
+    // $taggings = $this->getRelatedData('Tagging',
+    //   array(
+    //     'fields' => array('word_id')
+    //   )
+    // );
 
-    $tags = array();
-    foreach ($taggings as $tagging) {
-      $tags[] = array_merge($tagging->buildModelData(),array(
-        'url' => $url->url('tag').$tagging->word->word
-      ));
-    }
+    // $tags = array();
+    // foreach ($taggings as $tagging) {
+    //   $tags[] = array_merge($tagging->buildModelData(),array(
+    //     'url' => Url::url('tag').$tagging->word->word
+    //   ));
+    // }
 
     $imageTotal = Image::where([
       'model' => $this->modelName,
@@ -101,10 +97,10 @@ class Ticket extends Model
     $originalPrice = null;
     $save = null;
     if(!empty($this->original_price)) {
-      $originalPrice = $currency->format($this->original_price);
+      $originalPrice = Currency::format($this->original_price);
 
       if($this->original_price > $this->price) {
-        $save = $format->percent(100 - (($this->price * 100) / $this->original_price)) . '%';
+        $save = Format::percent(100 - (($this->price * 100) / $this->original_price)) . '%';
       }
     }
 
@@ -138,7 +134,7 @@ class Ticket extends Model
       // 'title' => StringHelper::truncString($this->title,$titleLength,true,true),
       'description' => $description,
       'place_location' => $this->place_location,
-      'price' => $currency->format($this->price),
+      'price' => Currency::format($this->price),
       'original_price' => $originalPrice,
       'save' => $save,
       'closing_option' => $this->closing_option,
@@ -152,32 +148,26 @@ class Ticket extends Model
       'user' => User::buildProfileForTicketList($this->created_by),
       'image' => $image,
       // 'imageTotal' => $imageTotal,
-      'tags' => $tags,
+      // 'tags' => $tags,
       'pullingPost' => $pullingPost
     );
   }
 
   public function buildDataDetail() {
 
-    // $cache = new cache;
-    $url = new url;
-    // $date = new date;
-    $currency = new currency;
-    $format = new format;
-
     // GET TAGs
-    $taggings = $this->getRelatedData('Tagging',
-      array(
-        'fields' => array('word_id')
-      )
-    );
+    // $taggings = $this->getRelatedData('Tagging',
+    //   array(
+    //     'fields' => array('word_id')
+    //   )
+    // );
 
-    $tags = array();
-    foreach ($taggings as $tagging) {
-      $tags[] = array_merge($tagging->buildModelData(),array(
-        'url' => $url->url('tag').$tagging->word->word
-      ));
-    }
+    // $tags = array();
+    // foreach ($taggings as $tagging) {
+    //   $tags[] = array_merge($tagging->buildModelData(),array(
+    //     'url' => Url::url('tag').$tagging->word->word
+    //   ));
+    // }
 
     // GET Images
     $imageModel = new Image;
@@ -202,10 +192,10 @@ class Ticket extends Model
     $originalPrice = null;
     $save = null;
     if(!empty($this->original_price)) {
-      $originalPrice = $currency->format($this->original_price);
+      $originalPrice = Currency::format($this->original_price);
 
       if($this->original_price > $this->price) {
-        $save = $format->percent(100 - (($this->price * 100) / $this->original_price)) . '%';
+        $save = Format::percent(100 - (($this->price * 100) / $this->original_price)) . '%';
       }
     }
 
@@ -219,18 +209,12 @@ class Ticket extends Model
       $_category = $category->ticketCategory->name;
     }
 
-    $re = '/(?:#[^=#,:;()*\-^&!%<>|$\'\"\\\\\/\[\]\s]+)/';
-    preg_match_all($re, $this->description, $matches, PREG_SET_ORDER, 0);
-
-    foreach ($matches as $match) {
+    foreach (StringHelper::getHashtagFromString($this->description) as $match) {
       // $match[0] = strip_tags($match[0]);
       $this->description = str_replace($match[0], '<a href="/hashtag/'.substr($match[0], 1).'">'.$match[0].'</a>', $this->description);
     }
 
-    $re = '/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/';
-    preg_match_all($re, $this->description, $matches, PREG_SET_ORDER, 0);
-
-    foreach ($matches as $match) {
+    foreach (StringHelper::getUrlFromString($this->description) as $match) {
 
       if(strpos($match[0], ',')) {
         continue;
@@ -244,7 +228,7 @@ class Ticket extends Model
       'title' => $this->title,
       'description' => nl2br($this->description),
       'place_location' => $this->place_location,
-      'price' => $currency->format($this->price),
+      'price' => Currency::format($this->price),
       'original_price' => $originalPrice,
       'save' => $save,
       'closing_option' => $this->closing_option,
@@ -258,7 +242,7 @@ class Ticket extends Model
       'category' => $_category,
       'images' => $images,
       'imageTotal' => $imageTotal,
-      'tags' => $tags,
+      // 'tags' => $tags,
       // 'seller' => User::buildProfileForTicketDetail($this->created_by),
       'pullingPost' => $this->checkRePost()
     );

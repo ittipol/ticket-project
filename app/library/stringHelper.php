@@ -120,4 +120,14 @@ class StringHelper
   //                     '((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,' . $len_p . '}).*#s', '$1', $str) . $str_post;
   // }
   
+  public static function getUrlFromString($string) {
+    preg_match_all('/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/', $string, $matches, PREG_SET_ORDER, 0);
+    return $matches;
+  }
+
+  public static function getHashtagFromString($string) {
+    preg_match_all('/(?:#[^=#,:;()*\-^&!%<>|$\'\"\\\\\/\[\]\s]+)/', $string, $matches, PREG_SET_ORDER, 0);
+    return $matches;
+  }
+
 }

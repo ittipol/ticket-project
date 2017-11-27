@@ -46,16 +46,13 @@ class Cache
   );
 
   public function __construct($image = null) {
-    $url = new Url;
-    $this->cachePath = $url->addSlash(storage_path($this->cachePath));
+    $this->cachePath = Url::addSlash(storage_path($this->cachePath));
   }
 
   public function getCacheImagePath($filename) {
-    
-    $url = new Url;
 
     $parts = explode('_', $filename);
-    $cacheFile = $url->addSlash($this->cachePath.$parts[0]).$filename;
+    $cacheFile = Url::addSlash($this->cachePath.$parts[0]).$filename;
 
     if(!file_exists($cacheFile)) {
       return false;
@@ -66,8 +63,6 @@ class Cache
   }
 
   public function getCacheImageUrl($model,$alias,$getPath = false) {
-
-    $url = new Url;
 
     $path = $model->getImagePath();
 
@@ -89,7 +84,7 @@ class Cache
     }
 
     $newFilename = $filename.'_'.$width.'x'.$height.'.'.$ext;
-    $cachePath = $url->addSlash($this->cachePath.$filename);
+    $cachePath = Url::addSlash($this->cachePath.$filename);
     $cacheFile = $cachePath.$newFilename;
 
     if(!file_exists($cacheFile) && !$this->_cacheImage($path,$width,$height,$cachePath,$cacheFile)) {
@@ -117,8 +112,6 @@ class Cache
 
   public function cacheImage($model,$alias) {
 
-    $url = new Url;
-
     $path = $model->getImagePath();
 
     if(!file_exists($path) || empty($this->imageCache[$alias])){
@@ -138,7 +131,7 @@ class Cache
       list($width,$height) = $this->getImageSizeByRatio($originalWidth,$originalHeight,$width,$height);
     }
 
-    $cachePath = $url->addSlash($this->cachePath.$filename);
+    $cachePath = Url::addSlash($this->cachePath.$filename);
     if(!is_dir($cachePath)){
       mkdir($cachePath,0777,true);
     }

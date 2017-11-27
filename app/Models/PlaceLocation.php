@@ -22,6 +22,5 @@ class PlaceLocation extends Model
     }
 
     return true;
-
   }
 }

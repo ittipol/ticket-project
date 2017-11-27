@@ -4,7 +4,7 @@ namespace App\library;
 
 class Currency {
 
-	public function format($number) {
+	public static function format($number) {
 
     if(!Validation::isCurrency($number)) {
       return null;

@@ -351,31 +351,31 @@ class TicketController extends Controller
     return $this->view('pages.ticket.form.add');
   }
 
-  public function addingSubmit() {
+  public function addingSubmit(Request $request) {
 
-    // dd(request()->all());
+    // dd($request->all());
 
     $model = Service::loadModel('Ticket');
 
     // create slug
 
-    $model->title = strip_tags(request()->get('title'));
-    $model->description = strip_tags(request()->get('description'));
-    $model->place_location = request()->get('place_location');
-    $model->price = str_replace(',','',request()->get('price'));
+    $model->title = strip_tags($request->get('title'));
+    $model->description = strip_tags($request->get('description'));
+    $model->place_location = $request->get('place_location');
+    $model->price = str_replace(',','',$request->get('price'));
 
-    if(request()->has('original_price')) {
-      $model->original_price = str_replace(',','',request()->get('original_price'));
+    if($request->has('original_price')) {
+      $model->original_price = str_replace(',','',$request->get('original_price'));
     }
     
-    $model->date_type = request()->get('date_type');
+    $model->date_type = $request->get('date_type');
 
-    if(request()->get('date_type') > 0) {
-      $model->date_1 = request()->get('date_1');
-      $model->date_2 = request()->get('date_2');
+    if($request->get('date_type') > 0) {
+      $model->date_1 = $request->get('date_1');
+      $model->date_2 = $request->get('date_2');
     }
 
-    $model->contact = request()->get('contact');
+    $model->contact = $request->get('contact');
     $model->activated_date = date('Y-m-d H:i:s');
     
     $model->purpose = 's'; // sell
@@ -385,29 +385,32 @@ class TicketController extends Controller
     }
 
     // Add category to ticket
-    if(!empty(request()->get('TicketToCategory'))) {
-      Service::loadModel('TicketToCategory')->__saveRelatedData($model,request()->get('TicketToCategory'));
+    if(!empty($request->get('TicketToCategory'))) {
+      Service::loadModel('TicketToCategory')->__saveRelatedData($model,$request->get('TicketToCategory'));
     }
 
     // Tagging
-    // if(!empty(request()->get('Tagging'))) {
-    //   Service::loadModel('Tagging')->__saveRelatedData($model,request()->get('Tagging'));
+    // if(!empty($request->get('Tagging'))) {
+    //   Service::loadModel('Tagging')->__saveRelatedData($model,$request->get('Tagging'));
     // }
 
     // images
-    if(!empty(request()->get('Image'))) {
-      Service::loadModel('Image')->__saveRelatedData($model,request()->get('Image'));
+    if(!empty($request->get('Image'))) {
+      Service::loadModel('Image')->__saveRelatedData($model,$request->get('Image'));
     }
 
     // save Place location
-    if(!empty(request()->get('place_location'))) {
-      Service::loadModel('PlaceLocation')->__saveRelatedData($model,request()->get('place_location'));
+    if(!empty($request->get('place_location'))) {
+      Service::loadModel('PlaceLocation')->__saveRelatedData($model,$request->get('place_location'));
     }
     
     // Lookup
 
     // re-scrap
     // Service::facebookReScrap('ticket/view/'.$model->id);
+
+    // Hashtag Log
+    Service::loadModel('HashtagLog')->__saveRelatedData($model,$model->description);
 
     // User log
     Service::addUserLog('Ticket',$model->id,'add');
@@ -478,7 +481,7 @@ class TicketController extends Controller
     return $this->view('pages.ticket.form.edit');
   }
 
-  public function editingSubmit($ticketId) {
+  public function editingSubmit(Request $request, $ticketId) {
 
     $model = Service::loadModel('Ticket')->find($ticketId);
 
@@ -487,58 +490,61 @@ class TicketController extends Controller
       return Redirect::to('/ticket');
     }
 
-    $model->title = strip_tags(request()->get('title'));
-    $model->description = strip_tags(request()->get('description'));
-    $model->place_location = request()->get('place_location');
-    $model->price = str_replace(',','',request()->get('price'));
+    $model->title = strip_tags($request->get('title'));
+    $model->description = strip_tags($request->get('description'));
+    $model->place_location = $request->get('place_location');
+    $model->price = str_replace(',','',$request->get('price'));
 
-    if(request()->has('original_price')) {
-      $model->original_price = str_replace(',','',request()->get('original_price'));
+    if($request->has('original_price')) {
+      $model->original_price = str_replace(',','',$request->get('original_price'));
     }
 
-    $model->date_type = request()->get('date_type');
+    $model->date_type = $request->get('date_type');
 
-    if(request()->get('date_type') == 0) {
+    if($request->get('date_type') == 0) {
       $model->date_1 = null;
       $model->date_2 = null;
     }else{
-      $model->date_1 = request()->get('date_1');
-      $model->date_2 = request()->get('date_2');
+      $model->date_1 = $request->get('date_1');
+      $model->date_2 = $request->get('date_2');
     }
     
-    $model->contact = request()->get('contact');
+    $model->contact = $request->get('contact');
     
     if(!$model->save()) {
       return Redirect::back();
     }
 
     // Add category to ticket
-    if(!empty(request()->get('TicketToCategory'))) {
-      Service::loadModel('TicketToCategory')->__saveRelatedData($model,request()->get('TicketToCategory'));
+    if(!empty($request->get('TicketToCategory'))) {
+      Service::loadModel('TicketToCategory')->__saveRelatedData($model,$request->get('TicketToCategory'));
     }
 
     // Tagging
-    // if(!empty(request()->get('Tagging'))) {
+    // if(!empty($request->get('Tagging'))) {
     //   $taggingModel = Service::loadModel('Tagging');
-    //   $taggingModel->__saveRelatedData($model,request()->get('Tagging'));
+    //   $taggingModel->__saveRelatedData($model,$request->get('Tagging'));
     // }
 
     // images
-    if(!empty(request()->get('Image'))) {
+    if(!empty($request->get('Image'))) {
       $imageModel = Service::loadModel('Image');
-      $imageModel->__saveRelatedData($model,request()->get('Image'));
+      $imageModel->__saveRelatedData($model,$request->get('Image'));
     }
 
     // save Place location
-    if(!empty(request()->get('place_location'))) {
+    if(!empty($request->get('place_location'))) {
       $placeLocationModel = Service::loadModel('PlaceLocation');
-      $placeLocationModel->__saveRelatedData($model,request()->get('place_location'));
+      $placeLocationModel->__saveRelatedData($model,$request->get('place_location'));
     }
 
     // Lookup
 
     // re-scrap
     // Service::facebookReScrap('ticket/view/'.$model->id);
+
+    // Hashtag Log
+    Service::loadModel('HashtagLog')->__saveRelatedData($model,$model->description);
 
     // User log
     Service::addUserLog('Ticket',$model->id,'edit');
@@ -547,14 +553,14 @@ class TicketController extends Controller
     return Redirect::to('ticket/view/'.$model->id);
   }
 
-  public function close() {
+  public function close(Request $request) {
 
-    if(empty(request()->ticketId)) {
+    if(empty($request->ticketId)) {
       return Redirect::to('/');
     }
 
     $model = Service::loadModel('Ticket')->where([
-      ['id','=',request()->ticketId],
+      ['id','=',$request->ticketId],
       ['created_by','=',Auth::user()->id],
       ['closing_option','=',0]
     ])->first();
@@ -565,12 +571,12 @@ class TicketController extends Controller
     }
 
     $model->update([
-      'closing_option' => request()->closing_option,
-      'closing_reason' => request()->closing_reason
+      'closing_option' => $request->closing_option,
+      'closing_reason' => $request->closing_reason
     ]);
 
     // User log
-    Service::addUserLog('Ticket',request()->ticketId,'close');
+    Service::addUserLog('Ticket',$request->ticketId,'close');
 
     Snackbar::message('ประกาศของคุณถูกปิดแล้ว');
     return Redirect::to('/account/ticket');

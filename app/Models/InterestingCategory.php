@@ -34,6 +34,5 @@ class InterestingCategory extends Model
     }
 
     return true;
-    
   }
 }

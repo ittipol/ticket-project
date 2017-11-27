@@ -101,13 +101,6 @@ class Url
     return Url::url('redirect?url='.$url);
   }
 
-  public static function isUrl($url) {
-    // (?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?
-  
-    // require HTTP or HTTPS protocol
-    // $re = '/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/';
-  }
-
   // public function download() {
   //   //download/{code}
   // }
