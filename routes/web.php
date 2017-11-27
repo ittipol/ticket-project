@@ -36,7 +36,7 @@ Route::get('get_image/{filename}', 'StaticFileController@serveImages');
 Route::get('ticket', 'TicketController@listView');
 Route::get('ticket/view/{ticketId}', 'TicketController@detail');
 
-Route::get('hashtag/{hashTag}', 'HashtagController@index');
+// Route::get('hashtag/{hashTag}', 'HashtagController@index');
 
 Route::group(['middleware' => 'guest'], function () {
   Route::get('login', array('as' => 'login', 'uses' => 'UserController@login'));
