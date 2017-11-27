@@ -15,9 +15,9 @@ class HashtagLog extends Model
 
     $now = date('Y-m-d H:i:s');
 
-    foreach (StringHelper::getHashtagFromString($value) as $match) {
+    foreach (StringHelper::getHashtagFromString($value) as $value) {
 
-      $hashtag = Hashtag::where('hashtag','=',$match[0]);
+      $hashtag = Hashtag::where('hashtag','=',$value);
 
       if($hashtag->exists()) {
         $hashtag = $hashtag->first();
@@ -48,7 +48,7 @@ class HashtagLog extends Model
       }else {
         // save new hashtag
         $hashtag = new Hashtag;
-        $hashtag->hashtag = $match[0];
+        $hashtag->hashtag = $value;
         $hashtag->last_input = $now;
         $hashtag->save();
 

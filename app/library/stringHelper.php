@@ -122,12 +122,28 @@ class StringHelper
   
   public static function getUrlFromString($string) {
     preg_match_all('/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/', $string, $matches, PREG_SET_ORDER, 0);
-    return $matches;
+    
+    $urls = array();
+    foreach ($matches as $value) {
+      if(!in_array($value[0], $urls)) {
+        $urls[] = $value[0];
+      }
+    }
+
+    return $urls;
   }
 
   public static function getHashtagFromString($string) {
     preg_match_all('/(?:#[^=#,:;()*\-^&!%<>|$\'\"\\\\\/\[\]\s]+)/', $string, $matches, PREG_SET_ORDER, 0);
-    return $matches;
+    
+    $hashtags = array();
+    foreach ($matches as $value) {
+      if(!in_array($value[0], $hashtags)) {
+        $hashtags[] = $value[0];
+      }
+    }
+
+    return $hashtags;
   }
 
 }
