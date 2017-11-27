@@ -9,6 +9,7 @@ class HashtagLog extends Model
 {
   protected $table = 'hashtag_logs';
   protected $fillable = ['model','model_id','hashtag_id','catagory_id','created_by'];
+  public $timestamps  = false;
 
   public function __saveRelatedData($model,$value) {
 
@@ -73,5 +74,4 @@ class HashtagLog extends Model
     return $_hashtagLog->save();
   }
 
-  public function setUpdatedAt($value) {}
 }
