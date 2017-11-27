@@ -34,8 +34,19 @@ class AccountController extends Controller
   public function edit() {
     $user = Service::loadModel('User')->find(Auth::user()->id);
 
+    //
+    $interestingCategory = $user->getRelatedData('InterestingCategory',array(
+      'fields' => array('ticket_category_id'),
+      'list' => 'ticket_category_id'
+    ));
+
+    $user['InterestingCategory'] = array(
+      'ticket_category_id' => $interestingCategory
+    );
+
     $this->setData('data',$user);
     $this->setData('profileImage',json_encode($user->getProfileImage()));
+    $this->setData('categories',Service::loadModel('TicketCategory')->get());
 
     $this->setMeta('title','แก้ไขโปรไฟล์ — TicketEasys');
 
@@ -48,8 +59,8 @@ class AccountController extends Controller
     $user->name = $request->name;
 
     // images
-    if(!empty(request()->get('Image'))) {
-      Service::loadModel('Image')->__saveRelatedData($user,request()->get('Image'));
+    if($request->has('Image')) {
+      Service::loadModel('Image')->__saveRelatedData($user,$request->get('Image'));
 
       $image = $user->getRelatedData('Image',array(
         'fields' => array('id'),
@@ -66,6 +77,11 @@ class AccountController extends Controller
     if(!$user->save()) {
       Snackbar::message('ไม่สามารถบันทึกได้');
       return Redirect::back();
+    }
+
+    // Add category to user
+    if($request->has('InterestingCategory')) {
+      Service::loadModel('InterestingCategory')->__saveRelatedData($user,$request->get('InterestingCategory'));
     }
 
     Snackbar::message('โปรไฟล์ถูกบันทึกแล้ว');

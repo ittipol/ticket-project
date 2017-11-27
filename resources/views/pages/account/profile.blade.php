@@ -21,7 +21,7 @@
         </h5>
         <div>
           <a href="/account/edit" class="btn btn-outline-primary db mx-auto w-100-ns mb-3">
-            <i class="fa fa-pencil"></i>&nbsp;แก้ไขโปรไฟล์
+            <i class="fa fa-pencil"></i>&nbsp;แก้ไขข้อมูลส่วนตัว
           </a>
           <a href="/account/ticket" class="btn btn-outline-primary db mx-auto w-100-ns">
             <i class="fa fa-list"></i>&nbsp;รายการของฉัน

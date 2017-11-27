@@ -114,6 +114,11 @@ class Ticket extends Model
       'fields' => array('ticket_category_id')
     ));
 
+    $_category = null;
+    if(!empty($category)) {
+      $_category = $category->ticketCategory->name;
+    }
+
     $description = null;
     $descLen = 120 - StringHelper::strLen($this->title);
     if($descLen > 10) {
@@ -143,7 +148,7 @@ class Ticket extends Model
       'date_2' => Date::covertDateToSting($this->date_2),
       'created_by' => $this->created_by,
       'created_at' => Date::calPassedDate($this->created_at->format('Y-m-d H:i:s')),
-      'category' => $category->ticketCategory->name,
+      'category' => $_category,
       'user' => User::buildProfileForTicketList($this->created_by),
       'image' => $image,
       // 'imageTotal' => $imageTotal,

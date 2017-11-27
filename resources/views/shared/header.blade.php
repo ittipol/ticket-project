@@ -21,7 +21,7 @@
               <li>
                 <a href="/account" class="gn-icon fa-user">{{Auth::user()->name}}</a>
                 <ul class="gn-submenu">
-                  <li><a href="/account/edit" class="gn-icon fa-pencil">แก้ไขโปรไฟล์</a></li>
+                  <li><a href="/account/edit" class="gn-icon fa-pencil">แก้ไขข้อมูลส่วนตัว</a></li>
                   <li><a href="/account/ticket" class="gn-icon fa-list">รายการขายของฉัน</a></li>
                   <li><a href="/logout" class="gn-icon fa-sign-out">ออกจากระบบ</a></li>
                 </ul>
@@ -53,7 +53,7 @@
           <img src="/avatar?d=1">
         </a>
         <ul class="dropdown-menu">
-          <li class="dd-link"><a href="/account/edit"><i class="fa fa-pencil"></i>&nbsp;&nbsp;แก้ไขโปรไฟล์</a></li>
+          <li class="dd-link"><a href="/account/edit"><i class="fa fa-pencil"></i>&nbsp;&nbsp;แก้ไขข้อมูลส่วนตัว</a></li>
           <li class="dd-link"><a href="/account/ticket"><i class="fa fa-list"></i>&nbsp;&nbsp;รายการขายของฉัน</a></li>
           <li class="dd-link"><a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;ออกจากระบบ</a></li>
         </ul>
