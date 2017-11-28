@@ -5,9 +5,9 @@ namespace App\Models;
 use App\library\stringHelper;
 use Auth;
 
-class HashtagLog extends Model
+class HashtagList extends Model
 {
-  protected $table = 'hashtag_logs';
+  protected $table = 'hashtag_lists';
   protected $fillable = ['model','model_id','hashtag_id','catagory_id','created_by'];
   public $timestamps  = false;
 

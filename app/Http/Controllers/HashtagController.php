@@ -64,6 +64,8 @@ class HashtagController extends Controller
     $this->setData('data',$model->paginate(48));
     $this->setData('hashtag',$hashTag);
 
+    $this->setMeta('title',$hashTag.' — การค้นหาบน TicketEasys');
+
     return $this->view('pages.hashtag.list');
 
   }

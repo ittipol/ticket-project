@@ -291,6 +291,10 @@ class TicketController extends Controller
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('search',$searching);
 
+    if($searching) {
+      $this->setMeta('title','การค้นหาบน TicketEasys');
+    }
+
     return $this->view('pages.ticket.list');
   }
 
@@ -307,8 +311,6 @@ class TicketController extends Controller
       Snackbar::message('ไม่พบรายการนี้');
       return Redirect::to('/ticket');
     }
-
-
 
     $data = $model->buildDataDetail();
 
@@ -410,7 +412,7 @@ class TicketController extends Controller
     // Service::facebookReScrap('ticket/view/'.$model->id);
 
     // Hashtag Log
-    Service::loadModel('HashtagLog')->__saveRelatedData($model,$model->description);
+    Service::loadModel('HashtagList')->__saveRelatedData($model,$model->description);
 
     // User log
     Service::addUserLog('Ticket',$model->id,'add');
@@ -544,7 +546,7 @@ class TicketController extends Controller
     // Service::facebookReScrap('ticket/view/'.$model->id);
 
     // Hashtag Log
-    Service::loadModel('HashtagLog')->__saveRelatedData($model,$model->description);
+    Service::loadModel('HashtagList')->__saveRelatedData($model,$model->description);
 
     // User log
     Service::addUserLog('Ticket',$model->id,'edit');

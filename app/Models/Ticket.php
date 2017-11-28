@@ -25,6 +25,7 @@ class Ticket extends Model
   'purpose',
   'closing_option',
   'closing_reason',
+  // 'scraped',
   'created_by',
   'activated_date'];
 

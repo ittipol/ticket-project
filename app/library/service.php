@@ -94,15 +94,22 @@ class Service
   public static function facebookReScrap($url = null, $absPath = false){
 
     // js
-    // $config = array(
-    //             "appId" => 'APP_ID',
-    //             "secret" => 'APP_SECRET');
+    // window.fbAsyncInit = function() {
+    //   FB.init({
+    //     appId      : '{{env("FB_APP_ID")}}',
+    //     xfbml      : true,
+    //     version    : '{{env("GRAPH_VERSION")}}'
+    //   });
 
-    //         $fb = new Facebook($config);
-    // $fb->api('/','POST',array(
-    //             'id'=>PAGE_URL,
-    //             'scrape'=>'true'
-    //         ));
+    //   FB.api('https://graph.facebook.com/', 'post', {
+    //       id: '{url}',
+    //       scrape: true,
+    //       access_token: '{app-id}|{app-secret}'
+    //   }, function(response) {
+    //       //console.log('rescrape!',response);
+    //       console.log('rescrape!',response);
+    //   });
+    // };
 
     if(empty($url)) {
       return false;
