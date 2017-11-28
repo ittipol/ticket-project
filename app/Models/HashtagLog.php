@@ -15,28 +15,36 @@ class HashtagLog extends Model
 
     $now = date('Y-m-d H:i:s');
 
+    // Get current hashtag log
+    $_hashtagLogs = $this
+    ->select('hashtag_id')
+    ->where([
+      ['model','=',$model->modelName],
+      ['model_id','=',$model->id],
+      ['created_by','=',Auth::user()->id]
+    ])->get();
+
+    $hashtagLogs = array();
+    foreach ($_hashtagLogs as $hashtagLog) {
+      $hashtagLogs[] = $hashtagLog->hashtag_id;
+    }
+
+    $hashtagSaved = array();
+
     foreach (StringHelper::getHashtagFromString($value) as $value) {
 
-      $hashtag = Hashtag::where('hashtag','=',$value);
+      $hashtag = Hashtag::where('hashtag','=',$value)->first();
 
-      if($hashtag->exists()) {
-        $hashtag = $hashtag->first();
+      if(!empty($hashtag)) {
 
-        // check hashtag log
-        $_hashtagLog = $this->where([
-          ['model','=',$model->modelName],
-          ['model_id','=',$model->id],
-          ['hashtag_id','=',$hashtag->id],
-          ['created_by','=',Auth::user()->id]
-        ]);
+        $hashtagSaved[] = $hashtag->id;
 
-        if(!$_hashtagLog->exists()) {
-
+        if(!in_array($hashtag->id, $hashtagLogs)) {
           // update last input
           $hashtag->update(
             ['last_input' => $now]
           );
-
+          
           // Save new hashtag log
           $this->_save(array(
             'model' => $model->modelName,
@@ -45,12 +53,16 @@ class HashtagLog extends Model
             'userId' => Auth::user()->id
           ));
         }
+
       }else {
+
         // save new hashtag
         $hashtag = new Hashtag;
         $hashtag->hashtag = $value;
         $hashtag->last_input = $now;
         $hashtag->save();
+
+        $hashtagSaved[] = $hashtag->id;
 
         $this->_save(array(
           'model' => $model->modelName,
@@ -61,6 +73,16 @@ class HashtagLog extends Model
       }
 
     }
+
+    $this
+    ->select('hashtag_id')
+    ->where([
+      ['model','=',$model->modelName],
+      ['model_id','=',$model->id],
+      ['created_by','=',Auth::user()->id]
+    ])
+    ->whereNotIn('hashtag_id',$hashtagSaved)
+    ->delete();
 
     return true;
   }

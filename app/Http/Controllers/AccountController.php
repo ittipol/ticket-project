@@ -56,7 +56,7 @@ class AccountController extends Controller
   public function profileEditingSubmit(ProfileEditRequest $request) {
     $user = Service::loadModel('User')->find(Auth::user()->id);
 
-    $user->name = $request->name;
+    $user->name = strip_tags($request->name);
 
     // images
     if($request->has('Image')) {

@@ -59,7 +59,7 @@ class TicketController extends Controller
     if($request->has('q')) {
       $searching = true;
 
-      $_q = strip_tags(trim($request->q));
+      $_q = trim(strip_tags($request->q));
       $_q = preg_replace('/\s[+\'\'\\\\\/:;()*\-^&!<>\[\]\|]\s/', ' ', $_q);
       $_q = preg_replace('/\s{1,}/', ' ', $_q);
 
@@ -361,11 +361,11 @@ class TicketController extends Controller
 
     $model->title = strip_tags($request->get('title'));
     $model->description = strip_tags($request->get('description'));
-    $model->place_location = $request->get('place_location');
-    $model->price = str_replace(',','',$request->get('price'));
+    $model->place_location = strip_tags($request->get('place_location'));
+    $model->price = str_replace(',','',strip_tags($request->get('price')));
 
     if($request->has('original_price')) {
-      $model->original_price = str_replace(',','',$request->get('original_price'));
+      $model->original_price = str_replace(',','',strip_tags($request->get('original_price')));
     }
     
     $model->date_type = $request->get('date_type');
@@ -375,7 +375,7 @@ class TicketController extends Controller
       $model->date_2 = $request->get('date_2');
     }
 
-    $model->contact = $request->get('contact');
+    $model->contact = strip_tags($request->get('contact'));
     $model->activated_date = date('Y-m-d H:i:s');
     
     $model->purpose = 's'; // sell
@@ -492,11 +492,11 @@ class TicketController extends Controller
 
     $model->title = strip_tags($request->get('title'));
     $model->description = strip_tags($request->get('description'));
-    $model->place_location = $request->get('place_location');
-    $model->price = str_replace(',','',$request->get('price'));
+    $model->place_location = strip_tags($request->get('place_location'));
+    $model->price = str_replace(',','',strip_tags($request->get('price')));
 
     if($request->has('original_price')) {
-      $model->original_price = str_replace(',','',$request->get('original_price'));
+      $model->original_price = str_replace(',','',strip_tags($request->get('original_price')));
     }
 
     $model->date_type = $request->get('date_type');
@@ -509,7 +509,7 @@ class TicketController extends Controller
       $model->date_2 = $request->get('date_2');
     }
     
-    $model->contact = $request->get('contact');
+    $model->contact = strip_tags($request->get('contact'));
     
     if(!$model->save()) {
       return Redirect::back();
