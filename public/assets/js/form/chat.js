@@ -275,53 +275,50 @@ class Chat {
 		$('.chat-footer-section').css('width',(wW-sidebarW)+'px');
 	}
 
-		parseMessage(str) {
-			str = this.parseUrlFromString(str);
-			str = this.parseHashtagFromString(str);
-			return str;
+	parseMessage(str) {
+		str = this.parseUrlFromString(str);
+		str = this.parseHashtagFromString(str);
+		return str;
+	}
+
+	parseHashtagFromString(str) {
+		const regex = /(?:#[^=#,:;()*\-^&!%<>|$\'\"\\\\\/\[\]\s]+)/g;
+
+		let _str = str;
+
+		let m;
+		while ((m = regex.exec(str)) !== null) {
+
+		    if (m.index === regex.lastIndex) {
+		        regex.lastIndex++;
+		    }
+		    
+		    m.forEach((match, groupIndex) => {
+		      _str = _str.replace(match,'<a href="/hashtag/'+match.substr(1)+'">'+match+'</a>');
+		    });
 		}
 
-		parseHashtagFromString(str) {
-			const regex = /(?:#[^=#,:;()*\-^&!%<>|$\'\"\\\\\/\[\]\s]+)/g;
+		return _str;
+	}
 
-			let _str = str;
+	parseUrlFromString(str) {
+ 		const regex = /(?:http|ftp|https):\/\/(?:[\w_-]+(?:(?:\.[\w_-]+)+))(?:[\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/g;
 
-			let m;
-			while ((m = regex.exec(str)) !== null) {
-			    // This is necessary to avoid infinite loops with zero-width matches
-			    if (m.index === regex.lastIndex) {
-			        regex.lastIndex++;
-			    }
-			    
-			    // The result can be accessed through the `m`-variable.
-			    m.forEach((match, groupIndex) => {
-			        // console.log(`Found match, group ${groupIndex}: ${match}`);
-			        _str = _str.replace(match,'<a href="/hashtag/'+match.substr(1)+'">'+match+'</a>');
-			    });
-			}
+ 		let _str = str;
 
-			return _str;
-		}
+ 		let m;
+ 		while ((m = regex.exec(str)) !== null) {
 
-		parseUrlFromString(str) {
-	 		const regex = /(?:http|ftp|https):\/\/(?:[\w_-]+(?:(?:\.[\w_-]+)+))(?:[\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/g;
+ 		    if (m.index === regex.lastIndex) {
+ 		        regex.lastIndex++;
+ 		    }
+ 		    
+ 		    m.forEach((match, groupIndex) => {
+ 		      _str = _str.replace(match,'<a href="'+match+'">'+match+'</a>');
+ 		    });
+ 		}
 
-	 		let _str = str;
-
-	 		let m;
-	 		while ((m = regex.exec(str)) !== null) {
-	 		    // This is necessary to avoid infinite loops with zero-width matches
-	 		    if (m.index === regex.lastIndex) {
-	 		        regex.lastIndex++;
-	 		    }
-	 		    
-	 		    // The result can be accessed through the `m`-variable.
-	 		    m.forEach((match, groupIndex) => {
-	 		      _str = _str.replace(match,'<a href="'+match+'">'+match+'</a>');
-	 		    });
-	 		}
-
-	 		return _str;
-		}
+ 		return _str;
+	}
 
 }

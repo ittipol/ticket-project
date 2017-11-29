@@ -14,3 +14,4 @@ yarn-error.log
 /storage/temporary
 /node_server/env.js
 /node_server/node_modules
+/public/sitemap.xml
