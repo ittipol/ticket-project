@@ -132,4 +132,6 @@
 
 @include('shared.ticket-closing-modal')
 
+@include('shared.rich-card')
+
 @stop

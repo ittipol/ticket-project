@@ -5,8 +5,6 @@
   @include('script.meta') 
   <!-- ################# -->
   @include('shared.tracking')
-  <!--  -->
-  @include('shared.rich-card')
   <!-- CSS & JS -->
   @include('script.script')
 </head>
