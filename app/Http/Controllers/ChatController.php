@@ -184,7 +184,7 @@ class ChatController extends Controller
   private function setReadMessage($roomId,$userId) {
     
     $message = Service::loadModel('ChatMessage')
-    ->select('id')
+    ->select('created_at')
     ->where('chat_room_id','=',$roomId)
     ->orderBy('created_at','desc')
     ->take(1)
@@ -200,8 +200,8 @@ class ChatController extends Controller
       ['user_id','=',$userId],
     ])
     ->update([
-      'message_read' => $message->id,
-      'message_read_date' => date('Y-m-d H:i:s'),
+      // 'message_read_date' => date('Y-m-d H:i:s'),
+      'message_read_date' => $message->created_at->format('Y-m-d H:i:s'),
       'notify' => 0
     ]);
 

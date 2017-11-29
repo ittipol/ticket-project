@@ -121,7 +121,9 @@ class StringHelper
   // }
   
   public static function getUrlFromString($string) {
-    preg_match_all('/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/', $string, $matches, PREG_SET_ORDER, 0);
+    // preg_match_all('/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/', $string, $matches, PREG_SET_ORDER, 0);
+
+    preg_match_all('/(?:http|ftp|https):\/\/(?:[\w_-]+(?:(?:\.[\w_-]+)+))(?:[\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/', $string, $matches, PREG_SET_ORDER, 0);
     
     $urls = array();
     foreach ($matches as $value) {

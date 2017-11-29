@@ -53,7 +53,7 @@ function setAllMessageRead(userId) {
 function updateUserReadMessage(roomId,userId) {
   db.query("SELECT `id` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, messages){
     if(messages.length === 1) {
-      db.query("UPDATE `user_in_chat_room` SET `notify` = 0, `message_read` = "+messages[0].id+", `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+userId); 
+      db.query("UPDATE `user_in_chat_room` SET `notify` = 0, `message_read_date` = '"+dateTime.now(true)+"' WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+userId); 
     }
   });
 }
@@ -61,10 +61,11 @@ function updateUserReadMessage(roomId,userId) {
 // Notify message to users
 function notifyMessage(roomId,userId) {
   // GET Last Message
-  db.query("SELECT `id`, `message` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, messages){
+  db.query("SELECT `message`, `created_at` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, messages){
     if(messages.length === 1) {
       // Get Users in room
-      db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `user_id` != "+userId+" AND `chat_room_id` = "+roomId+" AND `notify` = 0 AND `message_read` < "+messages[0].id, function(err, rows){
+      // db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `user_id` != "+userId+" AND `chat_room_id` = "+roomId+" AND `notify` = 0 AND `message_read` < "+messages[0].id, function(err, rows){
+        db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `user_id` != "+userId+" AND `chat_room_id` = "+roomId+" AND `notify` = 0 AND `message_read_date` <= '"+messages[0].created_at+"'", function(err, rows){
         //
         for (var i = 0; i < rows.length; i++) {
 
@@ -73,7 +74,7 @@ function notifyMessage(roomId,userId) {
             let _userid = rows[i].user_id;
 
             // Update notify = 1
-            db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = CURRENT_TIME() WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+_userid);
+            db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = '"+dateTime.now(true)+"' WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+_userid);
             
             // if(checkUserOnline(_userid)) {
             //   countMessageNotication(_userid);
@@ -285,7 +286,7 @@ io.on('connection', function(socket){
   socket.on('check-user-online', function(data) {
 
     redisClient.getAsync('user-online:'+data.userId).then(function(res){
-console.log('check...');
+
       if(res === null) {
         io.in('check-online').emit('check-user-online', {
           user: data.userId,
@@ -433,7 +434,7 @@ console.log('check...');
 
           if(rooms.length == 1) {
             // send
-            ticketChatRoomSend({
+            chatRoomSend({
               message: data.message,
               room: rooms[0].chat_room_id,
               user: data.user,
@@ -485,10 +486,10 @@ function createRoom(onwer,data) {
     
     if(!err) {
       db.query('INSERT INTO `ticket_chat_rooms` (`id`, `chat_room_id`, `ticket_id`, `created_at`) VALUES (NULL, '+res.insertId+', '+data.ticket+', "'+_now+'")');
-      db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read`, `message_read_date`) VALUES ('+res.insertId+', '+onwer+', "s", 0, 0, NULL)');
-      db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read`, `message_read_date`) VALUES ('+res.insertId+', '+data.user+', "b", 0, 0, NULL)');
+      db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read_date`) VALUES ('+res.insertId+', '+onwer+', "s", 0, NULL)');
+      db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read_date`) VALUES ('+res.insertId+', '+data.user+', "b", 0, NULL)');
       // send message
-      ticketChatRoomSend({
+      chatRoomSend({
         message: data.message,
         room: res.insertId,
         user: data.user,
@@ -504,7 +505,7 @@ function createRoom(onwer,data) {
   
 }
 
-function ticketChatRoomSend(data) {
+function chatRoomSend(data) {
 
   if(data.room === 0) {
     io.in(data.chanel).emit('ticket-chat-room-after-sending', {
