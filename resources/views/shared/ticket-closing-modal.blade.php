@@ -1,4 +1,4 @@
-<div id="closing_ticket_modal" class="c-modal">
+<div id="closing_item_modal" class="c-modal">
   <a class="close"></a>
   <div class="c-modal-inner">
 
@@ -6,11 +6,11 @@
       <span aria-hidden="true">&times;</span>
     </a>
 
-    <h4 class="ticket-title f4 f3-ns mb-3 mb4-ns"></h4>
+    <h4 class="item-title f4 f3-ns mb-3 mb4-ns"></h4>
 
     <h5 class="f5"><strong>คุณปิดประกาศนี้เพราะ</strong>?</h5>
 
-    {{Form::open(['url' => '/ticket/close', 'id' => 'closing_ticket_form', 'method' => 'post', 'enctype' => 'multipart/form-data'])}}
+    {{Form::open(['url' => '/item/close', 'id' => 'closing_item_form', 'method' => 'post', 'enctype' => 'multipart/form-data'])}}
       <div class="row">
         <div class="col-md-4 md-radio tc-ns">
           <input id="closing_option_1" class="close-option" type="radio" value="1" name="closing_option" checked>
@@ -34,10 +34,10 @@
   </div>
 </div>
 
-<script type="text/javascript" src="/assets/js/ticket-close.js"></script>
+<script type="text/javascript" src="/assets/js/item-close.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
-    const _ticketClose = new TicketClose();
-    _ticketClose.init();
+    const _itemClose = new TicketClose();
+    _itemClose.init();
   });
 </script>

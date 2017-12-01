@@ -206,8 +206,10 @@ class Ticket extends Model
     ));
 
     $_category = null;
+    $_categoryId = null;
     if(!empty($category)) {
       $_category = $category->ticketCategory->name;
+      $_categoryId = $category->ticket_category_id;
     }
 
     // foreach (StringHelper::getHashtagFromString($this->description) as $value) {
@@ -238,6 +240,7 @@ class Ticket extends Model
       'contact' => nl2br($this->contact),
       'created_by' => $this->created_by,
       'created_at' => Date::calPassedDate($this->created_at->format('Y-m-d H:i:s')),
+      'category_id' => $_categoryId,
       'category' => $_category,
       'images' => $images,
       'imageTotal' => $imageTotal,
