@@ -158,6 +158,8 @@ class ChatController extends Controller
     $room->room_key = Token::generate(16);
     $room->save();
 
+    $now = date('Y-m-d H:i:s');
+
     Service::loadModel('TicketChatRoom')
     ->fill([
       'ticket_id' => $ticketId,
@@ -169,6 +171,7 @@ class ChatController extends Controller
       'chat_room_id' => $room->id,
       'user_id' => $onwer,
       'role' => 's',
+      'message_read_date' => $now
     ])->save();
 
     Service::loadModel('UserInChatRoom')
@@ -176,6 +179,7 @@ class ChatController extends Controller
       'chat_room_id' => $room->id,
       'user_id' => Auth::user()->id,
       'role' => 'b',
+      'message_read_date' => $now
     ])->save();
 
     return $room;
