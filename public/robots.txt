@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: http://www.welovetogo.com/sitemap.xml
+Sitemap: https://ticketeasys.com/sitemap.xml
