@@ -62,20 +62,25 @@ function updateUserReadMessage(roomId,userId) {
 function notifyMessage(roomId,userId) {
   // GET Last Message
   db.query("SELECT `message`, `created_at` FROM `chat_messages` WHERE `chat_room_id` = "+roomId+" ORDER BY created_at DESC LIMIT 1", function(err, messages){
+    
     if(messages.length === 1) {
+
       // Get Users in room
       // db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `user_id` != "+userId+" AND `chat_room_id` = "+roomId+" AND `notify` = 0 AND `message_read` < "+messages[0].id, function(err, rows){
         db.query("SELECT `user_id` FROM `user_in_chat_room` WHERE `user_id` != "+userId+" AND `chat_room_id` = "+roomId+" AND `notify` = 0 AND `message_read_date` <= '"+messages[0].created_at+"'", function(err, rows){
         //
+
         for (var i = 0; i < rows.length; i++) {
+
+          console.log(rows[i].user_id);
 
           if(rows[i].user_id != userId) {
 
             let _userid = rows[i].user_id;
 
             // Update notify = 1
-            db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = '"+dateTime.now(true)+"' WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+_userid);
-            
+            db.query("UPDATE `user_in_chat_room` SET `notify` = 1, `message_read_date` = '"+messages[0].created_at+"' WHERE `chat_room_id`= "+roomId+" AND `user_id`= "+_userid);
+
             // if(checkUserOnline(_userid)) {
             //   countMessageNotication(_userid);
             //   messageNotication(roomId, _userid);
@@ -485,9 +490,12 @@ function createRoom(onwer,data) {
   db.query('INSERT INTO `chat_rooms` (`id`, `room_key`, `created_at`, `updated_at`) VALUES (NULL, "'+token.generateToken(16)+'", "'+_now+'", "'+_now+'")', function(err, res){
     
     if(!err) {
+
+      let readDate = dateTime.now(true);
+
       db.query('INSERT INTO `ticket_chat_rooms` (`id`, `chat_room_id`, `ticket_id`, `created_at`) VALUES (NULL, '+res.insertId+', '+data.ticket+', "'+_now+'")');
-      db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read_date`) VALUES ('+res.insertId+', '+onwer+', "s", 0, NULL)');
-      db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read_date`) VALUES ('+res.insertId+', '+data.user+', "b", 0, NULL)');
+      db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read_date`) VALUES ('+res.insertId+', '+onwer+', "s", 0, "'+readDate+'")');
+      db.query('INSERT INTO `user_in_chat_room` (`chat_room_id`, `user_id`, `role`, `notify`, `message_read_date`) VALUES ('+res.insertId+', '+data.user+', "b", 0, "'+readDate+'")');
       // send message
       chatRoomSend({
         message: data.message,

@@ -200,7 +200,6 @@ class ChatController extends Controller
       ['user_id','=',$userId],
     ])
     ->update([
-      // 'message_read_date' => date('Y-m-d H:i:s'),
       'message_read_date' => $message->created_at->format('Y-m-d H:i:s'),
       'notify' => 0
     ]);
