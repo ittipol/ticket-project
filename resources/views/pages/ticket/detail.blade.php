@@ -256,7 +256,7 @@
       "@id": "{{url('/')}}/view/{{$data['id']}}",
       "name": "{{$data['title']}}"
     }
-  }
+  }]
 }
 </script>
 
