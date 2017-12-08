@@ -34,10 +34,10 @@
   </div>
 </div>
 
-<script type="text/javascript" src="/assets/js/item-close.js"></script>
+<script type="text/javascript" src="/assets/js/ticket-close.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
-    const _itemClose = new TicketClose();
-    _itemClose.init();
+    const _ticketClose = new TicketClose();
+    _ticketClose.init();
   });
 </script>

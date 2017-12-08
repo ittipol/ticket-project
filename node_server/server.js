@@ -394,6 +394,9 @@ io.on('connection', function(socket){
       //
       db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+message+"', '"+dateTime.now(true)+"');");
 
+      console.log('message saved');
+      console.log(message);
+
       io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
         user: data.user,
         message: message
