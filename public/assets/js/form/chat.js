@@ -60,6 +60,7 @@ class Chat {
 	  $('#message_input').on('keypress',function(event){
 
 	  	if((event.keyCode == 13) && ($('#message_input').val() !== '')) {
+	  		console.log('sending...');
 	  	  _this.sending($('#message_input').val());
 	  	  _this.toButtom();
 	  	}
@@ -198,6 +199,7 @@ class Chat {
 	}
 
 	send(message) {
+		console.log('send...');
 		this.io.socket.emit('send-message', {
 		  message: message,
 		  room: this.chat.room,

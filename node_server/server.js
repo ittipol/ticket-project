@@ -369,7 +369,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('send-message', function(data){
-
+    console.log('Send Message...');
     if(!data.room || !data.user || !data.key) {
       io.in(data.chanel).emit('chat-error', {
         error: true,
