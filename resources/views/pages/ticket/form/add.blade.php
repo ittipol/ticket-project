@@ -51,7 +51,7 @@
         <div class="form-group">
           <label class="form-control-label required">รายละเอียด</label>
           <!-- <div class="alert alert-info" role="alert">
-            สามารถระบุ <strong>Hashtag</strong> เพื่อเป็นการจัดกลุ่ม หมวด หรือรวมเนื้อหาที่ใกล้เคียงกันให้กับประกาศของคุณ โดยพิมพ์เครื่องหมาย # ตามด้วยกลุ่มคำที่ต้องการ เช่น #เชียงใหม่ #japan
+            สามารถระบุ <strong>Hashtag</strong> เพื่อเป็นการจัดกลุ่ม หมวด หรือรวมเนื้อหาที่ใกล้เคียงกันให้กับประกาศของคุณ โดยพิมพ์เครื่องหมาย # ตามด้วยกลุ่มคำที่ต้องการ
           </div> -->
           {{Form::textarea('description', null, array('class' => 'form-control'))}}
         </div>

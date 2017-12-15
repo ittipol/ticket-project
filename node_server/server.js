@@ -72,7 +72,7 @@ function notifyMessage(roomId,userId) {
 
         for (var i = 0; i < rows.length; i++) {
 
-          console.log(rows[i].user_id);
+          console.log('message notofy '+rows[i].user_id);
 
           if(rows[i].user_id != userId) {
 

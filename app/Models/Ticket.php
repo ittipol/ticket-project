@@ -212,17 +212,18 @@ class Ticket extends Model
       $_categoryId = $category->ticket_category_id;
     }
 
-    // foreach (StringHelper::getHashtagFromString($this->description) as $value) {
-    //   // $value = strip_tags($value);
-    //   $this->description = str_replace($value, '<a href="/hashtag/'.substr($value, 1).'">'.$value.'</a>', $this->description);
-    // }
+    foreach (StringHelper::getHashtagFromString($this->description) as $value) {
+      // $value = strip_tags($value);
+      // substr($value, 1)
+      $this->description = str_replace($value, '<a href="/?q='.$value.'">'.$value.'</a>', $this->description);
+    }
 
-    // foreach (StringHelper::getUrlFromString($this->description) as $value) {
-    //   // if(strpos($value, ',')) {
-    //   //   continue;
-    //   // }
-    //   $this->description = str_replace($value, '<a href="'.$value.'">'.$value.'</a>', $this->description);
-    // }
+    foreach (StringHelper::getUrlFromString($this->description) as $value) {
+      // if(strpos($value, ',')) {
+      //   continue;
+      // }
+      $this->description = str_replace($value, '<a href="'.$value.'">'.$value.'</a>', $this->description);
+    }
 
     return array(
       'id' => $this->id,
