@@ -209,6 +209,16 @@
   </div>
 </div>
 
+<div class="container mt4">
+  <div class="row">
+    <div class="col-12">
+      <div class="tc center pv3 overflow-hidden w-100 w-70-ns">
+        @include('shared.adsend')
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="clearfix margin-top-200"></div>
 
 @if(Auth::check() && (Auth::user()->id == $data['created_by']))
