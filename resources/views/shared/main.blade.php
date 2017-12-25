@@ -5,7 +5,6 @@
   @include('script.meta') 
   <!-- ################# -->
   @include('shared.tracking')
-
   <!-- CSS & JS -->
   @include('script.script')
 </head>

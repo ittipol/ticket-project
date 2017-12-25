@@ -12,24 +12,11 @@
 
 <div class="container-fliud mb5 mb7-ns">
 
-  <!-- @if(!empty($taggings))
-    <div class="main-panel">
-
-      <div class="tags bg-near-white pa3 bb b--silver">
-
-        <div class="mb3">แนะนำ</div>
-
-        @foreach($taggings as $tag)
-          <div class="md-chip">
-            <div class="md-chip-icon">
-              <i class="fa fa-tag"></i>
-            </div>
-            <a href="/ticket?q={{$tag['word']}}">{{$tag['word']}}</a>
-          </div>
-        @endforeach
-      </div>
+  <div class="main-panel">
+    <div class="tc center pv3 overflow-hidden w-100 w-70-ns">
+      @include('shared.adsend')
     </div>
-  @endif -->
+  </div>
 
   @if(!empty($data) && ($data->currentPage() <= $data->lastPage()))
   
