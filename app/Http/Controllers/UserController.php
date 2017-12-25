@@ -110,24 +110,87 @@ class UserController extends Controller
 
     $_user = $response->getGraphUser();
 
-    $user = User::select('id','email')->where([
+    // Old code
+    // $user = User::select('id','email')->where([
+    //   ['social_provider_id','=',1],
+    //   ['social_user_id','=',$_user['id']],
+    // ])->first();
+
+    // if(empty($user)) {
+    //   $user = new User;
+    //   $user->social_provider_id = 1; // FB
+    //   $user->social_user_id = $_user['id'];
+
+    //   if(!empty($_user['email'])) {
+    //     $user->email = $_user['email'];
+    //   }
+
+    //   $user->name = $_user['name'];
+    //   $user->user_key = Token::generate(32);
+    //   $user->jwt_secret_key = Token::generate(32);
+    //   $user->save();
+    // }
+    // End Code -------------------------------------------
+
+    $email = null;
+    if(!empty($_user['email'])) {
+      $email = trim($_user['email']);
+    }
+
+    $user = User::where([
       ['social_provider_id','=',1],
-      ['social_user_id','=',$_user['id']],
+      ['social_user_id','=',$_user['id']]
     ])->first();
 
     if(empty($user)) {
-      $user = new User;
-      $user->social_provider_id = 1; // FB
-      $user->social_user_id = $_user['id'];
 
-      if(!empty($_user['email'])) {
-        $user->email = $_user['email'];
+      if(!empty($email)) {
+        $user = User::where('email','=',$email)->first();
       }
 
-      $user->name = $_user['name'];
-      $user->user_key = Token::generate(32);
-      $user->jwt_secret_key = Token::generate(32);
-      $user->save();
+      if(empty($user)) {
+        // Create new user
+        $user = new User;
+        $user->social_provider_id = 1; // FB
+        $user->social_user_id = $_user['id'];
+
+        // if(!empty($_user['email'])) {
+        //   $user->email = trim($_user['email']);
+        // }
+
+        $user->email = $email;
+        $user->name = $_user['name'];
+        $user->user_key = Token::generate(32);
+        $user->jwt_secret_key = Token::generate(32);
+        $user->save();
+      }else {
+
+        // Check if this email was create by social network already
+        if(($user->social_provider_id != null) || ($user->social_user_id != null)) {
+          Snackbar::message('ไม่สามารถเข้าสู่ระบบด้วย Social Network');
+          return redirect('login');
+        }
+
+        $user->update(array(
+          'social_provider_id' => 1,
+          'social_user_id' => $_user['id']
+        ));
+
+      }
+
+    }elseif(empty($user->email) && !empty($email)) {
+      // update email
+      // Check if email not exist
+      // then update email
+
+      $exist = User::select('id')->where('email','=',$email)->exists();
+
+      if(!$exists) {
+        $user->update(array(
+          'email' => $email
+        ));
+      }
+
     }
 
     Auth::login($user,true);
