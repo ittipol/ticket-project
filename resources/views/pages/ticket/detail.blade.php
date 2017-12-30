@@ -30,6 +30,12 @@
       </div>  
     </div>
 
+    <div class="col-12 mv3">
+      <div class="tc center pv3 overflow-hidden w-100 w-70-ns">
+        @include('shared.adsend')
+      </div>
+    </div>
+
     <div class="col-md-8">
 
       <p class="ticket-detail-section pt2-ns mb-3">{!!$data['description']!!}</p>
@@ -206,16 +212,6 @@
 
     </div>
 
-  </div>
-</div>
-
-<div class="container mt4">
-  <div class="row">
-    <div class="col-12">
-      <div class="tc center pv3 overflow-hidden w-100 w-70-ns">
-        @include('shared.adsend')
-      </div>
-    </div>
   </div>
 </div>
 
