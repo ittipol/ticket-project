@@ -42,7 +42,7 @@
     }
 
     @media (max-width: 480px) {
-      .ticket-image-item { width: 48.4%; margin: 1% 0.5%; }
+      .ticket-image-item { width: 48.4%; margin: 0.5% 0.25%; }
     }
 
     @media (max-width: 375px) {
