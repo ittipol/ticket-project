@@ -1,4 +1,3 @@
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- top titket -->
 <ins class="adsbygoogle"
      style="display:inline-block;width:728px;height:90px"
