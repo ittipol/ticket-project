@@ -30,7 +30,7 @@
       </div>  
     </div>
 
-    <div class="col-12 mv3">
+    <div class="col-12 mv3 dn">
       <div class="tc center pv3 overflow-hidden w-100 w-70-ns">
         @include('shared.adsend')
       </div>
