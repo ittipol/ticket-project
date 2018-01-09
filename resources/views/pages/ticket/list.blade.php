@@ -14,7 +14,7 @@
 
   <div class="main-panel">
     <div class="tc center pv3 overflow-hidden w-100 w-70-ns">
-      @include('shared.adsend')
+      @include('shared.adsense')
     </div>
   </div>
 
