@@ -12,12 +12,6 @@
 
 <div class="container-fliud mb5 mb7-ns">
 
-  <div class="main-panel">
-    <div class="tc center pv3 overflow-hidden w-100 w-70-ns">
-      @include('shared.adsense')
-    </div>
-  </div>
-
   @if(!empty($data) && ($data->currentPage() <= $data->lastPage()))
   
   <div class="main-panel">
