@@ -7,6 +7,8 @@
   @include('shared.tracking')
   <!-- CSS & JS -->
   @include('script.script')
+
+  @include('shared.adsense')
 </head>
 <body>
 
@@ -32,12 +34,6 @@
   @include('shared.header')
 
   @yield('content')
-
-  <div class="main-panel">
-    <div class="tc center pv3 overflow-hidden w-100 w-70-ns">
-      @include('shared.adsense')
-    </div>
-  </div>
 
   <script type="text/javascript">
 
