@@ -60,6 +60,20 @@
     </div>
 
     <div class="mt-4">
+      <h4 class="my-2">พื่นที่</h4>
+
+      <div class="selecting-lable-box">
+        <div id="location_label" class="selected-value" data-toggle="modal" data-c-modal-target="#selecting_location" data-selecting-empty-label="เลือกพื่นที่">
+          เลือกพื่นที่
+        </div>
+        
+        <a class="selected-value-delete">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-4">
       <h4 class="my-2">ช่วงเวลาการใช้งานของบัตร</h4>
       <div class="input-group">
         <span class="input-group-addon">
@@ -119,6 +133,25 @@
 
     <div class="text-center mt-2">
       <button id="ticket_fiter_btn" type="submit" class="btn btn-primary btn-block br0">ค้นหา</button>
+    </div>
+
+    <div id="selecting_location" class="c-modal">
+      <a class="close"></a>
+      <div class="c-modal-sidebar-inner h-100">
+
+        <a class="modal-close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+
+        <div class="list-item-panel selecting-list"></div>
+        <div class="selecting-action">
+          <div class="selecting-action-inner mv2">
+            <small class="mb2">เส้นทาง</small>
+            <h5 class="selecting-lable mb2">...</h5>
+          </div>
+        </div>
+      </div>
+      {{ Form::hidden('location') }}
     </div>
 
     {{Form::close()}}

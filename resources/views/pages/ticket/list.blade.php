@@ -141,6 +141,7 @@
 
 <script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
+<script type="text/javascript" src="/assets/js/form/selecting-list.js"></script>
 <script type="text/javascript" src="/assets/js/user_online.js"></script>
 
 <script type="text/javascript">
@@ -214,6 +215,10 @@
           $('#price_end').removeAttr('name');
         }
 
+        if($('input[name="location"]').val() === '') {
+          $('input[name="location"]').removeAttr('name');
+        }
+
         if($('#start_date').val() === '') {
           $('#start_date').removeAttr('name');
         }
@@ -253,6 +258,16 @@
 
     const _ticketFilter = new TicketFilter();
     _ticketFilter.init();
+
+    const locationList = new SelectingList('location','#selecting_location','#location_label');
+    locationList.init();
+    @if(empty($locationSearchingData))
+      locationList.getData();
+    @else
+      locationList.setDataId({{$locationSearchingData['id']}});
+      locationList.setDataPath({!!$locationSearchingData['path']!!});
+      locationList.setSelectedLabel();
+    @endif
 
     const date1 = new Datepicker('#start_date',true,true);
     date1.init();

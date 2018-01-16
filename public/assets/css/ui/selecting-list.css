@@ -23,8 +23,7 @@
 }
 
 .selecting-lable > span {
-	/*color: #137752;*/
-	color: #448AFF;
+	color: #009688;
 	font-size: 1.125rem;
 	line-height: 32px;
 }

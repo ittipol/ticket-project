@@ -6,7 +6,7 @@
   height: 100%;
   background-color: #fff;
   border-right: 1px solid #ccc;
-  z-index: 30;
+  z-index: 29;
   overflow-y: auto;
   overflow-x: hidden; 
 }
@@ -15,7 +15,7 @@
 	position: fixed;
 	top: 15px;
 	right: 20px;
-	z-index: 99;
+	z-index: 80;
 	display: none;
 }
 

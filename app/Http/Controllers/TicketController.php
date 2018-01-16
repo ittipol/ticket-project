@@ -132,6 +132,24 @@ class TicketController extends Controller
 
     }
 
+    $locationSearchingData = null;
+    if(!empty($request->get('location'))) {
+      $searching = true;
+
+      $model
+      ->join('ticket_to_locations', 'ticket_to_locations.ticket_id', '=', 'tickets.id')
+      ->where('ticket_to_locations.location_id','=',$request->get('location')); 
+
+      $paths = Service::loadModel('Location')->getLocationPaths($request->get('location'));
+
+      $locationSearchingData = array(
+        'id' => $request->get('location'),
+        'path' => json_encode($paths)
+      );
+
+      $searchData['location'] = $request->get('location');
+    }
+
     if($request->has('start_date') || $request->has('end_date')) {
       $searching = true;
 
@@ -289,6 +307,7 @@ class TicketController extends Controller
 
     // $this->setData('taggings',$taggings);
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
+    $this->setData('locationSearchingData',$locationSearchingData);
     $this->setData('search',$searching);
 
     if($searching) {
