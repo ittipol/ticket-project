@@ -57,6 +57,46 @@ class Ticket extends Model
     return $this->dateType[$id];
   }
 
+  public function getLocationId() {
+    
+    $ticketToLocation = $this->getRelatedData('TicketToLocation',array(
+      'fields' => array('location_id'),
+      'first' => true
+    ));
+
+    if(empty($ticketToLocation)) {
+      return null;
+    }
+
+    return $ticketToLocation->location_id;
+  }
+
+  public function getLocationPaths() {
+
+    $ticketToLocation = TicketToLocation::where('ticket_id','=',$this->id)->select('location_id');
+
+    if(!$ticketToLocation->exists()) {
+      return null;
+    }
+
+    $LocationModel = new Location;
+
+    return $LocationModel->getLocationPaths($ticketToLocation->first()->location_id);
+  }
+
+  public function getLocationBreadcrumb() {
+
+    $itemToLocation = TicketToLocation::where('ticket_id','=',$this->id)->select('location_id');
+
+    if(!$itemToLocation->exists()) {
+      return null;
+    }
+
+    $LocationModel = new Location;
+
+    return $LocationModel->breadcrumb($itemToLocation->first()->location_id);
+  }
+
   public function buildDataList($titleLength = 90,$findDaysLeft = false) {
 
     $cache = new cache;

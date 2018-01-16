@@ -9,31 +9,6 @@
   @include('script.script')
 
   @include('shared.adsense')
-</head>
-<body>
-
-  <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '{{env("FB_APP_ID")}}',
-        xfbml      : true,
-        version    : '{{env("GRAPH_VERSION")}}'
-      });
-      FB.AppEvents.logPageView();
-    };
-
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  </script>
-
-  @include('shared.header')
-
-  @yield('content')
 
   <script type="text/javascript">
 
@@ -61,6 +36,35 @@
     });
 
   </script>
+</head>
+<body>
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '{{env("FB_APP_ID")}}',
+        xfbml      : true,
+        version    : '{{env("GRAPH_VERSION")}}'
+      });
+      FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+  @include('shared.header')
+
+  @yield('content')
+
+  @if(Session::has('popup-feature'))
+    @include('shared.feature')
+  @endif
 
   @if(Session::has('message.title'))
   <script type="text/javascript">
@@ -72,6 +76,10 @@
   @endif
 
   <script type="text/javascript">
+
+    const _modal = new ModalDialog();
+    _modal.init();
+
     new gnMenu(document.getElementById('gn-menu'));
   </script>
 

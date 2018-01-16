@@ -34,6 +34,10 @@
 .c-modal .c-modal-inner.hide {
 	z-index: 4;
 }
+.c-modal .c-modal-inner.scroll{
+	overflow-y: auto;
+	overflow-x: hidden;
+}
 .c-modal .c-modal-inner h2 {
   margin-top: 0;
 }
@@ -132,4 +136,51 @@
 	.c-modal .modal-textarea.show {
 		height: 200px;
 	}
+}
+
+
+.c-modal .c-modal-sidebar-inner {
+  position: absolute;
+  display: block;
+  padding: 48px;
+  line-height: 1.8;
+  min-width: 30%;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  right: -100%;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+  color: #34495E;
+  background: #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 60;
+  transition: right 240ms cubic-bezier(0.15, 1, 0.3, 1);
+}
+.c-modal .c-modal-sidebar-inner.sidebar-md {
+  width: 30%;
+}
+@media (max-width: 1024px) {
+  .c-modal .c-modal-sidebar-inner {
+    width: 90%;
+    padding: 24px 15px;
+    transition: none;
+  }
+
+  .c-modal .c-modal-sidebar-inner.sidebar-md {
+    width: 70%;
+  }
+}
+@media (max-width: 480px) {
+  .c-modal .c-modal-sidebar-inner {
+    width: 100%;
+    padding: 24px 15px;
+    right: 0;
+  }
+  .c-modal .c-modal-sidebar-inner.sidebar-md {
+    width: 90%;
+  }
+}
+.c-modal.show .c-modal-sidebar-inner {
+	right: 0;
 }

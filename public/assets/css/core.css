@@ -3,6 +3,10 @@
   cursor: pointer;
 }
 
+.color-orange {
+  color: #b91400;
+}
+
 .alert {
 	border-radius: 0;
 }
@@ -14,6 +18,10 @@ form .required::after {
 
 .form-control {
 	border-color: #999;
+}
+
+.form-group {
+  overflow: hidden;
 }
 
 .form-group .alert ul {

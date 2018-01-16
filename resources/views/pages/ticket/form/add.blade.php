@@ -149,6 +149,36 @@
         </div> -->
 
         <div class="form-group">
+          <label class="form-control-label required">ตำแหน่งสินค้า</label>
+
+          <div class="selecting-lable-box">
+            <div id="location_label" class="selected-value" data-toggle="modal" data-c-modal-target="#selecting_location" data-selecting-empty-label="ระบุตำแหน่งสินค้า">
+              ระบุตำแหน่งสินค้า
+            </div>
+          </div>
+
+          <div id="selecting_location" class="c-modal">
+            <a class="close"></a>
+            <div class="c-modal-sidebar-inner">
+
+              <a class="modal-close">
+                <span aria-hidden="true">&times;</span>
+              </a>
+
+              <div class="list-item-panel selecting-list"></div>
+              <div class="selecting-action">
+                <div class="selecting-action-inner mv2">
+                  <small class="mb2">เส้นทาง</small>
+                  <h5 class="selecting-lable mb2">...</h5>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="TicketToLocation[location_id]">
+          </div>
+        
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label required">ช่องทางการติดต่อผู้ขาย</label>
           <div class="alert alert-info" role="alert">
             <ul class="ma0">
@@ -201,6 +231,7 @@
 <script type="text/javascript" src="/assets/js/form/tagging.js"></script>
 <script type="text/javascript" src="/assets/js/form/ticket-validation.js"></script>
 <script type="text/javascript" src="/assets/js/form/form-datepicker.js"></script>
+<script type="text/javascript" src="/assets/js/form/selecting-list.js"></script>
 
 <script type="text/javascript">
 
@@ -221,6 +252,10 @@
 
     const date2 = new Datepicker('#date_input_2');
     date2.init();
+
+    const locationList = new SelectingList('location','#selecting_location','#location_label');
+    locationList.init();
+    locationList.getData();
 
     Validation.initValidation();
 

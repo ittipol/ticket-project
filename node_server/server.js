@@ -1,4 +1,4 @@
-console.log('-----------------------------------');
+console.log('##########################################');
 var env = require('./env');
 var _const = require('./const');
 var stringHelper = require('./func/string_helper');
@@ -352,6 +352,56 @@ io.on('connection', function(socket){
   },300000);
 
 
+  socket.on('get-location', function(data){
+    
+    let _this = this;
+
+    let sql = '';
+    if(data['parentId'] === null) {
+      sql = 'SELECT * FROM `locations` WHERE `parent_id` IS NULL';
+    }else if(data['parentId']) {
+      sql = 'SELECT * FROM `locations` WHERE `parent_id` = '+data['parentId'];
+    }else {
+      return false;    
+    }
+
+    let count = 0;
+    let locations = [];
+
+    db.query(sql, function(err, rows){
+
+      for (var i = 0; i < rows.length; i++) {
+
+        let _rows = rows[i];
+      
+        db.query('SELECT COUNT(id) AS total FROM `locations` WHERE `parent_id` = '+rows[i]['id'], function(err, row){
+          
+          let next = true;
+          if(row[0]['total'] === 0) {
+            next = false;
+          }
+
+          locations.push({
+            id: _rows['id'],
+            name: _rows['name'],
+            hasChild: next,
+          });
+
+          if(++count === rows.length) {
+            io.in(data.chanel).emit('get-location', {
+              data: locations
+            });
+          }
+
+        })
+
+      }
+      
+    })
+
+  })
+
+
 
   // ||||||||||||||||||||||| CHAT |||||||||||||||||||||||
   socket.on('chat-join', function(data){
@@ -369,7 +419,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('send-message', function(data){
-    console.log('Send Message...');
+
     if(!data.room || !data.user || !data.key) {
       io.in(data.chanel).emit('chat-error', {
         error: true,
@@ -392,10 +442,7 @@ io.on('connection', function(socket){
 
       let message = striptags(data.message.trim());
       //
-      db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', '"+message+"', '"+dateTime.now(true)+"');");
-
-      console.log('message saved');
-      console.log(message);
+      db.query("INSERT INTO `chat_messages` (`id`, `chat_room_id`, `user_id`, `message`, `created_at`) VALUES (NULL, '"+data.room+"', '"+data.user+"', "+db.escape(message)+", '"+dateTime.now(true)+"');");
 
       io.in('cr_'+data.room+'.'+data.key).emit('chat-message', {
         user: data.user,

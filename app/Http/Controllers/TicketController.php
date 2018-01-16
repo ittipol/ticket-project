@@ -318,6 +318,8 @@ class TicketController extends Controller
     $this->setData('ticketId',$ticketId);
     $this->setData('seller',Service::loadModel('User')->buildProfileForTicketDetail($model->created_by));
 
+    $this->setData('locations',$model->getLocationBreadcrumb());
+
     // Modal use for shared.ig with twitter title
     // $this->setData('_text',$data['title']);
 
@@ -405,6 +407,10 @@ class TicketController extends Controller
     if(!empty($request->get('place_location'))) {
       Service::loadModel('PlaceLocation')->__saveRelatedData($model,$request->get('place_location'));
     }
+
+    if($request->has('TicketToLocation')) {
+      Service::loadModel('TicketToLocation')->__saveRelatedData($model,$request->get('TicketToLocation'));
+    }
     
     // Lookup
 
@@ -476,6 +482,9 @@ class TicketController extends Controller
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
     $this->setData('dateType',$model->getDateType());
 
+    $this->setData('locationId',$model->getLocationId());
+    $this->setData('locationPaths',json_encode($model->getLocationPaths()));
+
     $this->setMeta('title','แก้ไขรายการ » '.$model->title.' — TicketEasys');
 
     $this->botDisallowed();
@@ -538,6 +547,14 @@ class TicketController extends Controller
     if(!empty($request->get('place_location'))) {
       $placeLocationModel = Service::loadModel('PlaceLocation');
       $placeLocationModel->__saveRelatedData($model,$request->get('place_location'));
+    }
+
+    if(!empty($request->get('TicketToLocation'))) {
+      $_data = $request->get('TicketToLocation');
+
+      if($_data['location_id'] != $model->getLocationId()) {
+        $dataChanged = Service::loadModel('TicketToLocation')->__saveRelatedData($model,$request->get('TicketToLocation'));
+      }
     }
 
     // Lookup

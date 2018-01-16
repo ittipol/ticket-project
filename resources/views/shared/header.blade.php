@@ -35,7 +35,6 @@
                 </ul>
               </li>
             @endif
-            <li><a href="/features" class="gn-icon fa-star">คุณสมบัติที่น่าสนใจ</a></li>
           </ul>
         </div>
         

@@ -20,6 +20,7 @@
     'assets/js/io.js',
     'assets/js/user.js',
     'assets/js/date_time.js',
+    'assets/js/modal.js',
     'assets/js/common.js',
     'assets/js/component/snackbar.js',
   );
@@ -74,6 +75,8 @@
     // 'assets/lib/notification/css/ns-style-growl.css',
     // 'assets/lib/notification/css/ns-style-other.css',
 
+    'assets/css/ui/selecting-list.css',
+    'assets/css/ui/list-item.css',
     'assets/css/ui/pagination.css',
     'assets/css/ui/calendar.css',
     'assets/css/ui/navbar.css',

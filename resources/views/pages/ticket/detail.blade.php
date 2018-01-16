@@ -30,15 +30,22 @@
       </div>  
     </div>
 
-    <div class="col-12 mv3 dn">
-      <div class="tc center pv3 overflow-hidden w-100 w-70-ns">
-        @include('shared.adsense')
-      </div>
-    </div>
-
     <div class="col-md-8">
 
-      <p class="ticket-detail-section pt2-ns mb-3">{!!$data['description']!!}</p>
+      <div class="ticket-detail-section ">
+
+        @if(!empty($locations))
+          <div class="additional-item">
+            <i class="fa fa-map-marker color-orange"></i>
+          @foreach($locations as $path)
+            <small>{{$path['name']}}</small>
+          @endforeach
+          </div>
+        @endif
+
+        <p class="pt2-ns mb-3">{!!$data['description']!!}</p>
+
+      </div>
 
       @include('shared.ig')
 
