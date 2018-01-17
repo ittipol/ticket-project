@@ -137,7 +137,7 @@
 
     <div id="selecting_location" class="c-modal">
       <a class="close"></a>
-      <div class="c-modal-sidebar-inner h-100">
+      <div class="c-modal-sidebar-inner show-left h-100">
 
         <a class="modal-close">
           <span aria-hidden="true">&times;</span>

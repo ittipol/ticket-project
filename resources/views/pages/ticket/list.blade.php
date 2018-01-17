@@ -171,6 +171,18 @@
         $('.left-sidenav').removeClass('show');
       });
 
+      $('#location_label').on('click',function(){
+        $('.left-sidenav').css('overflow-y','hidden');
+      });
+
+      $('#selecting_location').on('click','.close',function(){
+        $('.left-sidenav').css('overflow-y','scroll');
+      });
+
+      $('#selecting_location').on('click','.modal-close',function(){
+        $('.left-sidenav').css('overflow-y','scroll');
+      });
+
       $('#ticket_filter_form').on('submit',function(){
         
         if(($('#start_date').val() !== '') && ($('#end_date').val() !== '')) {        

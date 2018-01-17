@@ -184,3 +184,13 @@
 .c-modal.show .c-modal-sidebar-inner {
 	right: 0;
 }
+
+.c-modal .c-modal-sidebar-inner.show-left {
+  left: -100%;
+  right: auto;
+  transition: left 240ms cubic-bezier(0.15, 1, 0.3, 1);
+}
+
+.c-modal.show .c-modal-sidebar-inner.show-left {
+  left: 0;
+}
