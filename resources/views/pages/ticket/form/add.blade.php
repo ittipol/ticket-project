@@ -149,12 +149,16 @@
         </div> -->
 
         <div class="form-group">
-          <label class="form-control-label required">ตำแหน่งสินค้า</label>
+          <label class="form-control-label">ตำแหน่งสินค้า</label>
 
           <div class="selecting-lable-box">
             <div id="location_label" class="selected-value" data-toggle="modal" data-c-modal-target="#selecting_location" data-selecting-empty-label="ระบุตำแหน่งสินค้า">
               ระบุตำแหน่งสินค้า
             </div>
+
+            <a class="selected-value-delete">
+              <span aria-hidden="true">&times;</span>
+            </a>
           </div>
 
           <div id="selecting_location" class="c-modal">

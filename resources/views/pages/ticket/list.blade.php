@@ -176,11 +176,11 @@
       });
 
       $('#selecting_location').on('click','.close',function(){
-        $('.left-sidenav').css('overflow-y','scroll');
+        $('.left-sidenav').css('overflow-y','auto');
       });
 
       $('#selecting_location').on('click','.modal-close',function(){
-        $('.left-sidenav').css('overflow-y','scroll');
+        $('.left-sidenav').css('overflow-y','auto');
       });
 
       $('#ticket_filter_form').on('submit',function(){
