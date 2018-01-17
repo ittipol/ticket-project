@@ -230,7 +230,7 @@ class SelectingList {
     for (var i = 0; i < this.catPathName.length; i++) {
 
       if(i > 0) {
-        path += ' » ';
+        path += ' > ';
       }
 
       if(i == (this.catPathName.length-1)) {

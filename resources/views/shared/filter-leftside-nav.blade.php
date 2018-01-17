@@ -60,7 +60,7 @@
     </div>
 
     <div class="mt-4">
-      <h4 class="my-2">พื่นที่สินค้า</h4>
+      <h4 class="my-2">ค้นหาตามพื่นที่</h4>
 
       <div class="selecting-lable-box">
         <div id="location_label" class="selected-value" data-toggle="modal" data-c-modal-target="#selecting_location" data-selecting-empty-label="เลือกพื่นที่">

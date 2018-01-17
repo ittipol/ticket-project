@@ -572,7 +572,7 @@ class TicketController extends Controller
       $_data = $request->get('TicketToLocation');
 
       if($_data['location_id'] != $model->getLocationId()) {
-        $dataChanged = Service::loadModel('TicketToLocation')->__saveRelatedData($model,$request->get('TicketToLocation'));
+        Service::loadModel('TicketToLocation')->__saveRelatedData($model,$request->get('TicketToLocation'));
       }
     }
 
