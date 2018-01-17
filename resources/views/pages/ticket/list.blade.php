@@ -172,7 +172,11 @@
       });
 
       $('#location_label').on('click',function(){
-        $('.left-sidenav').css('overflow-y','hidden');
+
+        if($(window).height() > 480) {
+          $('.left-sidenav').css('overflow-y','hidden');
+        }
+        
       });
 
       $('#selecting_location').on('click','.close',function(){

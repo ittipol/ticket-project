@@ -66,6 +66,7 @@
 	right: 16px;
 	font-size: 1.625rem;
 	cursor: pointer;
+  z-index: 80;
 }
 .c-modal a.modal-close:hover {
 	text-decoration: none;

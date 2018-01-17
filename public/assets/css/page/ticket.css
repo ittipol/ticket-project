@@ -356,8 +356,12 @@
 
 @media (max-width: 480px) {
 
-	.ticket-add-image-cover .jumbotron h1 {
-		font-size: 1.5rem;
+	.left-sidenav {
+		transition: none;
 	}
+
+	/*.ticket-add-image-cover .jumbotron h1 {
+		font-size: 1.5rem;
+	}*/
 
 }
