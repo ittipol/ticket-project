@@ -14,6 +14,15 @@
 
     <h4 class="my-2">ค้นหา</h4>
 
+    <div class="mt-2 mb3">
+      {{ Form::text('q', null, array(
+        'id' => 'q',
+        'class' => 'w-100 p-2',
+        'placeholder' => 'ชื่อบัตร สถานที่ หรือ คำค้นอื่นๆ',
+        'autocomplete' => 'off'
+      )) }}
+    </div>
+
     <div>
       <div class="row">
         @foreach($categories as $key => $category)
@@ -27,15 +36,6 @@
         </div>
         @endforeach
       </div>
-    </div>
-
-    <div class="mt-2">
-      {{ Form::text('q', null, array(
-        'id' => 'q',
-        'class' => 'w-100 p-2',
-        'placeholder' => 'ชื่อบัตร สถานที่ หรือ คำค้นอื่นๆ',
-        'autocomplete' => 'off'
-      )) }}
     </div>
 
     <div class="mt-4">

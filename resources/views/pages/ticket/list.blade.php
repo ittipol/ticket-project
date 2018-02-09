@@ -3,7 +3,8 @@
 
 <style type="text/css">
   body {
-    background-color: #CFD8DC;
+    /*background-color: #CFD8DC;*/
+    background-color: #fff;
     /*background: linear-gradient(90deg, #00aaee 10%, #DD2476 90%);*/
   }
 </style>

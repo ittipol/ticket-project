@@ -35,6 +35,7 @@
                 </ul>
               </li>
             @endif
+            <li><a href="https://www.facebook.com/Ticketeasys-919999211490459/" class="gn-icon fa-facebook">TicketEasys</a></li>
           </ul>
         </div>
         
@@ -43,6 +44,24 @@
 
     <li class="brand-l">
       <a href="/"><img class="c-logo" src="/assets/images/logo/logo_x.jpg"></a>
+    </li>
+
+    <li class="dd-menu btn-hover">
+      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-bookmark" aria-hidden="true"></i>
+      </a>
+      <div class="dropdown-menu">
+        <div class="dd-content">
+          <div>ติดต่อ</div>
+          <div>
+            Email: contact.ticketeasys@gmail.com 
+          </div>
+          <br>
+          <div>
+            Facebook page: <a href="https://www.facebook.com/Ticketeasys-919999211490459/">TicketEasys</a>
+          </div>
+        </div>
+      </div>
     </li>
 
     @if(Auth::check())
@@ -88,5 +107,6 @@
           <i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;ขายบัตร
         </a>
       </li>
+      
   </ul>
 </header>
