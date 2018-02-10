@@ -46,7 +46,7 @@
       <a href="/"><img class="c-logo" src="/assets/images/logo/logo_x.jpg"></a>
     </li>
 
-    <li class="dd-menu btn-hover">
+    <!-- <li class="dd-menu btn-hover">
       <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-bookmark" aria-hidden="true"></i>
       </a>
@@ -62,7 +62,7 @@
           </div>
         </div>
       </div>
-    </li>
+    </li> -->
 
     @if(Auth::check())
 
