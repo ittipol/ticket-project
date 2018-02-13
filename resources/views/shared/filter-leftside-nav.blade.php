@@ -131,9 +131,9 @@
       </div>
     </div>
 
-    <div class="text-center mt-2">
+    <!-- <div class="text-center mt-2">
       <button id="ticket_fiter_btn" type="submit" class="btn btn-primary btn-block br0">ค้นหา</button>
-    </div>
+    </div> -->
 
     <div id="selecting_location" class="c-modal">
       <a class="close"></a>

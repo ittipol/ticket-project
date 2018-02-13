@@ -8,8 +8,6 @@
   <!-- CSS & JS -->
   @include('script.script')
 
-  @include('shared.adsense')
-
   <script type="text/javascript">
 
     // var _socket = io('{{env('SOCKET_URL')}}');

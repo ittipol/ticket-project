@@ -314,7 +314,7 @@ class TicketController extends Controller
       $this->setMeta('title','การค้นหาบน TicketEasys');
     }
 
-    return $this->view('pages.ticket.list');
+    return $this->view('pages.ticket.ajax_list');
   }
 
   public function detail($ticketId) {
@@ -655,5 +655,261 @@ class TicketController extends Controller
     Snackbar::message('ประกาศของคุณถูกดึงไปยังหน้าแรกแล้ว');
     return Redirect::to('/ticket/view/'.$ticketId);
 
+  }
+
+  public function _list(Request $request) {
+
+    // if(!isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+    //   return false;
+    // }
+
+    $model = Service::loadModel('Ticket')->query();
+
+    $currentPage = 1;
+    if($request->has('page')) {
+      $currentPage = $request->page;
+    }
+    //set page
+    Paginator::currentPageResolver(function() use ($currentPage) {
+        return $currentPage;
+    });
+
+    $now = date('Y-m-d H:i:s');
+
+    $searching = false;
+
+    if($request->has('q')) {
+      $searching = true;
+
+      $_q = trim(strip_tags($request->q));
+      $_q = preg_replace('/\s[+\'\'\\\\\/:;()*\-^&!<>\[\]\|]\s/', ' ', $_q);
+      $_q = preg_replace('/\s{1,}/', ' ', $_q);
+
+      $keywords = array();
+      // $wordIds = array();
+
+      foreach (explode(' ', $_q) as $word) {
+
+        $word = str_replace(array('\'','"'), '', $word);
+        $word = str_replace('+', ' ', $word);
+
+        $len = mb_strlen($word);
+
+        if($len < 2) { // not search this word
+          continue;
+        }elseif(substr($_q, 0, 1) === '#') { // search by hashtag
+          $keywords[] = array('description','like','%'.$word.'%');
+        }else { // default search
+          $keywords[] = array('title','like','%'.$word.'%');
+          // $keywords[] = array('description','like','%#'.$word.'%'); // search only hashtag
+          $keywords[] = array('place_location','like','%'.$word.'%');
+
+          // $_word = Service::loadModel('Word')->select('id')->where('word','like',$word);
+          // if($_word->exists()) {
+          //   $wordIds[] = $_word->first()->id;
+          // }
+        }
+      }
+
+      $model->where(function ($query) use ($keywords) {
+        foreach ($keywords as $keyword) {
+          $query->orWhere($keyword[0], $keyword[1], $keyword[2]);
+        }
+    
+        // if(!empty($wordIds)) {
+        //   $query
+        //   ->orWhere(function ($query) use ($wordIds) {
+        //     $query
+        //     ->where('taggings.model','=','Ticket')
+        //     ->whereIn('taggings.word_id',$wordIds);
+        //   });
+        // }
+      });
+
+      // if(!empty($wordIds)) {
+      //   $model->join('taggings', 'taggings.model_id', '=', 'tickets.id');
+      // }
+    }
+
+    if($request->has('category')) {
+      $searching = true;
+
+      $model
+      ->join('ticket_to_categories', 'ticket_to_categories.ticket_id', '=', 'tickets.id')
+      ->whereIn('ticket_to_categories.ticket_category_id',$request->category);
+    }
+
+    if($request->has('price_start') || $request->has('price_end')) {
+      $searching = true;
+
+      $model->where(function ($query) use ($request) {
+        if($request->has('price_start') && Validation::isCurrency($request->price_start)) {
+          $query->where('tickets.price','>=',$request->price_start);
+        }
+
+        if($request->has('price_end') && ($request->price_end > 0) && Validation::isCurrency($request->price_end)) {
+          $query->where('tickets.price','<=',$request->price_end);
+        }
+      });
+
+    }
+
+    // $locationSearchingData = null;
+    // if(!empty($request->get('location'))) {
+    //   $searching = true;
+
+    //   $model
+    //   ->join('ticket_to_locations', 'ticket_to_locations.ticket_id', '=', 'tickets.id')
+    //   ->where('ticket_to_locations.location_id','=',$request->get('location')); 
+
+    //   $paths = Service::loadModel('Location')->getLocationPaths($request->get('location'));
+
+    //   $locationSearchingData = array(
+    //     'id' => $request->get('location'),
+    //     'path' => json_encode($paths)
+    //   );
+
+    //   $searchData['location'] = $request->get('location');
+    // }
+
+    // if($request->has('start_date') || $request->has('end_date')) {
+    //   $searching = true;
+
+    //   $model->where(function ($query) use ($request) {
+
+    //     if($request->has('start_date') && $request->has('end_date')) {
+    //       $query
+    //       ->where([
+    //         ['tickets.date_1','>=',$request->start_date],
+    //         ['tickets.date_1','<=',$request->end_date]
+    //       ])
+    //       ->orWhere([
+    //         ['tickets.date_2','>=',$request->start_date],
+    //         ['tickets.date_2','<=',$request->end_date]
+    //       ]);
+    //     }elseif($request->has('start_date')) {
+    //       $query
+    //       ->where('tickets.date_1','>=',$request->start_date)
+    //       ->orWhere('tickets.date_2','>=',$request->start_date);
+    //     }elseif($request->has('end_date')) {
+    //       $query
+    //       ->where('tickets.date_1','<=',$request->end_date)
+    //       ->orWhere('tickets.date_2','<=',$request->end_date);
+    //     }
+
+    //   });
+    // }else{
+
+    //   $model->where(function($query) use ($now) {
+
+    //     $query
+    //     ->where(function($query) {
+
+    //       $query
+    //       ->where('date_type','=',0)
+    //       ->where('tickets.date_1','=',null)
+    //       ->where('tickets.date_2','=',null);
+
+    //     })
+    //     ->orWhere(function($query) use ($now) {
+
+    //       $query
+    //       ->where('date_type','=',1)
+    //       ->where('tickets.date_2','>=',$now);
+
+    //     })
+    //     ->orWhere(function($query) use ($now) {
+
+    //       $query
+    //       ->whereIn('date_type', [2,3])
+    //       ->where('tickets.date_1','>=',$now);
+
+    //     }); 
+
+    //   });
+
+    // }
+
+    $model->where(function($q) {
+      $q->where('closing_option','=',0);
+    });
+
+    if($request->has('sort')) {
+
+      switch ($request->sort) {
+        case 'post_n':
+          $model->orderBy('tickets.activated_date','desc');
+          break;
+        
+        case 'post_o':
+          $model->orderBy('tickets.activated_date','asc');
+          break;
+
+        case 'price_h':
+          $model->orderBy('tickets.price','desc');
+          break;
+
+        case 'price_l':
+          $model->orderBy('tickets.price','asc');
+          break;
+
+        case 'card_date':
+          $model->orderBy('tickets.date_1','asc');
+          // $model->orderBy('tickets.date_2','asc');
+          break;
+
+        default:
+          $model->orderBy('tickets.activated_date','desc');
+          break;
+      }
+
+    }else {
+      $model->orderBy('tickets.activated_date','desc');
+    }
+
+    $data = array();
+
+    if(!$searching || !$request->has('q') || !empty($keywords)) {
+      $data = $model->paginate(48);
+    }
+
+    $next = true;
+    if($request->page == $data->lastPage()) {
+      $next = false;
+    }
+
+    $html = '';
+    $hasData = true;
+
+    if(!empty($data) && ($data->currentPage() <= $data->lastPage())) {
+      $html = view('pages.ticket._ticket_list',array(
+        'data' => $data,
+      ))->render();
+    }elseif($searching) {
+      // Display searching not found
+      $hasData = false;
+      $html = '<div class="tc mv5 pa3 pa0-ns white">
+        <h3 class="dark-gray">ไม่พบรายการที่กำลังค้นหา</h3>
+        <p class="dark-gray">โปรดลองค้นหาอีกครั้ง ด้วยคำที่แตกต่างหรือคำที่มีความหมายใกล้เคียง</p>
+      </div>';
+    }else {
+      // Display ticket not found
+      $hasData = false;
+      $html = '<div class="tc mv5 pa3 pa0-ns white">
+        <h3 class="dark-gray">ยังไม่มีรายการขายบัตร</h3>
+        <p class="dark-gray">บัตรคอนเสิร์ต ตั๋ว วอชเชอร์ และอื่นๆที่ไม่ได้ใช้แล้วสามารถนำมาขายได้ที่นี่</p>
+        <a href="/ticket/new" class="pv2 ph4 mt3 btn btn-primary">
+          ขายบัตรของคุณ
+        </a>
+      </div>';
+    }
+
+    $result = array(
+      'hasData' => $hasData,
+      'html' => $html,
+      'next' => $next
+    );
+
+    return response()->json($result);
   }
 }

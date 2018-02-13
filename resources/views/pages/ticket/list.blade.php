@@ -128,7 +128,7 @@
 
   @else
 
-    <div class="main-panel text-center mv5 pa3 pa0-ns  white">
+    <div class="main-panel text-center mv5 pa3 pa0-ns white">
       <h3 class="dark-gray">ยังไม่มีรายการขายบัตร</h3>
       <p class="dark-gray">บัตรคอนเสิร์ต ตั๋ว วอชเชอร์ และอื่นๆที่ไม่ได้ใช้แล้วสามารถนำมาขายได้ที่นี่</p>
       <a href="/ticket/new" class="pv2 ph4 mt3 btn btn-primary">

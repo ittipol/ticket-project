@@ -178,7 +178,6 @@ class User extends Model implements AuthenticatableContract,AuthorizableContract
       'name' => $user->name,
       'online' => Redis::get('user-online:'.$id)
     );
-
   }
 
   public static function buildProfileForTicketDetail($id) {
