@@ -187,7 +187,7 @@
     }
 
     loading(action = null) {
-console.log(this.data);
+
       let _this = this;
 
       switch(action) {
