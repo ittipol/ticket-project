@@ -659,9 +659,9 @@ class TicketController extends Controller
 
   public function _list(Request $request) {
 
-    // if(!isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-    //   return false;
-    // }
+    if(!isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+      return false;
+    }
 
     $model = Service::loadModel('Ticket')->query();
 
@@ -755,80 +755,80 @@ class TicketController extends Controller
     }
 
     // $locationSearchingData = null;
-    // if(!empty($request->get('location'))) {
-    //   $searching = true;
+    if(!empty($request->get('location'))) {
+      $searching = true;
 
-    //   $model
-    //   ->join('ticket_to_locations', 'ticket_to_locations.ticket_id', '=', 'tickets.id')
-    //   ->where('ticket_to_locations.location_id','=',$request->get('location')); 
+      $model
+      ->join('ticket_to_locations', 'ticket_to_locations.ticket_id', '=', 'tickets.id')
+      ->where('ticket_to_locations.location_id','=',$request->get('location')); 
 
-    //   $paths = Service::loadModel('Location')->getLocationPaths($request->get('location'));
+      // $paths = Service::loadModel('Location')->getLocationPaths($request->get('location'));
 
-    //   $locationSearchingData = array(
-    //     'id' => $request->get('location'),
-    //     'path' => json_encode($paths)
-    //   );
+      // $locationSearchingData = array(
+      //   'id' => $request->get('location'),
+      //   'path' => json_encode($paths)
+      // );
 
-    //   $searchData['location'] = $request->get('location');
-    // }
+      // $searchData['location'] = $request->get('location');
+    }
 
-    // if($request->has('start_date') || $request->has('end_date')) {
-    //   $searching = true;
+    if($request->has('start_date') || $request->has('end_date')) {
+      $searching = true;
 
-    //   $model->where(function ($query) use ($request) {
+      $model->where(function ($query) use ($request) {
 
-    //     if($request->has('start_date') && $request->has('end_date')) {
-    //       $query
-    //       ->where([
-    //         ['tickets.date_1','>=',$request->start_date],
-    //         ['tickets.date_1','<=',$request->end_date]
-    //       ])
-    //       ->orWhere([
-    //         ['tickets.date_2','>=',$request->start_date],
-    //         ['tickets.date_2','<=',$request->end_date]
-    //       ]);
-    //     }elseif($request->has('start_date')) {
-    //       $query
-    //       ->where('tickets.date_1','>=',$request->start_date)
-    //       ->orWhere('tickets.date_2','>=',$request->start_date);
-    //     }elseif($request->has('end_date')) {
-    //       $query
-    //       ->where('tickets.date_1','<=',$request->end_date)
-    //       ->orWhere('tickets.date_2','<=',$request->end_date);
-    //     }
+        if($request->has('start_date') && $request->has('end_date')) {
+          $query
+          ->where([
+            ['tickets.date_1','>=',$request->start_date],
+            ['tickets.date_1','<=',$request->end_date]
+          ])
+          ->orWhere([
+            ['tickets.date_2','>=',$request->start_date],
+            ['tickets.date_2','<=',$request->end_date]
+          ]);
+        }elseif($request->has('start_date')) {
+          $query
+          ->where('tickets.date_1','>=',$request->start_date)
+          ->orWhere('tickets.date_2','>=',$request->start_date);
+        }elseif($request->has('end_date')) {
+          $query
+          ->where('tickets.date_1','<=',$request->end_date)
+          ->orWhere('tickets.date_2','<=',$request->end_date);
+        }
 
-    //   });
-    // }else{
+      });
+    }else{
 
-    //   $model->where(function($query) use ($now) {
+      $model->where(function($query) use ($now) {
 
-    //     $query
-    //     ->where(function($query) {
+        $query
+        ->where(function($query) {
 
-    //       $query
-    //       ->where('date_type','=',0)
-    //       ->where('tickets.date_1','=',null)
-    //       ->where('tickets.date_2','=',null);
+          $query
+          ->where('date_type','=',0)
+          ->where('tickets.date_1','=',null)
+          ->where('tickets.date_2','=',null);
 
-    //     })
-    //     ->orWhere(function($query) use ($now) {
+        })
+        ->orWhere(function($query) use ($now) {
 
-    //       $query
-    //       ->where('date_type','=',1)
-    //       ->where('tickets.date_2','>=',$now);
+          $query
+          ->where('date_type','=',1)
+          ->where('tickets.date_2','>=',$now);
 
-    //     })
-    //     ->orWhere(function($query) use ($now) {
+        })
+        ->orWhere(function($query) use ($now) {
 
-    //       $query
-    //       ->whereIn('date_type', [2,3])
-    //       ->where('tickets.date_1','>=',$now);
+          $query
+          ->whereIn('date_type', [2,3])
+          ->where('tickets.date_1','>=',$now);
 
-    //     }); 
+        }); 
 
-    //   });
+      });
 
-    // }
+    }
 
     $model->where(function($q) {
       $q->where('closing_option','=',0);
