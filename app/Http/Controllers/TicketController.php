@@ -762,14 +762,6 @@ class TicketController extends Controller
       ->join('ticket_to_locations', 'ticket_to_locations.ticket_id', '=', 'tickets.id')
       ->where('ticket_to_locations.location_id','=',$request->get('location')); 
 
-      // $paths = Service::loadModel('Location')->getLocationPaths($request->get('location'));
-
-      // $locationSearchingData = array(
-      //   'id' => $request->get('location'),
-      //   'path' => json_encode($paths)
-      // );
-
-      // $searchData['location'] = $request->get('location');
     }
 
     if($request->has('start_date') || $request->has('end_date')) {

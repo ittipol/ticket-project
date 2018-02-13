@@ -127,11 +127,9 @@
         clearTimeout(_this.handleTimeout);
         
         _this.handleTimeout = setTimeout(function(){
-
           if((price !== '') && (/^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/g.test(price))) {
             _this.loading();
           }
-
         },500);
 
       });
@@ -145,11 +143,9 @@
         clearTimeout(_this.handleTimeout);
         
         _this.handleTimeout = setTimeout(function(){
-
           if((price !== '') && (/^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/g.test(price))) {
             _this.loading();
           }
-
         },500);
 
       });
