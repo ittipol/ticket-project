@@ -224,7 +224,7 @@
 
         setTimeout(function(){
           $('#item_list_panel').html(response.html);
-        },400);
+        },200);
 
         if(response.hasData) {
 
@@ -249,7 +249,7 @@
           $('.pagination-btn').removeClass('dn').addClass('db');
           $('.global-overlay').removeClass('show');
           $('.global-loading-indicator').removeClass('show');
-        },800);
+        },400);
 
       });
 
