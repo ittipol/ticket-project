@@ -67,19 +67,19 @@
           @elseif($value['date_type'] == 1)
             
             <div class="pa2 tc">
-              <small><strong>บัตรหมดอายุในอีก</strong></small>
-              <div id="countdonw_{{$value['id']}}">-</div>
+              <small>บัตรหมดอายุในอีก</small>
+              <strong><div id="countdonw_{{$value['id']}}">-</div></strong>
             </div>
             
           @elseif($value['date_type'] == 2)
             <div class="pa2 tc">
-              <small><strong>งานจะเริ่มขึ้นในอีก</strong></small>
-              <div id="countdonw_{{$value['id']}}">-</div>
+              <small>งานจะเริ่มขึ้นในอีก</small>
+              <strong><div id="countdonw_{{$value['id']}}">-</div></strong>
             </div>
           @elseif($value['date_type'] == 3)
             <div class="pa2 tc">
-              <small><strong>เริ่มเดิมทางในอีก</strong></small>
-              <div id="countdonw_{{$value['id']}}">-</div>
+              <small>เริ่มเดิมทางในอีก</small>
+              <strong><div id="countdonw_{{$value['id']}}">-</div></strong>
             </div>
           @endif
 
