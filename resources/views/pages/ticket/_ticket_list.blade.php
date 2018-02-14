@@ -85,7 +85,7 @@
 
         </div>
 
-        <div class="price-section c-card__price px-2 pt-0 pb-2">
+        <div class="price-section c-card__price px-2 pt-0 pb-2 tc">
           <span class="price">{{$value['price']}}</span>
           @if(!empty($value['original_price']))
           <span class="original-price">{{$value['original_price']}}</span>
