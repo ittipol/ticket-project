@@ -168,6 +168,25 @@ class Ticket extends Model
       $pullingPost = $this->checkRePost();
     }
 
+    // Get Expired date
+    switch ($this->date_type) {
+      case 1:
+          $expireDate = strtotime($this->date_2);
+        break;
+
+      case 2:
+          $expireDate = strtotime($this->date_1);
+        break;
+
+      case 3:
+          $expireDate = strtotime($this->date_1);
+        break;
+      
+      default:
+          $expireDate = 0;
+        break;
+    }
+
     return array(
       'id' => $this->id,
       'title' => $this->title,
@@ -188,6 +207,7 @@ class Ticket extends Model
       'category' => $_category,
       'user' => User::buildProfileForTicketList($this->created_by),
       'image' => $image,
+      'expireDate' => $expireDate,
       // 'imageTotal' => $imageTotal,
       // 'tags' => $tags,
       'pullingPost' => $pullingPost

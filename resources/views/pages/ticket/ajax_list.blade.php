@@ -38,6 +38,89 @@
 
 <script type="text/javascript">
 
+  class TicketCountdown {
+    // constructor(elem,expireDate) {
+    //   this.elem = elem;
+    //   this.expireDate = expireDate;
+    // }
+
+    static init(elem,expireDate,now) {
+ 
+      if(expireDate > 0) {
+
+        let diff = expireDate - now;
+
+        $(elem).text(TicketCountdown.findRemainingDays(diff--));
+
+        let handle = setInterval(function(){
+
+          if(diff == 0) {
+            clearInterval(handle);
+            $(elem).text('บัตรหมดอายุ');
+          }
+
+          $(elem).text(TicketCountdown.findRemainingDays(diff--));
+        },1000);
+      }
+      
+    }
+
+    static findRemainingDays(timeLeft) {
+
+      let secs = timeLeft;
+      let mins = parseInt(Math.floor(secs / 60));
+      let hours = parseInt(Math.floor(mins / 60));
+      let days = parseInt(Math.floor(hours / 24));
+
+    //   // months = (int)floor(days / 30);
+    //   // years = (int)floor(months / 12);
+
+      let remaining = [];
+
+      if(days == 0) {
+
+        let remainingSecs = secs % 60;
+        let remainingMins = mins % 60;
+        let remainingHours = hours % 24;
+
+        if(remainingHours != 0) {
+          remaining.push(remainingHours+' ชั่วโมง');
+        }
+
+        if(remainingMins != 0) {
+          remaining.push(remainingMins+' นาที');
+        }
+
+        if(remainingSecs != 0) {
+          remaining.push(remainingSecs+' วินาที');
+        }
+
+      }else{
+
+        remaining.push(days+' วัน');
+
+        let remainingSecs = secs % 60;
+        let remainingMins = mins % 60;
+        let remainingHours = hours % 24;
+
+        if(remainingHours != 0) {
+          remaining.push(remainingHours+' ชั่วโมง');
+        }
+
+        if(remainingMins != 0) {
+          remaining.push(remainingMins+' นาที');
+        }
+
+        if(remainingSecs != 0) {
+          remaining.push(remainingSecs+' วินาที');
+        }
+
+      }
+
+      return remaining.join(' ');
+    }
+  }
+
   class TicketLoading {
     constructor(token) {
       this.token = token;

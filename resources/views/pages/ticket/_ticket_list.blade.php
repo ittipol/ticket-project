@@ -27,7 +27,7 @@
             @endif
           </h2>
 
-          @if($value['date_type'] == 0)
+          <!-- @if($value['date_type'] == 0)
             <div class="subtitle">
               วันที่ใช้งาน <strong>ไม่ระบุ</strong>
             </div>
@@ -48,7 +48,6 @@
               วันที่แสดง <strong>{{$value['date_1']}}</strong>
             </div>
           @elseif($value['date_type'] == 3)
-
             @if(!empty($value['date_2']))
             <div class="subtitle">
               วันที่เดินทาง <strong>{{$value['date_1']}}</strong> วันที่กลับ <strong>{{$value['date_2']}}</strong>
@@ -58,8 +57,32 @@
               วันที่เดินทาง <strong>{{$value['date_1']}}</strong>
             </div>
             @endif
+          @endif -->
+
+          @if($value['date_type'] == 0)
+            <div class="pa2 tc">
+              <small>วันที่ใช้งาน</small>
+              <div>ไม่ระบุ</div>
+            </div>
+          @elseif($value['date_type'] == 1)
             
+            <div class="pa2 tc">
+              <small><strong>บัตรหมดอายุในอีก</strong></small>
+              <div id="countdonw_{{$value['id']}}">-</div>
+            </div>
+            
+          @elseif($value['date_type'] == 2)
+            <div class="pa2 tc">
+              <small><strong>งานจะเริ่มขึ้นในอีก</strong></small>
+              <div id="countdonw_{{$value['id']}}">-</div>
+            </div>
+          @elseif($value['date_type'] == 3)
+            <div class="pa2 tc">
+              <small><strong>เริ่มเดิมทางในอีก</strong></small>
+              <div id="countdonw_{{$value['id']}}">-</div>
+            </div>
           @endif
+
         </div>
 
         <div class="price-section c-card__price px-2 pt-0 pb-2">
@@ -92,5 +115,11 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      TicketCountdown.init("#countdonw_{{$value['id']}}",{{$value['expireDate']}},{{$now}});
+    });
+  </script>
 
 @endforeach

@@ -876,6 +876,7 @@ class TicketController extends Controller
     if(!empty($data) && ($data->currentPage() <= $data->lastPage())) {
       $html = view('pages.ticket._ticket_list',array(
         'data' => $data,
+        'now' => time()
       ))->render();
     }elseif($searching) {
       // Display searching not found
