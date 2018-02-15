@@ -17,15 +17,15 @@
               <a class="gn-icon fa-search"><span>ค้นหาบัตร</span></a>
             </li>
             <li><a href="/ticket" class="gn-icon fa-ticket">รายการขายบัตร</a></li>
-            @if(Auth::check())
-              <!-- <li>
+            <!-- @if(Auth::check())
+              <li>
                 <a href="/account" class="gn-icon fa-user">{{Auth::user()->name}}</a>
                 <ul class="gn-submenu">
                   <li><a href="/account/edit" class="gn-icon fa-pencil">แก้ไขข้อมูลส่วนตัว</a></li>
                   <li><a href="/account/ticket" class="gn-icon fa-list">รายการขายของฉัน</a></li>
                   <li><a href="/logout" class="gn-icon fa-sign-out">ออกจากระบบ</a></li>
                 </ul>
-              </li> -->
+              </li>
             @else
               <li>
                 <a class="gn-icon fa-user">บัญชี</a>
@@ -34,7 +34,7 @@
                   <li><a href="/subscribe" class="gn-icon fa-pencil">สร้างบัญชี</a></li>
                 </ul>
               </li>
-            @endif
+            @endif -->
             <li><a href="https://www.facebook.com/Ticketeasys-919999211490459/" class="gn-icon fa-facebook">TicketEasys</a></li>
           </ul>
         </div>
