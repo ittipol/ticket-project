@@ -68,18 +68,18 @@
             
             <div class="pa2 tc">
               <small>บัตรหมดอายุในอีก</small>
-              <strong><div id="countdonw_{{$value['id']}}">-</div></strong>
+              <strong><div class="ticket-countdown" id="countdonw_{{$value['id']}}">-</div></strong>
             </div>
             
           @elseif($value['date_type'] == 2)
             <div class="pa2 tc">
               <small>งานจะเริ่มขึ้นในอีก</small>
-              <strong><div id="countdonw_{{$value['id']}}">-</div></strong>
+              <strong><div class="ticket-countdown" id="countdonw_{{$value['id']}}">-</div></strong>
             </div>
           @elseif($value['date_type'] == 3)
             <div class="pa2 tc">
               <small>เริ่มเดิมทางในอีก</small>
-              <strong><div id="countdonw_{{$value['id']}}">-</div></strong>
+              <strong><div class="ticket-countdown" id="countdonw_{{$value['id']}}">-</div></strong>
             </div>
           @endif
 

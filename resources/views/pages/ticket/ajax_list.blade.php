@@ -39,10 +39,6 @@
 <script type="text/javascript">
 
   class TicketCountdown {
-    // constructor(elem,expireDate) {
-    //   this.elem = elem;
-    //   this.expireDate = expireDate;
-    // }
 
     static init(elem,expireDate,now) {
  
