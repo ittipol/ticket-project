@@ -75,6 +75,8 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::get('chat/b/{ticketId}', 'ChatController@buyerChat'); // b = buyer
   Route::get('chat/r/{roomId}', 'ChatController@chatRoom'); // r = room
 
+  Route::get('ticket/payment/{ticketId}', 'TicketController@payment');
+
   Route::post('upload/image', 'ImageController@upload');
 
 });

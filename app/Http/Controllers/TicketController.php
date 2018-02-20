@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PaymentRequest;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use App\library\service;
@@ -299,16 +300,16 @@ class TicketController extends Controller
       $model->orderBy('tickets.activated_date','desc');
     }
 
-    if($searching && $request->has('q') && empty($keywords)) {
-      $this->setData('data',array());
-    }else{
-      $this->setData('data',$model->paginate(48));
-    }
+    // if($searching && $request->has('q') && empty($keywords)) {
+    //   $this->setData('data',array());
+    // }else{
+    //   $this->setData('data',$model->paginate(48));
+    // }
 
     // $this->setData('taggings',$taggings);
     $this->setData('categories',Service::loadModel('TicketCategory')->get());
-    $this->setData('locationSearchingData',$locationSearchingData);
-    $this->setData('search',$searching);
+    // $this->setData('locationSearchingData',$locationSearchingData);
+    // $this->setData('search',$searching);
 
     if($searching) {
       $this->setMeta('title','การค้นหาบน TicketEasys');
@@ -904,5 +905,34 @@ class TicketController extends Controller
     );
 
     return response()->json($result);
+  }
+
+  public function payment($ticketId) {
+
+    // Get Ticket info
+    $model = Service::loadModel('Ticket')->where([
+      ['id','=',$ticketId],
+      ['closing_option','=',0]
+    ])->first();
+
+    if(empty($model)) {
+      Snackbar::message('ไม่พบประกาศนี้');
+      return Redirect::to('/ticket');
+    }
+
+    $this->setData('data',$model->buildDataDetail());
+    $this->setData('ticketId',$ticketId);
+
+    // SET META
+    $this->setMeta('title','สั่งซื้อ '.$model->title);
+    $this->setMeta('description',$model->getShortDesc());
+
+    $this->botDisallowed();
+
+    return $this->view('pages.ticket.form.payment');
+  }
+
+  public function paymentSubmit(PaymentRequest $request,$ticketId) {
+    dd($request->all());
   }
 }
