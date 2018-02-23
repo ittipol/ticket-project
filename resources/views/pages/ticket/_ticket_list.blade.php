@@ -78,7 +78,7 @@
             </div>
           @elseif($value['date_type'] == 3)
             <div class="pa2 tc">
-              <small>เริ่มเดิมทางในอีก</small>
+              <small>เริ่มเดินทางในอีก</small>
               <strong><div class="ticket-countdown" id="countdonw_{{$value['id']}}">-</div></strong>
             </div>
           @endif
