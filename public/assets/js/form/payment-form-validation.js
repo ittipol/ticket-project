@@ -26,11 +26,11 @@ var Validation = function () {
               {
                 required: true
               },
-              card_number:
-              {
-                // required: true,
-                digits: true
-              },
+              // card_number:
+              // {
+              //   // required: true,
+              //   digits: true
+              // },
               cvc:
               {
                 required: true,
@@ -54,11 +54,11 @@ var Validation = function () {
               {
                 required: 'ชื่อเจ้าของบัตรห้ามว่าง'
               },
-              card_number:
-              {
-                // required: 'หมายเลขบัตรห้ามว่าง',
-                digits: 'หมายเลขบัตรไม่ถูกต้อง'
-              },
+              // card_number:
+              // {
+              //   // required: 'หมายเลขบัตรห้ามว่าง',
+              //   digits: 'หมายเลขบัตรไม่ถูกต้อง'
+              // },
               cvc:
               {
                 required: 'CVC ห้ามว่าง',

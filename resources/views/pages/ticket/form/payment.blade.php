@@ -9,18 +9,20 @@
   </div>
 </div>
 
-<div class="container">
+<div class="payment-form-container">
 
   {{Form::open(['id' => 'payment_form', 'method' => 'post', 'enctype' => 'multipart/form-data'])}}
 
-    @include('component.form_error')
+    <div class="mt4">
+      @include('component.form_error')
+    </div>
 
     <div class="margin-top-40 margin-bottom-20">
       <h4>สั่งซื้อ</h4>
     </div>
 
     <div>
-      <h3>{{$data['title']}}</h3> 
+      <h5>{{$data['title']}}</h5> 
     </div>
 
     <div class="price-section py-2">
@@ -108,6 +110,8 @@
     </div>
   </div>
 </div>
+
+<div class="clearfix margin-top-200"></div>
 
 <script src="/assets/js/jquery.payform.min.js"></script>
 <script type="text/javascript" src="/assets/js/form/credit-card-validation.js"></script>

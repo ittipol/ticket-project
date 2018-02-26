@@ -65,10 +65,21 @@
           <i class="fa fa-comments"></i>
         </a>
         <ul class="dropdown-menu dd-message-notification">
-          <h5 class="text-center">ข้อความ</h5>
+          <h5 class="text-center"><i class="fa fa-comments"></i> ข้อความ</h5>
           <div id="message_notification_list" class="message-notification-list"></div>
         </ul>
-    </li>
+      </li>
+
+      <li class="dd-menu static relative-ns btn-hover">
+        <a id="event_notification" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="message-notification nav-icon pointer">
+          <div id="event_notification_count" class="count-badge"></div>
+          <i class="fa fa-bell"></i>
+        </a>
+        <ul class="dropdown-menu dd-message-notification">
+          <h5 class="text-center"><i class="fa fa-bell"></i> การแจ้งเตือน</h5>
+          <div id="event_notification_list" class="message-notification-list"></div>
+        </ul>
+      </li>
 
     @else
 
@@ -86,7 +97,7 @@
 
       <li class="btn-hover">
         <a href="/ticket/new">
-          <i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;ขายบัตร
+          <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;ขายบัตร
         </a>
       </li>
       

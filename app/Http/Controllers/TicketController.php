@@ -934,5 +934,10 @@ class TicketController extends Controller
 
   public function paymentSubmit(PaymentRequest $request,$ticketId) {
     dd($request->all());
+
+    // add to notification pool
+
+    // return
+
   }
 }

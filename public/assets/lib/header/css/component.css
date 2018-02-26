@@ -22,7 +22,8 @@
 .gn-menu-main a {
 		display: block;
 		height: 100%;
-		color: #5f6f81;
+		/*color: #5f6f81;*/
+		color: rgb(140,140,140);
 		text-decoration: none;
 		cursor: pointer;
 		font-weight: 500;
@@ -70,7 +71,8 @@
 }*/
 
 .gn-menu-main > li > a {
-		padding: 0 30px;
+		/*padding: 0 30px;*/
+		padding: 0 15px;
 		text-transform: uppercase;
 		letter-spacing: 1px;
 		font-weight: bold;

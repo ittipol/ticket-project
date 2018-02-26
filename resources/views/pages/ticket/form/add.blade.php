@@ -104,7 +104,7 @@
           {{ Form::select('date_type', $dateType, null, array('id' => 'date_type_select', 'class' => 'form-control')) }}
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
           <div id="date_1" class="form-group col-md-6">
             <label class="form-control-label">วันที่เริ่มใช้</label>
             <div class="input-group">
@@ -126,6 +126,18 @@
               <a class="date-clear" data-date-clear="#date_2"><span aria-hidden="true">×</span></a>
             </div>
           </div>
+        </div> -->
+
+        <div id="date_1">
+          <div class="col-md-6">
+            <div class="form-group"></div>
+          </div>
+        </div>
+
+        <div id="date_2">
+          <div class="col-md-6">
+            <div class="form-group"></div>
+          </div>
         </div>
 
         <div class="form-group">
@@ -141,12 +153,6 @@
             )) }}
           </div>
         </div>
-
-        <!-- <div class="form-group">
-          <label class="form-control-label">แท็ก (ไม่ต้องใส่ # หน้าคำที่ป้อน)</label>
-          <div id="_tags" class="tag"></div>
-          <small>* แท็กจะมีผลโดยตรงต่อการค้นหา</small>
-        </div> -->
 
         <div class="form-group">
           <label class="form-control-label">ตำแหน่งสินค้า</label>

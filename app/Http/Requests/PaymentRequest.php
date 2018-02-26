@@ -21,11 +21,11 @@ class PaymentRequest extends FormRequest
     public function messages()
     {
       return [
-        'amount.required' => 'จำนวนเงินห้ามว่าง',
-        'amount.regex' => 'จำนวนเงินไม่ถูกต้อง',
+        // 'amount.required' => 'จำนวนเงินห้ามว่าง',
+        // 'amount.regex' => 'จำนวนเงินไม่ถูกต้อง',
         'holder_name.required' => 'ชื่อเจ้าของบัตรห้ามว่าง',
         'card_number.required' => 'หมายเลขบัตรห้ามว่าง',
-        'card_number.numeric' => 'หมายเลขบัตรไม่ถูกต้อง',
+        // 'card_number.numeric' => 'หมายเลขบัตรไม่ถูกต้อง',
         'cvc.required' => 'CVC ห้ามว่าง',
         'cvc.numeric' => 'CVC ไม่ถูกต้อง',
         'card_expire.required' => 'วันหมดอายุห้ามว่าง',
@@ -40,9 +40,9 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
       return [
-        'amount' => 'required|regex:/^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/',
+        // 'amount' => 'required|regex:/^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/',
         'holder_name' => 'required',
-        'card_number' => 'required|numeric',
+        'card_number' => 'required',
         'cvc' => 'required|numeric',
         'card_expire' => 'required'
       ];
